@@ -1,21 +1,19 @@
 # Portugal COVID-19 legacy data
 
-> **Status:** legacy quarantine. This package is not yet part of the canonical `datasets/` catalog.
+> **Resolution:** retained in legacy quarantine because the package has mixed lineage.
 
-These files were moved from the repository root without changing their bytes.
+## Evidence recovered
 
-Promotion into `datasets/` requires verified upstream provenance, redistribution terms, canonical metadata, and SHA-256 checksums.
+`Monitorizacao_COVID-19_MTSSS_27_maio_2020.xlsx` belongs to the 2020 **Indicadores COVID-19 MTSSS** monitoring-workbook series published by the Portuguese Ministry of Labour, Solidarity and Social Security / GEP.
 
-## Files
+`Portugal_ARS.csv`, however, is a derived-looking regional estimate table with fields such as `ML`, `Low_90`, `High_90`, `Low_50`, and `High_50`. Its generating model and upstream inputs were not recovered.
 
-- `raw/Monitorizacao_COVID-19_MTSSS_27_maio_2020.xlsx`
-- `raw/Portugal_ARS.csv`
+## Concrete blockers
 
-## Review required
+- exact historical MTSSS workbook URL/terms not pinned;
+- `Portugal_ARS.csv` derivation and upstream inputs unknown;
+- package-level redistribution terms unresolved.
 
-- Identify the upstream publisher and canonical source.
-- Confirm license or redistribution terms.
-- Establish snapshot/version information.
-- Check for derived or overlapping files.
-- Compute SHA-256 checksums.
-- Promote only after the canonical metadata contract is satisfied.
+The two files should not be promoted together as one canonical dataset.
+
+See [the resolution audit](../../docs/migrations/LEGACY_RESOLUTION.md).

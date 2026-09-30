@@ -1,16 +1,20 @@
 # Legacy data quarantine
 
-This directory contains data that previously lived directly at the repository root.
+This directory contains historical data that cannot yet be promoted to the canonical registry or replaced safely by an authoritative external source.
 
-The files are organized by logical group, but they are **not canonical datasets yet**. They remain quarantined until provenance, redistribution terms, and integrity metadata are verified.
+After the 2026-10-01 resolution audit, five packages remain:
 
-```text
-legacy/<group>/
-├── README.md
-├── metadata.yaml
-└── raw/
-```
+- `country-age-sex-2019`
+- `italy-covid19`
+- `portugal-covid19`
+- `portugal-population-2018`
+- `portugal-sico-mortality`
 
-The legacy metadata files intentionally use `schema_version: 0`.
+Each remaining package has a concrete documented blocker. Legacy quarantine is not a staging area for new data.
 
-See [INVENTORY.md](INVENTORY.md) for the migration record.
+Resolved packages were either removed as obsolete project inputs or replaced with external source records where provenance and reproducibility were sufficient.
+
+See:
+
+- [current inventory](INVENTORY.md)
+- [legacy resolution audit](../docs/migrations/LEGACY_RESOLUTION.md)

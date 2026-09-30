@@ -1,20 +1,20 @@
 # Italy COVID-19 legacy workbook
 
-> **Status:** legacy quarantine. This package is not yet part of the canonical `datasets/` catalog.
+> **Resolution:** retained in legacy quarantine.
 
-These files were moved from the repository root without changing their bytes.
-
-Promotion into `datasets/` requires verified upstream provenance, redistribution terms, canonical metadata, and SHA-256 checksums.
-
-## Files
+The package contains one historical workbook:
 
 - `raw/Dataset_Italy_COVID_19.xlsx`
 
-## Review required
+Public filename and repository-history searches did not recover an authoritative publisher, download URL, publication, or redistribution statement.
 
-- Identify the upstream publisher and canonical source.
-- Confirm license or redistribution terms.
-- Establish snapshot/version information.
-- Check for derived or overlapping files.
-- Compute SHA-256 checksums.
-- Promote only after the canonical metadata contract is satisfied.
+## Concrete blockers
+
+- source publisher unknown;
+- snapshot date/version not established;
+- redistribution/licence unknown;
+- workbook lineage unknown.
+
+The workbook may represent a unique historical snapshot, so deletion would be premature.
+
+See [the resolution audit](../../docs/migrations/LEGACY_RESOLUTION.md).

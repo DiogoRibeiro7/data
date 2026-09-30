@@ -1,25 +1,21 @@
 # Portugal SICO mortality snapshots
 
-> **Status:** legacy quarantine. This package is not yet part of the canonical `datasets/` catalog.
+> **Resolution:** retained in legacy quarantine with the source family identified.
 
-These files were moved from the repository root without changing their bytes.
+## Evidence recovered
 
-Promotion into `datasets/` requires verified upstream provenance, redistribution terms, canonical metadata, and SHA-256 checksums.
+The filenames and contents identify aggregated mortality extracts associated with Portugal's **SICO — Sistema de Informação dos Certificados de Óbito**.
 
-## Files
+SICO is the Portuguese death-certificate information system established by Law 15/2012 and operated within the Direção-Geral da Saúde (DGS). DGS documentation describes SICO's mortality-statistics and epidemiological-surveillance role.
 
-- `raw/Dados_SICO_2020-05-31_2015.csv`
-- `raw/Dados_SICO_2020-05-31_2016.csv`
-- `raw/Dados_SICO_2020-05-31_2017.csv`
-- `raw/Dados_SICO_2020-05-31_2018.csv`
-- `raw/Dados_SICO_2020-05-31_2019.csv`
-- `raw/Dados_SICO_2020-05-31_2020.csv`
+The retained files contain daily aggregate cause-category tables for 2015–2020 and use the snapshot naming date `2020-05-31`.
 
-## Review required
+## Concrete blockers
 
-- Identify the upstream publisher and canonical source.
-- Confirm license or redistribution terms.
-- Establish snapshot/version information.
-- Check for derived or overlapping files.
-- Compute SHA-256 checksums.
-- Promote only after the canonical metadata contract is satisfied.
+- exact public export endpoint/retrieval procedure not recovered;
+- redistribution terms for these historical exported CSVs not established;
+- no immutable upstream snapshot identifier is available.
+
+The source family is now documented, but canonical promotion remains blocked.
+
+See [the resolution audit](../../docs/migrations/LEGACY_RESOLUTION.md).
