@@ -1,0 +1,11 @@
+schema_version: 1
+status: external-reference
+id: r-base-example-datasets
+title: "R base example datasets"
+publisher: "R Core Team"
+source_url: "https://search.r-project.org/R/refmans/datasets/html/00Index.html"
+license:
+  name: "GPL-2 | GPL-3 (R distribution)"
+  url: "https://www.r-project.org/Licenses/"
+redistribution: package-license
+storage: authoritative-upstream
