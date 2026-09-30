@@ -1,0 +1,32 @@
+schema_version: 1
+
+id: dataset-slug
+title: Dataset title
+description: >
+  Concise description of the dataset and its intended use.
+
+domain:
+  - example-domain
+
+source:
+  publisher: Upstream publisher
+  url: https://example.org/dataset
+  retrieved_at: 2026-09-30
+  snapshot: "upstream-version-or-date"
+
+license:
+  name: License or terms name
+  url: https://example.org/license
+  redistribution: allowed
+
+citation:
+  text: Citation text
+  url: https://example.org/citation
+
+files:
+  - path: raw/example.csv
+    role: raw
+    format: csv
+    sha256: "replace-with-sha256"
+
+lineage: []
