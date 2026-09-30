@@ -56,6 +56,7 @@ class RepositoryFixture:
             "schema_version": 0,
             "status": "legacy-quarantine",
             "id": slug,
+            "title": f"Legacy {slug}",
             "source": {"publisher": "unknown", "url": None},
             "license": {"name": "unknown", "redistribution": "unknown"},
             "files": [{
