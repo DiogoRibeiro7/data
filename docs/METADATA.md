@@ -104,9 +104,13 @@ Required as an empty list for datasets without derived artifacts.
 
 For derived artifacts, each entry should identify the output, raw inputs, transformation code or method, relevant parameters, and transformation version.
 
+## Formal schema
+
+The canonical contract is defined by [`schemas/canonical-metadata-v1.schema.json`](../schemas/canonical-metadata-v1.schema.json). See [Metadata schemas](SCHEMAS.md) for external/legacy schemas and schema evolution rules.
+
 ## Validation principles
 
-Automated validation should eventually verify:
+Automated validation verifies:
 
 - directory slug equals `id`;
 - required fields are present;
@@ -117,4 +121,4 @@ Automated validation should eventually verify:
 - redistribution status is explicit;
 - metadata uses the supported schema version.
 
-The validation implementation belongs to the repository tooling work tracked separately from this policy.
+Structural validation is performed with JSON Schema Draft 2020-12. Repository-specific semantic and integrity rules remain in `scripts/validate_repository.py`.

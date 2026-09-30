@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DiogoRibeiro7/data/schemas/external-metadata-v1.schema.json",
+  "title": "External source metadata v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "id",
+    "title",
+    "publisher",
+    "source_url"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "status": {
+      "const": "external-reference"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "publisher": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_url": {
+      "type": "string",
+      "format": "uri",
+      "minLength": 1
+    },
+    "doi": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "source_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "license": {
+      "type": "object",
+      "required": [
+        "name",
+        "url"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "minLength": 1
+        }
+      }
+    },
+    "redistribution": {
+      "type": "string",
+      "minLength": 1
+    },
+    "storage": {
+      "type": "string",
+      "minLength": 1
+    },
+    "usage": {
+      "type": "object",
+      "required": [
+        "storage",
+        "redistribution"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "storage": {
+          "type": "string",
+          "minLength": 1
+        },
+        "redistribution": {
+          "type": "string",
+          "minLength": 1
+        },
+        "attribution_required": {
+          "type": "boolean"
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "consumers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "medium_blog": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "anyOf": [
+    {
+      "required": [
+        "storage"
+      ]
+    },
+    {
+      "required": [
+        "usage"
+      ]
+    }
+  ]
+}
