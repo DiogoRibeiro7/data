@@ -1,0 +1,16 @@
+schema_version: 1
+
+dataset_id: example-dataset
+repository: DiogoRibeiro7/data
+
+# Always pin the exact 40-character commit SHA containing the dataset.
+commit: "0000000000000000000000000000000000000000"
+
+# Canonical file path in the data repository.
+path: datasets/example-dataset/raw/example.csv
+
+# SHA-256 from the canonical dataset metadata.
+sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+
+# Consumer-local destination.
+output: data/external/example.csv

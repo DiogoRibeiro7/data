@@ -6,7 +6,9 @@ on:
       - "datasets/**"
       - "legacy/**"
       - "scripts/validate_repository.py"
+      - "scripts/fetch_dataset.py"
       - "tests/test_validate_repository.py"
+      - "tests/test_fetch_dataset.py"
       - "requirements-dev.txt"
       - ".github/workflows/data-validation.yml"
   push:
@@ -16,7 +18,9 @@ on:
       - "datasets/**"
       - "legacy/**"
       - "scripts/validate_repository.py"
+      - "scripts/fetch_dataset.py"
       - "tests/test_validate_repository.py"
+      - "tests/test_fetch_dataset.py"
       - "requirements-dev.txt"
       - ".github/workflows/data-validation.yml"
 
