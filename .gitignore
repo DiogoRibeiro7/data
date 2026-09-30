@@ -36,3 +36,8 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Generated documentation staging
+docs/generated/
+docs/CONTRIBUTING.md
+site/
