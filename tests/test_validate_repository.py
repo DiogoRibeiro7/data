@@ -205,12 +205,10 @@ class ValidatorTests(unittest.TestCase):
 
     def test_external_schema_is_validated(self) -> None:
         self.fixture.add_external("example-source", publisher=123)
-        self.fixture.write_catalogs()
         self.assertTrue(any("schema violation" in msg and "publisher" in msg for msg in self.errors()))
 
     def test_external_schema_version_mismatch_fails(self) -> None:
         self.fixture.add_external("old-source", schema_version=2)
-        self.fixture.write_catalogs()
         errors = self.errors()
         self.assertTrue(any("schema violation" in msg and "schema_version" in msg for msg in errors))
         self.assertTrue(any("external schema_version must be 1" in msg for msg in errors))
