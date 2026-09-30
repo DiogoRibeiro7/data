@@ -194,13 +194,12 @@ class RegistryTests(unittest.TestCase):
                         repository="owner/repo",
                         base_url=f"http://127.0.0.1:{port}",
                     )
+                    self.assertEqual(result.read_bytes(), payload)
+                    self.assertEqual(returned_sha, checksum)
+                    self.assertEqual(repo_path, "datasets/dataset/raw/example.csv")
                 finally:
                     server.shutdown()
                     thread.join(timeout=5)
-
-        self.assertEqual(result.read_bytes(), payload)
-        self.assertEqual(returned_sha, checksum)
-        self.assertEqual(repo_path, "datasets/dataset/raw/example.csv")
 
     def test_fetch_rejects_branch_name(self) -> None:
         self.fixture.add_canonical("dataset")
