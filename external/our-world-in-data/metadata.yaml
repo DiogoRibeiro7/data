@@ -1,0 +1,12 @@
+schema_version: 1
+status: external-reference
+id: our-world-in-data
+title: "Our World in Data / Grapher datasets"
+publisher: "Global Change Data Lab / Our World in Data"
+source_url: "https://ourworldindata.org/"
+usage:
+  storage: authoritative-upstream
+  redistribution: dataset-specific
+  note: "Third-party datasets retain the original provider's licence terms."
+consumers:
+  - productivity_taxation_inequality_project
