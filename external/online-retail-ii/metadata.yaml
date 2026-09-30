@@ -1,0 +1,19 @@
+schema_version: 1
+status: external-reference
+id: online-retail-ii
+title: "Online Retail II"
+publisher: "UCI Machine Learning Repository"
+source_url: "https://archive.ics.uci.edu/dataset/502/online+retail+ii"
+doi: "10.24432/C5CG6D"
+license:
+  name: "CC BY 4.0"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+redistribution: allowed-with-attribution
+storage: authoritative-upstream
+medium_blog:
+  related_paths:
+    - "customer_life_value/Year 2009-2010.csv"
+    - "customer_life_value/Year 2010-2011.csv"
+    - "customer_life_value/data.csv"
+    - "customer_segmentation/customer_segmentation.csv"
+    - "R_code/customer_segmentation/data.csv"

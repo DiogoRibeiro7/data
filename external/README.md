@@ -1,14 +1,12 @@
 # External data references
 
-This directory records datasets that are relevant to the repository but whose bytes are **not** copied into the canonical `datasets/` registry.
+This directory records reusable upstream datasets that are relevant to analysis projects but whose bytes are not stored in the canonical `datasets/` registry.
 
-Use an external reference when one or more of the following applies:
+External references are appropriate when:
 
-- redistribution permission is unknown or restricted;
-- the material contains personal or otherwise sensitive information that should not be republished here;
-- the authoritative source should remain the canonical distribution point;
-- provenance is incomplete and needs further investigation.
+- the authoritative publisher should remain the byte source;
+- local project files are derived extracts or snapshots;
+- redistribution conditions make direct republishing undesirable;
+- exact historical snapshot provenance is incomplete.
 
-An external reference documents what was found, where the source currently lives, and why it was not promoted.
-
-External references are not canonical datasets and are not included in `datasets/catalog.json`.
+These records centralize provenance, licensing, citations, and source locations. They are not included in `datasets/catalog.json`.
