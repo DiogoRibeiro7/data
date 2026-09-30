@@ -1,0 +1,13 @@
+schema_version: 1
+status: external-reference
+id: fred-economic-data
+title: "FRED economic data"
+publisher: "Federal Reserve Bank of St. Louis"
+source_url: "https://fred.stlouisfed.org/"
+usage:
+  storage: authoritative-upstream
+  redistribution: series-dependent
+  attribution_required: true
+  note: "Some FRED series are third-party copyrighted and have additional restrictions."
+consumers:
+  - productivity_taxation_inequality_project

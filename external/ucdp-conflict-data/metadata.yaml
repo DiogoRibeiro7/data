@@ -1,0 +1,12 @@
+schema_version: 1
+status: external-reference
+id: ucdp-conflict-data
+title: "Uppsala Conflict Data Program datasets"
+publisher: "Uppsala Conflict Data Program"
+source_url: "https://ucdp.uu.se/downloads/"
+license:
+  name: "CC BY 4.0"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+storage: authoritative-upstream
+consumers:
+  - displacement-risk-lab-dynamodb

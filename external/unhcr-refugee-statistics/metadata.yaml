@@ -1,0 +1,12 @@
+schema_version: 1
+status: external-reference
+id: unhcr-refugee-statistics
+title: "UNHCR Refugee Population Statistics"
+publisher: "UNHCR"
+source_url: "https://www.unhcr.org/refugee-statistics/"
+license:
+  name: "CC BY 4.0 unless otherwise indicated"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+storage: authoritative-upstream
+consumers:
+  - displacement-risk-lab-dynamodb
