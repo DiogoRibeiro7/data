@@ -106,7 +106,7 @@ For derived artifacts, each entry should identify the output, raw inputs, transf
 
 ## Formal schema
 
-The canonical contract is defined by [`schemas/canonical-metadata-v1.schema.json`](../schemas/canonical-metadata-v1.schema.json). See [Metadata schemas](SCHEMAS.md) for external/legacy schemas and schema evolution rules.
+The canonical contract is defined by [`schemas/canonical-metadata-v1.schema.json`](https://github.com/DiogoRibeiro7/data/blob/main/schemas/canonical-metadata-v1.schema.json). See [Metadata schemas](SCHEMAS.md) for external/legacy schemas and schema evolution rules.
 
 ## Validation principles
 
