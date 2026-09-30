@@ -53,6 +53,7 @@ nav:
       - Releases: RELEASES.md
       - Contributing: CONTRIBUTING.md
   - Migration audits:
+      - Legacy resolution audit: migrations/LEGACY_RESOLUTION.md
       - Consumer audit: migrations/CONSUMER_AUDIT.md
       - Medium Blog audit: migrations/MEDIUM_BLOG_DATA.md
       - Project data audit: migrations/PROJECT_DATA_AUDIT.md
