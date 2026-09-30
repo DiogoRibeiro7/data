@@ -10,9 +10,11 @@ on:
       - "scripts/validate_repository.py"
       - "scripts/fetch_dataset.py"
       - "scripts/generate_external_catalog.py"
+      - "scripts/registry.py"
       - "tests/test_validate_repository.py"
       - "tests/test_fetch_dataset.py"
       - "tests/test_external_catalog.py"
+      - "tests/test_registry.py"
       - "requirements-dev.txt"
       - ".github/workflows/data-validation.yml"
   push:
