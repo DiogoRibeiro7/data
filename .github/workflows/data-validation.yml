@@ -9,8 +9,10 @@ on:
       - "schemas/**"
       - "scripts/validate_repository.py"
       - "scripts/fetch_dataset.py"
+      - "scripts/generate_external_catalog.py"
       - "tests/test_validate_repository.py"
       - "tests/test_fetch_dataset.py"
+      - "tests/test_external_catalog.py"
       - "requirements-dev.txt"
       - ".github/workflows/data-validation.yml"
   push:
@@ -23,8 +25,10 @@ on:
       - "schemas/**"
       - "scripts/validate_repository.py"
       - "scripts/fetch_dataset.py"
+      - "scripts/generate_external_catalog.py"
       - "tests/test_validate_repository.py"
       - "tests/test_fetch_dataset.py"
+      - "tests/test_external_catalog.py"
       - "requirements-dev.txt"
       - ".github/workflows/data-validation.yml"
 
@@ -55,3 +59,6 @@ jobs:
 
       - name: Validate datasets and catalog
         run: python scripts/validate_repository.py
+
+      - name: Validate external source catalog
+        run: python scripts/generate_external_catalog.py

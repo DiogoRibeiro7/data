@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "berkeley-earth-temperature",
+      "title": "Berkeley Earth temperature data",
+      "publisher": "Berkeley Earth",
+      "source_url": "https://berkeleyearth.org/data/",
+      "license": {
+        "name": "CC BY-NC 4.0 (general current Berkeley Earth data terms)",
+        "url": "https://creativecommons.org/licenses/by-nc/4.0/"
+      },
+      "redistribution": "noncommercial-terms",
+      "storage": "authoritative-upstream",
+      "consumers": [],
+      "path": "external/berkeley-earth-temperature"
+    },
+    {
+      "id": "fred-economic-data",
+      "title": "FRED economic data",
+      "publisher": "Federal Reserve Bank of St. Louis",
+      "source_url": "https://fred.stlouisfed.org/",
+      "license": null,
+      "redistribution": "series-dependent",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "productivity_taxation_inequality_project"
+      ],
+      "path": "external/fred-economic-data"
+    },
+    {
+      "id": "maize-bipolaris-disease-progress",
+      "title": "Maize Bipolaris disease-progress data",
+      "publisher": "Emerson M. Del Ponte / paper-hgam-curves repository",
+      "source_url": "https://github.com/emdelponte/paper-hgam-curves",
+      "license": {
+        "name": "MIT",
+        "url": "https://github.com/emdelponte/paper-hgam-curves/blob/main/LICENSE"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream-and-pinned-project-snapshot",
+      "consumers": [
+        "crop-protection-predictive-science"
+      ],
+      "path": "external/maize-bipolaris-disease-progress"
+    },
+    {
+      "id": "online-retail-ii",
+      "title": "Online Retail II",
+      "publisher": "UCI Machine Learning Repository",
+      "source_url": "https://archive.ics.uci.edu/dataset/502/online+retail+ii",
+      "license": {
+        "name": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "allowed-with-attribution",
+      "storage": "authoritative-upstream",
+      "consumers": [],
+      "path": "external/online-retail-ii"
+    },
+    {
+      "id": "our-world-in-data",
+      "title": "Our World in Data / Grapher datasets",
+      "publisher": "Global Change Data Lab / Our World in Data",
+      "source_url": "https://ourworldindata.org/",
+      "license": null,
+      "redistribution": "dataset-specific",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "productivity_taxation_inequality_project"
+      ],
+      "path": "external/our-world-in-data"
+    },
+    {
+      "id": "turing-change-point-dataset",
+      "title": "Turing Change Point Dataset",
+      "publisher": "The Alan Turing Institute",
+      "source_url": "https://github.com/alan-turing-institute/TCPD",
+      "license": {
+        "name": "MIT",
+        "url": "https://github.com/alan-turing-institute/TCPD/blob/master/LICENSE"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "cpd-stress-test"
+      ],
+      "path": "external/turing-change-point-dataset"
+    },
+    {
+      "id": "ucdp-conflict-data",
+      "title": "Uppsala Conflict Data Program datasets",
+      "publisher": "Uppsala Conflict Data Program",
+      "source_url": "https://ucdp.uu.se/downloads/",
+      "license": {
+        "name": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "displacement-risk-lab-dynamodb"
+      ],
+      "path": "external/ucdp-conflict-data"
+    },
+    {
+      "id": "unhcr-refugee-statistics",
+      "title": "UNHCR Refugee Population Statistics",
+      "publisher": "UNHCR",
+      "source_url": "https://www.unhcr.org/refugee-statistics/",
+      "license": {
+        "name": "CC BY 4.0 unless otherwise indicated",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "displacement-risk-lab-dynamodb"
+      ],
+      "path": "external/unhcr-refugee-statistics"
+    },
+    {
+      "id": "world-bank-greenhouse-gas",
+      "title": "World Bank greenhouse-gas indicator EN.ATM.GHGT.KT.CE",
+      "publisher": "World Bank",
+      "source_url": "https://data.worldbank.org/indicator/EN.ATM.GHGT.KT.CE",
+      "license": {
+        "name": "CC BY 4.0 (World Bank open-data default, subject to dataset-specific terms)",
+        "url": "https://datacatalog.worldbank.org/public-licenses"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [],
+      "path": "external/world-bank-greenhouse-gas"
+    }
+  ]
+}

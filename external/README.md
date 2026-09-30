@@ -10,3 +10,21 @@ External references are appropriate when:
 - exact historical snapshot provenance is incomplete.
 
 These records centralize provenance, licensing, citations, and source locations. They are not included in `datasets/catalog.json`.
+
+
+## Catalog
+
+Browse the generated external-source indexes:
+
+- [human-readable catalog](CATALOG.md)
+- [machine-readable catalog](catalog.json)
+
+The catalogs are generated from `external/*/metadata.yaml`. Regenerate them with:
+
+```bash
+python scripts/generate_external_catalog.py --write
+```
+
+CI runs the generator in check mode and fails when either catalog is missing or stale.
+
+A missing licence in the catalog is rendered as **Unresolved** rather than inferred from unrelated repository licensing.

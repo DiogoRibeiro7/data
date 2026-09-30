@@ -47,6 +47,11 @@ The catalog may legitimately be empty: data is promoted only when it meets the c
 
 Typical reasons include provider-specific licensing, large or mutable upstream datasets, or project snapshots that are better kept with the analysis that consumes them.
 
+Browse:
+
+- [external source catalog](external/CATALOG.md)
+- [machine-readable external catalog](external/catalog.json)
+
 ### Legacy quarantine
 
 [`legacy/`](legacy/) contains historical data preserved for traceability.
@@ -99,6 +104,7 @@ Install the lightweight development dependency and run:
 python -m pip install -r requirements-dev.txt
 python -m unittest discover -s tests -v
 python scripts/validate_repository.py
+python scripts/generate_external_catalog.py
 ```
 
 When canonical metadata changes, regenerate the catalogs first:
