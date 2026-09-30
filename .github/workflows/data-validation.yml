@@ -5,6 +5,10 @@ on:
     paths:
       - "datasets/**"
       - "legacy/**"
+      - "external/**"
+      - "schemas/**"
+      - "external/**"
+      - "schemas/**"
       - "scripts/validate_repository.py"
       - "scripts/fetch_dataset.py"
       - "tests/test_validate_repository.py"
