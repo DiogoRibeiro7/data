@@ -1,0 +1,35 @@
+schema_version: 1
+status: external-reference
+id: portugal-political-business-links
+title: "Portugal political–business affiliation data"
+description: >
+  Metadata-only reference to a historical JSON dataset describing named
+  individuals' government, party, and company affiliations in Portugal.
+storage: external
+source_repository:
+  repository: DiogoRibeiro7/Portugal-Data
+  commit: 893f469cb4dd45fe02eb24424d0e3c261eacb802
+provenance:
+  upstream_publisher: unknown
+  upstream_url: null
+  confidence: unresolved
+license:
+  name: unknown
+  url: null
+  redistribution: unknown
+handling:
+  contains_named_individuals: true
+  contains_political_affiliation_data: true
+files:
+  - path: grouping.json
+    size_bytes: 2358
+    git_blob_sha: 12e9f1f0a8596a8b5cc2cffe952fd66586f7fc0e
+  - path: worms_12jan.json
+    size_bytes: 342887
+    git_blob_sha: d542a88e544262270d4e5b350a96027a66c84f1d
+canonical_promotion:
+  allowed_now: false
+  blockers:
+    - authoritative provenance unresolved
+    - redistribution permission unresolved
+    - named-person political affiliation data requires handling review
