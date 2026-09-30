@@ -15,12 +15,14 @@ from pathlib import Path
 from typing import Any, Iterable
 
 import yaml
+from jsonschema import Draft202012Validator, FormatChecker
 
 MAX_DIRECT_GIT_BYTES = 100 * 1024 * 1024
 REVIEW_LARGE_FILE_BYTES = 25 * 1024 * 1024
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 MARKDOWN_LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
+SCHEMA_DIR = Path(__file__).resolve().parents[1] / "schemas"
 
 FORBIDDEN_NAMES = {".DS_Store"}
 FORBIDDEN_DIRS = {
@@ -72,6 +74,57 @@ def load_yaml(path: Path, problems: list[Problem]) -> dict[str, Any] | None:
         problems.append(Problem("error", f"{path}: metadata root must be a mapping"))
         return None
     return raw
+
+def json_compatible(value: Any) -> Any:
+    """Convert YAML-native values into JSON-compatible values for schema validation."""
+
+    if isinstance(value, date):
+        return value.isoformat()
+    if isinstance(value, dict):
+        return {str(key): json_compatible(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [json_compatible(item) for item in value]
+    return value
+
+
+def load_json_schema(name: str, problems: list[Problem]) -> dict[str, Any] | None:
+    """Load one repository JSON Schema."""
+
+    path = SCHEMA_DIR / name
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        problems.append(Problem("error", f"{path}: cannot load JSON Schema: {exc}"))
+        return None
+    if not isinstance(raw, dict):
+        problems.append(Problem("error", f"{path}: JSON Schema root must be an object"))
+        return None
+    return raw
+
+
+def validate_schema(
+    metadata: dict[str, Any],
+    schema_name: str,
+    metadata_path: Path,
+    problems: list[Problem],
+) -> None:
+    """Validate metadata against a versioned JSON Schema."""
+
+    schema = load_json_schema(schema_name, problems)
+    if schema is None:
+        return
+
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    for error in sorted(
+        validator.iter_errors(json_compatible(metadata)),
+        key=lambda item: list(item.absolute_path),
+    ):
+        location = ".".join(str(part) for part in error.absolute_path)
+        suffix = f" at {location}" if location else ""
+        problems.append(
+            Problem("error", f"{metadata_path}: schema violation{suffix}: {error.message}")
+        )
+
 
 
 def require_mapping(
@@ -217,6 +270,8 @@ def validate_legacy(root: Path, problems: list[Problem]) -> list[Path]:
         if metadata is None:
             continue
 
+        validate_schema(metadata, "legacy-metadata-v0.schema.json", metadata_path, problems)
+
         if metadata.get("schema_version") != 0:
             problems.append(Problem("error", f"{metadata_path}: legacy schema_version must be 0"))
         if metadata.get("status") != "legacy-quarantine":
@@ -328,6 +383,8 @@ def validate_canonical_dataset(
     metadata = load_yaml(metadata_path, problems)
     if metadata is None:
         return None, data_files
+
+    validate_schema(metadata, "canonical-metadata-v1.schema.json", metadata_path, problems)
 
     if metadata.get("schema_version") != 1:
         problems.append(Problem("error", f"{metadata_path}: schema_version must be 1"))
@@ -494,6 +551,52 @@ def validate_canonical_dataset(
     return metadata, data_files
 
 
+def validate_external(root: Path, problems: list[Problem]) -> None:
+    """Validate external source-record metadata."""
+
+    external_root = root / "external"
+    if not external_root.is_dir():
+        return
+
+    seen_ids: dict[str, Path] = {}
+    for source_dir in sorted(path for path in external_root.iterdir() if path.is_dir()):
+        metadata_path = source_dir / "metadata.yaml"
+        readme_path = source_dir / "README.md"
+
+        if not metadata_path.is_file():
+            problems.append(Problem("error", f"{source_dir}: missing metadata.yaml"))
+            continue
+        if not readme_path.is_file():
+            problems.append(Problem("error", f"{source_dir}: missing README.md"))
+
+        metadata = load_yaml(metadata_path, problems)
+        if metadata is None:
+            continue
+
+        validate_schema(metadata, "external-metadata-v1.schema.json", metadata_path, problems)
+
+        if metadata.get("schema_version") != 1:
+            problems.append(Problem("error", f"{metadata_path}: external schema_version must be 1"))
+        if metadata.get("status") != "external-reference":
+            problems.append(Problem("error", f"{metadata_path}: status must be external-reference"))
+        if metadata.get("id") != source_dir.name:
+            problems.append(
+                Problem("error", f"{metadata_path}: id must match directory '{source_dir.name}'")
+            )
+
+        source_id = metadata.get("id")
+        if isinstance(source_id, str):
+            if source_id in seen_ids:
+                problems.append(
+                    Problem(
+                        "error",
+                        f"{metadata_path}: duplicate external id also used by {seen_ids[source_id]}",
+                    )
+                )
+            else:
+                seen_ids[source_id] = metadata_path
+
+
 def build_catalog_entry(metadata: dict[str, Any]) -> dict[str, Any]:
     """Build a stable catalog entry from canonical metadata."""
 
@@ -619,6 +722,7 @@ def validate_repository(root: Path, *, write_catalog: bool = False) -> list[Prob
 
     metadata_items: list[dict[str, Any]] = []
     data_files = validate_legacy(root, problems)
+    validate_external(root, problems)
 
     if datasets_root.is_dir():
         for dataset_dir in sorted(path for path in datasets_root.iterdir() if path.is_dir()):
