@@ -1,0 +1,31 @@
+# Normalize repository text files.
+* text=auto
+
+*.md text eol=lf
+*.txt text eol=lf
+*.csv text eol=lf
+*.tsv text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.py text eol=lf
+*.toml text eol=lf
+
+# Common binary data/archive formats.
+*.xlsx -text
+*.xls -text
+*.parquet -text
+*.feather -text
+*.arrow -text
+*.zip -text
+*.gz -text
+*.bz2 -text
+*.xz -text
+*.7z -text
+*.png -text
+*.jpg -text
+*.jpeg -text
+*.gif -text
+*.pdf -text
+
+# Do not opt data into Git LFS globally. Large-file storage is decided per dataset.
