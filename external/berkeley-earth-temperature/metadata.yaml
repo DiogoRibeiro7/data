@@ -1,0 +1,18 @@
+schema_version: 1
+status: external-reference
+id: berkeley-earth-temperature
+title: "Berkeley Earth temperature data"
+publisher: "Berkeley Earth"
+source_url: "https://berkeleyearth.org/data/"
+license:
+  name: "CC BY-NC 4.0 (general current Berkeley Earth data terms)"
+  url: "https://creativecommons.org/licenses/by-nc/4.0/"
+redistribution: noncommercial-terms
+storage: authoritative-upstream
+medium_blog:
+  related_paths:
+    - "clima_portugal/GlobalTemperatures.csv"
+    - "clima_portugal/GlobalLandTemperaturesByCountry.csv"
+    - "clima_portugal/GlobalLandTemperaturesByState.csv"
+    - "clima_portugal/GlobalLandTemperaturesByMajorCity.csv"
+  exact_snapshot_lineage: unresolved
