@@ -58,6 +58,21 @@ Browse:
 
 Legacy files are **not canonical**. Their presence does not imply verified provenance, current relevance, or redistribution approval.
 
+## Explore the registry locally
+
+The repository includes a lightweight CLI for listing, searching, inspecting, and verifying all registry layers:
+
+```bash
+python scripts/registry.py list
+python scripts/registry.py search climate
+python scripts/registry.py show world-bank-greenhouse-gas
+python scripts/registry.py verify world-bank-greenhouse-gas
+```
+
+Add `--json` to read commands for machine-readable output.
+
+See [Registry CLI](docs/CLI.md) for the full command reference, including immutable canonical-data fetching.
+
 ## Using a canonical dataset
 
 Consumers should pin:
