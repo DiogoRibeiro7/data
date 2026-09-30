@@ -31,6 +31,25 @@ def copy_text(source: Path, destination: Path) -> None:
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
 
+
+def copy_root_markdown(source: Path, destination: Path) -> None:
+    """Stage root Markdown and rewrite repository-relative links."""
+
+    text = source.read_text(encoding="utf-8")
+    replacements = {
+        "](templates/metadata.yaml)": (
+            f"]({GITHUB_BLOB}/templates/metadata.yaml)"
+        ),
+        "](docs/DATA_POLICY.md)": (
+            f"]({GITHUB_BLOB}/docs/DATA_POLICY.md)"
+        ),
+    }
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(text, encoding="utf-8")
+
 def main() -> int:
     write_catalog(
         ROOT / "datasets" / "CATALOG.md",
@@ -43,7 +62,7 @@ def main() -> int:
         "external",
     )
     copy_text(ROOT / "legacy" / "INVENTORY.md", GENERATED / "legacy-inventory.md")
-    copy_text(ROOT / "CONTRIBUTING.md", DOCS / "CONTRIBUTING.md")
+    copy_root_markdown(ROOT / "CONTRIBUTING.md", DOCS / "CONTRIBUTING.md")
     return 0
 
 if __name__ == "__main__":
