@@ -113,17 +113,49 @@ def is_within(path: Path, parent: Path) -> bool:
         return False
 
 
-def validate_forbidden_files(root: Path, problems: list[Problem]) -> None:
-    """Reject common generated/cache files across the repository."""
+def repository_files(root: Path) -> list[Path]:
+    """Return files that belong to the repository.
 
-    for path in root.rglob("*"):
+    In a Git checkout, validation is scoped to tracked files so runtime
+    artifacts created by tests, such as Python bytecode caches, do not make
+    a clean commit fail validation. Outside a Git checkout, all files are
+    inspected; this keeps temporary unit-test repositories fully checked.
+    """
+
+    git_marker = root / ".git"
+    if git_marker.exists():
+        try:
+            result = subprocess.run(
+                ["git", "-C", str(root), "ls-files", "-z"],
+                check=True,
+                capture_output=True,
+                text=False,
+            )
+        except (OSError, subprocess.CalledProcessError):
+            pass
+        else:
+            return [
+                root / item.decode("utf-8")
+                for item in result.stdout.split(b"\\0")
+                if item
+            ]
+
+    return [
+        path
+        for path in root.rglob("*")
+        if path.is_file() and ".git" not in path.relative_to(root).parts
+    ]
+
+
+def validate_forbidden_files(root: Path, problems: list[Problem]) -> None:
+    """Reject committed generated/cache files across the repository."""
+
+    for path in repository_files(root):
         rel = path.relative_to(root)
-        if ".git" in rel.parts:
-            continue
         if any(part in FORBIDDEN_DIRS for part in rel.parts):
-            problems.append(Problem("error", f"{rel}: generated/cache directory is forbidden"))
+            problems.append(Problem("error", f"{rel}: generated/cache file is forbidden"))
             continue
-        if path.is_file() and (
+        if (
             path.name in FORBIDDEN_NAMES
             or path.suffix.lower() in FORBIDDEN_SUFFIXES
             or path.name.endswith("~")
