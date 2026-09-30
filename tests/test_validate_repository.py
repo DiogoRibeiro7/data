@@ -71,6 +71,37 @@ class RepositoryFixture:
         )
         return file_path
 
+    def add_external(
+        self,
+        slug: str,
+        *,
+        schema_version: int = 1,
+        publisher: object = "Fixture publisher",
+        extra: dict[str, Any] | None = None,
+    ) -> Path:
+        """Add one external source record."""
+
+        source = self.root / "external" / slug
+        source.mkdir(parents=True)
+        (source / "README.md").write_text(f"# {slug}\n", encoding="utf-8")
+        metadata: dict[str, Any] = {
+            "schema_version": schema_version,
+            "status": "external-reference",
+            "id": slug,
+            "title": f"External {slug}",
+            "publisher": publisher,
+            "source_url": "https://example.test/source",
+            "storage": "authoritative-upstream",
+        }
+        if extra:
+            metadata.update(extra)
+        metadata_path = source / "metadata.yaml"
+        metadata_path.write_text(
+            yaml.safe_dump(metadata, sort_keys=False),
+            encoding="utf-8",
+        )
+        return metadata_path
+
     def add_canonical(
         self,
         slug: str,
@@ -155,6 +186,42 @@ class ValidatorTests(unittest.TestCase):
             (self.fixture.root / "datasets" / "catalog.json").read_text(encoding="utf-8")
         )
         self.assertEqual(catalog["datasets"][0]["id"], "example-dataset")
+
+    def test_canonical_schema_rejects_wrong_field_type(self) -> None:
+        self.fixture.add_canonical("bad-domain")
+        metadata_path = self.fixture.root / "datasets" / "bad-domain" / "metadata.yaml"
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata["domain"] = "testing"
+        metadata_path.write_text(yaml.safe_dump(metadata, sort_keys=False), encoding="utf-8")
+        self.assertTrue(any("schema violation" in msg and "domain" in msg for msg in self.errors()))
+
+    def test_canonical_schema_rejects_unknown_root_field(self) -> None:
+        self.fixture.add_canonical("extra-field")
+        metadata_path = self.fixture.root / "datasets" / "extra-field" / "metadata.yaml"
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata["unexpected"] = "not allowed"
+        metadata_path.write_text(yaml.safe_dump(metadata, sort_keys=False), encoding="utf-8")
+        self.assertTrue(any("Additional properties are not allowed" in msg for msg in self.errors()))
+
+    def test_external_schema_is_validated(self) -> None:
+        self.fixture.add_external("example-source", publisher=123)
+        self.fixture.write_catalogs()
+        self.assertTrue(any("schema violation" in msg and "publisher" in msg for msg in self.errors()))
+
+    def test_external_schema_version_mismatch_fails(self) -> None:
+        self.fixture.add_external("old-source", schema_version=2)
+        self.fixture.write_catalogs()
+        errors = self.errors()
+        self.assertTrue(any("schema violation" in msg and "schema_version" in msg for msg in errors))
+        self.assertTrue(any("external schema_version must be 1" in msg for msg in errors))
+
+    def test_legacy_schema_rejects_malformed_file_metadata(self) -> None:
+        self.fixture.add_legacy("bad-legacy")
+        metadata_path = self.fixture.root / "legacy" / "bad-legacy" / "metadata.yaml"
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata["files"][0]["size_bytes"] = "not-an-integer"
+        metadata_path.write_text(yaml.safe_dump(metadata, sort_keys=False), encoding="utf-8")
+        self.assertTrue(any("schema violation" in msg and "size_bytes" in msg for msg in self.errors()))
 
     def test_checksum_mismatch_fails(self) -> None:
         self.fixture.add_canonical("bad-checksum", sha256="0" * 64)
