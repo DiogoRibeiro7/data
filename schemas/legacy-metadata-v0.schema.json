@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DiogoRibeiro7/data/schemas/legacy-metadata-v0.schema.json",
+  "title": "Legacy quarantine metadata v0",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "id",
+    "title",
+    "source",
+    "license",
+    "files"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 0
+    },
+    "status": {
+      "const": "legacy-quarantine"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "publisher",
+        "url"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "publisher": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        }
+      }
+    },
+    "license": {
+      "type": "object",
+      "required": [
+        "name",
+        "redistribution"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "redistribution": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "original_path",
+          "path",
+          "size_bytes",
+          "git_blob_sha"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "original_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^raw/.+",
+            "minLength": 1
+          },
+          "size_bytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "git_blob_sha": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          }
+        }
+      }
+    }
+  }
+}
