@@ -1,0 +1,19 @@
+schema_version: 0
+status: legacy-quarantine
+id: r-example-datasets
+title: "R example datasets"
+source:
+  publisher: unknown
+  url: null
+license:
+  name: unknown
+  redistribution: unknown
+files:
+  - original_path: "InsectSprays.csv"
+    path: "raw/InsectSprays.csv"
+    size_bytes: 836
+    git_blob_sha: ea4aeb903a2e46280f8a2e34e99588d4efdcaffa
+  - original_path: "PlantGrowth.csv"
+    path: "raw/PlantGrowth.csv"
+    size_bytes: 518
+    git_blob_sha: b01e3601e569bf7e1ccbabbb3957b873f6c0446e

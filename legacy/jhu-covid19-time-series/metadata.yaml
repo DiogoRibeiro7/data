@@ -1,0 +1,31 @@
+schema_version: 0
+status: legacy-quarantine
+id: jhu-covid19-time-series
+title: "COVID-19 time-series snapshots"
+source:
+  publisher: unknown
+  url: null
+license:
+  name: unknown
+  redistribution: unknown
+files:
+  - original_path: "time_series_covid_19_confirmed.csv"
+    path: "raw/time_series_covid_19_confirmed.csv"
+    size_bytes: 132170
+    git_blob_sha: 8971d90ba64f6f879ef5667f65e4b8be7ab448e9
+  - original_path: "time_series_covid_19_confirmed_US.csv"
+    path: "raw/time_series_covid_19_confirmed_US.csv"
+    size_bytes: 1416653
+    git_blob_sha: 7aa25298d035acf6073bbeb3631ebb38b73cea52
+  - original_path: "time_series_covid_19_deaths.csv"
+    path: "raw/time_series_covid_19_deaths.csv"
+    size_bytes: 97372
+    git_blob_sha: 5b3a31095cd976836fe69c6026bf3e5e52f76e04
+  - original_path: "time_series_covid_19_deaths_US.csv"
+    path: "raw/time_series_covid_19_deaths_US.csv"
+    size_bytes: 1272958
+    git_blob_sha: ee5a796f1525d59f6de6741ca93970b93b9d80bd
+  - original_path: "time_series_covid_19_recovered.csv"
+    path: "raw/time_series_covid_19_recovered.csv"
+    size_bytes: 112796
+    git_blob_sha: f3f257135aba93b7c4759600c0e0ddfe3347d63c

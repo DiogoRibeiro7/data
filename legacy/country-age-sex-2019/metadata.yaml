@@ -1,0 +1,71 @@
+schema_version: 0
+status: legacy-quarantine
+id: country-age-sex-2019
+title: "Country age/sex population snapshots (2019)"
+source:
+  publisher: unknown
+  url: null
+license:
+  name: unknown
+  redistribution: unknown
+files:
+  - original_path: "China-2019.csv"
+    path: "raw/China-2019.csv"
+    size_bytes: 512
+    git_blob_sha: 98adad73ae93f73cbea8756585e21d3203c6999e
+  - original_path: "Denmark-2019.csv"
+    path: "raw/Denmark-2019.csv"
+    size_bytes: 430
+    git_blob_sha: 2387fffb7300c76f236f42d75b137678152d1abe
+  - original_path: "France-2019.csv"
+    path: "raw/France-2019.csv"
+    size_bytes: 473
+    git_blob_sha: 25596c84036ffa63be16b0ed3b79c7a05cefe7d1
+  - original_path: "Germany-2019.csv"
+    path: "raw/Germany-2019.csv"
+    size_bytes: 475
+    git_blob_sha: 08debabcf893ea878fe96d191f83e9598836ddd2
+  - original_path: "Italy-2019.csv"
+    path: "raw/Italy-2019.csv"
+    size_bytes: 474
+    git_blob_sha: 5f850f4355e8a0a280a0317ec582f2913451c6b2
+  - original_path: "Japan-2019.csv"
+    path: "raw/Japan-2019.csv"
+    size_bytes: 479
+    git_blob_sha: 9b3fb35f9fa99a5afae528b39013cd18da693f52
+  - original_path: "Netherlands-2019.csv"
+    path: "raw/Netherlands-2019.csv"
+    size_bytes: 434
+    git_blob_sha: 5432e18b05c27aa320242e27af25c22854c1c066
+  - original_path: "Portugal-2019.csv"
+    path: "raw/Portugal-2019.csv"
+    size_bytes: 231
+    git_blob_sha: fcf0ba9f7ba94f3fb7810ae2bd1bbceecc1b4ae5
+  - original_path: "Portugal-2019.xlsx"
+    path: "raw/Portugal-2019.xlsx"
+    size_bytes: 8599
+    git_blob_sha: c30b196cabd57e19700fc991d7e488e21b035d15
+  - original_path: "Portugal-2019_1.csv"
+    path: "raw/Portugal-2019_1.csv"
+    size_bytes: 434
+    git_blob_sha: 1569acc9bd03c9e0c62d47ee82a951377a473edf
+  - original_path: "Spain-2019.csv"
+    path: "raw/Spain-2019.csv"
+    size_bytes: 468
+    git_blob_sha: 5e4cb2cac21bc3bb872df0df8f0479b5f802a7f4
+  - original_path: "Sweden-2019.csv"
+    path: "raw/Sweden-2019.csv"
+    size_bytes: 433
+    git_blob_sha: 530367dfc106bfd97a128e965f98863c0b30d895
+  - original_path: "Switzerland-2019.csv"
+    path: "raw/Switzerland-2019.csv"
+    size_bytes: 432
+    git_blob_sha: d48b3b0be08dc807258daefcb5ee79c3f8cad5f5
+  - original_path: "United Kingdom-2019.csv"
+    path: "raw/United Kingdom-2019.csv"
+    size_bytes: 473
+    git_blob_sha: 1916842372700377f63c3ec8a5b4e6afa80e798c
+  - original_path: "United States of America-2019.csv"
+    path: "raw/United States of America-2019.csv"
+    size_bytes: 503
+    git_blob_sha: 5aa524e915103b12fb6b6c4171ec8e8bf61d0170
