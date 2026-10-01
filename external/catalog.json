@@ -67,20 +67,6 @@
       "path": "external/maize-bipolaris-disease-progress"
     },
     {
-      "id": "online-retail-ii",
-      "title": "Online Retail II",
-      "publisher": "UCI Machine Learning Repository",
-      "source_url": "https://archive.ics.uci.edu/dataset/502/online+retail+ii",
-      "license": {
-        "name": "CC BY 4.0",
-        "url": "https://creativecommons.org/licenses/by/4.0/"
-      },
-      "redistribution": "allowed-with-attribution",
-      "storage": "authoritative-upstream",
-      "consumers": [],
-      "path": "external/online-retail-ii"
-    },
-    {
       "id": "our-world-in-data",
       "title": "Our World in Data / Grapher datasets",
       "publisher": "Global Change Data Lab / Our World in Data",
