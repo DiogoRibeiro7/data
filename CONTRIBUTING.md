@@ -17,6 +17,17 @@ Suggested branch prefixes:
 - `docs/<topic>`
 - `chore/<topic>`
 
+## Propose before committing data
+
+Before adding new dataset bytes, open the appropriate proposal:
+
+- [Canonical dataset proposal](https://github.com/DiogoRibeiro7/data/issues/new?template=dataset-proposal.yml) — use when you think the bytes should live under `datasets/`.
+- [External source proposal](https://github.com/DiogoRibeiro7/data/issues/new?template=external-source-proposal.yml) — use when the authoritative publisher should remain the byte source.
+
+The proposal stage is where we decide whether a candidate should become canonical, be recorded as an external source, stay project-local, or be rejected.
+
+Do not commit or attach candidate dataset bytes until the proposal is reviewed and canonical storage is approved. Never commit private, personal, confidential, credential-bearing, or redistribution-restricted data. Sensitive or regulated data requires an explicit approved publication basis.
+
 ## Adding a canonical dataset
 
 Use the structure:
