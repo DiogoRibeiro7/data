@@ -1,0 +1,157 @@
+name: Snapshot release
+
+on:
+  workflow_dispatch:
+    inputs:
+      snapshot_tag:
+        description: "Snapshot tag (snapshot-YYYY.MM.DD or snapshot-YYYY.MM.DD.N)"
+        required: true
+        type: string
+      commit_sha:
+        description: "Exact 40-character commit SHA to snapshot"
+        required: true
+        type: string
+      publish_release:
+        description: "Create the Git tag and GitHub release after validation"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.validate-inputs.outputs.tag }}
+      commit: ${{ steps.validate-inputs.outputs.commit }}
+    steps:
+      - name: Validate dispatch inputs
+        id: validate-inputs
+        shell: bash
+        env:
+          SNAPSHOT_TAG: ${{ inputs.snapshot_tag }}
+          COMMIT_SHA: ${{ inputs.commit_sha }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os
+          import re
+          import sys
+          from datetime import date
+
+          tag = os.environ["SNAPSHOT_TAG"]
+          commit = os.environ["COMMIT_SHA"]
+
+          match = re.fullmatch(
+              r"snapshot-(\d{4})\.(\d{2})\.(\d{2})(?:\.([1-9]\d*))?",
+              tag,
+          )
+          if match is None:
+              raise SystemExit(
+                  "snapshot_tag must match snapshot-YYYY.MM.DD or snapshot-YYYY.MM.DD.N"
+              )
+
+          date(int(match.group(1)), int(match.group(2)), int(match.group(3)))
+
+          if re.fullmatch(r"[0-9a-f]{40}", commit) is None:
+              raise SystemExit("commit_sha must be a full 40-character lowercase Git SHA")
+          PY
+          echo "tag=$SNAPSHOT_TAG" >> "$GITHUB_OUTPUT"
+          echo "commit=$COMMIT_SHA" >> "$GITHUB_OUTPUT"
+
+      - name: Check out requested commit
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.commit_sha }}
+          fetch-depth: 0
+
+      - name: Verify checkout identity
+        shell: bash
+        env:
+          EXPECTED_COMMIT: ${{ inputs.commit_sha }}
+        run: |
+          set -euo pipefail
+          ACTUAL_COMMIT="$(git rev-parse HEAD)"
+          test "$ACTUAL_COMMIT" = "$EXPECTED_COMMIT"
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install validation dependencies
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Run tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Validate repository
+        run: python scripts/validate_repository.py
+
+      - name: Validate external catalog freshness
+        run: python scripts/generate_external_catalog.py
+
+      - name: Generate release material
+        run: |
+          python scripts/create_snapshot.py             --tag "${{ inputs.snapshot_tag }}"             --commit "${{ inputs.commit_sha }}"             --output-dir release-material
+
+      - name: Upload immutable release material
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ inputs.snapshot_tag }}
+          path: release-material/
+          if-no-files-found: error
+          retention-days: 90
+
+  publish:
+    if: ${{ inputs.publish_release }}
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out requested commit
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.prepare.outputs.commit }}
+          fetch-depth: 0
+
+      - name: Refuse an existing tag
+        shell: bash
+        env:
+          SNAPSHOT_TAG: ${{ needs.prepare.outputs.tag }}
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --tags origin "refs/tags/$SNAPSHOT_TAG" >/dev/null 2>&1; then
+            echo "Tag already exists: $SNAPSHOT_TAG" >&2
+            exit 1
+          fi
+
+      - name: Download prepared release material
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ needs.prepare.outputs.tag }}
+          path: release-material
+
+      - name: Create immutable tag
+        shell: bash
+        env:
+          SNAPSHOT_TAG: ${{ needs.prepare.outputs.tag }}
+          SNAPSHOT_COMMIT: ${{ needs.prepare.outputs.commit }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$SNAPSHOT_TAG" "$SNAPSHOT_COMMIT" -m "Registry snapshot $SNAPSHOT_TAG"
+          git push origin "refs/tags/$SNAPSHOT_TAG"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SNAPSHOT_TAG: ${{ needs.prepare.outputs.tag }}
+          SNAPSHOT_COMMIT: ${{ needs.prepare.outputs.commit }}
+        run: |
+          set -euo pipefail
+          gh release create "$SNAPSHOT_TAG"             release-material/snapshot-manifest.json             release-material/snapshot-summary.md             --verify-tag             --target "$SNAPSHOT_COMMIT"             --title "Registry snapshot $SNAPSHOT_TAG"             --notes-file release-material/snapshot-summary.md
