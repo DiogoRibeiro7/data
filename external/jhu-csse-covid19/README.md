@@ -8,9 +8,11 @@ Authoritative source record for the Johns Hopkins University Center for Systems 
 - Repository: https://github.com/CSSEGISandData/COVID-19
 - Historical source commit: `dd07d05ff02d8aea12cab868e8a36c0e31cadf66`
 - Commit date: 2020-06-08
-- Licence: Creative Commons Attribution 4.0 International (CC BY 4.0)
+- Terms: repository-specific historical usage restrictions, not CC BY 4.0
 
-The upstream repository was archived on 2023-03-10 after Johns Hopkins ceased live COVID-19 reporting.
+The pinned 2020 README states that the website/data were provided for non-profit public-health, educational, and academic research purposes; commercial use was prohibited; and redistribution of the website or aggregated dataset was prohibited.
+
+The upstream repository was later archived after Johns Hopkins ceased live COVID-19 reporting.
 
 ## Legacy snapshot identity
 
@@ -24,4 +26,4 @@ The five files previously retained in this repository were traced to the source 
 | `time_series_covid_19_deaths_US.csv` | `time_series_covid19_deaths_US.csv` | `ee5a796f1525d59f6de6741ca93970b93b9d80bd` |
 | `time_series_covid_19_recovered.csv` | `time_series_covid19_recovered_global.csv` | `f3f257135aba93b7c4759600c0e0ddfe3347d63c` |
 
-Because every historical file is recoverable from one exact upstream commit and no current repository consumer was found, the duplicate local legacy package was removed.
+Because every historical file is recoverable from one exact upstream commit and no current repository consumer was found, the duplicate local legacy package was removed. This external record preserves provenance without claiming redistribution rights that the pinned source terms do not grant.
