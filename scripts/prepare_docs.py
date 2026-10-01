@@ -61,7 +61,12 @@ def main() -> int:
         GENERATED / "external-catalog.md",
         "external",
     )
-    copy_text(ROOT / "legacy" / "INVENTORY.md", GENERATED / "legacy-inventory.md")
+    legacy_text = (ROOT / "legacy" / "INVENTORY.md").read_text(encoding="utf-8")
+    legacy_text = legacy_text.replace(
+        "](../docs/migrations/LEGACY_RESOLUTION.md)",
+        "](../migrations/LEGACY_RESOLUTION.md)",
+    )
+    (GENERATED / "legacy-inventory.md").write_text(legacy_text, encoding="utf-8")
     copy_root_markdown(ROOT / "CONTRIBUTING.md", DOCS / "CONTRIBUTING.md")
     return 0
 
