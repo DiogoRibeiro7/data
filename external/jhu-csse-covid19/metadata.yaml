@@ -5,8 +5,8 @@ title: "JHU CSSE COVID-19 time series"
 publisher: "Johns Hopkins University Center for Systems Science and Engineering"
 source_url: "https://github.com/CSSEGISandData/COVID-19"
 source_commit: "dd07d05ff02d8aea12cab868e8a36c0e31cadf66"
-license:
-  name: "CC BY 4.0"
-  url: "https://creativecommons.org/licenses/by/4.0/"
-redistribution: allowed-with-attribution
-storage: authoritative-upstream-pinned-historical-snapshot
+usage:
+  storage: authoritative-upstream-pinned-historical-snapshot
+  redistribution: prohibited
+  attribution_required: true
+  note: "The pinned 2020 repository terms restrict use to non-profit public health, educational, and academic research purposes, prohibit commercial use, and prohibit redistribution of the aggregated dataset."

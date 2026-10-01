@@ -1,13 +1,16 @@
 schema_version: 1
 status: external-reference
 id: world-bank-greenhouse-gas
-title: "World Bank greenhouse-gas indicator EN.ATM.GHGT.KT.CE"
-publisher: "World Bank"
-source_url: "https://data.worldbank.org/indicator/EN.ATM.GHGT.KT.CE"
+title: "Climate Watch total greenhouse gas emissions (World Bank WDI EN.ATM.GHGT.KT.CE)"
+publisher: "World Resources Institute / Climate Watch"
+source_url: "https://www.climatewatchdata.org/ghg-emissions"
 license:
-  name: "CC BY 4.0 (World Bank open-data default, subject to dataset-specific terms)"
-  url: "https://datacatalog.worldbank.org/public-licenses"
-storage: authoritative-upstream
+  name: "CC BY-NC 4.0"
+  url: "https://creativecommons.org/licenses/by-nc/4.0/"
+redistribution: noncommercial-with-attribution
+storage: authoritative-upstream-via-world-bank-wdi
 medium_blog:
+  world_bank_indicator: "EN.ATM.GHGT.KT.CE"
+  world_bank_metadata_url: "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/EN.ATM.GHGT.KT.CE"
   source_snapshot: "clima_portugal/API_EN.ATM.GHGT.KT.CE_DS2_en_csv_v2_5607282.csv"
   derived_output: "clima_portugal/total-ghg-emissions.csv"

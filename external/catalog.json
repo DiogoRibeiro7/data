@@ -44,11 +44,8 @@
       "title": "JHU CSSE COVID-19 time series",
       "publisher": "Johns Hopkins University Center for Systems Science and Engineering",
       "source_url": "https://github.com/CSSEGISandData/COVID-19",
-      "license": {
-        "name": "CC BY 4.0",
-        "url": "https://creativecommons.org/licenses/by/4.0/"
-      },
-      "redistribution": "allowed-with-attribution",
+      "license": null,
+      "redistribution": "prohibited",
       "storage": "authoritative-upstream-pinned-historical-snapshot",
       "consumers": [],
       "path": "external/jhu-csse-covid19"
@@ -115,11 +112,8 @@
       "title": "Turing Change Point Dataset",
       "publisher": "The Alan Turing Institute",
       "source_url": "https://github.com/alan-turing-institute/TCPD",
-      "license": {
-        "name": "MIT",
-        "url": "https://github.com/alan-turing-institute/TCPD/blob/master/LICENSE"
-      },
-      "redistribution": "unresolved",
+      "license": null,
+      "redistribution": "dataset-specific",
       "storage": "authoritative-upstream",
       "consumers": [
         "cpd-stress-test"
@@ -160,15 +154,15 @@
     },
     {
       "id": "world-bank-greenhouse-gas",
-      "title": "World Bank greenhouse-gas indicator EN.ATM.GHGT.KT.CE",
-      "publisher": "World Bank",
-      "source_url": "https://data.worldbank.org/indicator/EN.ATM.GHGT.KT.CE",
+      "title": "Climate Watch total greenhouse gas emissions (World Bank WDI EN.ATM.GHGT.KT.CE)",
+      "publisher": "World Resources Institute / Climate Watch",
+      "source_url": "https://www.climatewatchdata.org/ghg-emissions",
       "license": {
-        "name": "CC BY 4.0 (World Bank open-data default, subject to dataset-specific terms)",
-        "url": "https://datacatalog.worldbank.org/public-licenses"
+        "name": "CC BY-NC 4.0",
+        "url": "https://creativecommons.org/licenses/by-nc/4.0/"
       },
-      "redistribution": "unresolved",
-      "storage": "authoritative-upstream",
+      "redistribution": "noncommercial-with-attribution",
+      "storage": "authoritative-upstream-via-world-bank-wdi",
       "consumers": [],
       "path": "external/world-bank-greenhouse-gas"
     }
