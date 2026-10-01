@@ -53,12 +53,50 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def git_blob_sha1(path: Path) -> str:
-    """Return the Git blob SHA-1 for a file."""
+def git_blob_identity(path: Path) -> tuple[str, int]:
+    """Return the stored Git blob SHA-1 and size for a tracked file.
+
+    In a real Git checkout, legacy integrity must be checked against the
+    repository object rather than the materialized worktree bytes because
+    checkout filters such as line-ending normalization may change the latter.
+    Temporary unit-test repositories without Git metadata fall back to
+    computing a blob identity from the file bytes directly.
+    """
+
+    try:
+        root_result = subprocess.run(
+            ["git", "-C", str(path.parent), "rev-parse", "--show-toplevel"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        root = Path(root_result.stdout.strip())
+        relative = path.resolve().relative_to(root.resolve())
+        index_result = subprocess.run(
+            ["git", "-C", str(root), "ls-files", "-s", "--", relative.as_posix()],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        line = index_result.stdout.strip()
+        if line:
+            fields = line.split()
+            if len(fields) >= 2:
+                blob_sha = fields[1]
+                size_result = subprocess.run(
+                    ["git", "-C", str(root), "cat-file", "-s", blob_sha],
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                )
+                return blob_sha, int(size_result.stdout.strip())
+    except (OSError, subprocess.CalledProcessError, ValueError):
+        pass
 
     payload = path.read_bytes()
     header = f"blob {len(payload)}\0".encode("ascii")
-    return hashlib.sha1(header + payload, usedforsecurity=False).hexdigest()
+    blob_sha = hashlib.sha1(header + payload, usedforsecurity=False).hexdigest()
+    return blob_sha, len(payload)
 
 
 def load_yaml(path: Path, problems: list[Problem]) -> dict[str, Any] | None:
@@ -327,12 +365,12 @@ def validate_legacy(root: Path, problems: list[Problem]) -> list[Path]:
             data_files.append(candidate)
             declared_raw.add(candidate)
 
-            size = candidate.stat().st_size
-            if size > MAX_DIRECT_GIT_BYTES:
+            worktree_size = candidate.stat().st_size
+            if worktree_size > MAX_DIRECT_GIT_BYTES:
                 problems.append(
                     Problem("error", f"{context}: legacy file exceeds 100 MiB direct-Git limit")
                 )
-            elif size >= REVIEW_LARGE_FILE_BYTES:
+            elif worktree_size >= REVIEW_LARGE_FILE_BYTES:
                 problems.append(
                     Problem(
                         "warning",
@@ -340,13 +378,19 @@ def validate_legacy(root: Path, problems: list[Problem]) -> list[Path]:
                     )
                 )
 
+            blob_sha, blob_size = git_blob_identity(candidate)
+
             expected_size = entry.get("size_bytes")
-            if isinstance(expected_size, int) and size != expected_size:
-                problems.append(Problem("error", f"{context}: size_bytes does not match file"))
+            if isinstance(expected_size, int) and blob_size != expected_size:
+                problems.append(
+                    Problem("error", f"{context}: size_bytes does not match stored Git blob")
+                )
 
             expected_git_sha = entry.get("git_blob_sha")
-            if isinstance(expected_git_sha, str) and git_blob_sha1(candidate) != expected_git_sha:
-                problems.append(Problem("error", f"{context}: git_blob_sha does not match file"))
+            if isinstance(expected_git_sha, str) and blob_sha != expected_git_sha:
+                problems.append(
+                    Problem("error", f"{context}: git_blob_sha does not match stored Git blob")
+                )
 
         actual_raw = {path.resolve() for path in raw_root.rglob("*") if path.is_file()}
         for path in sorted(actual_raw - declared_raw):
