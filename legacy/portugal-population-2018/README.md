@@ -1,20 +1,15 @@
 # Portugal resident population 2018
 
-> **Status:** legacy quarantine. This package is not yet part of the canonical `datasets/` catalog.
+> **Resolution:** retained in legacy quarantine.
 
-These files were moved from the repository root without changing their bytes.
+The filename indicates a 2018 Portuguese resident-population workbook, but the exact statistical export/query was not recovered.
 
-Promotion into `datasets/` requires verified upstream provenance, redistribution terms, canonical metadata, and SHA-256 checksums.
+Public Portuguese population statistics are available from multiple official and secondary systems. Assigning INE, PORDATA, or another publisher without direct evidence would be speculative.
 
-## Files
+## Concrete blockers
 
-- `raw/populacao_residente_2018.xlsx`
+- exact publisher/export route unknown;
+- query dimensions and transformation history unknown;
+- licence/redistribution terms for this workbook unknown.
 
-## Review required
-
-- Identify the upstream publisher and canonical source.
-- Confirm license or redistribution terms.
-- Establish snapshot/version information.
-- Check for derived or overlapping files.
-- Compute SHA-256 checksums.
-- Promote only after the canonical metadata contract is satisfied.
+See [the resolution audit](../../docs/migrations/LEGACY_RESOLUTION.md).

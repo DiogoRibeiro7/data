@@ -29,6 +29,31 @@
       "path": "external/fred-economic-data"
     },
     {
+      "id": "ibm-telco-customer-churn",
+      "title": "IBM Telco Customer Churn sample",
+      "publisher": "IBM",
+      "source_url": "https://github.com/IBM/telco-customer-churn-on-icp4d",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream-pinned-snapshot",
+      "consumers": [],
+      "path": "external/ibm-telco-customer-churn"
+    },
+    {
+      "id": "jhu-csse-covid19",
+      "title": "JHU CSSE COVID-19 time series",
+      "publisher": "Johns Hopkins University Center for Systems Science and Engineering",
+      "source_url": "https://github.com/CSSEGISandData/COVID-19",
+      "license": {
+        "name": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "allowed-with-attribution",
+      "storage": "authoritative-upstream-pinned-historical-snapshot",
+      "consumers": [],
+      "path": "external/jhu-csse-covid19"
+    },
+    {
       "id": "maize-bipolaris-disease-progress",
       "title": "Maize Bipolaris disease-progress data",
       "publisher": "Emerson M. Del Ponte / paper-hgam-curves repository",
@@ -70,6 +95,20 @@
         "productivity_taxation_inequality_project"
       ],
       "path": "external/our-world-in-data"
+    },
+    {
+      "id": "r-base-example-datasets",
+      "title": "R base example datasets",
+      "publisher": "R Core Team",
+      "source_url": "https://search.r-project.org/R/refmans/datasets/html/00Index.html",
+      "license": {
+        "name": "GPL-2 | GPL-3 (R distribution)",
+        "url": "https://www.r-project.org/Licenses/"
+      },
+      "redistribution": "package-license",
+      "storage": "authoritative-upstream",
+      "consumers": [],
+      "path": "external/r-base-example-datasets"
     },
     {
       "id": "turing-change-point-dataset",

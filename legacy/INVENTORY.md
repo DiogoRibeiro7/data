@@ -1,17 +1,38 @@
-# Legacy root inventory
+# Legacy quarantine inventory
 
-## Summary
+## Current state
 
-- Root data files inventoried: **37**
-- Unique Git blobs: **36**
-- Exact duplicate groups: **1**
-- Exact duplicate removed: `telco_customer_churn.txt`
-- Unique files moved into legacy quarantine: **36**
-- Canonical datasets promoted in this change: **0**
+Resolution audit date: **2026-10-01**
 
-`Telco-Customer-Churn.txt` and `telco_customer_churn.txt` shared the same Git blob, so only the first spelling is retained.
+- Initial root data files inventoried: **37**
+- Initial unique Git blobs: **36**
+- Initial legacy packages: **9**
+- Legacy packages remaining after resolution: **5**
+- Packages replaced by external source records: **3**
+- Obsolete project-input packages removed: **1**
+- Canonical datasets promoted by this audit: **0**
 
-`Portugal-2019.csv` and `Portugal-2019_1.csv` are related age-band variants, but a numeric check showed they are not exact equivalents; both are retained pending provenance review.
+## Package resolution
+
+| Package | Status | Resolution / blocker |
+| --- | --- | --- |
+| `country-age-sex-2019` | retained | Exact historical upstream revision and redistribution terms unresolved. |
+| `covid19-modeling` | removed | Mixed Kaggle/OWID/manual project inputs; no consumers; no coherent reusable dataset identity. |
+| `italy-covid19` | retained | Workbook source, snapshot identity, and redistribution terms unresolved. |
+| `jhu-covid19-time-series` | externalized | Five files traced by Git blob identity to JHU commit `dd07d05ff02d8aea12cab868e8a36c0e31cadf66`; replaced by `external/jhu-csse-covid19/`. |
+| `portugal-covid19` | retained | MTSSS workbook source family recovered, but package includes an unattributed derived ARS estimate table. |
+| `portugal-population-2018` | retained | Exact publisher/export route and terms unresolved. |
+| `portugal-sico-mortality` | retained | DGS/SICO source family identified; exact export route and redistribution terms unresolved. |
+| `r-example-datasets` | externalized | Built-in R datasets; redundant CSV serializations removed; replaced by `external/r-base-example-datasets/`. |
+| `telco-customer-churn` | externalized | IBM sample identified; normalized contents match IBM archived CSV; replaced by `external/ibm-telco-customer-churn/`. |
+
+No current consumer of the distinctive removed legacy filenames was found outside this repository.
+
+See [the full resolution audit](../docs/migrations/LEGACY_RESOLUTION.md).
+
+## Historical root migration record
+
+The table below is preserved as the original root-to-legacy migration record. Paths marked as moved may subsequently have been resolved by the package decisions above.
 
 ## Inventory
 
@@ -58,3 +79,4 @@
 ## Integrity
 
 Moved files reuse their existing Git blob SHA. No dataset bytes are transformed by this reorganization.
+

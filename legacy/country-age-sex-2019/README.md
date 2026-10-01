@@ -1,34 +1,24 @@
 # Country age/sex population snapshots (2019)
 
-> **Status:** legacy quarantine. This package is not yet part of the canonical `datasets/` catalog.
+> **Resolution:** retained in legacy quarantine.
 
-These files were moved from the repository root without changing their bytes.
+These historical 2019 male/female population snapshots cannot yet be promoted or replaced by a pinned external source.
 
-Promotion into `datasets/` requires verified upstream provenance, redistribution terms, canonical metadata, and SHA-256 checksums.
+## Evidence recovered
 
-## Files
+The age-band structure is consistent with UN World Population Prospects-derived population-pyramid data. Public PopulationPyramid.net country pages identify UN World Population Prospects as their source family.
 
-- `raw/China-2019.csv`
-- `raw/Denmark-2019.csv`
-- `raw/France-2019.csv`
-- `raw/Germany-2019.csv`
-- `raw/Italy-2019.csv`
-- `raw/Japan-2019.csv`
-- `raw/Netherlands-2019.csv`
-- `raw/Portugal-2019.csv`
-- `raw/Portugal-2019.xlsx`
-- `raw/Portugal-2019_1.csv`
-- `raw/Spain-2019.csv`
-- `raw/Sweden-2019.csv`
-- `raw/Switzerland-2019.csv`
-- `raw/United Kingdom-2019.csv`
-- `raw/United States of America-2019.csv`
+However, the currently available historical pages use a newer WPP revision and do not reproduce the retained Portugal totals exactly.
 
-## Review required
+The package also contains two different Portugal CSV age-band variants plus a workbook.
 
-- Identify the upstream publisher and canonical source.
-- Confirm license or redistribution terms.
-- Establish snapshot/version information.
-- Check for derived or overlapping files.
-- Compute SHA-256 checksums.
-- Promote only after the canonical metadata contract is satisfied.
+## Concrete blockers
+
+- exact upstream provider/download route not proven;
+- historical UN WPP revision not recovered;
+- redistribution terms for the exact historical snapshot not recorded;
+- relationship between `Portugal-2019.xlsx`, `Portugal-2019.csv`, and `Portugal-2019_1.csv` remains undocumented.
+
+No current consumer of the distinctive legacy filenames was found outside this repository.
+
+See [the resolution audit](../../docs/migrations/LEGACY_RESOLUTION.md).
