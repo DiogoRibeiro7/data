@@ -1,0 +1,42 @@
+name: One-time restore legacy blobs
+
+on:
+  push:
+    branches:
+      - feat/canonical-online-retail-ii
+    paths:
+      - ".github/workflows/restore-legacy-blobs.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out feature branch
+        uses: actions/checkout@v7
+        with:
+          ref: feat/canonical-online-retail-ii
+          fetch-depth: 0
+
+      - name: Restore legacy tree exactly from main
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git fetch origin main
+          git checkout origin/main -- legacy
+
+          # The current branch now marks legacy raw files as -text, so their
+          # worktree and index identities must remain byte-for-byte equal to main.
+          git diff --cached --exit-code origin/main -- legacy
+
+          rm -f .github/workflows/restore-legacy-blobs.yml
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -u .github/workflows/restore-legacy-blobs.yml
+          git commit -m "fix: restore legacy quarantine blobs exactly from main"
+          git push origin HEAD:feat/canonical-online-retail-ii
