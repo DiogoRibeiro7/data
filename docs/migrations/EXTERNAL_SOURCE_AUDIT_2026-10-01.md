@@ -23,7 +23,7 @@ No permissive licence is inferred when dataset-specific terms are absent.
 | `maize-bipolaris-disease-progress` | verified unchanged | Pinned upstream commit exists and the upstream repository carries an MIT licence. The repository explicitly presents `maize_bipolaris.csv` as raw study data. |
 | `online-retail-ii` | verified unchanged | UCI Online Retail II record identifies DOI `10.24432/C5CG6D` and CC BY 4.0. |
 | `our-world-in-data` | verified unchanged | OWID continues to distinguish its own material from third-party datasets; dataset-level terms remain provider-specific. Collection-level licence remains intentionally unresolved. |
-| `r-base-example-datasets` | verified unchanged | R licensing page continues to describe the R distribution under GPL-2 | GPL-3; the source record points to the base `datasets` package rather than asserting an independent per-CSV licence. |
+| `r-base-example-datasets` | verified unchanged | R licensing page continues to describe the R distribution under GPL-2 \| GPL-3; the source record points to the base `datasets` package rather than asserting an independent per-CSV licence. |
 | `turing-change-point-dataset` | **corrected** | TCPD README states the repository **code** is MIT, while individual data files often have their own licences and some cannot be redistributed. Removed collection-level MIT claim and set redistribution to dataset-specific. |
 | `ucdp-conflict-data` | verified unchanged | UCDP download guidance continues to use CC BY 4.0 for current datasets, with citation requirements. |
 | `unhcr-refugee-statistics` | verified unchanged | UNHCR Refugee Population Statistics continues to state CC BY 4.0 unless otherwise indicated. |
