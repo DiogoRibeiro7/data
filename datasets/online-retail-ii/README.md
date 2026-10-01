@@ -1,5 +1,7 @@
 # Online Retail II
 
+This is the first canonical dataset in this registry.
+
 Canonical snapshot of the UCI Machine Learning Repository **Online Retail II** dataset.
 
 ## Source
