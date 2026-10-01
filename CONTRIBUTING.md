@@ -26,7 +26,7 @@ Before adding new dataset bytes, open the appropriate proposal:
 
 The proposal stage is where we decide whether a candidate should become canonical, be recorded as an external source, stay project-local, or be rejected.
 
-Do not commit or attach private, personal, confidential, regulated, credential-bearing, or redistribution-restricted data while that decision is unresolved.
+Do not commit or attach candidate dataset bytes until the proposal is reviewed and canonical storage is approved. Never commit private, personal, confidential, credential-bearing, or redistribution-restricted data. Sensitive or regulated data requires an explicit approved publication basis.
 
 ## Adding a canonical dataset
 
