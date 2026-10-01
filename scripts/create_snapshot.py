@@ -1,0 +1,311 @@
+#!/usr/bin/env python3
+"""Generate deterministic immutable snapshot release material."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import re
+import sys
+from datetime import date
+from pathlib import Path
+from typing import Any
+
+import yaml
+
+REPOSITORY = "DiogoRibeiro7/data"
+COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
+SNAPSHOT_TAG_RE = re.compile(
+    r"^snapshot-(?P<year>\d{4})\.(?P<month>\d{2})\.(?P<day>\d{2})"
+    r"(?:\.(?P<sequence>[1-9]\d*))?$"
+)
+SCHEMA_FILES = {
+    "canonical": "schemas/canonical-metadata-v1.schema.json",
+    "external": "schemas/external-metadata-v1.schema.json",
+    "legacy": "schemas/legacy-metadata-v0.schema.json",
+}
+
+
+def sha256_file(path: Path) -> str:
+    """Return the SHA-256 checksum for a file."""
+
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def validate_snapshot_tag(tag: str) -> None:
+    """Validate snapshot tag syntax and calendar date."""
+
+    match = SNAPSHOT_TAG_RE.fullmatch(tag)
+    if match is None:
+        raise ValueError(
+            "tag must match snapshot-YYYY.MM.DD or snapshot-YYYY.MM.DD.N"
+        )
+    try:
+        date(
+            int(match.group("year")),
+            int(match.group("month")),
+            int(match.group("day")),
+        )
+    except ValueError as exc:
+        raise ValueError(f"snapshot tag contains an invalid date: {tag}") from exc
+
+
+def validate_commit(commit: str) -> None:
+    """Require an exact lowercase 40-character Git commit SHA."""
+
+    if COMMIT_RE.fullmatch(commit) is None:
+        raise ValueError("commit must be a full 40-character lowercase Git SHA")
+
+
+def load_json(path: Path) -> dict[str, Any]:
+    """Load a JSON object."""
+
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(raw, dict):
+        raise ValueError(f"{path}: JSON root must be an object")
+    return raw
+
+
+def load_yaml(path: Path) -> dict[str, Any]:
+    """Load a YAML mapping."""
+
+    raw = yaml.safe_load(path.read_text(encoding="utf-8"))
+    if not isinstance(raw, dict):
+        raise ValueError(f"{path}: YAML root must be a mapping")
+    return raw
+
+
+def schema_record(root: Path, layer: str, relative_path: str) -> dict[str, Any]:
+    """Return one metadata schema record."""
+
+    path = root / relative_path
+    schema = load_json(path)
+    properties = schema.get("properties")
+    if not isinstance(properties, dict):
+        raise ValueError(f"{path}: schema has no properties object")
+    version_spec = properties.get("schema_version")
+    if not isinstance(version_spec, dict) or not isinstance(version_spec.get("const"), int):
+        raise ValueError(f"{path}: schema_version.const must be an integer")
+    return {
+        "layer": layer,
+        "path": relative_path,
+        "schema_version": version_spec["const"],
+        "sha256": sha256_file(path),
+    }
+
+
+def canonical_dataset_records(root: Path) -> list[dict[str, Any]]:
+    """Return deterministic canonical dataset/file checksum records."""
+
+    datasets_root = root / "datasets"
+    records: list[dict[str, Any]] = []
+    if not datasets_root.is_dir():
+        return records
+
+    for dataset_dir in sorted(path for path in datasets_root.iterdir() if path.is_dir()):
+        metadata_path = dataset_dir / "metadata.yaml"
+        if not metadata_path.is_file():
+            continue
+        metadata = load_yaml(metadata_path)
+        dataset_id = metadata.get("id")
+        if not isinstance(dataset_id, str) or not dataset_id:
+            raise ValueError(f"{metadata_path}: missing dataset id")
+        files = metadata.get("files")
+        if not isinstance(files, list):
+            raise ValueError(f"{metadata_path}: files must be a list")
+
+        file_records: list[dict[str, Any]] = []
+        for item in files:
+            if not isinstance(item, dict):
+                raise ValueError(f"{metadata_path}: file entry must be a mapping")
+            relative_file = item.get("path")
+            expected_sha = item.get("sha256")
+            if not isinstance(relative_file, str) or not relative_file:
+                raise ValueError(f"{metadata_path}: file path must be non-empty text")
+            if not isinstance(expected_sha, str):
+                raise ValueError(f"{metadata_path}: file sha256 must be text")
+            actual_path = dataset_dir / relative_file
+            actual_sha = sha256_file(actual_path)
+            if actual_sha != expected_sha:
+                raise ValueError(
+                    f"{actual_path}: SHA-256 mismatch: expected {expected_sha}, got {actual_sha}"
+                )
+            file_records.append({
+                "path": relative_file,
+                "role": item.get("role"),
+                "format": item.get("format"),
+                "sha256": actual_sha,
+            })
+
+        file_records.sort(key=lambda item: item["path"])
+        records.append({
+            "id": dataset_id,
+            "path": f"datasets/{dataset_id}",
+            "files": file_records,
+        })
+
+    records.sort(key=lambda item: item["id"])
+    return records
+
+
+def catalog_record(root: Path, relative_path: str) -> dict[str, Any]:
+    """Return a catalog digest record."""
+
+    path = root / relative_path
+    catalog = load_json(path)
+    schema_version = catalog.get("schema_version")
+    if not isinstance(schema_version, int):
+        raise ValueError(f"{path}: catalog schema_version must be an integer")
+    return {
+        "path": relative_path,
+        "schema_version": schema_version,
+        "sha256": sha256_file(path),
+    }
+
+
+def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
+    """Build the deterministic snapshot manifest."""
+
+    validate_snapshot_tag(tag)
+    validate_commit(commit)
+    root = root.resolve()
+
+    schemas = {
+        layer: schema_record(root, layer, relative_path)
+        for layer, relative_path in sorted(SCHEMA_FILES.items())
+    }
+    return {
+        "manifest_version": 1,
+        "repository": REPOSITORY,
+        "tag": tag,
+        "commit": commit,
+        "catalogs": {
+            "canonical": catalog_record(root, "datasets/catalog.json"),
+            "external": catalog_record(root, "external/catalog.json"),
+        },
+        "metadata_schemas": schemas,
+        "canonical_datasets": canonical_dataset_records(root),
+    }
+
+
+def render_summary(manifest: dict[str, Any]) -> str:
+    """Render deterministic human-readable release material."""
+
+    datasets = manifest["canonical_datasets"]
+    file_count = sum(len(item["files"]) for item in datasets)
+    lines = [
+        f"# Registry snapshot {manifest['tag']}",
+        "",
+        f"- Repository: `{manifest['repository']}`",
+        f"- Commit: `{manifest['commit']}`",
+        f"- Canonical datasets: **{len(datasets)}**",
+        f"- Canonical data files: **{file_count}**",
+        "",
+        "## Catalog integrity",
+        "",
+        "| Catalog | Schema | SHA-256 |",
+        "| --- | ---: | --- |",
+    ]
+    for name in ("canonical", "external"):
+        record = manifest["catalogs"][name]
+        lines.append(
+            f"| {name} | {record['schema_version']} | `{record['sha256']}` |"
+        )
+
+    lines.extend([
+        "",
+        "## Metadata schemas",
+        "",
+        "| Layer | Version | SHA-256 |",
+        "| --- | ---: | --- |",
+    ])
+    for layer in ("canonical", "external", "legacy"):
+        record = manifest["metadata_schemas"][layer]
+        lines.append(
+            f"| {layer} | {record['schema_version']} | `{record['sha256']}` |"
+        )
+
+    lines.extend(["", "## Canonical datasets", ""])
+    if not datasets:
+        lines.append("No canonical datasets are registered in this snapshot.")
+    else:
+        for dataset in datasets:
+            lines.append(f"### `{dataset['id']}`")
+            lines.append("")
+            for item in dataset["files"]:
+                lines.append(f"- `{item['path']}` — `{item['sha256']}`")
+            lines.append("")
+
+    lines.extend([
+        "",
+        "This summary is generated from `snapshot-manifest.json` and contains no runtime timestamp.",
+        "The tag and exact commit above are the immutable release identity.",
+        "",
+    ])
+    return "\n".join(lines)
+
+
+def write_release_material(
+    root: Path,
+    *,
+    tag: str,
+    commit: str,
+    output_dir: Path,
+) -> tuple[Path, Path]:
+    """Write deterministic JSON and Markdown release material."""
+
+    manifest = build_manifest(root, tag=tag, commit=commit)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    manifest_path = output_dir / "snapshot-manifest.json"
+    summary_path = output_dir / "snapshot-summary.md"
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    summary_path.write_text(render_summary(manifest), encoding="utf-8")
+    return manifest_path, summary_path
+
+
+def parse_args() -> argparse.Namespace:
+    """Parse command-line arguments."""
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--root",
+        type=Path,
+        default=Path(__file__).resolve().parents[1],
+        help="Repository root.",
+    )
+    parser.add_argument("--tag", required=True)
+    parser.add_argument("--commit", required=True)
+    parser.add_argument("--output-dir", type=Path, required=True)
+    return parser.parse_args()
+
+
+def main() -> int:
+    """CLI entry point."""
+
+    args = parse_args()
+    try:
+        manifest_path, summary_path = write_release_material(
+            args.root,
+            tag=args.tag,
+            commit=args.commit,
+            output_dir=args.output_dir,
+        )
+    except (OSError, ValueError, KeyError, json.JSONDecodeError, yaml.YAMLError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+
+    print(f"Snapshot manifest: {manifest_path}")
+    print(f"Snapshot summary: {summary_path}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
