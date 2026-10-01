@@ -105,8 +105,8 @@ body:
     attributes:
       label: Does the source contain personal, sensitive, regulated, or access-restricted data?
       options:
-        - No
-        - Yes
+        - "No"
+        - "Yes"
         - Unsure
     validations:
       required: true
