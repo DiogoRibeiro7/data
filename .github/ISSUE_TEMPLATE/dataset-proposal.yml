@@ -26,10 +26,10 @@ body:
     id: proposed_id
     attributes:
       label: Proposed registry ID
-      description: Lowercase hyphenated slug if you already have one.
+      description: Optional lowercase hyphenated slug you suggest for this dataset. Leave blank if you are not sure.
       placeholder: example-dataset
     validations:
-      required: true
+      required: false
 
   - type: textarea
     id: purpose
@@ -92,8 +92,8 @@ body:
       label: Personal, sensitive, regulated, or restricted content
       description: Do not upload the data if the answer is Yes or Unsure.
       options:
-        - No
-        - Yes
+        - "No"
+        - "Yes"
         - Unsure
     validations:
       required: true
