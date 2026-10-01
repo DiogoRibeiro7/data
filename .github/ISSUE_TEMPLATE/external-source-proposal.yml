@@ -1,0 +1,124 @@
+name: External source proposal
+description: Propose an authoritative upstream source for registration under external/.
+title: "[Source]: "
+labels:
+  - documentation
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form when the authoritative publisher should remain the byte source.
+
+        An external record improves discoverability and provenance without mirroring upstream data.
+
+        Do **not** attach private, personal, confidential, regulated, credential-bearing, or restricted source data.
+
+  - type: input
+    id: source_name
+    attributes:
+      label: Source name
+      placeholder: Example Data Portal
+    validations:
+      required: true
+
+  - type: input
+    id: proposed_id
+    attributes:
+      label: Proposed registry ID
+      placeholder: example-data-portal
+    validations:
+      required: true
+
+  - type: textarea
+    id: value
+    attributes:
+      label: What the source provides
+      description: Describe the datasets, domain, and why the source is reusable across projects.
+    validations:
+      required: true
+
+  - type: input
+    id: publisher
+    attributes:
+      label: Publisher or maintainer
+      placeholder: Institution, agency, research group, or author
+    validations:
+      required: true
+
+  - type: input
+    id: source_url
+    attributes:
+      label: Canonical source URL
+      placeholder: https://example.org/data
+    validations:
+      required: true
+
+  - type: input
+    id: versioning
+    attributes:
+      label: Stable versioning or snapshot mechanism
+      description: DOI, releases, commits, dated downloads, API version, or "none".
+      placeholder: DOI, release tag, commit SHA, retrieval date
+    validations:
+      required: true
+
+  - type: input
+    id: license
+    attributes:
+      label: Licence or terms
+      description: Give the licence/terms and canonical URL, or state that it is unresolved.
+      placeholder: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
+    validations:
+      required: true
+
+  - type: dropdown
+    id: redistribution
+    attributes:
+      label: Redistribution policy
+      options:
+        - Allowed
+        - Allowed with attribution / conditions
+        - Dataset-specific
+        - Restricted
+        - Unknown / unresolved
+    validations:
+      required: true
+
+  - type: textarea
+    id: why_external
+    attributes:
+      label: Why should the bytes remain upstream?
+      description: Examples include authoritative mutable API, large files, provider-specific terms, or project-specific snapshots.
+    validations:
+      required: true
+
+  - type: textarea
+    id: consumers
+    attributes:
+      label: Known or intended consumers
+      description: List repositories or workflows that use or may use this source.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: sensitivity
+    attributes:
+      label: Does the source contain personal, sensitive, regulated, or access-restricted data?
+      options:
+        - No
+        - Yes
+        - Unsure
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Proposal confirmations
+      options:
+        - label: I have not attached or committed source data as part of this proposal.
+          required: true
+        - label: I have not included credentials, tokens, private download links, or confidential access details.
+          required: true
+        - label: I understand that documenting a source does not grant redistribution rights to its data.
+          required: true
