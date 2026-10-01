@@ -21,7 +21,7 @@ For changes involving data or source metadata:
 - [ ] Redistribution status is explicit.
 - [ ] Repository licensing does not overwrite upstream data terms.
 - [ ] No credentials, secrets, private download URLs, or confidential access details are committed.
-- [ ] No private, personal, sensitive, regulated, or restricted data is committed without an explicit approved publication basis.
+- [ ] No private, personal, confidential, credential-bearing, or redistribution-restricted data is committed; sensitive or regulated data has an explicit approved publication basis.
 
 For canonical stored data:
 
@@ -33,6 +33,13 @@ For canonical stored data:
 - [ ] Large-file policy has been reviewed where applicable.
 
 ## Generated artifacts
+
+Regenerate when the corresponding metadata changes:
+
+```bash
+python scripts/validate_repository.py --write-catalog
+python scripts/generate_external_catalog.py --write
+```
 
 - [ ] `datasets/catalog.json` and `datasets/CATALOG.md` were regenerated when canonical metadata changed.
 - [ ] `external/catalog.json` and `external/CATALOG.md` were regenerated when external metadata changed.
