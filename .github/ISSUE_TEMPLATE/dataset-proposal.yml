@@ -1,0 +1,163 @@
+name: Canonical dataset proposal
+description: Propose a dataset for possible storage under datasets/.
+title: "[Dataset]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form **before committing dataset bytes**.
+
+        The review will decide whether the proposal belongs in the canonical registry, should be represented as an external source, should remain project-local, or should not be added.
+
+        Do **not** attach or paste private, personal, confidential, regulated, credential-bearing, or redistribution-restricted data into this issue.
+
+  - type: input
+    id: dataset_name
+    attributes:
+      label: Dataset name
+      description: Human-readable dataset name.
+      placeholder: Example dataset
+    validations:
+      required: true
+
+  - type: input
+    id: proposed_id
+    attributes:
+      label: Proposed registry ID
+      description: Lowercase hyphenated slug if you already have one.
+      placeholder: example-dataset
+    validations:
+      required: true
+
+  - type: textarea
+    id: purpose
+    attributes:
+      label: Purpose and reusable value
+      description: Explain what the dataset contains, why it belongs in a shared registry, and what questions it supports.
+    validations:
+      required: true
+
+  - type: input
+    id: publisher
+    attributes:
+      label: Upstream publisher or author
+      placeholder: Institution, agency, research group, or author
+    validations:
+      required: true
+
+  - type: input
+    id: source_url
+    attributes:
+      label: Canonical source URL
+      description: Prefer the publisher's landing page, repository, DOI, or official download page.
+      placeholder: https://example.org/dataset
+    validations:
+      required: true
+
+  - type: input
+    id: snapshot
+    attributes:
+      label: Snapshot, version, or retrieval date
+      description: Identify the exact upstream release, commit, edition, coverage date, or retrieval date if known.
+      placeholder: "2026-09-30, v2.1, or commit SHA"
+    validations:
+      required: true
+
+  - type: input
+    id: license
+    attributes:
+      label: Licence or terms
+      description: Give the licence/terms name and a canonical URL. Write "unknown" only if unresolved.
+      placeholder: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
+    validations:
+      required: true
+
+  - type: dropdown
+    id: redistribution
+    attributes:
+      label: Redistribution status
+      description: Canonical stored bytes require explicit redistribution permission.
+      options:
+        - Allowed
+        - Restricted
+        - Unknown / not yet verified
+    validations:
+      required: true
+
+  - type: dropdown
+    id: sensitivity
+    attributes:
+      label: Personal, sensitive, regulated, or restricted content
+      description: Do not upload the data if the answer is Yes or Unsure.
+      options:
+        - No
+        - Yes
+        - Unsure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: role
+    attributes:
+      label: Data role
+      options:
+        - Raw upstream snapshot
+        - Derived reusable dataset
+        - Mixed raw and derived files
+    validations:
+      required: true
+
+  - type: input
+    id: formats
+    attributes:
+      label: File formats
+      placeholder: CSV, Parquet, JSON, XLSX
+    validations:
+      required: true
+
+  - type: input
+    id: size
+    attributes:
+      label: Expected total size
+      description: Give an approximate compressed/uncompressed size if known.
+      placeholder: 12 MiB
+    validations:
+      required: true
+
+  - type: textarea
+    id: derivation
+    attributes:
+      label: Derivation and lineage
+      description: For derived data, identify inputs, transformation code/method, parameters, and version. Write "not applicable" for raw-only proposals.
+    validations:
+      required: true
+
+  - type: textarea
+    id: consumers
+    attributes:
+      label: Intended consumers
+      description: List repositories, analyses, courses, or workflows expected to use the dataset.
+    validations:
+      required: true
+
+  - type: textarea
+    id: checks
+    attributes:
+      label: Existing provenance or integrity evidence
+      description: Include known checksums, DOI, source commit, citation, schema documentation, or other evidence. Do not paste dataset contents.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Proposal confirmations
+      options:
+        - label: I have not attached or committed private, personal, confidential, regulated, credential-bearing, or unverified restricted data.
+          required: true
+        - label: I understand that canonical storage will not be approved until redistribution rights and provenance are verified.
+          required: true
+        - label: I understand that the review may decide this should be an external-source record or remain project-local instead.
+          required: true
