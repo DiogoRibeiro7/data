@@ -240,7 +240,7 @@ class ValidatorTests(unittest.TestCase):
         path = self.fixture.add_legacy("legacy-data")
         self.fixture.write_catalogs()
         path.write_bytes(b"changed\n")
-        self.assertTrue(any("git_blob_sha does not match file" in msg for msg in self.errors()))
+        self.assertTrue(any("git_blob_sha does not match stored Git blob" in msg for msg in self.errors()))
 
     def test_stale_catalog_fails(self) -> None:
         self.fixture.write_catalogs()
