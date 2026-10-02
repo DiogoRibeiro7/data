@@ -52,6 +52,7 @@ nav:
       - Schemas: SCHEMAS.md
       - Migration: MIGRATION.md
       - Releases: RELEASES.md
+      - Citation: CITATION.md
       - Contributing: CONTRIBUTING.md
   - Migration audits:
       - External source audit: migrations/EXTERNAL_SOURCE_AUDIT_2026-10-01.md
