@@ -138,6 +138,10 @@ Dataset snapshots are immutable. Consumers pin commits and checksums; repository
 
 See [Release and snapshot policy](docs/RELEASES.md).
 
+## Citation
+
+Use the repository-level [`CITATION.cff`](CITATION.cff) for the registry tooling, and see [Citation guidance](docs/CITATION.md) for snapshot citations and upstream dataset attribution.
+
 ## Licensing
 
 This repository contains material under different licensing regimes.
