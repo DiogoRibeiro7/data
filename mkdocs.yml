@@ -47,6 +47,7 @@ nav:
       - Consumers: CONSUMERS.md
   - Governance:
       - Data policy: DATA_POLICY.md
+  - External source health: EXTERNAL_HEALTH.md
       - Metadata: METADATA.md
       - Schemas: SCHEMAS.md
       - Migration: MIGRATION.md
