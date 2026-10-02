@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: >-
+  If you use the registry tooling, cite this repository. If you use a published
+  registry snapshot, also cite the exact snapshot tag and commit as documented
+  in docs/CITATION.md. Always cite upstream datasets separately when required.
+type: software
+title: "Data Registry"
+abstract: >-
+  Provenance-first research dataset registry and reproducibility tooling for
+  canonical datasets, external source records, immutable snapshot manifests,
+  and legacy data quarantine.
+authors:
+  - family-names: "Ribeiro"
+    given-names: "Diogo"
+repository-code: "https://github.com/DiogoRibeiro7/data"
+url: "https://diogoribeiro7.github.io/data/"
+license: "MIT"
+keywords:
+  - "data registry"
+  - "research data"
+  - "data provenance"
+  - "reproducibility"
+  - "metadata"
