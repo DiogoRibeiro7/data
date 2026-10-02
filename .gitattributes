@@ -11,6 +11,9 @@
 *.py text eol=lf
 *.toml text eol=lf
 
+# Legacy quarantine preserves original source bytes exactly, including line endings.
+legacy/**/raw/** -text
+
 # Common binary data/archive formats.
 *.xlsx -text
 *.xls -text
