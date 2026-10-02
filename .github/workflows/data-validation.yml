@@ -12,14 +12,17 @@ on:
       - "scripts/generate_external_catalog.py"
       - "scripts/registry.py"
       - "scripts/create_snapshot.py"
+      - "scripts/check_external_sources.py"
       - "tests/test_validate_repository.py"
       - "tests/test_fetch_dataset.py"
       - "tests/test_external_catalog.py"
       - "tests/test_registry.py"
       - "tests/test_snapshot.py"
+      - "tests/test_external_health.py"
       - "requirements-dev.txt"
       - ".github/workflows/data-validation.yml"
       - ".github/workflows/snapshot-release.yml"
+      - ".github/workflows/external-source-health.yml"
   push:
     branches:
       - main
@@ -33,14 +36,17 @@ on:
       - "scripts/generate_external_catalog.py"
       - "scripts/registry.py"
       - "scripts/create_snapshot.py"
+      - "scripts/check_external_sources.py"
       - "tests/test_validate_repository.py"
       - "tests/test_fetch_dataset.py"
       - "tests/test_external_catalog.py"
       - "tests/test_registry.py"
       - "tests/test_snapshot.py"
+      - "tests/test_external_health.py"
       - "requirements-dev.txt"
       - ".github/workflows/data-validation.yml"
       - ".github/workflows/snapshot-release.yml"
+      - ".github/workflows/external-source-health.yml"
 
 permissions:
   contents: read
