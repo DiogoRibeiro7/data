@@ -1,0 +1,68 @@
+name: External source health
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Monthly is deliberate: provenance/licence drift is important, but these
+    # authoritative sources do not need high-frequency polling.
+    - cron: "17 7 1 * *"
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install checker dependencies
+        run: python -m pip install -r requirements-dev.txt
+
+      - name: Run external source checks
+        run: |
+          python scripts/check_external_sources.py \
+            --json-report external-health/report.json \
+            --markdown-report external-health/report.md
+
+      - name: Add report to workflow summary
+        shell: bash
+        run: cat external-health/report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload health report
+        uses: actions/upload-artifact@v7
+        with:
+          name: external-source-health
+          path: external-health/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Fail only on actionable drift
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          report = json.loads(Path("external-health/report.json").read_text(encoding="utf-8"))
+          drift = int(report["summary"]["drift"])
+          warnings = int(report["summary"]["warning"])
+
+          print(f"transient warnings: {warnings}")
+          print(f"actionable drift: {drift}")
+
+          if drift:
+              raise SystemExit(
+                  "Actionable external-source drift detected. Review the uploaded report."
+              )
+          PY
