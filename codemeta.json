@@ -1,0 +1,28 @@
+{
+  "@context": "https://w3id.org/codemeta/3.1",
+  "@type": "SoftwareSourceCode",
+  "name": "Data Registry",
+  "description": "Provenance-first research dataset registry and reproducibility tooling for canonical datasets, external source records, immutable snapshot manifests, and legacy data quarantine.",
+  "codeRepository": "https://github.com/DiogoRibeiro7/data",
+  "url": "https://diogoribeiro7.github.io/data/",
+  "issueTracker": "https://github.com/DiogoRibeiro7/data/issues",
+  "license": "https://spdx.org/licenses/MIT.html",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Diogo",
+      "familyName": "Ribeiro"
+    }
+  ],
+  "programmingLanguage": [
+    "Python"
+  ],
+  "applicationCategory": "Research Data Management",
+  "keywords": [
+    "data registry",
+    "research data",
+    "data provenance",
+    "reproducibility",
+    "metadata"
+  ]
+}
