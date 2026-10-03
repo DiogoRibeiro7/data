@@ -90,3 +90,48 @@ material and derived model output, so the CSV is removed.
 The package remains in legacy as a single-source workbook with a concrete
 provenance/licensing blocker. No canonical or external promotion is justified
 yet.
+
+
+## portugal-population-2018
+
+**Decision: replace the local workbook with an external PORDATA/INE source record.**
+
+### Workbook evidence
+
+The removed `populacao_residente_2018.xlsx` workbook contains one sheet,
+`Planilha1`, with annual rows from 1970 through 2018.
+
+Its columns are:
+
+- total population;
+- five-year age groups from `0-04` through `80-84`;
+- `85 ou mais`.
+
+The 2018 row totals **10,276,617** residents.
+
+Office metadata records `OutSystemsApplications` as the creator, with the file
+created on **2020-05-14** and last modified by Diogo Ribeiro.
+
+The schema and values match the PORDATA resident-population table backed by INE
+annual estimates. PORDATA also documents OutSystems as part of its platform,
+which provides additional provenance evidence for the workbook export.
+
+### Consumer search
+
+Account-wide code search for `populacao_residente_2018.xlsx` found no
+maintained consumer outside `DiogoRibeiro7/data`.
+
+### Resolution
+
+The workbook is an application-generated export rather than a durable,
+immutable upstream artifact. Historical population estimates may also be
+revised over time.
+
+The local byte copy is therefore removed and replaced by:
+
+`external/pordata-portugal-resident-population/`
+
+Redistribution remains explicitly **unresolved** because the registry has not
+recovered terms that clearly authorize mirroring the historical Excel export.
+
+No canonical promotion is justified.

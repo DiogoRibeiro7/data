@@ -2,11 +2,10 @@
 
 This directory contains historical data that cannot yet be promoted to the canonical registry or replaced safely by an authoritative external source.
 
-After the 2026-10-03 re-audit, four packages remain:
+After the 2026-10-03 re-audit, three packages remain:
 
 - `country-age-sex-2019`
 - `portugal-covid19`
-- `portugal-population-2018`
 - `portugal-sico-mortality`
 
 Each remaining package has a concrete documented blocker. Legacy quarantine is not a staging area for new data.

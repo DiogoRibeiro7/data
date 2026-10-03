@@ -1,0 +1,9 @@
+schema_version: 1
+status: external-reference
+id: pordata-portugal-resident-population
+title: "Portugal resident population estimates by age group"
+publisher: "PORDATA / Fundação Francisco Manuel dos Santos (source data: INE)"
+source_url: "https://www.pordata.pt/Portugal/Populacao%2Bresidente%2B%2Bestimativas%2Ba%2B31%2Bde%2BDezembro%2Btotal%2Be%2Bpor%2Bgrupo%2Betario-7"
+redistribution: unresolved
+storage: public-secondary-source
+consumers: []
