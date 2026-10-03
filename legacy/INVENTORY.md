@@ -2,7 +2,7 @@
 
 ## Current state
 
-Resolution audit date: **2026-10-01**
+Resolution audit date: **2026-10-03**
 
 - Initial root data files inventoried: **37**
 - Initial unique Git blobs: **36**
@@ -16,7 +16,7 @@ Resolution audit date: **2026-10-01**
 
 | Package | Status | Resolution / blocker |
 | --- | --- | --- |
-| `country-age-sex-2019` | retained | Exact historical upstream revision and redistribution terms unresolved. |
+| `country-age-sex-2019` | retained | Re-audit strongly identifies UN WPP 2019 as the source family; exact historical download/export route and Portugal workbook/CSV lineage remain unresolved. |
 | `covid19-modeling` | removed | Mixed Kaggle/OWID/manual project inputs; no consumers; no coherent reusable dataset identity. |
 | `italy-covid19` | retained | Workbook source, snapshot identity, and redistribution terms unresolved. |
 | `jhu-covid19-time-series` | externalized | Five files traced by Git blob identity to JHU commit `dd07d05ff02d8aea12cab868e8a36c0e31cadf66`; replaced by `external/jhu-csse-covid19/`. |
