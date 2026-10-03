@@ -21,19 +21,18 @@
     "pinned_immutable_identity_sources": 3,
     "redistribution": {
       "resolved": 7,
-      "unresolved": 4
+      "unresolved": 5
     },
-    "source_count": 11
+    "source_count": 12
   },
   "legacy": {
-    "package_count": 4,
+    "package_count": 3,
     "packages": [
       "country-age-sex-2019",
       "portugal-covid19",
-      "portugal-population-2018",
       "portugal-sico-mortality"
     ],
-    "unresolved_package_count": 4
+    "unresolved_package_count": 3
   },
   "schema_version": 1,
   "snapshots": {
