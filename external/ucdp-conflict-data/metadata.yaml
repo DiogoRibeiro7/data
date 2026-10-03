@@ -7,6 +7,7 @@ source_url: "https://ucdp.uu.se/downloads/"
 license:
   name: "CC BY 4.0"
   url: "https://creativecommons.org/licenses/by/4.0/"
+redistribution: allowed
 storage: authoritative-upstream
 consumers:
   - displacement-risk-lab-dynamodb
