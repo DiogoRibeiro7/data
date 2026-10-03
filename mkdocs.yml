@@ -57,6 +57,7 @@ nav:
   - Migration audits:
       - External source audit: migrations/EXTERNAL_SOURCE_AUDIT_2026-10-01.md
       - Second canonical dataset decision: migrations/SECOND_CANONICAL_DATASET_2026-10-02.md
+      - Maize Bipolaris promotion: migrations/MAIZE_BIPOLARIS_PROMOTION_2026-10-03.md
       - Legacy resolution audit: migrations/LEGACY_RESOLUTION.md
       - Consumer audit: migrations/CONSUMER_AUDIT.md
       - Medium Blog audit: migrations/MEDIUM_BLOG_DATA.md
