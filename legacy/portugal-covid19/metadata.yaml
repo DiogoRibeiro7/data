@@ -1,10 +1,10 @@
 schema_version: 0
 status: legacy-quarantine
 id: portugal-covid19
-title: "Portugal COVID-19 legacy data"
+title: "Portugal COVID-19 MTSSS monitoring workbook"
 source:
-  publisher: unknown
-  url: null
+  publisher: "Gabinete de Estratégia e Planeamento (GEP) / MTSSS"
+  url: "https://www.dgcp.mtsss.gov.pt/analises-e-notas"
 license:
   name: unknown
   redistribution: unknown
@@ -13,7 +13,3 @@ files:
     path: "raw/Monitorizacao_COVID-19_MTSSS_27_maio_2020.xlsx"
     size_bytes: 91305
     git_blob_sha: 724f2a87714f883494231a838baecbb32adf5d4c
-  - original_path: "Portugal_ARS.csv"
-    path: "raw/Portugal_ARS.csv"
-    size_bytes: 24616
-    git_blob_sha: c3db9ebe0d9dcbc32098e12c313c27881c14a2be
