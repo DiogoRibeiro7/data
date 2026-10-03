@@ -694,7 +694,11 @@ def validate_consumers(
         for unexpected in sorted(
             path
             for path in consumer_dir.iterdir()
-            if path.is_file() and path.suffix.lower() == ".yml"
+            if (
+                path.is_file()
+                and path.suffix.lower() in {".yaml", ".yml"}
+                and path.suffix != ".yaml"
+            )
         ):
             problems.append(
                 Problem(
@@ -754,6 +758,17 @@ def validate_consumers(
             else:
                 seen_relationships[relationship] = record_path
 
+            expected_prefix = f"datasets/{dataset_id}/"
+            declared_path = metadata.get("path")
+            if not isinstance(declared_path, str) or not declared_path.startswith(expected_prefix):
+                problems.append(
+                    Problem(
+                        "error",
+                        f"{record_path}: path must belong to canonical dataset '{dataset_id}'",
+                    )
+                )
+                continue
+
             if metadata.get("status") == "deprecated":
                 continue
 
@@ -763,17 +778,6 @@ def validate_consumers(
                     Problem(
                         "error",
                         f"{record_path}: canonical dataset '{dataset_id}' does not exist",
-                    )
-                )
-                continue
-
-            expected_prefix = f"datasets/{dataset_id}/"
-            declared_path = metadata.get("path")
-            if not isinstance(declared_path, str) or not declared_path.startswith(expected_prefix):
-                problems.append(
-                    Problem(
-                        "error",
-                        f"{record_path}: path must belong to canonical dataset '{dataset_id}'",
                     )
                 )
                 continue
