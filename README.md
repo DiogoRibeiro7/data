@@ -13,6 +13,7 @@ The repository separates **canonical datasets**, **external source records**, an
 ```text
 datasets/   canonical datasets that satisfy the repository contract
 external/   reusable upstream sources whose bytes are not mirrored here
+consumers/  downstream dependencies on canonical registry files
 legacy/     historical files awaiting or failing canonical promotion
 docs/       policy, metadata, migration, and consumer documentation
 templates/  metadata and consumer-reference templates
@@ -53,6 +54,14 @@ Browse:
 
 - [external source catalog](external/CATALOG.md)
 - [machine-readable external catalog](external/catalog.json)
+
+### Consumer relationships
+
+[`consumers/`](consumers/) records downstream repositories that depend on canonical dataset
+files. Each relationship pins an exact registry commit, canonical path, and SHA-256 and is
+validated against canonical metadata offline.
+
+See [Consuming canonical datasets](docs/CONSUMERS.md) for the contract.
 
 ### Legacy quarantine
 
