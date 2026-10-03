@@ -16,6 +16,17 @@
       "path": "external/berkeley-earth-temperature"
     },
     {
+      "id": "dgs-infoclique-mortality",
+      "title": "DGS InfoClique mortality platform",
+      "publisher": "Direção-Geral da Saúde (DGS)",
+      "source_url": "https://www.dgs.pt/servicos-on-line1.aspx",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [],
+      "path": "external/dgs-infoclique-mortality"
+    },
+    {
       "id": "fred-economic-data",
       "title": "FRED economic data",
       "publisher": "Federal Reserve Bank of St. Louis",
