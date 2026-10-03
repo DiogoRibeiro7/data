@@ -2,6 +2,28 @@
   "schema_version": 1,
   "datasets": [
     {
+      "id": "maize-bipolaris-disease-progress",
+      "title": "Maize Bipolaris disease-progress data",
+      "description": "Multi-environment southern corn leaf blight disease-progress observations for maize hybrids, accompanying Del Ponte (2026).\n",
+      "domain": [
+        "agriculture",
+        "plant-pathology",
+        "disease-progress",
+        "time-series"
+      ],
+      "snapshot": "paper-hgam-curves commit d793d54c17ad404df2f6618d2681c993fcf144cf / maize_bipolaris.csv / Git blob 433a2d1c37ba4f6069d04d8ffc9f7916f0a8adc3",
+      "source": {
+        "publisher": "Emerson M. Del Ponte / paper-hgam-curves repository",
+        "url": "https://github.com/emdelponte/paper-hgam-curves/blob/d793d54c17ad404df2f6618d2681c993fcf144cf/maize_bipolaris.csv"
+      },
+      "license": {
+        "name": "MIT",
+        "url": "https://github.com/emdelponte/paper-hgam-curves/blob/d793d54c17ad404df2f6618d2681c993fcf144cf/LICENSE",
+        "redistribution": "allowed"
+      },
+      "path": "datasets/maize-bipolaris-disease-progress"
+    },
+    {
       "id": "online-retail-ii",
       "title": "Online Retail II",
       "description": "Two years of transactions from a UK-based non-store online retailer, covering 1 December 2009 through 9 December 2011.\n",
