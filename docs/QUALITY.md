@@ -8,7 +8,7 @@ is currently resolved, verifiable, and reusable?**
 
 ## Outputs
 
-- [Human-readable report](../reports/registry-quality.md)
+- [Human-readable report](generated/registry-quality.md)
 - `reports/registry-quality.json` for machine-readable use
 
 Generate the reports with:
