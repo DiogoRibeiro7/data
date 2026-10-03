@@ -39,12 +39,12 @@ The table below is preserved as the original root-to-legacy migration record. Pa
 | Original root path | Group | Size | Git blob SHA | Status | New path / note |
 | --- | --- | ---: | --- | --- | --- |
 | `China-2019.csv` | country-age-sex-2019 | 512 | `98adad73ae93f73cbea8756585e21d3203c6999e` | moved | legacy/country-age-sex-2019/raw/China-2019.csv |
-| `Dados_SICO_2020-05-31_2015.csv` | portugal-sico-mortality | 12542 | `655bc761d947a4c2eb17b8872bec0f2fe0adb327` | moved | legacy/portugal-sico-mortality/raw/Dados_SICO_2020-05-31_2015.csv |
-| `Dados_SICO_2020-05-31_2016.csv` | portugal-sico-mortality | 12576 | `f9369884e7f653ad2d4dfcd8dfb2c49757bdf608` | moved | legacy/portugal-sico-mortality/raw/Dados_SICO_2020-05-31_2016.csv |
-| `Dados_SICO_2020-05-31_2017.csv` | portugal-sico-mortality | 12542 | `48f107c194f74a232c2af457d365f2a3d224f848` | moved | legacy/portugal-sico-mortality/raw/Dados_SICO_2020-05-31_2017.csv |
-| `Dados_SICO_2020-05-31_2018.csv` | portugal-sico-mortality | 12542 | `38cf14e5f557ee722d6a54058d35dc976146e5a1` | moved | legacy/portugal-sico-mortality/raw/Dados_SICO_2020-05-31_2018.csv |
-| `Dados_SICO_2020-05-31_2019.csv` | portugal-sico-mortality | 12542 | `c589a69e26e9482644d4e00377c201518a918dc8` | moved | legacy/portugal-sico-mortality/raw/Dados_SICO_2020-05-31_2019.csv |
-| `Dados_SICO_2020-05-31_2020.csv` | portugal-sico-mortality | 5640 | `ae96b27a51958c76e4978446558737377d387d5f` | moved | legacy/portugal-sico-mortality/raw/Dados_SICO_2020-05-31_2020.csv |
+| `Dados_SICO_2020-05-31_2015.csv` | portugal-sico-mortality | 12542 | `655bc761d947a4c2eb17b8872bec0f2fe0adb327` | removed | historical export superseded by source record `external/dgs-infoclique-mortality/` |
+| `Dados_SICO_2020-05-31_2016.csv` | portugal-sico-mortality | 12576 | `f9369884e7f653ad2d4dfcd8dfb2c49757bdf608` | removed | historical export superseded by source record `external/dgs-infoclique-mortality/` |
+| `Dados_SICO_2020-05-31_2017.csv` | portugal-sico-mortality | 12542 | `48f107c194f74a232c2af457d365f2a3d224f848` | removed | historical export superseded by source record `external/dgs-infoclique-mortality/` |
+| `Dados_SICO_2020-05-31_2018.csv` | portugal-sico-mortality | 12542 | `38cf14e5f557ee722d6a54058d35dc976146e5a1` | removed | historical export superseded by source record `external/dgs-infoclique-mortality/` |
+| `Dados_SICO_2020-05-31_2019.csv` | portugal-sico-mortality | 12542 | `c589a69e26e9482644d4e00377c201518a918dc8` | removed | historical export superseded by source record `external/dgs-infoclique-mortality/` |
+| `Dados_SICO_2020-05-31_2020.csv` | portugal-sico-mortality | 5640 | `ae96b27a51958c76e4978446558737377d387d5f` | removed | historical export superseded by source record `external/dgs-infoclique-mortality/` |
 | `Dataset_Italy_COVID_19.xlsx` | italy-covid19 | 12339 | `43460f5601b3b0c4993526ed3c53bb25339fa3e8` | removed | derived research helper; no current consumer; source links point to Italian Government/AIFA pages |
 | `Denmark-2019.csv` | country-age-sex-2019 | 430 | `2387fffb7300c76f236f42d75b137678152d1abe` | moved | legacy/country-age-sex-2019/raw/Denmark-2019.csv |
 | `France-2019.csv` | country-age-sex-2019 | 473 | `25596c84036ffa63be16b0ed3b79c7a05cefe7d1` | moved | legacy/country-age-sex-2019/raw/France-2019.csv |
