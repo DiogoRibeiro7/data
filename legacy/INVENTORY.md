@@ -20,7 +20,7 @@ Resolution audit date: **2026-10-03**
 | `covid19-modeling` | removed | Mixed Kaggle/OWID/manual project inputs; no consumers; no coherent reusable dataset identity. |
 | `italy-covid19` | removed | Re-audit identified a hand-assembled research helper table authored by Marco Ferrante from public Italian Government/AIFA sources; no consumers; not a reusable authoritative dataset. |
 | `jhu-covid19-time-series` | externalized | Five files traced by Git blob identity to JHU commit `dd07d05ff02d8aea12cab868e8a36c0e31cadf66`; replaced by `external/jhu-csse-covid19/`. |
-| `portugal-covid19` | retained | MTSSS workbook source family recovered, but package includes an unattributed derived ARS estimate table. |
+| `portugal-covid19` | retained | Re-audit narrows package to the 27 May 2020 GEP/MTSSS monitoring workbook; orphaned `Portugal_ARS.csv` model output removed; exact historical workbook URL and redistribution terms remain unresolved. |
 | `portugal-population-2018` | retained | Exact publisher/export route and terms unresolved. |
 | `portugal-sico-mortality` | retained | DGS/SICO source family identified; exact export route and redistribution terms unresolved. |
 | `r-example-datasets` | externalized | Built-in R datasets; redundant CSV serializations removed; replaced by `external/r-base-example-datasets/`. |
@@ -58,7 +58,7 @@ The table below is preserved as the original root-to-legacy migration record. Pa
 | `Netherlands-2019.csv` | country-age-sex-2019 | 434 | `5432e18b05c27aa320242e27af25c22854c1c066` | moved | legacy/country-age-sex-2019/raw/Netherlands-2019.csv |
 | `PlantGrowth.csv` | r-example-datasets | 518 | `b01e3601e569bf7e1ccbabbb3957b873f6c0446e` | moved | legacy/r-example-datasets/raw/PlantGrowth.csv |
 | `populacao_residente_2018.xlsx` | portugal-population-2018 | 16882 | `8997eb72cc474f6379f9e40cf4618feb130c8557` | moved | legacy/portugal-population-2018/raw/populacao_residente_2018.xlsx |
-| `Portugal_ARS.csv` | portugal-covid19 | 24616 | `c3db9ebe0d9dcbc32098e12c313c27881c14a2be` | moved | legacy/portugal-covid19/raw/Portugal_ARS.csv |
+| `Portugal_ARS.csv` | portugal-covid19 | 24616 | `c3db9ebe0d9dcbc32098e12c313c27881c14a2be` | removed | orphaned statistical model output; no maintained consumer or generating code recovered |
 | `Portugal-2019_1.csv` | country-age-sex-2019 | 434 | `1569acc9bd03c9e0c62d47ee82a951377a473edf` | moved | legacy/country-age-sex-2019/raw/Portugal-2019_1.csv |
 | `Portugal-2019.csv` | country-age-sex-2019 | 231 | `fcf0ba9f7ba94f3fb7810ae2bd1bbceecc1b4ae5` | moved | legacy/country-age-sex-2019/raw/Portugal-2019.csv |
 | `Portugal-2019.xlsx` | country-age-sex-2019 | 8599 | `c30b196cabd57e19700fc991d7e488e21b035d15` | moved | legacy/country-age-sex-2019/raw/Portugal-2019.xlsx |
