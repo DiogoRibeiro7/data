@@ -1,9 +1,9 @@
 {
   "canonical": {
-    "complete_license_datasets": 1,
-    "dataset_count": 1,
-    "file_count": 1,
-    "verified_checksum_files": 1
+    "complete_license_datasets": 2,
+    "dataset_count": 2,
+    "file_count": 2,
+    "verified_checksum_files": 2
   },
   "catalogs": {
     "canonical_current": true,
