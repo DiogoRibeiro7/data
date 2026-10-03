@@ -2,7 +2,7 @@
 
 A project should consume a canonical dataset only after that dataset has been promoted under `datasets/<slug>/`.
 
-At present the canonical catalog is empty. This document defines the contract for future consumers.
+This document defines both the downstream reproducibility contract and the central registry record used to describe canonical consumers.
 
 ## Reproducibility contract
 
@@ -15,9 +15,25 @@ Every consumer must pin all four values:
 
 Do not fetch data from an unpinned `main`, `master`, branch, or floating raw URL.
 
+## Central consumer registry
+
+Canonical consumer relationships are recorded centrally under:
+
+```text
+consumers/<consumer-id>/<dataset-id>.yaml
+```
+
+Each record pins the exact registry commit, canonical path, and SHA-256, and identifies the
+downstream repository plus evidence of the migration. The central record is validated offline
+against canonical metadata.
+
+No real consumer records are added as part of the schema introduction; Phase 5 issue #69
+performs the first backfill.
+
 ## Reference manifest
 
-Copy `templates/consumer-dataset.yaml` into the consuming project and fill in the canonical values.
+`templates/consumer-dataset.yaml` now mirrors the formal consumer-record schema. It can be used
+as a starting point when adding a central consumer relationship.
 
 ## Reference fetch helper
 
@@ -57,12 +73,12 @@ Only remove a project's old full dataset copy after:
 
 A project may deliberately retain a full immutable snapshot when offline scientific reproducibility or packaging requires it. Document why it exists and verify its identity instead of deleting it mechanically.
 
-## Current consumer audit
+## Historical consumer audit
 
-As of 2026-09-30:
+As of 2026-09-30, before canonical promotion:
 
 - `datasets/catalog.json` contains zero canonical datasets;
 - account-wide GitHub code search found no exact consumer URL for `DiogoRibeiro7/data`;
 - therefore there are no consumer repositories to migrate in issue #7.
 
-The first real consumer migration should happen when the first dataset is promoted into `datasets/`.
+This historical audit predates the completed canonical migrations and is retained only as migration context. Current consumer state will be represented by the Phase 5 consumer registry.

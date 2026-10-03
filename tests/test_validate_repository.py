@@ -156,6 +156,48 @@ class RepositoryFixture:
         )
         return file_path
 
+    def add_consumer(
+        self,
+        consumer_id: str,
+        dataset_id: str,
+        *,
+        record_dataset_id: str | None = None,
+        filename: str | None = None,
+        path: str | None = None,
+        sha256: str | None = None,
+        registry_commit: str = "a" * 40,
+        consumer_id_value: str | None = None,
+    ) -> Path:
+        """Add one canonical consumer relationship record."""
+
+        dataset_metadata_path = self.root / "datasets" / dataset_id / "metadata.yaml"
+        dataset_metadata = yaml.safe_load(dataset_metadata_path.read_text(encoding="utf-8"))
+        canonical_file = dataset_metadata["files"][0]
+        resolved_dataset_id = record_dataset_id or dataset_id
+
+        consumer_dir = self.root / "consumers" / consumer_id
+        consumer_dir.mkdir(parents=True, exist_ok=True)
+        record_path = consumer_dir / (filename or f"{resolved_dataset_id}.yaml")
+
+        metadata: dict[str, Any] = {
+            "schema_version": 1,
+            "status": "active",
+            "consumer_id": consumer_id_value or consumer_id,
+            "consumer_repository": f"DiogoRibeiro7/{consumer_id}",
+            "dataset_id": resolved_dataset_id,
+            "registry_layer": "canonical",
+            "registry_repository": "DiogoRibeiro7/data",
+            "registry_commit": registry_commit,
+            "path": path or f"datasets/{dataset_id}/{canonical_file['path']}",
+            "sha256": sha256 or canonical_file["sha256"],
+            "consumer_commit": "b" * 40,
+        }
+        record_path.write_text(
+            yaml.safe_dump(metadata, sort_keys=False),
+            encoding="utf-8",
+        )
+        return record_path
+
 
 class ValidatorTests(unittest.TestCase):
     """Exercise core repository invariants."""
@@ -246,6 +288,77 @@ class ValidatorTests(unittest.TestCase):
         self.fixture.write_catalogs()
         self.fixture.add_canonical("new-dataset")
         self.assertTrue(any("catalog is stale" in msg for msg in self.errors()))
+
+    def test_valid_consumer_relationship_is_accepted(self) -> None:
+        self.fixture.add_canonical("example-dataset")
+        self.fixture.add_consumer("example-consumer", "example-dataset")
+        self.fixture.write_catalogs()
+        self.assertEqual(self.errors(), [])
+
+    def test_consumer_schema_rejects_floating_registry_ref(self) -> None:
+        self.fixture.add_canonical("example-dataset")
+        self.fixture.add_consumer(
+            "example-consumer",
+            "example-dataset",
+            registry_commit="main",
+        )
+        self.assertTrue(
+            any(
+                "schema violation" in msg and "registry_commit" in msg
+                for msg in self.errors()
+            )
+        )
+
+    def test_consumer_missing_canonical_dataset_fails(self) -> None:
+        self.fixture.add_canonical("example-dataset")
+        self.fixture.add_consumer(
+            "example-consumer",
+            "example-dataset",
+            record_dataset_id="missing-dataset",
+        )
+        self.assertTrue(
+            any(
+                "canonical dataset 'missing-dataset' does not exist" in msg
+                for msg in self.errors()
+            )
+        )
+
+    def test_consumer_path_must_match_dataset(self) -> None:
+        self.fixture.add_canonical("example-dataset")
+        self.fixture.add_consumer(
+            "example-consumer",
+            "example-dataset",
+            path="datasets/other-dataset/raw/example.csv",
+        )
+        self.assertTrue(
+            any("path must belong to canonical dataset" in msg for msg in self.errors())
+        )
+
+    def test_consumer_checksum_must_match_canonical_metadata(self) -> None:
+        self.fixture.add_canonical("example-dataset")
+        self.fixture.add_consumer(
+            "example-consumer",
+            "example-dataset",
+            sha256="0" * 64,
+        )
+        self.assertTrue(
+            any(
+                "sha256 does not match canonical dataset metadata" in msg
+                for msg in self.errors()
+            )
+        )
+
+    def test_consumer_identity_must_match_directory_and_filename(self) -> None:
+        self.fixture.add_canonical("example-dataset")
+        self.fixture.add_consumer(
+            "example-consumer",
+            "example-dataset",
+            consumer_id_value="other-consumer",
+            filename="wrong-name.yaml",
+        )
+        errors = self.errors()
+        self.assertTrue(any("consumer_id must match directory" in msg for msg in errors))
+        self.assertTrue(any("filename must be 'example-dataset.yaml'" in msg for msg in errors))
 
     def test_broken_dataset_link_fails(self) -> None:
         self.fixture.write_catalogs()

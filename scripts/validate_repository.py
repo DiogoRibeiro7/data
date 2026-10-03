@@ -641,6 +641,130 @@ def validate_external(root: Path, problems: list[Problem]) -> None:
                 seen_ids[source_id] = metadata_path
 
 
+
+def validate_consumers(
+    root: Path,
+    canonical_metadata: dict[str, dict[str, Any]],
+    problems: list[Problem],
+) -> None:
+    """Validate canonical consumer relationship records offline."""
+
+    consumers_root = root / "consumers"
+    if not consumers_root.is_dir():
+        return
+
+    seen_relationships: dict[tuple[str, str], Path] = {}
+
+    for consumer_dir in sorted(path for path in consumers_root.iterdir() if path.is_dir()):
+        consumer_id = consumer_dir.name
+        if not SLUG_RE.fullmatch(consumer_id):
+            problems.append(Problem("error", f"{consumer_dir}: invalid consumer slug"))
+            continue
+
+        for record_path in sorted(consumer_dir.glob("*.yaml")):
+            metadata = load_yaml(record_path, problems)
+            if metadata is None:
+                continue
+
+            validate_schema(
+                metadata,
+                "consumer-metadata-v1.schema.json",
+                record_path,
+                problems,
+            )
+
+            if metadata.get("schema_version") != 1:
+                problems.append(
+                    Problem("error", f"{record_path}: consumer schema_version must be 1")
+                )
+
+            if metadata.get("consumer_id") != consumer_id:
+                problems.append(
+                    Problem(
+                        "error",
+                        f"{record_path}: consumer_id must match directory '{consumer_id}'",
+                    )
+                )
+
+            dataset_id = metadata.get("dataset_id")
+            if not isinstance(dataset_id, str) or not dataset_id:
+                continue
+
+            expected_filename = f"{dataset_id}.yaml"
+            if record_path.name != expected_filename:
+                problems.append(
+                    Problem(
+                        "error",
+                        f"{record_path}: filename must be '{expected_filename}'",
+                    )
+                )
+
+            relationship = (consumer_id, dataset_id)
+            previous = seen_relationships.get(relationship)
+            if previous is not None:
+                problems.append(
+                    Problem(
+                        "error",
+                        f"{record_path}: duplicate consumer/dataset relationship also "
+                        f"declared by {previous}",
+                    )
+                )
+            else:
+                seen_relationships[relationship] = record_path
+
+            dataset_metadata = canonical_metadata.get(dataset_id)
+            if dataset_metadata is None:
+                problems.append(
+                    Problem(
+                        "error",
+                        f"{record_path}: canonical dataset '{dataset_id}' does not exist",
+                    )
+                )
+                continue
+
+            expected_prefix = f"datasets/{dataset_id}/"
+            declared_path = metadata.get("path")
+            if not isinstance(declared_path, str) or not declared_path.startswith(expected_prefix):
+                problems.append(
+                    Problem(
+                        "error",
+                        f"{record_path}: path must belong to canonical dataset '{dataset_id}'",
+                    )
+                )
+                continue
+
+            relative_path = declared_path[len(expected_prefix):]
+            files = dataset_metadata.get("files")
+            canonical_file = None
+            if isinstance(files, list):
+                canonical_file = next(
+                    (
+                        item
+                        for item in files
+                        if isinstance(item, dict) and item.get("path") == relative_path
+                    ),
+                    None,
+                )
+
+            if canonical_file is None:
+                problems.append(
+                    Problem(
+                        "error",
+                        f"{record_path}: path is not declared by canonical dataset metadata",
+                    )
+                )
+                continue
+
+            expected_sha = canonical_file.get("sha256")
+            if metadata.get("sha256") != expected_sha:
+                problems.append(
+                    Problem(
+                        "error",
+                        f"{record_path}: sha256 does not match canonical dataset metadata",
+                    )
+                )
+
+
 def build_catalog_entry(metadata: dict[str, Any]) -> dict[str, Any]:
     """Build a stable catalog entry from canonical metadata."""
 
@@ -774,6 +898,13 @@ def validate_repository(root: Path, *, write_catalog: bool = False) -> list[Prob
             data_files.extend(canonical_files)
             if metadata is not None:
                 metadata_items.append(metadata)
+
+    canonical_metadata = {
+        str(metadata["id"]): metadata
+        for metadata in metadata_items
+        if isinstance(metadata.get("id"), str)
+    }
+    validate_consumers(root, canonical_metadata, problems)
 
     if not any(problem.severity == "error" for problem in problems):
         validate_catalogs(
