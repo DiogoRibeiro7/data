@@ -21,6 +21,28 @@
         "redistribution": "allowed"
       },
       "path": "datasets/online-retail-ii"
+    },
+    {
+      "id": "ucdp-ged-25-1",
+      "title": "UCDP Georeferenced Event Dataset (GED) 25.1",
+      "description": "Version 25.1 of the Uppsala Conflict Data Program Georeferenced Event Dataset, containing geocoded events of organized violence from 1989 through 2024.\n",
+      "domain": [
+        "conflict",
+        "events",
+        "geospatial",
+        "political-violence"
+      ],
+      "snapshot": "UCDP GED version 25.1; data extracted from UCDP systems 2025-03-19; official ged251-csv.zip",
+      "source": {
+        "publisher": "Uppsala Conflict Data Program (UCDP), Uppsala University",
+        "url": "https://ucdp.uu.se/downloads/ged/ged251-csv.zip"
+      },
+      "license": {
+        "name": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "redistribution": "allowed"
+      },
+      "path": "datasets/ucdp-ged-25-1"
     }
   ]
 }

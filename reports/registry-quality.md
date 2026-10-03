@@ -5,15 +5,15 @@ It makes no live network requests.
 
 ## Canonical registry
 
-- Canonical datasets: **1**
-- Canonical files: **1**
-- Files with verified SHA-256: **1**
-- Canonical datasets with complete licence metadata: **1**
+- Canonical datasets: **2**
+- Canonical files: **2**
+- Files with verified SHA-256: **2**
+- Canonical datasets with complete licence metadata: **2**
 
 ## External sources
 
 - External source records: **13**
-- Redistribution resolved / unresolved: **7 / 6**
+- Redistribution resolved / unresolved: **8 / 5**
 - Sources pinned to an immutable Git commit: **3**
 - Known downstream consumers: **4**
 - Consumer references: **6**

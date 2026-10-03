@@ -60,6 +60,7 @@ nav:
       - External source audit: migrations/EXTERNAL_SOURCE_AUDIT_2026-10-01.md
       - Second canonical dataset decision: migrations/SECOND_CANONICAL_DATASET_2026-10-02.md
       - Maize Bipolaris promotion: migrations/MAIZE_BIPOLARIS_PROMOTION_2026-10-03.md
+      - UCDP GED 25.1 promotion: migrations/UCDP_GED_25_1_PROMOTION_2026-10-03.md
       - Legacy resolution audit: migrations/LEGACY_RESOLUTION.md
       - Phase-four legacy re-audit: migrations/LEGACY_REAUDIT_2026-10-03.md
       - Italy legacy workbook re-audit: migrations/ITALY_LEGACY_REAUDIT_2026-10-03.md
