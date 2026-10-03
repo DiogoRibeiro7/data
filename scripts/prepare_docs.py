@@ -68,6 +68,7 @@ def main() -> int:
     )
     (GENERATED / "legacy-inventory.md").write_text(legacy_text, encoding="utf-8")
     copy_root_markdown(ROOT / "CONTRIBUTING.md", DOCS / "CONTRIBUTING.md")
+    copy_text(ROOT / "reports" / "registry-quality.md", GENERATED / "registry-quality.md")
     return 0
 
 if __name__ == "__main__":
