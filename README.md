@@ -6,7 +6,7 @@ A curated registry for datasets and data sources used across analysis, research,
 
 **Documentation:** https://diogoribeiro7.github.io/data/
 
-The repository separates **canonical datasets**, **external source records**, and **legacy quarantine material** so that provenance, licensing, reproducibility, and reuse remain explicit.
+The repository separates **canonical datasets**, **external source records**, **consumer relationships**, and **legacy quarantine material** so that provenance, licensing, reproducibility, and reuse remain explicit.
 
 ## Repository model
 

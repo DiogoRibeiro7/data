@@ -642,6 +642,26 @@ def validate_external(root: Path, problems: list[Problem]) -> None:
 
 
 
+
+def validate_consumer_template(root: Path, problems: list[Problem]) -> None:
+    """Validate the committed consumer-record template structurally."""
+
+    template_path = root / "templates" / "consumer-dataset.yaml"
+    if not template_path.is_file():
+        return
+
+    metadata = load_yaml(template_path, problems)
+    if metadata is None:
+        return
+
+    validate_schema(
+        metadata,
+        "consumer-metadata-v1.schema.json",
+        template_path,
+        problems,
+    )
+
+
 def validate_consumers(
     root: Path,
     canonical_metadata: dict[str, dict[str, Any]],
@@ -655,11 +675,33 @@ def validate_consumers(
 
     seen_relationships: dict[tuple[str, str], Path] = {}
 
+    for root_entry in sorted(consumers_root.iterdir()):
+        if root_entry.is_file() and root_entry.suffix.lower() in {".yaml", ".yml"}:
+            problems.append(
+                Problem(
+                    "error",
+                    f"{root_entry}: consumer records must live under "
+                    "consumers/<consumer-id>/<dataset-id>.yaml",
+                )
+            )
+
     for consumer_dir in sorted(path for path in consumers_root.iterdir() if path.is_dir()):
         consumer_id = consumer_dir.name
         if not SLUG_RE.fullmatch(consumer_id):
             problems.append(Problem("error", f"{consumer_dir}: invalid consumer slug"))
             continue
+
+        for unexpected in sorted(
+            path
+            for path in consumer_dir.iterdir()
+            if path.is_file() and path.suffix.lower() == ".yml"
+        ):
+            problems.append(
+                Problem(
+                    "error",
+                    f"{unexpected}: consumer records must use the .yaml extension",
+                )
+            )
 
         for record_path in sorted(consumer_dir.glob("*.yaml")):
             metadata = load_yaml(record_path, problems)
@@ -711,6 +753,9 @@ def validate_consumers(
                 )
             else:
                 seen_relationships[relationship] = record_path
+
+            if metadata.get("status") == "deprecated":
+                continue
 
             dataset_metadata = canonical_metadata.get(dataset_id)
             if dataset_metadata is None:
@@ -891,6 +936,7 @@ def validate_repository(root: Path, *, write_catalog: bool = False) -> list[Prob
     metadata_items: list[dict[str, Any]] = []
     data_files = validate_legacy(root, problems)
     validate_external(root, problems)
+    validate_consumer_template(root, problems)
 
     if datasets_root.is_dir():
         for dataset_dir in sorted(path for path in datasets_root.iterdir() if path.is_dir()):
