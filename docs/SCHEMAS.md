@@ -8,6 +8,7 @@ Repository metadata is validated against versioned JSON Schemas in `schemas/`.
 | --- | --- | ---: |
 | Canonical datasets | `schemas/canonical-metadata-v1.schema.json` | 1 |
 | External source records | `schemas/external-metadata-v1.schema.json` | 1 |
+| Consumer relationships | `schemas/consumer-metadata-v1.schema.json` | 1 |
 | Legacy quarantine | `schemas/legacy-metadata-v0.schema.json` | 0 |
 
 The JSON Schemas define structural requirements: required fields, types, enums, string patterns, URI/date formats, and whether unknown top-level fields are permitted.
@@ -22,7 +23,9 @@ The Python validator retains semantic checks that cannot be represented cleanly 
 - derived files have lineage;
 - undeclared files are rejected;
 - duplicate stored bytes are detected;
-- generated catalogs are current.
+- generated catalogs are current;
+- consumer IDs/filenames match their directory relationship identity;
+- canonical consumer dataset/path/checksum values agree with canonical metadata.
 
 ## Canonical metadata
 
@@ -45,6 +48,17 @@ External source records enforce a common discovery core:
 Known source-specific extensions such as `medium_blog`, `doi`, `source_commit`, and `source_path` are explicitly represented.
 
 Issue #19 will normalize these records further when the external catalog is generated.
+
+## Consumer metadata
+
+Consumer schema version 1 describes one downstream dependency on one canonical dataset.
+
+The committed record lives at `consumers/<consumer-id>/<dataset-id>.yaml` and pins the
+exact registry commit, canonical file path, and SHA-256. Repository validation resolves the
+dataset and file against committed canonical metadata without network access.
+
+Each record also carries downstream evidence through either a consumer commit or an evidence
+URL. Consumer records describe dependency state; they are not executable fetch configuration.
 
 ## Legacy metadata
 
