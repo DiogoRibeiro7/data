@@ -7,8 +7,8 @@ Resolution audit date: **2026-10-03**
 - Initial root data files inventoried: **37**
 - Initial unique Git blobs: **36**
 - Initial legacy packages: **9**
-- Legacy packages remaining after resolution: **3**
-- Packages replaced by external source records: **4**
+- Legacy packages remaining after resolution: **2**
+- Packages replaced by external source records: **5**
 - Obsolete project-input packages removed: **2**
 - Canonical datasets promoted by this audit: **0**
 
@@ -22,7 +22,7 @@ Resolution audit date: **2026-10-03**
 | `jhu-covid19-time-series` | externalized | Five files traced by Git blob identity to JHU commit `dd07d05ff02d8aea12cab868e8a36c0e31cadf66`; replaced by `external/jhu-csse-covid19/`. |
 | `portugal-covid19` | retained | Re-audit narrows package to the 27 May 2020 GEP/MTSSS monitoring workbook; orphaned `Portugal_ARS.csv` model output removed; exact historical workbook URL and redistribution terms remain unresolved. |
 | `portugal-population-2018` | externalized | Workbook re-audit identifies a PORDATA Excel export of INE-backed resident-population estimates; local generated export removed and replaced by `external/pordata-portugal-resident-population/`. |
-| `portugal-sico-mortality` | retained | DGS/SICO source family identified; exact export route and redistribution terms unresolved. |
+| `portugal-sico-mortality` | externalized | Historical SICO CSV snapshot family removed and replaced by `external/dgs-infoclique-mortality/`; DGS mortality platform remains authoritative, redistribution unresolved. |
 | `r-example-datasets` | externalized | Built-in R datasets; redundant CSV serializations removed; replaced by `external/r-base-example-datasets/`. |
 | `telco-customer-churn` | externalized | IBM sample identified; normalized contents match IBM archived CSV; replaced by `external/ibm-telco-customer-churn/`. |
 
