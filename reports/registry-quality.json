@@ -1,13 +1,13 @@
 {
-  "catalogs": {
-    "canonical_current": true,
-    "external_current": true
-  },
   "canonical": {
     "complete_license_datasets": 1,
     "dataset_count": 1,
     "file_count": 1,
     "verified_checksum_files": 1
+  },
+  "catalogs": {
+    "canonical_current": true,
+    "external_current": true
   },
   "external": {
     "known_consumer_count": 4,
