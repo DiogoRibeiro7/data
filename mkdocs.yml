@@ -62,6 +62,7 @@ nav:
       - Maize Bipolaris promotion: migrations/MAIZE_BIPOLARIS_PROMOTION_2026-10-03.md
       - Legacy resolution audit: migrations/LEGACY_RESOLUTION.md
       - Phase-four legacy re-audit: migrations/LEGACY_REAUDIT_2026-10-03.md
+      - Italy legacy workbook re-audit: migrations/ITALY_LEGACY_REAUDIT_2026-10-03.md
       - Consumer audit: migrations/CONSUMER_AUDIT.md
       - Medium Blog audit: migrations/MEDIUM_BLOG_DATA.md
       - Project data audit: migrations/PROJECT_DATA_AUDIT.md
