@@ -13,6 +13,7 @@ on:
       - "scripts/registry.py"
       - "scripts/create_snapshot.py"
       - "scripts/check_external_sources.py"
+      - "scripts/registry_quality.py"
       - "tests/test_validate_repository.py"
       - "tests/test_fetch_dataset.py"
       - "tests/test_external_catalog.py"
@@ -20,6 +21,12 @@ on:
       - "tests/test_snapshot.py"
       - "tests/test_external_health.py"
       - "tests/test_citation_metadata.py"
+      - "tests/test_registry_quality.py"
+      - "reports/registry-quality.json"
+      - "reports/registry-quality.md"
+      - "docs/QUALITY.md"
+      - "scripts/prepare_docs.py"
+      - "mkdocs.yml"
       - "requirements-dev.txt"
       - "CITATION.cff"
       - "codemeta.json"
@@ -41,6 +48,7 @@ on:
       - "scripts/registry.py"
       - "scripts/create_snapshot.py"
       - "scripts/check_external_sources.py"
+      - "scripts/registry_quality.py"
       - "tests/test_validate_repository.py"
       - "tests/test_fetch_dataset.py"
       - "tests/test_external_catalog.py"
@@ -48,6 +56,12 @@ on:
       - "tests/test_snapshot.py"
       - "tests/test_external_health.py"
       - "tests/test_citation_metadata.py"
+      - "tests/test_registry_quality.py"
+      - "reports/registry-quality.json"
+      - "reports/registry-quality.md"
+      - "docs/QUALITY.md"
+      - "scripts/prepare_docs.py"
+      - "mkdocs.yml"
       - "requirements-dev.txt"
       - "CITATION.cff"
       - "codemeta.json"
@@ -86,3 +100,9 @@ jobs:
 
       - name: Validate external source catalog
         run: python scripts/generate_external_catalog.py
+
+      - name: Validate registry quality report
+        run: |
+          python scripts/registry_quality.py --write
+          git diff -- reports/registry-quality.json reports/registry-quality.md
+          git diff --exit-code -- reports/registry-quality.json reports/registry-quality.md

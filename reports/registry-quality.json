@@ -1,0 +1,45 @@
+{
+  "canonical": {
+    "complete_license_datasets": 1,
+    "dataset_count": 1,
+    "file_count": 1,
+    "verified_checksum_files": 1
+  },
+  "catalogs": {
+    "canonical_current": true,
+    "external_current": true
+  },
+  "external": {
+    "known_consumer_count": 4,
+    "known_consumer_references": 6,
+    "known_consumers": [
+      "cpd-stress-test",
+      "crop-protection-predictive-science",
+      "displacement-risk-lab-dynamodb",
+      "productivity_taxation_inequality_project"
+    ],
+    "pinned_immutable_identity_sources": 3,
+    "redistribution": {
+      "resolved": 7,
+      "unresolved": 4
+    },
+    "source_count": 11
+  },
+  "legacy": {
+    "package_count": 5,
+    "packages": [
+      "country-age-sex-2019",
+      "italy-covid19",
+      "portugal-covid19",
+      "portugal-population-2018",
+      "portugal-sico-mortality"
+    ],
+    "unresolved_package_count": 5
+  },
+  "schema_version": 1,
+  "snapshots": {
+    "available_from_repository_state": false,
+    "count": null,
+    "note": "Published snapshot tags/releases are not counted because their presence depends on Git fetch depth and remote state rather than committed files."
+  }
+}
