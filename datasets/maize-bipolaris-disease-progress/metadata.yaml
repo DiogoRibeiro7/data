@@ -1,0 +1,40 @@
+schema_version: 1
+
+id: maize-bipolaris-disease-progress
+title: "Maize Bipolaris disease-progress data"
+description: >
+  Multi-environment southern corn leaf blight disease-progress observations
+  for maize hybrids, accompanying Del Ponte (2026).
+
+domain:
+  - agriculture
+  - plant-pathology
+  - disease-progress
+  - time-series
+
+source:
+  publisher: "Emerson M. Del Ponte / paper-hgam-curves repository"
+  url: "https://github.com/emdelponte/paper-hgam-curves/blob/d793d54c17ad404df2f6618d2681c993fcf144cf/maize_bipolaris.csv"
+  retrieved_at: 2026-10-03
+  snapshot: "paper-hgam-curves commit d793d54c17ad404df2f6618d2681c993fcf144cf / maize_bipolaris.csv / Git blob 433a2d1c37ba4f6069d04d8ffc9f7916f0a8adc3"
+
+license:
+  name: "MIT"
+  url: "https://github.com/emdelponte/paper-hgam-curves/blob/d793d54c17ad404df2f6618d2681c993fcf144cf/LICENSE"
+  redistribution: allowed
+
+citation:
+  text: "Del Ponte, E. M. (2026). From Scalar Summaries to Functional Comparisons: A Framework for Analyzing Plant Disease Progress Curves. Phytopathology, 116(8), 1188-1193."
+  url: "https://doi.org/10.1094/PHYTO-01-26-0009-LE"
+
+files:
+  - path: raw/maize_bipolaris.csv
+    role: raw
+    format: csv
+    sha256: "eb013e32ca60f7a80e2be10c91b6cac5df68f863ce24597ebf48ebd07ec9e705"
+    row_count: 1105
+    column_count: 5
+    encoding: "UTF-8"
+    notes: "Authoritative upstream CSV preserved byte-for-byte; source size 53293 bytes; upstream Git blob 433a2d1c37ba4f6069d04d8ffc9f7916f0a8adc3."
+
+lineage: []
