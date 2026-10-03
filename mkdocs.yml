@@ -45,6 +45,8 @@ nav:
   - Registry usage:
       - CLI: CLI.md
       - Consumers: CONSUMERS.md
+      - Quality methodology: QUALITY.md
+      - Quality report: generated/registry-quality.md
   - Governance:
       - Data policy: DATA_POLICY.md
       - External source health: EXTERNAL_HEALTH.md
