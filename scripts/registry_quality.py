@@ -104,7 +104,9 @@ def _external_metrics(root: Path) -> dict[str, Any]:
             if isinstance(usage, dict):
                 redistribution = usage.get("redistribution")
 
-        if redistribution == "unresolved":
+        if not isinstance(redistribution, str) or not redistribution.strip():
+            unresolved += 1
+        elif redistribution == "unresolved":
             unresolved += 1
         else:
             resolved += 1
