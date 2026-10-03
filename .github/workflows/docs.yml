@@ -11,6 +11,8 @@ on:
       - "mkdocs.yml"
       - "requirements-docs.txt"
       - "scripts/prepare_docs.py"
+      - "scripts/registry_quality.py"
+      - "reports/registry-quality.md"
       - ".github/workflows/docs.yml"
   push:
     branches:
@@ -24,6 +26,8 @@ on:
       - "mkdocs.yml"
       - "requirements-docs.txt"
       - "scripts/prepare_docs.py"
+      - "scripts/registry_quality.py"
+      - "reports/registry-quality.md"
       - ".github/workflows/docs.yml"
   workflow_dispatch:
 

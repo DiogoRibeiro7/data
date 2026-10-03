@@ -27,8 +27,8 @@ Known consumers:
 
 ## Legacy quarantine
 
-- Remaining packages: **5**
-- Unresolved packages: **5**
+- Remaining packages: **4**
+- Unresolved packages: **4**
 
 ## Generated catalog freshness
 

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 import sys
 import tempfile
 import unittest
@@ -150,15 +149,11 @@ class RegistryQualityTests(unittest.TestCase):
         markdown = QUALITY.render_markdown(report)
         self.assertIn("unresolved redistribution state is not treated as an invalid record", markdown)
 
-    def test_json_rendering_is_deterministic(self) -> None:
-        """JSON serialization uses stable key ordering."""
-        report = {
-            "schema_version": 1,
-            "z": 1,
-            "a": 2,
-        }
-        first = json.dumps(report, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
-        second = json.dumps(report, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
+    def test_report_generation_is_deterministic(self) -> None:
+        """Production report generation is byte-deterministic."""
+        root = Path(__file__).resolve().parents[1]
+        first = QUALITY.expected_outputs(root)
+        second = QUALITY.expected_outputs(root)
         self.assertEqual(first, second)
 
 
