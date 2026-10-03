@@ -33,7 +33,7 @@ canonical metadata.
 Use:
 
 - `active` for a current dependency;
-- `deprecated` for a historical relationship retained for traceability.
+- `deprecated` for a historical relationship retained for traceability. Deprecated records must remain structurally valid, but they are not required to match a currently live canonical dataset/path/checksum.
 
 Consumer records are added separately from the schema introduction. See Phase 5
 issue #69 for the initial backfill.
