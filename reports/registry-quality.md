@@ -12,8 +12,8 @@ It makes no live network requests.
 
 ## External sources
 
-- External source records: **11**
-- Redistribution resolved / unresolved: **7 / 4**
+- External source records: **12**
+- Redistribution resolved / unresolved: **7 / 5**
 - Sources pinned to an immutable Git commit: **3**
 - Known downstream consumers: **4**
 - Consumer references: **6**
@@ -27,8 +27,8 @@ Known consumers:
 
 ## Legacy quarantine
 
-- Remaining packages: **4**
-- Unresolved packages: **4**
+- Remaining packages: **3**
+- Unresolved packages: **3**
 
 ## Generated catalog freshness
 
