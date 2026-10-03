@@ -167,6 +167,7 @@ class RepositoryFixture:
         sha256: str | None = None,
         registry_commit: str = "a" * 40,
         consumer_id_value: str | None = None,
+        status: str = "active",
     ) -> Path:
         """Add one canonical consumer relationship record."""
 
@@ -181,7 +182,7 @@ class RepositoryFixture:
 
         metadata: dict[str, Any] = {
             "schema_version": 1,
-            "status": "active",
+            "status": status,
             "consumer_id": consumer_id_value or consumer_id,
             "consumer_repository": f"DiogoRibeiro7/{consumer_id}",
             "dataset_id": resolved_dataset_id,
@@ -359,6 +360,61 @@ class ValidatorTests(unittest.TestCase):
         errors = self.errors()
         self.assertTrue(any("consumer_id must match directory" in msg for msg in errors))
         self.assertTrue(any("filename must be 'example-dataset.yaml'" in msg for msg in errors))
+
+    def test_duplicate_consumer_dataset_relationship_fails(self) -> None:
+        self.fixture.add_canonical("example-dataset")
+        first = self.fixture.add_consumer("example-consumer", "example-dataset")
+        duplicate = first.parent / "duplicate.yaml"
+        duplicate.write_text(first.read_text(encoding="utf-8"), encoding="utf-8")
+
+        self.assertTrue(
+            any("duplicate consumer/dataset relationship" in msg for msg in self.errors())
+        )
+
+    def test_consumer_record_at_root_is_rejected(self) -> None:
+        consumers = self.fixture.root / "consumers"
+        consumers.mkdir(parents=True)
+        (consumers / "bad.yaml").write_text("schema_version: 1\n", encoding="utf-8")
+
+        self.assertTrue(
+            any("consumer records must live under" in msg for msg in self.errors())
+        )
+
+    def test_consumer_yml_extension_is_rejected(self) -> None:
+        self.fixture.add_canonical("example-dataset")
+        path = self.fixture.add_consumer(
+            "example-consumer",
+            "example-dataset",
+            filename="example-dataset.yml",
+        )
+
+        self.assertTrue(path.exists())
+        self.assertTrue(
+            any("consumer records must use the .yaml extension" in msg for msg in self.errors())
+        )
+
+    def test_deprecated_consumer_may_reference_missing_dataset(self) -> None:
+        self.fixture.add_canonical("example-dataset")
+        self.fixture.add_consumer(
+            "example-consumer",
+            "example-dataset",
+            record_dataset_id="old-dataset",
+            status="deprecated",
+        )
+        self.fixture.write_catalogs()
+        self.assertEqual(self.errors(), [])
+
+    def test_consumer_template_matches_schema(self) -> None:
+        template_dir = self.fixture.root / "templates"
+        template_dir.mkdir()
+        source = Path(__file__).resolve().parents[1] / "templates" / "consumer-dataset.yaml"
+        (template_dir / "consumer-dataset.yaml").write_text(
+            source.read_text(encoding="utf-8"),
+            encoding="utf-8",
+        )
+        self.fixture.write_catalogs()
+        self.assertEqual(self.errors(), [])
+
 
     def test_broken_dataset_link_fails(self) -> None:
         self.fixture.write_catalogs()
