@@ -51,22 +51,6 @@
       "path": "external/jhu-csse-covid19"
     },
     {
-      "id": "maize-bipolaris-disease-progress",
-      "title": "Maize Bipolaris disease-progress data",
-      "publisher": "Emerson M. Del Ponte / paper-hgam-curves repository",
-      "source_url": "https://github.com/emdelponte/paper-hgam-curves",
-      "license": {
-        "name": "MIT",
-        "url": "https://github.com/emdelponte/paper-hgam-curves/blob/main/LICENSE"
-      },
-      "redistribution": "unresolved",
-      "storage": "authoritative-upstream-and-pinned-project-snapshot",
-      "consumers": [
-        "crop-protection-predictive-science"
-      ],
-      "path": "external/maize-bipolaris-disease-progress"
-    },
-    {
       "id": "our-world-in-data",
       "title": "Our World in Data / Grapher datasets",
       "publisher": "Global Change Data Lab / Our World in Data",
