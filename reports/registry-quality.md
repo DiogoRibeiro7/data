@@ -13,7 +13,7 @@ It makes no live network requests.
 ## External sources
 
 - External source records: **13**
-- Redistribution resolved / unresolved: **7 / 6**
+- Redistribution resolved / unresolved: **8 / 5**
 - Sources pinned to an immutable Git commit: **3**
 - Known downstream consumers: **4**
 - Consumer references: **6**
