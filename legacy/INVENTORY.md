@@ -7,9 +7,9 @@ Resolution audit date: **2026-10-03**
 - Initial root data files inventoried: **37**
 - Initial unique Git blobs: **36**
 - Initial legacy packages: **9**
-- Legacy packages remaining after resolution: **5**
+- Legacy packages remaining after resolution: **4**
 - Packages replaced by external source records: **3**
-- Obsolete project-input packages removed: **1**
+- Obsolete project-input packages removed: **2**
 - Canonical datasets promoted by this audit: **0**
 
 ## Package resolution
@@ -18,7 +18,7 @@ Resolution audit date: **2026-10-03**
 | --- | --- | --- |
 | `country-age-sex-2019` | retained | Re-audit strongly identifies UN WPP 2019 as the source family; exact historical download/export route and Portugal workbook/CSV lineage remain unresolved. |
 | `covid19-modeling` | removed | Mixed Kaggle/OWID/manual project inputs; no consumers; no coherent reusable dataset identity. |
-| `italy-covid19` | retained | Workbook source, snapshot identity, and redistribution terms unresolved. |
+| `italy-covid19` | removed | Re-audit identified a hand-assembled research helper table authored by Marco Ferrante from public Italian Government/AIFA sources; no consumers; not a reusable authoritative dataset. |
 | `jhu-covid19-time-series` | externalized | Five files traced by Git blob identity to JHU commit `dd07d05ff02d8aea12cab868e8a36c0e31cadf66`; replaced by `external/jhu-csse-covid19/`. |
 | `portugal-covid19` | retained | MTSSS workbook source family recovered, but package includes an unattributed derived ARS estimate table. |
 | `portugal-population-2018` | retained | Exact publisher/export route and terms unresolved. |
@@ -45,7 +45,7 @@ The table below is preserved as the original root-to-legacy migration record. Pa
 | `Dados_SICO_2020-05-31_2018.csv` | portugal-sico-mortality | 12542 | `38cf14e5f557ee722d6a54058d35dc976146e5a1` | moved | legacy/portugal-sico-mortality/raw/Dados_SICO_2020-05-31_2018.csv |
 | `Dados_SICO_2020-05-31_2019.csv` | portugal-sico-mortality | 12542 | `c589a69e26e9482644d4e00377c201518a918dc8` | moved | legacy/portugal-sico-mortality/raw/Dados_SICO_2020-05-31_2019.csv |
 | `Dados_SICO_2020-05-31_2020.csv` | portugal-sico-mortality | 5640 | `ae96b27a51958c76e4978446558737377d387d5f` | moved | legacy/portugal-sico-mortality/raw/Dados_SICO_2020-05-31_2020.csv |
-| `Dataset_Italy_COVID_19.xlsx` | italy-covid19 | 12339 | `43460f5601b3b0c4993526ed3c53bb25339fa3e8` | moved | legacy/italy-covid19/raw/Dataset_Italy_COVID_19.xlsx |
+| `Dataset_Italy_COVID_19.xlsx` | italy-covid19 | 12339 | `43460f5601b3b0c4993526ed3c53bb25339fa3e8` | removed | derived research helper; no current consumer; source links point to Italian Government/AIFA pages |
 | `Denmark-2019.csv` | country-age-sex-2019 | 430 | `2387fffb7300c76f236f42d75b137678152d1abe` | moved | legacy/country-age-sex-2019/raw/Denmark-2019.csv |
 | `France-2019.csv` | country-age-sex-2019 | 473 | `25596c84036ffa63be16b0ed3b79c7a05cefe7d1` | moved | legacy/country-age-sex-2019/raw/France-2019.csv |
 | `full_data_logistic.csv` | covid19-modeling | 2083 | `cb644f9d9e11257cb13668bb986ec041ee43a60e` | moved | legacy/covid19-modeling/raw/full_data_logistic.csv |
