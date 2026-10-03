@@ -1,0 +1,9 @@
+schema_version: 1
+status: external-reference
+id: dgs-infoclique-mortality
+title: "DGS InfoClique mortality platform"
+publisher: "Direção-Geral da Saúde (DGS)"
+source_url: "https://www.dgs.pt/servicos-on-line1.aspx"
+redistribution: unresolved
+storage: authoritative-upstream
+consumers: []

@@ -6,6 +6,7 @@ Do not edit it by hand.
 | Source | Publisher | Storage | Redistribution | Licence / terms | Consumers |
 | --- | --- | --- | --- | --- | --- |
 | [Berkeley Earth temperature data](berkeley-earth-temperature/README.md) | [Berkeley Earth](https://berkeleyearth.org/data/) | authoritative-upstream | noncommercial-terms | [CC BY-NC 4.0 (general current Berkeley Earth data terms)](https://creativecommons.org/licenses/by-nc/4.0/) | — |
+| [DGS InfoClique mortality platform](dgs-infoclique-mortality/README.md) | [Direção-Geral da Saúde (DGS)](https://www.dgs.pt/servicos-on-line1.aspx) | authoritative-upstream | unresolved | Unresolved | — |
 | [FRED economic data](fred-economic-data/README.md) | [Federal Reserve Bank of St. Louis](https://fred.stlouisfed.org/) | authoritative-upstream | series-dependent | Unresolved | productivity_taxation_inequality_project |
 | [IBM Telco Customer Churn sample](ibm-telco-customer-churn/README.md) | [IBM](https://github.com/IBM/telco-customer-churn-on-icp4d) | authoritative-upstream-pinned-snapshot | unresolved | Unresolved | — |
 | [JHU CSSE COVID-19 time series](jhu-csse-covid19/README.md) | [Johns Hopkins University Center for Systems Science and Engineering](https://github.com/CSSEGISandData/COVID-19) | authoritative-upstream-pinned-historical-snapshot | prohibited | Unresolved | — |

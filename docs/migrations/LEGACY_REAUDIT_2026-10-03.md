@@ -135,3 +135,38 @@ Redistribution remains explicitly **unresolved** because the registry has not
 recovered terms that clearly authorize mirroring the historical Excel export.
 
 No canonical promotion is justified.
+
+
+## portugal-sico-mortality
+
+**Decision: replace the local historical export family with an external DGS mortality-platform record.**
+
+### Evidence
+
+The six retained CSV files share one schema and one snapshot naming convention,
+covering complete years 2015-2019 plus a partial 2020 series.
+
+The DGS services directory exposes both **DGS InfoClique - Plataforma da
+Mortalidade** and **SICO - Sistema de Informação dos Certificados de Óbito**.
+
+DGS documentation identifies SICO as a source used for mortality surveillance
+and statistical analysis.
+
+### Consumer search
+
+Account-wide code search for the distinctive historical CSV filenames found no
+maintained consumer outside this repository.
+
+### Resolution
+
+The local CSV exports are removed and replaced by:
+
+`external/dgs-infoclique-mortality/`
+
+The exact historical export route and immutable snapshot identity were not
+recovered, and the current DGS site does not provide a clear redistribution
+grant for mirroring those historical exports.
+
+Redistribution is therefore recorded as **unresolved**.
+
+No canonical promotion is justified.
