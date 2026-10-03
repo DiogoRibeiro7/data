@@ -2,10 +2,9 @@
 
 This directory contains historical data that cannot yet be promoted to the canonical registry or replaced safely by an authoritative external source.
 
-After the 2026-10-01 resolution audit, five packages remain:
+After the 2026-10-03 re-audit, four packages remain:
 
 - `country-age-sex-2019`
-- `italy-covid19`
 - `portugal-covid19`
 - `portugal-population-2018`
 - `portugal-sico-mortality`
@@ -18,3 +17,4 @@ See:
 
 - [current inventory](INVENTORY.md)
 - [legacy resolution audit](../docs/migrations/LEGACY_RESOLUTION.md)
+- [phase-four legacy re-audit](../docs/migrations/LEGACY_REAUDIT_2026-10-03.md)
