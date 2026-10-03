@@ -106,6 +106,22 @@ class RegistryQualityTests(unittest.TestCase):
         self.assertEqual(legacy["package_count"], 1)
         self.assertEqual(legacy["unresolved_package_count"], 1)
 
+
+    def test_missing_redistribution_is_unresolved(self) -> None:
+        """Missing redistribution metadata is incomplete, not resolved."""
+        metadata_path = self.root / "external" / "source" / "metadata.yaml"
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata.pop("redistribution")
+        metadata_path.write_text(
+            yaml.safe_dump(metadata, sort_keys=False),
+            encoding="utf-8",
+        )
+
+        external = QUALITY._external_metrics(self.root)
+
+        self.assertEqual(external["redistribution"]["resolved"], 0)
+        self.assertEqual(external["redistribution"]["unresolved"], 1)
+
     def test_markdown_does_not_call_unresolved_invalid(self) -> None:
         """Unresolved licensing is represented as an intentional state."""
         report = {
