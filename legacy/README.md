@@ -9,7 +9,7 @@ After the 2026-10-03 re-audit, two packages remain:
 
 Each remaining package has a concrete documented blocker. Legacy quarantine is not a staging area for new data.
 
-Resolved packages were either removed as obsolete project inputs or replaced with external source records where provenance and reproducibility were sufficient.
+Resolved packages were either removed as obsolete project inputs or replaced with external source records when the upstream source could be identified. External records may still carry unresolved snapshot or redistribution status, which is documented explicitly.
 
 See:
 
