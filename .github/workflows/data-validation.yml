@@ -102,4 +102,7 @@ jobs:
         run: python scripts/generate_external_catalog.py
 
       - name: Validate registry quality report
-        run: python scripts/registry_quality.py
+        run: |
+          python scripts/registry_quality.py --write
+          git diff -- reports/registry-quality.json reports/registry-quality.md
+          git diff --exit-code -- reports/registry-quality.json reports/registry-quality.md
