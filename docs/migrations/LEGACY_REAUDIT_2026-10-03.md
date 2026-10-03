@@ -54,3 +54,39 @@ family is now highly likely.
 - exact file-level redistribution basis remains insufficiently evidenced.
 
 No canonical promotion or external-source replacement is justified yet.
+
+
+## portugal-covid19
+
+**Decision: retain the MTSSS workbook; remove the orphaned ARS model output.**
+
+### MTSSS workbook
+
+`Monitorizacao_COVID-19_MTSSS_27_maio_2020.xlsx` belongs to the 2020
+**Indicadores COVID-19 MTSSS** monitoring-workbook series published by the
+Gabinete de Estratégia e Planeamento (GEP) of the Portuguese Ministry of
+Labour, Solidarity and Social Security.
+
+The filename identifies the retained artifact as the **27 May 2020** snapshot.
+
+The workbook is kept in legacy because the exact historical download URL,
+dataset-specific redistribution terms, and immutable upstream identity have not
+been recovered.
+
+### Portugal_ARS.csv
+
+The removed CSV contains regional statistical estimates and interval bounds
+(`ML`, `Low_90`, `High_90`, `Low_50`, `High_50`) rather than raw
+administrative observations.
+
+Account-wide code search found no maintained consumer, and no generating code
+or upstream source was recovered.
+
+Keeping this file beside the source workbook would incorrectly mix raw source
+material and derived model output, so the CSV is removed.
+
+### Outcome
+
+The package remains in legacy as a single-source workbook with a concrete
+provenance/licensing blocker. No canonical or external promotion is justified
+yet.
