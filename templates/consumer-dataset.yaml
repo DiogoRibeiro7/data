@@ -1,16 +1,31 @@
 schema_version: 1
+status: active
+
+# Stable registry-side identifier for the downstream project.
+consumer_id: example-consumer
+
+# Downstream repository that consumes the canonical dataset.
+consumer_repository: DiogoRibeiro7/example-consumer
 
 dataset_id: example-dataset
-repository: DiogoRibeiro7/data
 
-# Always pin the exact 40-character commit SHA containing the dataset.
-commit: "0000000000000000000000000000000000000000"
+registry_layer: canonical
+registry_repository: DiogoRibeiro7/data
 
-# Canonical file path in the data repository.
+# Exact 40-character commit containing the canonical file.
+registry_commit: "0000000000000000000000000000000000000000"
+
+# Full path in the data registry.
 path: datasets/example-dataset/raw/example.csv
 
-# SHA-256 from the canonical dataset metadata.
+# SHA-256 declared by the canonical dataset metadata.
 sha256: "0000000000000000000000000000000000000000000000000000000000000000"
 
-# Consumer-local destination.
+# Optional consumer-local destination.
 output: data/external/example.csv
+
+# Provide at least one evidence pointer.
+consumer_commit: "1111111111111111111111111111111111111111"
+# evidence_url: https://github.com/DiogoRibeiro7/example-consumer/pull/1
+
+notes: "Example consumer relationship."
