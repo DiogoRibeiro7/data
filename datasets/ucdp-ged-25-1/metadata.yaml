@@ -1,0 +1,41 @@
+schema_version: 1
+
+id: ucdp-ged-25-1
+title: "UCDP Georeferenced Event Dataset (GED) 25.1"
+description: >
+  Version 25.1 of the Uppsala Conflict Data Program Georeferenced Event Dataset,
+  containing geocoded events of organized violence from 1989 through 2024.
+
+domain:
+  - conflict
+  - events
+  - geospatial
+  - political-violence
+
+source:
+  publisher: "Uppsala Conflict Data Program (UCDP), Uppsala University"
+  url: "https://ucdp.uu.se/downloads/ged/ged251-csv.zip"
+  retrieved_at: 2026-10-03
+  snapshot: "UCDP GED version 25.1; data extracted from UCDP systems 2025-03-19; official ged251-csv.zip"
+
+license:
+  name: "CC BY 4.0"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+  redistribution: allowed
+
+citation:
+  text: "Sundberg, Ralph and Erik Melander (2013). Introducing the UCDP Georeferenced Event Dataset. Journal of Peace Research 50(4), 523-532. Högbladh, Stina (2025). UCDP GED Codebook version 25.1, Uppsala University."
+  url: "https://ucdp.uu.se/downloads/ged/ged251.pdf"
+
+files:
+  - path: raw/ged251-csv.zip
+    role: raw
+    format: zip
+    sha256: "e256f1fb20a579d8b2f910e5bae212f486d3002adaa2e4359ace740c737da05d"
+    large_file_reviewed: true
+    row_count: 385918
+    column_count: 49
+    compression: "zip"
+    notes: "Exact official archive, 29,307,888 bytes. Contains GEDEvent_v25_1.csv (250,393,383 bytes; SHA-256 3f286de84cc0cb9152403f53e6aea2ac604d623f156e61079338596e09e8b550)."
+
+lineage: []
