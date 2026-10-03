@@ -5,10 +5,10 @@ It makes no live network requests.
 
 ## Canonical registry
 
-- Canonical datasets: **1**
-- Canonical files: **1**
-- Files with verified SHA-256: **1**
-- Canonical datasets with complete licence metadata: **1**
+- Canonical datasets: **2**
+- Canonical files: **2**
+- Files with verified SHA-256: **2**
+- Canonical datasets with complete licence metadata: **2**
 
 ## External sources
 
