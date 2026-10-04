@@ -52,7 +52,7 @@ they are not reproducibility contracts for canonical registry files.
 
 For active canonical relationships, the report measures:
 
-- distinct consumer repositories;
+- distinct downstream repositories from `consumer_repository`;
 - relationship count;
 - exact pin/checksum contract coverage;
 - canonical datasets with at least one active consumer;
