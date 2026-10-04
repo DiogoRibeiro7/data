@@ -143,6 +143,23 @@ class ConsumerCatalogTests(unittest.TestCase):
         self.assertIn(r"<code>datasets/dataset/raw/a\&#124;b.csv</code>", rendered)
 
 
+    def test_markdown_escapes_html_sensitive_code_cell_content(self) -> None:
+        self.add_record(
+            "consumer",
+            "dataset",
+            canonical_path="datasets/dataset/raw/a`<b>&c.csv",
+        )
+
+        rendered = CATALOG.render_markdown(
+            CATALOG.build_catalog(self.root / "consumers")
+        )
+
+        self.assertIn(
+            "<code>datasets/dataset/raw/a`&lt;b&gt;&amp;c.csv</code>",
+            rendered,
+        )
+
+
     def test_markdown_contains_contract_and_evidence(self) -> None:
         self.add_record("consumer", "dataset")
         rendered = CATALOG.render_markdown(
