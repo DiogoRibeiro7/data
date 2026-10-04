@@ -231,7 +231,7 @@ def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
         for layer, relative_path in sorted(SCHEMA_FILES.items())
     }
     return {
-        "manifest_version": 1,
+        "manifest_version": 2,
         "repository": REPOSITORY,
         "tag": tag,
         "commit": commit,
