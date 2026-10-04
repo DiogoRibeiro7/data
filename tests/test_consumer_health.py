@@ -146,7 +146,7 @@ class ConsumerHealthTests(unittest.TestCase):
         self.addCleanup(temp.cleanup)
         path = root / "consumers" / "example-consumer" / "example-dataset.yaml"
         metadata = yaml.safe_load(path.read_text(encoding="utf-8"))
-        metadata["registry_repository"] = "DiogoRibeiro7/data"
+        metadata["registry_repository"] = "example-org/example-registry"
         metadata["path"] = "datasets/example-dataset/raw/a b#c.csv"
         path.write_text(yaml.safe_dump(metadata, sort_keys=False), encoding="utf-8")
 
@@ -159,7 +159,7 @@ class ConsumerHealthTests(unittest.TestCase):
         results = HEALTH.check_consumer_contracts(root, opener=opener)
         target = next(item.target for item in results if item.check == "registry-contract")
 
-        self.assertIn("DiogoRibeiro7/data", target)
+        self.assertIn("example-org/example-registry", target)
         self.assertTrue(target.endswith("/datasets/example-dataset/raw/a%20b%23c.csv"))
         self.assertIn(target, seen)
 
