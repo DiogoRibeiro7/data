@@ -316,6 +316,7 @@ class ValidatorTests(unittest.TestCase):
             "example-consumer",
             "example-dataset",
             record_dataset_id="missing-dataset",
+            path="datasets/missing-dataset/raw/example.csv",
         )
         self.assertTrue(
             any(
@@ -399,10 +400,37 @@ class ValidatorTests(unittest.TestCase):
             "example-consumer",
             "example-dataset",
             record_dataset_id="old-dataset",
+            path="datasets/old-dataset/raw/example.csv",
             status="deprecated",
         )
         self.fixture.write_catalogs()
         self.assertEqual(self.errors(), [])
+
+    def test_deprecated_consumer_path_still_matches_dataset_id(self) -> None:
+        self.fixture.add_canonical("example-dataset")
+        self.fixture.add_consumer(
+            "example-consumer",
+            "example-dataset",
+            record_dataset_id="old-dataset",
+            path="datasets/other-dataset/raw/example.csv",
+            status="deprecated",
+        )
+        self.assertTrue(
+            any("path must belong to canonical dataset" in msg for msg in self.errors())
+        )
+
+    def test_consumer_uppercase_yaml_extension_is_rejected(self) -> None:
+        self.fixture.add_canonical("example-dataset")
+        path = self.fixture.add_consumer(
+            "example-consumer",
+            "example-dataset",
+            filename="example-dataset.YAML",
+        )
+
+        self.assertTrue(path.exists())
+        self.assertTrue(
+            any("consumer records must use the .yaml extension" in msg for msg in self.errors())
+        )
 
     def test_consumer_template_matches_schema(self) -> None:
         template_dir = self.fixture.root / "templates"
