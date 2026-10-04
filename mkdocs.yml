@@ -41,6 +41,7 @@ nav:
   - Catalogs:
       - Canonical datasets: generated/canonical-catalog.md
       - External sources: generated/external-catalog.md
+      - Canonical consumers: generated/consumer-catalog.md
       - Legacy quarantine: generated/legacy-inventory.md
   - Registry usage:
       - CLI: CLI.md
