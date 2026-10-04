@@ -338,6 +338,39 @@ class RegistryTests(unittest.TestCase):
         self.assertEqual(code, 1)
         self.assertIn("unknown consumer dataset id 'missing'", stderr.getvalue())
 
+    def test_used_by_known_dataset_without_consumers_is_empty(self) -> None:
+        self.fixture.add_canonical("orphan-dataset")
+        self.fixture.add_consumer_graph()
+        stream = io.StringIO()
+
+        with contextlib.redirect_stdout(stream):
+            code = REGISTRY.main(
+                ["--root", str(self.fixture.root), "used-by", "orphan-dataset", "--json"]
+            )
+
+        self.assertEqual(code, 0)
+        self.assertEqual(json.loads(stream.getvalue()), [])
+
+    def test_consumers_command_rejects_malformed_dataset_entries(self) -> None:
+        self.fixture.add_consumer_graph()
+        graph_path = self.fixture.root / "consumers" / "dependency-graph.json"
+        graph = json.loads(graph_path.read_text(encoding="utf-8"))
+        graph["consumers"]["consumer-one"]["datasets"].append("junk")
+        graph_path.write_text(
+            json.dumps(graph, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        stderr = io.StringIO()
+
+        with contextlib.redirect_stderr(stderr):
+            code = REGISTRY.main(
+                ["--root", str(self.fixture.root), "consumers"]
+            )
+
+        self.assertEqual(code, 1)
+        self.assertIn("dataset entries must be objects", stderr.getvalue())
+
+
     def test_consumer_human_output_is_tabular(self) -> None:
         self.fixture.add_consumer_graph()
         stream = io.StringIO()
