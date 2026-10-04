@@ -90,4 +90,4 @@ Consumer schema, canonical dataset/path/checksum consistency, generated catalog
 freshness, and duplicate relationship checks are handled by the regular
 repository validator and generator tests.
 
-Network requests are limited to the scheduled/manual external-source and consumer-contract health workflows; pull-request validation stays offline.
+Health-check network requests are limited to the scheduled/manual external-source and consumer-contract health workflows; pull-request validation does not perform health polling.
