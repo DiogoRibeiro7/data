@@ -24,6 +24,7 @@ class RegistryQualityTests(unittest.TestCase):
         self.root = Path(self._temp.name)
         (self.root / "datasets" / "example" / "raw").mkdir(parents=True)
         (self.root / "external" / "source").mkdir(parents=True)
+        (self.root / "consumers" / "consumer-one").mkdir(parents=True)
         (self.root / "legacy" / "legacy-one").mkdir(parents=True)
         (self.root / "scripts").mkdir()
 
@@ -82,6 +83,29 @@ class RegistryQualityTests(unittest.TestCase):
             encoding="utf-8",
         )
 
+        consumer = {
+            "schema_version": 1,
+            "status": "active",
+            "consumer_id": "consumer-one",
+            "consumer_repository": "DiogoRibeiro7/consumer-one",
+            "dataset_id": "example",
+            "registry_layer": "canonical",
+            "registry_repository": "DiogoRibeiro7/data",
+            "registry_commit": "b" * 40,
+            "path": "datasets/example/raw/data.csv",
+            "sha256": checksum,
+            "consumer_commit": "c" * 40,
+        }
+        (
+            self.root
+            / "consumers"
+            / "consumer-one"
+            / "example.yaml"
+        ).write_text(
+            yaml.safe_dump(consumer, sort_keys=False),
+            encoding="utf-8",
+        )
+
     def tearDown(self) -> None:
         """Remove temporary files."""
         self._temp.cleanup()
@@ -90,6 +114,7 @@ class RegistryQualityTests(unittest.TestCase):
         """Canonical, external and legacy metrics preserve semantic distinctions."""
         canonical = QUALITY._canonical_metrics(self.root)
         external = QUALITY._external_metrics(self.root)
+        consumers = QUALITY._consumer_metrics(self.root)
         legacy = QUALITY._legacy_metrics(self.root)
 
         self.assertEqual(canonical["dataset_count"], 1)
@@ -100,10 +125,34 @@ class RegistryQualityTests(unittest.TestCase):
         self.assertEqual(external["redistribution"]["resolved"], 0)
         self.assertEqual(external["redistribution"]["unresolved"], 1)
         self.assertEqual(external["pinned_immutable_identity_sources"], 1)
-        self.assertEqual(external["known_consumers"], ["consumer-repo"])
+        self.assertEqual(external["source_usage"]["consumers"], ["consumer-repo"])
+
+        self.assertEqual(consumers["active_consumer_repository_count"], 1)
+        self.assertEqual(consumers["active_relationship_count"], 1)
+        self.assertEqual(consumers["deprecated_relationship_count"], 0)
+        self.assertEqual(consumers["pinned_contract_count"], 1)
+        self.assertEqual(consumers["canonical_datasets_with_consumers"], 1)
+        self.assertEqual(consumers["canonical_datasets_without_consumers"], 0)
+        self.assertEqual(consumers["canonical_dataset_adoption_coverage"], 1.0)
+        self.assertEqual(consumers["active_consumers"], ["consumer-one"])
 
         self.assertEqual(legacy["package_count"], 1)
         self.assertEqual(legacy["unresolved_package_count"], 1)
+
+
+    def test_consumer_metrics_distinguish_deprecated_relationships(self) -> None:
+        path = self.root / "consumers" / "consumer-one" / "example.yaml"
+        metadata = yaml.safe_load(path.read_text(encoding="utf-8"))
+        metadata["status"] = "deprecated"
+        path.write_text(yaml.safe_dump(metadata, sort_keys=False), encoding="utf-8")
+
+        consumers = QUALITY._consumer_metrics(self.root)
+
+        self.assertEqual(consumers["active_relationship_count"], 0)
+        self.assertEqual(consumers["deprecated_relationship_count"], 1)
+        self.assertEqual(consumers["canonical_datasets_with_consumers"], 0)
+        self.assertEqual(consumers["canonical_datasets_without_consumers"], 1)
+        self.assertEqual(consumers["canonical_dataset_adoption_coverage"], 0.0)
 
 
     def test_missing_redistribution_is_unresolved(self) -> None:
@@ -134,12 +183,31 @@ class RegistryQualityTests(unittest.TestCase):
                 "source_count": 1,
                 "redistribution": {"resolved": 0, "unresolved": 1},
                 "pinned_immutable_identity_sources": 1,
-                "known_consumer_count": 1,
-                "known_consumer_references": 1,
-                "known_consumers": ["consumer-repo"],
+                "source_usage": {
+                    "consumer_count": 1,
+                    "consumer_references": 1,
+                    "consumers": ["consumer-repo"],
+                },
+            },
+            "consumers": {
+                "active_consumer_repository_count": 1,
+                "active_relationship_count": 1,
+                "deprecated_relationship_count": 0,
+                "pinned_contract_count": 1,
+                "pinned_contract_coverage": 1.0,
+                "canonical_datasets_with_consumers": 1,
+                "canonical_datasets_without_consumers": 0,
+                "canonical_dataset_adoption_coverage": 1.0,
+                "active_consumers": ["consumer-one"],
+                "datasets_with_consumers": ["example"],
+                "datasets_without_consumers": [],
             },
             "legacy": {"package_count": 1, "unresolved_package_count": 1},
-            "catalogs": {"canonical_current": True, "external_current": True},
+            "catalogs": {
+                "canonical_current": True,
+                "external_current": True,
+                "consumer_current": True,
+            },
             "snapshots": {
                 "available_from_repository_state": False,
                 "count": None,
@@ -148,6 +216,9 @@ class RegistryQualityTests(unittest.TestCase):
         }
         markdown = QUALITY.render_markdown(report)
         self.assertIn("unresolved redistribution state is not treated as an invalid record", markdown)
+        self.assertIn("Canonical consumer adoption", markdown)
+        self.assertIn("Canonical dataset adoption coverage: **100%**", markdown)
+        self.assertIn("External source usage annotations", markdown)
 
     def test_report_generation_is_deterministic(self) -> None:
         """Production report generation is byte-deterministic."""
