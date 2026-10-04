@@ -127,7 +127,8 @@ def build_dependency_graph(catalog: dict[str, Any]) -> dict[str, Any]:
 def _markdown_cell(value: object) -> str:
     """Escape text that will be embedded in a Markdown table cell."""
 
-    return str(value).replace("|", "\\|").replace("\n", "<br>")
+    text = str(value).replace("\\", "\\\\")
+    return text.replace("|", "\\|").replace("\n", "<br>")
 
 
 def render_markdown(catalog: dict[str, Any]) -> str:
