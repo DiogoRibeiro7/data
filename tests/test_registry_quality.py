@@ -218,6 +218,7 @@ class RegistryQualityTests(unittest.TestCase):
         self.assertIn("unresolved redistribution state is not treated as an invalid record", markdown)
         self.assertIn("Canonical consumer adoption", markdown)
         self.assertIn("Canonical dataset adoption coverage: **100%**", markdown)
+        self.assertIn("Pinned contract coverage: **100%**", markdown)
         self.assertIn("External source usage annotations", markdown)
 
     def test_report_generation_is_deterministic(self) -> None:
