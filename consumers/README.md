@@ -55,3 +55,15 @@ python scripts/generate_consumer_catalog.py --write
 ```
 
 CI checks that all three generated artifacts remain current.
+
+
+## Health checks
+
+Active consumer relationships are checked by the scheduled/manual
+`Consumer contract health` workflow.
+
+The networked checker verifies downstream repository/commit/evidence
+reachability and the immutable registry target without weakening offline
+repository validation.
+
+See [consumer contract health](../docs/CONSUMER_HEALTH.md).
