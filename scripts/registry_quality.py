@@ -371,6 +371,10 @@ def render_markdown(report: dict[str, Any]) -> str:
                 f"{consumers['active_relationship_count']}**"
             ),
             (
+                "- Pinned contract coverage: "
+                f"**{consumers['pinned_contract_coverage']:.0%}**"
+            ),
+            (
                 "- Canonical datasets with >=1 active consumer: "
                 f"**{consumers['canonical_datasets_with_consumers']}**"
             ),
