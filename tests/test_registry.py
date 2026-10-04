@@ -326,6 +326,27 @@ class RegistryTests(unittest.TestCase):
         self.assertEqual(code, 1)
         self.assertIn("unknown consumer id 'missing'", stderr.getvalue())
 
+    def test_used_by_rejects_present_null_dataset_node(self) -> None:
+        self.fixture.add_canonical("dataset-a")
+        self.fixture.add_consumer_graph()
+        graph_path = self.fixture.root / "consumers" / "dependency-graph.json"
+        graph = json.loads(graph_path.read_text(encoding="utf-8"))
+        graph["datasets"]["dataset-a"] = None
+        graph_path.write_text(
+            json.dumps(graph, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        stderr = io.StringIO()
+
+        with contextlib.redirect_stderr(stderr):
+            code = REGISTRY.main(
+                ["--root", str(self.fixture.root), "used-by", "dataset-a"]
+            )
+
+        self.assertEqual(code, 1)
+        self.assertIn("unknown consumer dataset id 'dataset-a'", stderr.getvalue())
+
+
     def test_unknown_used_by_dataset_is_a_clear_error(self) -> None:
         self.fixture.add_consumer_graph()
         stderr = io.StringIO()

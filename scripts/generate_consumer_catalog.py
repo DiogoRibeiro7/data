@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import sys
 from pathlib import Path
@@ -125,10 +126,20 @@ def build_dependency_graph(catalog: dict[str, Any]) -> dict[str, Any]:
 
 
 def _markdown_cell(value: object) -> str:
-    """Escape text that will be embedded in a Markdown table cell."""
+    """Escape plain text embedded in a Markdown table cell."""
 
     text = str(value).replace("\\", "\\\\")
     return text.replace("|", "\\|").replace("\n", "<br>")
+
+
+def _markdown_code_cell(value: object) -> str:
+    """Render code-like table content without breaking pipe-delimited rows."""
+
+    text = str(value)
+    if not any(char in text for char in ("|", "\\", "\n", "`", "<", ">", "&")):
+        return f"`{text}`"
+    escaped = html.escape(text, quote=False).replace("|", "&#124;").replace("\n", "<br>")
+    return f"<code>{escaped}</code>"
 
 
 def render_markdown(catalog: dict[str, Any]) -> str:
@@ -160,10 +171,10 @@ def render_markdown(catalog: dict[str, Any]) -> str:
         evidence = f"[evidence]({evidence_url})" if evidence_url else "—"
         lines.append(
             f"| [{_markdown_cell(item['consumer_repository'])}]({record_path}) | "
-            f"`{_markdown_cell(item['dataset_id'])}` | {_markdown_cell(item['status'])} | "
-            f"`{_markdown_cell(item['registry_commit'])}` | "
-            f"`{_markdown_cell(item['path'])}` | "
-            f"`{_markdown_cell(item['sha256'])}` | {evidence} |"
+            f"{_markdown_code_cell(item['dataset_id'])} | {_markdown_cell(item['status'])} | "
+            f"{_markdown_code_cell(item['registry_commit'])} | "
+            f"{_markdown_code_cell(item['path'])} | "
+            f"{_markdown_code_cell(item['sha256'])} | {evidence} |"
         )
 
     lines.append("")

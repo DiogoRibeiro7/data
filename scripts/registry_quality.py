@@ -93,8 +93,8 @@ def _external_metrics(root: Path) -> dict[str, Any]:
     resolved = 0
     unresolved = 0
     pinned = 0
-    consumers: set[str] = set()
-    consumer_references = 0
+    source_usage_consumers: set[str] = set()
+    source_usage_references = 0
 
     for source_dir in source_dirs:
         metadata = _load_yaml(source_dir / "metadata.yaml")
@@ -118,8 +118,8 @@ def _external_metrics(root: Path) -> dict[str, Any]:
         if isinstance(raw_consumers, list):
             for consumer in raw_consumers:
                 if isinstance(consumer, str) and consumer:
-                    consumers.add(consumer)
-                    consumer_references += 1
+                    source_usage_consumers.add(consumer)
+                    source_usage_references += 1
 
     return {
         "source_count": len(source_dirs),
@@ -128,11 +128,111 @@ def _external_metrics(root: Path) -> dict[str, Any]:
             "unresolved": unresolved,
         },
         "pinned_immutable_identity_sources": pinned,
-        "known_consumer_count": len(consumers),
-        "known_consumer_references": consumer_references,
-        "known_consumers": sorted(consumers),
+        "source_usage": {
+            "consumer_count": len(source_usage_consumers),
+            "consumer_references": source_usage_references,
+            "consumers": sorted(source_usage_consumers),
+        },
     }
 
+
+
+def _consumer_metrics(root: Path) -> dict[str, Any]:
+    """Return first-class canonical consumer-adoption metrics."""
+
+    consumers_root = root / "consumers"
+    dataset_ids: set[str] = set()
+    canonical_contracts: dict[tuple[str, str], str] = {}
+    for dataset_dir in sorted(
+        path
+        for path in (root / "datasets").iterdir()
+        if path.is_dir() and (path / "metadata.yaml").is_file()
+    ):
+        dataset_id = dataset_dir.name
+        dataset_ids.add(dataset_id)
+        metadata = _load_yaml(dataset_dir / "metadata.yaml")
+        files = metadata.get("files")
+        if not isinstance(files, list):
+            continue
+        for item in files:
+            if not isinstance(item, dict):
+                continue
+            relative_path = item.get("path")
+            checksum = item.get("sha256")
+            if isinstance(relative_path, str) and isinstance(checksum, str):
+                canonical_contracts[
+                    (dataset_id, f"datasets/{dataset_id}/{relative_path}")
+                ] = checksum
+
+    active_relationships = 0
+    deprecated_relationships = 0
+    pinned_contracts = 0
+    active_consumers: set[str] = set()
+    active_repositories: set[str] = set()
+    consumed_datasets: set[str] = set()
+
+    if consumers_root.is_dir():
+        for consumer_dir in sorted(
+            path for path in consumers_root.iterdir() if path.is_dir()
+        ):
+            for record_path in sorted(consumer_dir.glob("*.yaml")):
+                metadata = _load_yaml(record_path)
+                status = metadata.get("status")
+                if status == "deprecated":
+                    deprecated_relationships += 1
+                    continue
+                if status != "active":
+                    continue
+
+                active_relationships += 1
+
+                consumer_id = metadata.get("consumer_id")
+                if isinstance(consumer_id, str) and consumer_id:
+                    active_consumers.add(consumer_id)
+
+                consumer_repository = metadata.get("consumer_repository")
+                if isinstance(consumer_repository, str) and consumer_repository:
+                    active_repositories.add(consumer_repository)
+
+                dataset_id = metadata.get("dataset_id")
+                if isinstance(dataset_id, str) and dataset_id in dataset_ids:
+                    consumed_datasets.add(dataset_id)
+
+                commit = metadata.get("registry_commit")
+                path = metadata.get("path")
+                checksum = metadata.get("sha256")
+                if (
+                    isinstance(commit, str)
+                    and len(commit) == 40
+                    and all(char in "0123456789abcdef" for char in commit)
+                    and isinstance(dataset_id, str)
+                    and isinstance(path, str)
+                    and isinstance(checksum, str)
+                    and canonical_contracts.get((dataset_id, path)) == checksum
+                ):
+                    pinned_contracts += 1
+
+    without_consumers = sorted(dataset_ids - consumed_datasets)
+    with_consumers = sorted(consumed_datasets)
+
+    return {
+        "active_consumer_repository_count": len(active_repositories),
+        "active_relationship_count": active_relationships,
+        "deprecated_relationship_count": deprecated_relationships,
+        "pinned_contract_count": pinned_contracts,
+        "pinned_contract_coverage": (
+            pinned_contracts / active_relationships if active_relationships else 0.0
+        ),
+        "canonical_datasets_with_consumers": len(with_consumers),
+        "canonical_datasets_without_consumers": len(without_consumers),
+        "canonical_dataset_adoption_coverage": (
+            len(with_consumers) / len(dataset_ids) if dataset_ids else 0.0
+        ),
+        "active_consumers": sorted(active_consumers),
+        "active_consumer_repositories": sorted(active_repositories),
+        "datasets_with_consumers": with_consumers,
+        "datasets_without_consumers": without_consumers,
+    }
 
 def _legacy_metrics(root: Path) -> dict[str, Any]:
     """Return legacy-quarantine coverage metrics."""
@@ -154,6 +254,7 @@ def _catalog_status(root: Path) -> dict[str, bool]:
     scripts = root / "scripts"
     sys.path.insert(0, str(scripts))
     try:
+        import generate_consumer_catalog as consumer_catalog  # type: ignore
         import generate_external_catalog as external_catalog  # type: ignore
         import validate_repository as validator  # type: ignore
     finally:
@@ -172,19 +273,27 @@ def _catalog_status(root: Path) -> dict[str, bool]:
     canonical_md = validator.expected_markdown_catalog(canonical_expected)
 
     external_json, external_md = external_catalog.expected_outputs(root)
+    consumer_json, consumer_md, consumer_graph = consumer_catalog.expected_outputs(root)
+
+    def current(path: Path, expected: str) -> bool:
+        return path.is_file() and path.read_text(encoding="utf-8") == expected
 
     return {
         "canonical_current": (
-            (root / "datasets" / "catalog.json").read_text(encoding="utf-8")
-            == canonical_json
-            and (root / "datasets" / "CATALOG.md").read_text(encoding="utf-8")
-            == canonical_md
+            current(root / "datasets" / "catalog.json", canonical_json)
+            and current(root / "datasets" / "CATALOG.md", canonical_md)
         ),
         "external_current": (
-            (root / "external" / "catalog.json").read_text(encoding="utf-8")
-            == external_json
-            and (root / "external" / "CATALOG.md").read_text(encoding="utf-8")
-            == external_md
+            current(root / "external" / "catalog.json", external_json)
+            and current(root / "external" / "CATALOG.md", external_md)
+        ),
+        "consumer_current": (
+            current(root / "consumers" / "catalog.json", consumer_json)
+            and current(root / "consumers" / "CATALOG.md", consumer_md)
+            and current(
+                root / "consumers" / "dependency-graph.json",
+                consumer_graph,
+            )
         ),
     }
 
@@ -195,6 +304,7 @@ def build_report(root: Path) -> dict[str, Any]:
         "schema_version": 1,
         "canonical": _canonical_metrics(root),
         "external": _external_metrics(root),
+        "consumers": _consumer_metrics(root),
         "legacy": _legacy_metrics(root),
         "catalogs": _catalog_status(root),
         "snapshots": {
@@ -212,6 +322,7 @@ def render_markdown(report: dict[str, Any]) -> str:
     """Render a human-readable registry quality report."""
     canonical = report["canonical"]
     external = report["external"]
+    consumers = report["consumers"]
     legacy = report["legacy"]
     catalogs = report["catalogs"]
     snapshots = report["snapshots"]
@@ -244,14 +355,65 @@ def render_markdown(report: dict[str, Any]) -> str:
             "- Sources pinned to an immutable Git commit: "
             f"**{external['pinned_immutable_identity_sources']}**"
         ),
-        f"- Known downstream consumers: **{external['known_consumer_count']}**",
-        f"- Consumer references: **{external['known_consumer_references']}**",
         "",
-        "Known consumers:",
+        "External source usage annotations:",
+        "",
+        f"- Referenced consumer repositories: **{external['source_usage']['consumer_count']}**",
+        f"- Source usage references: **{external['source_usage']['consumer_references']}**",
         "",
     ]
-    if external["known_consumers"]:
-        lines.extend(f"- `{name}`" for name in external["known_consumers"])
+    if external["source_usage"]["consumers"]:
+        lines.extend(
+            f"- `{name}`" for name in external["source_usage"]["consumers"]
+        )
+    else:
+        lines.append("- None")
+
+    lines.extend(
+        [
+            "",
+            "## Canonical consumer adoption",
+            "",
+            (
+                "- Active consumer repositories: "
+                f"**{consumers['active_consumer_repository_count']}**"
+            ),
+            (
+                "- Active canonical relationships: "
+                f"**{consumers['active_relationship_count']}**"
+            ),
+            (
+                "- Deprecated relationships: "
+                f"**{consumers['deprecated_relationship_count']}**"
+            ),
+            (
+                "- Pinned contracts: "
+                f"**{consumers['pinned_contract_count']} / "
+                f"{consumers['active_relationship_count']}**"
+            ),
+            (
+                "- Pinned contract coverage: "
+                f"**{consumers['pinned_contract_coverage']:.0%}**"
+            ),
+            (
+                "- Canonical datasets with >=1 active consumer: "
+                f"**{consumers['canonical_datasets_with_consumers']}**"
+            ),
+            (
+                "- Canonical datasets with zero active consumers: "
+                f"**{consumers['canonical_datasets_without_consumers']}**"
+            ),
+            (
+                "- Canonical dataset adoption coverage: "
+                f"**{consumers['canonical_dataset_adoption_coverage']:.0%}**"
+            ),
+            "",
+            "Active consumers:",
+            "",
+        ]
+    )
+    if consumers["active_consumers"]:
+        lines.extend(f"- `{name}`" for name in consumers["active_consumers"])
     else:
         lines.append("- None")
 
@@ -267,6 +429,7 @@ def render_markdown(report: dict[str, Any]) -> str:
             "",
             f"- Canonical catalog current: **{str(catalogs['canonical_current']).lower()}**",
             f"- External catalog current: **{str(catalogs['external_current']).lower()}**",
+            f"- Consumer catalog/graph current: **{str(catalogs['consumer_current']).lower()}**",
             "",
             "## Snapshot coverage",
             "",
@@ -282,6 +445,11 @@ def render_markdown(report: dict[str, Any]) -> str:
                 "An unresolved redistribution state is not treated as an invalid record. "
                 "It means the registry intentionally lacks sufficient evidence to claim "
                 "redistribution permission."
+            ),
+            (
+                "Canonical consumer adoption is measured only from formal `consumers/` "
+                "records. External-source consumer annotations remain separate source-usage "
+                "hints and are not counted as canonical consumer contracts."
             ),
             "",
         ]

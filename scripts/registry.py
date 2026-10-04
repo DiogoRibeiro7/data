@@ -224,9 +224,9 @@ def consumers_for_dataset(
     """Return consumers registered for one canonical dataset."""
 
     datasets = graph["datasets"]
-    payload = datasets.get(dataset_id)
-    if payload is None and known_dataset_ids is not None and dataset_id in known_dataset_ids:
+    if dataset_id not in datasets and known_dataset_ids is not None and dataset_id in known_dataset_ids:
         return []
+    payload = datasets.get(dataset_id)
     if not isinstance(payload, dict):
         raise RegistryError(f"unknown consumer dataset id {dataset_id!r}")
     consumers = payload.get("consumers")

@@ -27,8 +27,13 @@ Each record pins the exact registry commit, canonical path, and SHA-256, and ide
 downstream repository plus evidence of the migration. The central record is validated offline
 against canonical metadata.
 
-No real consumer records are added as part of the schema introduction; Phase 5 issue #69
-performs the first backfill.
+The registry currently records two active canonical relationships:
+
+- `DiogoRibeiro7/Medium-Blog` → `online-retail-ii`;
+- `DiogoRibeiro7/displacement-risk-lab-dynamodb` → `ucdp-ged-25-1`.
+
+Browse the generated [canonical consumer catalog](generated/consumer-catalog.md) or use
+the registry CLI's `consumers`, `consumer`, `used-by`, and `uses` commands.
 
 ## Reference manifest
 
@@ -73,12 +78,12 @@ Only remove a project's old full dataset copy after:
 
 A project may deliberately retain a full immutable snapshot when offline scientific reproducibility or packaging requires it. Document why it exists and verify its identity instead of deleting it mechanically.
 
-## Historical consumer audit
+## Current adoption
 
-As of 2026-09-30, before canonical promotion:
+Both canonical datasets currently have at least one registered active consumer.
+Consumer adoption is measured from formal `consumers/` records, not from
+free-form external-source annotations.
 
-- `datasets/catalog.json` contains zero canonical datasets;
-- account-wide GitHub code search found no exact consumer URL for `DiogoRibeiro7/data`;
-- therefore there are no consumer repositories to migrate in issue #7.
-
-This historical audit predates the completed canonical migrations and is retained only as migration context. Current consumer state will be represented by the Phase 5 consumer registry.
+The deterministic reverse dependency graph is committed at
+`consumers/dependency-graph.json`, and active contracts are monitored by the
+scheduled/manual consumer health workflow.

@@ -8,6 +8,7 @@ import json
 import sys
 import urllib.error
 import urllib.request
+from urllib.parse import quote, urlsplit
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Callable
@@ -61,6 +62,15 @@ def request_url(
 ) -> tuple[str, str]:
     """Check one URL and classify network failures conservatively."""
 
+    try:
+        parsed = urlsplit(url)
+    except ValueError as exc:
+        return "warning", f"invalid URL: {exc}"
+
+    if parsed.scheme not in {"http", "https"}:
+        scheme = parsed.scheme or "<missing>"
+        return "warning", f"unsupported URL scheme: {scheme}"
+
     request = urllib.request.Request(
         url,
         headers={
@@ -71,7 +81,7 @@ def request_url(
     )
     try:
         code = opener(request, timeout)
-    except (urllib.error.URLError, TimeoutError, OSError) as exc:
+    except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
         return "warning", f"network error: {exc}"
     return classify_http(code)
 
@@ -94,7 +104,8 @@ def github_commit_url(repository: str, commit: str) -> str:
 def github_contents_url(repository: str, commit: str, path: str) -> str:
     """Return an immutable GitHub contents URL."""
 
-    return f"https://github.com/{repository}/blob/{commit}/{path}"
+    encoded_path = quote(path, safe="/")
+    return f"https://github.com/{repository}/blob/{commit}/{encoded_path}"
 
 
 def check_consumer_contracts(
@@ -120,6 +131,7 @@ def check_consumer_contracts(
             dataset_id = str(metadata.get("dataset_id", ""))
             repository = metadata.get("consumer_repository")
             consumer_commit = metadata.get("consumer_commit")
+            registry_repository = metadata.get("registry_repository")
             registry_commit = metadata.get("registry_commit")
             canonical_path = metadata.get("path")
             evidence_url = metadata.get("evidence_url")
@@ -185,9 +197,13 @@ def check_consumer_contracts(
                     )
                 )
 
-            if isinstance(registry_commit, str) and isinstance(canonical_path, str):
+            if (
+                isinstance(registry_repository, str)
+                and isinstance(registry_commit, str)
+                and isinstance(canonical_path, str)
+            ):
                 registry_target = github_contents_url(
-                    "DiogoRibeiro7/data",
+                    registry_repository,
                     registry_commit,
                     canonical_path,
                 )

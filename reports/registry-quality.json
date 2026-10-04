@@ -7,23 +7,49 @@
   },
   "catalogs": {
     "canonical_current": true,
+    "consumer_current": true,
     "external_current": true
   },
-  "external": {
-    "known_consumer_count": 4,
-    "known_consumer_references": 6,
-    "known_consumers": [
-      "cpd-stress-test",
-      "crop-protection-predictive-science",
-      "displacement-risk-lab-dynamodb",
-      "productivity_taxation_inequality_project"
+  "consumers": {
+    "active_consumer_repositories": [
+      "DiogoRibeiro7/Medium-Blog",
+      "DiogoRibeiro7/displacement-risk-lab-dynamodb"
     ],
+    "active_consumer_repository_count": 2,
+    "active_consumers": [
+      "displacement-risk-lab-dynamodb",
+      "medium-blog"
+    ],
+    "active_relationship_count": 2,
+    "canonical_dataset_adoption_coverage": 1.0,
+    "canonical_datasets_with_consumers": 2,
+    "canonical_datasets_without_consumers": 0,
+    "datasets_with_consumers": [
+      "online-retail-ii",
+      "ucdp-ged-25-1"
+    ],
+    "datasets_without_consumers": [],
+    "deprecated_relationship_count": 0,
+    "pinned_contract_count": 2,
+    "pinned_contract_coverage": 1.0
+  },
+  "external": {
     "pinned_immutable_identity_sources": 3,
     "redistribution": {
       "resolved": 8,
       "unresolved": 5
     },
-    "source_count": 13
+    "source_count": 13,
+    "source_usage": {
+      "consumer_count": 4,
+      "consumer_references": 6,
+      "consumers": [
+        "cpd-stress-test",
+        "crop-protection-predictive-science",
+        "displacement-risk-lab-dynamodb",
+        "productivity_taxation_inequality_project"
+      ]
+    }
   },
   "legacy": {
     "package_count": 2,

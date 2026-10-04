@@ -111,6 +111,59 @@ class ConsumerHealthTests(unittest.TestCase):
         self.assertTrue(target.endswith("/datasets/example-dataset/raw/data.csv"))
         self.assertIn(target, seen)
 
+    def test_unsupported_evidence_scheme_is_warning_without_opening(self) -> None:
+        temp, root = self.make_root()
+        self.addCleanup(temp.cleanup)
+        path = root / "consumers" / "example-consumer" / "example-dataset.yaml"
+        metadata = yaml.safe_load(path.read_text(encoding="utf-8"))
+        metadata["evidence_url"] = "file:///tmp/local"
+        path.write_text(yaml.safe_dump(metadata, sort_keys=False), encoding="utf-8")
+
+        seen: list[str] = []
+
+        def opener(request, _timeout):
+            seen.append(request.full_url)
+            return 200
+
+        results = HEALTH.check_consumer_contracts(root, opener=opener)
+        evidence = next(item for item in results if item.check == "evidence")
+
+        self.assertEqual(evidence.status, "warning")
+        self.assertIn("unsupported URL scheme", evidence.detail)
+        self.assertNotIn("file:///tmp/local", seen)
+
+    def test_invalid_url_value_is_warning(self) -> None:
+        status, detail = HEALTH.request_url(
+            "https://example.test:bad-port/path",
+            opener=lambda _request, _timeout: (_ for _ in ()).throw(ValueError("bad port")),
+            timeout=1,
+        )
+        self.assertEqual(status, "warning")
+        self.assertIn("network error", detail)
+
+    def test_registry_path_is_percent_encoded_and_repository_is_record_driven(self) -> None:
+        temp, root = self.make_root()
+        self.addCleanup(temp.cleanup)
+        path = root / "consumers" / "example-consumer" / "example-dataset.yaml"
+        metadata = yaml.safe_load(path.read_text(encoding="utf-8"))
+        metadata["registry_repository"] = "example-org/example-registry"
+        metadata["path"] = "datasets/example-dataset/raw/a b#c.csv"
+        path.write_text(yaml.safe_dump(metadata, sort_keys=False), encoding="utf-8")
+
+        seen: list[str] = []
+
+        def opener(request, _timeout):
+            seen.append(request.full_url)
+            return 200
+
+        results = HEALTH.check_consumer_contracts(root, opener=opener)
+        target = next(item.target for item in results if item.check == "registry-contract")
+
+        self.assertIn("example-org/example-registry", target)
+        self.assertTrue(target.endswith("/datasets/example-dataset/raw/a%20b%23c.csv"))
+        self.assertIn(target, seen)
+
+
     def test_missing_repository_is_drift(self) -> None:
         temp, root = self.make_root()
         self.addCleanup(temp.cleanup)
@@ -155,8 +208,10 @@ class ConsumerHealthTests(unittest.TestCase):
             written = json.loads(
                 (report_root / "report.json").read_text(encoding="utf-8")
             )
+            markdown = (report_root / "report.md").read_text(encoding="utf-8")
 
         self.assertEqual(written["summary"], payload["summary"])
+        self.assertIn("Consumer contract health report", markdown)
 
 
 if __name__ == "__main__":
