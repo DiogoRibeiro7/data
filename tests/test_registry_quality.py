@@ -159,6 +159,28 @@ class RegistryQualityTests(unittest.TestCase):
         self.assertEqual(consumers["canonical_dataset_adoption_coverage"], 0.0)
 
 
+    def test_consumer_repository_count_deduplicates_consumer_ids(self) -> None:
+        second_dir = self.root / "consumers" / "consumer-two"
+        second_dir.mkdir()
+        source = self.root / "consumers" / "consumer-one" / "example.yaml"
+        metadata = yaml.safe_load(source.read_text(encoding="utf-8"))
+        metadata["consumer_id"] = "consumer-two"
+        metadata["consumer_repository"] = "DiogoRibeiro7/consumer-one"
+        (second_dir / "example.yaml").write_text(
+            yaml.safe_dump(metadata, sort_keys=False),
+            encoding="utf-8",
+        )
+
+        consumers = QUALITY._consumer_metrics(self.root)
+
+        self.assertEqual(consumers["active_relationship_count"], 2)
+        self.assertEqual(consumers["active_consumer_repository_count"], 1)
+        self.assertEqual(
+            consumers["active_consumers"],
+            ["consumer-one", "consumer-two"],
+        )
+
+
     def test_pinned_contract_requires_canonical_path_and_checksum_match(self) -> None:
         path = self.root / "consumers" / "consumer-one" / "example.yaml"
         metadata = yaml.safe_load(path.read_text(encoding="utf-8"))
