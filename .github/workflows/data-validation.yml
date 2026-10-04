@@ -12,6 +12,7 @@ on:
       - "scripts/validate_repository.py"
       - "scripts/fetch_dataset.py"
       - "scripts/generate_external_catalog.py"
+      - "scripts/generate_consumer_catalog.py"
       - "scripts/registry.py"
       - "scripts/create_snapshot.py"
       - "scripts/check_external_sources.py"
@@ -19,6 +20,7 @@ on:
       - "tests/test_validate_repository.py"
       - "tests/test_fetch_dataset.py"
       - "tests/test_external_catalog.py"
+      - "tests/test_consumer_catalog.py"
       - "tests/test_registry.py"
       - "tests/test_snapshot.py"
       - "tests/test_external_health.py"
@@ -49,6 +51,7 @@ on:
       - "scripts/validate_repository.py"
       - "scripts/fetch_dataset.py"
       - "scripts/generate_external_catalog.py"
+      - "scripts/generate_consumer_catalog.py"
       - "scripts/registry.py"
       - "scripts/create_snapshot.py"
       - "scripts/check_external_sources.py"
@@ -56,6 +59,7 @@ on:
       - "tests/test_validate_repository.py"
       - "tests/test_fetch_dataset.py"
       - "tests/test_external_catalog.py"
+      - "tests/test_consumer_catalog.py"
       - "tests/test_registry.py"
       - "tests/test_snapshot.py"
       - "tests/test_external_health.py"
@@ -104,6 +108,9 @@ jobs:
 
       - name: Validate external source catalog
         run: python scripts/generate_external_catalog.py
+
+      - name: Validate consumer catalog
+        run: python scripts/generate_consumer_catalog.py
 
       - name: Validate registry quality report
         run: |
