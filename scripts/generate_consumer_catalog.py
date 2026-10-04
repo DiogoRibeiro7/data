@@ -136,7 +136,7 @@ def _markdown_code_cell(value: object) -> str:
     """Render code-like table content without breaking pipe-delimited rows."""
 
     text = str(value)
-    if "|" not in text and "\\" not in text and "\n" not in text:
+    if not any(char in text for char in ("|", "\\", "\n", "`", "<", ">", "&")):
         return f"`{text}`"
     escaped = html.escape(text, quote=False).replace("|", "&#124;").replace("\n", "<br>")
     return f"<code>{escaped}</code>"
