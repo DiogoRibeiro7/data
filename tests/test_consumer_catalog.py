@@ -140,7 +140,7 @@ class ConsumerCatalogTests(unittest.TestCase):
             CATALOG.build_catalog(self.root / "consumers")
         )
 
-        self.assertIn(r"<code>datasets/dataset/raw/a\\&#124;b.csv</code>", rendered)
+        self.assertIn(r"<code>datasets/dataset/raw/a\&#124;b.csv</code>", rendered)
 
 
     def test_markdown_contains_contract_and_evidence(self) -> None:
