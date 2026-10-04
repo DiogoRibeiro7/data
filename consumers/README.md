@@ -35,5 +35,11 @@ Use:
 - `active` for a current dependency;
 - `deprecated` for a historical relationship retained for traceability. Deprecated records must remain structurally valid, but they are not required to match a currently live canonical dataset/path/checksum.
 
-Consumer records are added separately from the schema introduction. See Phase 5
-issue #69 for the initial backfill.
+## Registered relationships
+
+The initial Phase 5 backfill registers two active canonical consumers:
+
+- `DiogoRibeiro7/Medium-Blog` → `online-retail-ii`;
+- `DiogoRibeiro7/displacement-risk-lab-dynamodb` → `ucdp-ged-25-1`.
+
+Generated catalog and reverse dependency views are added separately in issue #70.

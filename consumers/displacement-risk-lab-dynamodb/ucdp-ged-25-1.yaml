@@ -1,0 +1,22 @@
+schema_version: 1
+status: active
+
+consumer_id: displacement-risk-lab-dynamodb
+consumer_repository: DiogoRibeiro7/displacement-risk-lab-dynamodb
+
+dataset_id: ucdp-ged-25-1
+
+registry_layer: canonical
+registry_repository: DiogoRibeiro7/data
+registry_commit: "24d66b6f78d3bcfa8ddc2cc77b5d84d2b9a6e3c5"
+
+path: datasets/ucdp-ged-25-1/raw/ged251-csv.zip
+sha256: "e256f1fb20a579d8b2f910e5bae212f486d3002adaa2e4359ace740c737da05d"
+
+consumer_commit: "a0d50d277d30dce03c48bdb662298595b4fa289a"
+evidence_url: https://github.com/DiogoRibeiro7/displacement-risk-lab-dynamodb/pull/6
+
+notes: >
+  Production UCDP ingestion pins the canonical registry commit and verifies the
+  archive SHA-256 before writing. Synthetic UCDP-shaped sample files in the
+  downstream repository are intentionally not canonical consumers.
