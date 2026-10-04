@@ -175,12 +175,24 @@ def consumer_summaries(graph: dict[str, Any]) -> list[dict[str, Any]]:
         if not isinstance(datasets, list):
             raise RegistryError(f"consumer {consumer_id!r}: datasets must be a list")
         repository = payload.get("repository")
+        normalized_datasets: list[str] = []
+        for item in datasets:
+            if not isinstance(item, dict):
+                raise RegistryError(
+                    f"consumer {consumer_id!r}: dataset entries must be objects"
+                )
+            dataset_id = item.get("dataset_id")
+            if not isinstance(dataset_id, str) or not dataset_id:
+                raise RegistryError(
+                    f"consumer {consumer_id!r}: dataset entry is missing dataset_id"
+                )
+            normalized_datasets.append(dataset_id)
         result.append(
             {
                 "consumer_id": consumer_id,
                 "consumer_repository": repository,
-                "dataset_count": len(datasets),
-                "datasets": [item.get("dataset_id") for item in datasets if isinstance(item, dict)],
+                "dataset_count": len(normalized_datasets),
+                "datasets": normalized_datasets,
             }
         )
     return result
@@ -203,11 +215,18 @@ def find_consumer(graph: dict[str, Any], consumer_id: str) -> dict[str, Any]:
     }
 
 
-def consumers_for_dataset(graph: dict[str, Any], dataset_id: str) -> list[dict[str, Any]]:
+def consumers_for_dataset(
+    graph: dict[str, Any],
+    dataset_id: str,
+    *,
+    known_dataset_ids: set[str] | None = None,
+) -> list[dict[str, Any]]:
     """Return consumers registered for one canonical dataset."""
 
     datasets = graph["datasets"]
     payload = datasets.get(dataset_id)
+    if payload is None and known_dataset_ids is not None and dataset_id in known_dataset_ids:
+        return []
     if not isinstance(payload, dict):
         raise RegistryError(f"unknown consumer dataset id {dataset_id!r}")
     consumers = payload.get("consumers")
@@ -652,7 +671,14 @@ def main(argv: Sequence[str] | None = None) -> int:
 
         if args.command == "used-by":
             graph = load_consumer_graph(root)
-            result = consumers_for_dataset(graph, args.dataset_id)
+            known_dataset_ids = {
+                entry.id for entry in entries if entry.layer == "canonical"
+            }
+            result = consumers_for_dataset(
+                graph,
+                args.dataset_id,
+                known_dataset_ids=known_dataset_ids,
+            )
             if args.json:
                 _print_json(result)
             else:

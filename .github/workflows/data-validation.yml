@@ -16,6 +16,7 @@ on:
       - "scripts/registry.py"
       - "scripts/create_snapshot.py"
       - "scripts/check_external_sources.py"
+      - "scripts/check_consumer_contracts.py"
       - "scripts/registry_quality.py"
       - "tests/test_validate_repository.py"
       - "tests/test_fetch_dataset.py"
@@ -24,6 +25,7 @@ on:
       - "tests/test_registry.py"
       - "tests/test_snapshot.py"
       - "tests/test_external_health.py"
+      - "tests/test_consumer_health.py"
       - "tests/test_citation_metadata.py"
       - "tests/test_registry_quality.py"
       - "reports/registry-quality.json"
@@ -38,6 +40,7 @@ on:
       - ".github/workflows/data-validation.yml"
       - ".github/workflows/snapshot-release.yml"
       - ".github/workflows/external-source-health.yml"
+      - ".github/workflows/consumer-contract-health.yml"
   push:
     branches:
       - main
@@ -55,6 +58,7 @@ on:
       - "scripts/registry.py"
       - "scripts/create_snapshot.py"
       - "scripts/check_external_sources.py"
+      - "scripts/check_consumer_contracts.py"
       - "scripts/registry_quality.py"
       - "tests/test_validate_repository.py"
       - "tests/test_fetch_dataset.py"
@@ -63,6 +67,7 @@ on:
       - "tests/test_registry.py"
       - "tests/test_snapshot.py"
       - "tests/test_external_health.py"
+      - "tests/test_consumer_health.py"
       - "tests/test_citation_metadata.py"
       - "tests/test_registry_quality.py"
       - "reports/registry-quality.json"
@@ -77,6 +82,7 @@ on:
       - ".github/workflows/data-validation.yml"
       - ".github/workflows/snapshot-release.yml"
       - ".github/workflows/external-source-health.yml"
+      - ".github/workflows/consumer-contract-health.yml"
 
 permissions:
   contents: read
