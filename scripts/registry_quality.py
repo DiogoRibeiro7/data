@@ -141,16 +141,34 @@ def _consumer_metrics(root: Path) -> dict[str, Any]:
     """Return first-class canonical consumer-adoption metrics."""
 
     consumers_root = root / "consumers"
-    dataset_ids = {
-        path.name
+    dataset_ids: set[str] = set()
+    canonical_contracts: dict[tuple[str, str], str] = {}
+    for dataset_dir in sorted(
+        path
         for path in (root / "datasets").iterdir()
         if path.is_dir() and (path / "metadata.yaml").is_file()
-    }
+    ):
+        dataset_id = dataset_dir.name
+        dataset_ids.add(dataset_id)
+        metadata = _load_yaml(dataset_dir / "metadata.yaml")
+        files = metadata.get("files")
+        if not isinstance(files, list):
+            continue
+        for item in files:
+            if not isinstance(item, dict):
+                continue
+            relative_path = item.get("path")
+            checksum = item.get("sha256")
+            if isinstance(relative_path, str) and isinstance(checksum, str):
+                canonical_contracts[
+                    (dataset_id, f"datasets/{dataset_id}/{relative_path}")
+                ] = checksum
 
     active_relationships = 0
     deprecated_relationships = 0
     pinned_contracts = 0
     active_consumers: set[str] = set()
+    active_repositories: set[str] = set()
     consumed_datasets: set[str] = set()
 
     if consumers_root.is_dir():
@@ -172,6 +190,10 @@ def _consumer_metrics(root: Path) -> dict[str, Any]:
                 if isinstance(consumer_id, str) and consumer_id:
                     active_consumers.add(consumer_id)
 
+                consumer_repository = metadata.get("consumer_repository")
+                if isinstance(consumer_repository, str) and consumer_repository:
+                    active_repositories.add(consumer_repository)
+
                 dataset_id = metadata.get("dataset_id")
                 if isinstance(dataset_id, str) and dataset_id in dataset_ids:
                     consumed_datasets.add(dataset_id)
@@ -183,11 +205,10 @@ def _consumer_metrics(root: Path) -> dict[str, Any]:
                     isinstance(commit, str)
                     and len(commit) == 40
                     and all(char in "0123456789abcdef" for char in commit)
+                    and isinstance(dataset_id, str)
                     and isinstance(path, str)
-                    and path.startswith("datasets/")
                     and isinstance(checksum, str)
-                    and len(checksum) == 64
-                    and all(char in "0123456789abcdef" for char in checksum)
+                    and canonical_contracts.get((dataset_id, path)) == checksum
                 ):
                     pinned_contracts += 1
 
@@ -195,7 +216,7 @@ def _consumer_metrics(root: Path) -> dict[str, Any]:
     with_consumers = sorted(consumed_datasets)
 
     return {
-        "active_consumer_repository_count": len(active_consumers),
+        "active_consumer_repository_count": len(active_repositories),
         "active_relationship_count": active_relationships,
         "deprecated_relationship_count": deprecated_relationships,
         "pinned_contract_count": pinned_contracts,
@@ -208,6 +229,7 @@ def _consumer_metrics(root: Path) -> dict[str, Any]:
             len(with_consumers) / len(dataset_ids) if dataset_ids else 0.0
         ),
         "active_consumers": sorted(active_consumers),
+        "active_consumer_repositories": sorted(active_repositories),
         "datasets_with_consumers": with_consumers,
         "datasets_without_consumers": without_consumers,
     }
@@ -253,26 +275,25 @@ def _catalog_status(root: Path) -> dict[str, bool]:
     external_json, external_md = external_catalog.expected_outputs(root)
     consumer_json, consumer_md, consumer_graph = consumer_catalog.expected_outputs(root)
 
+    def current(path: Path, expected: str) -> bool:
+        return path.is_file() and path.read_text(encoding="utf-8") == expected
+
     return {
         "canonical_current": (
-            (root / "datasets" / "catalog.json").read_text(encoding="utf-8")
-            == canonical_json
-            and (root / "datasets" / "CATALOG.md").read_text(encoding="utf-8")
-            == canonical_md
+            current(root / "datasets" / "catalog.json", canonical_json)
+            and current(root / "datasets" / "CATALOG.md", canonical_md)
         ),
         "external_current": (
-            (root / "external" / "catalog.json").read_text(encoding="utf-8")
-            == external_json
-            and (root / "external" / "CATALOG.md").read_text(encoding="utf-8")
-            == external_md
+            current(root / "external" / "catalog.json", external_json)
+            and current(root / "external" / "CATALOG.md", external_md)
         ),
         "consumer_current": (
-            (root / "consumers" / "catalog.json").read_text(encoding="utf-8")
-            == consumer_json
-            and (root / "consumers" / "CATALOG.md").read_text(encoding="utf-8")
-            == consumer_md
-            and (root / "consumers" / "dependency-graph.json").read_text(encoding="utf-8")
-            == consumer_graph
+            current(root / "consumers" / "catalog.json", consumer_json)
+            and current(root / "consumers" / "CATALOG.md", consumer_md)
+            and current(
+                root / "consumers" / "dependency-graph.json",
+                consumer_graph,
+            )
         ),
     }
 
