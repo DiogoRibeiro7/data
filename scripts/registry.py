@@ -144,6 +144,164 @@ def load_registry(root: Path) -> list[RegistryEntry]:
     return entries
 
 
+
+def load_consumer_graph(root: Path) -> dict[str, Any]:
+    """Load the generated consumer dependency graph."""
+
+    path = root / "consumers" / "dependency-graph.json"
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise RegistryError(f"{path}: cannot load consumer dependency graph: {exc}") from exc
+    if not isinstance(raw, dict):
+        raise RegistryError(f"{path}: dependency graph root must be an object")
+    consumers = raw.get("consumers")
+    datasets = raw.get("datasets")
+    if not isinstance(consumers, dict) or not isinstance(datasets, dict):
+        raise RegistryError(f"{path}: dependency graph must contain consumers and datasets")
+    return raw
+
+
+def consumer_summaries(graph: dict[str, Any]) -> list[dict[str, Any]]:
+    """Return stable summaries for all registered consumers."""
+
+    consumers = graph["consumers"]
+    result: list[dict[str, Any]] = []
+    for consumer_id in sorted(consumers):
+        payload = consumers[consumer_id]
+        if not isinstance(payload, dict):
+            raise RegistryError(f"consumer {consumer_id!r}: graph entry must be an object")
+        datasets = payload.get("datasets")
+        if not isinstance(datasets, list):
+            raise RegistryError(f"consumer {consumer_id!r}: datasets must be a list")
+        repository = payload.get("repository")
+        result.append(
+            {
+                "consumer_id": consumer_id,
+                "consumer_repository": repository,
+                "dataset_count": len(datasets),
+                "datasets": [item.get("dataset_id") for item in datasets if isinstance(item, dict)],
+            }
+        )
+    return result
+
+
+def find_consumer(graph: dict[str, Any], consumer_id: str) -> dict[str, Any]:
+    """Return one exact consumer dependency entry."""
+
+    consumers = graph["consumers"]
+    payload = consumers.get(consumer_id)
+    if not isinstance(payload, dict):
+        raise RegistryError(f"unknown consumer id {consumer_id!r}")
+    datasets = payload.get("datasets")
+    if not isinstance(datasets, list):
+        raise RegistryError(f"consumer {consumer_id!r}: datasets must be a list")
+    return {
+        "consumer_id": consumer_id,
+        "consumer_repository": payload.get("repository"),
+        "datasets": datasets,
+    }
+
+
+def consumers_for_dataset(graph: dict[str, Any], dataset_id: str) -> list[dict[str, Any]]:
+    """Return consumers registered for one canonical dataset."""
+
+    datasets = graph["datasets"]
+    payload = datasets.get(dataset_id)
+    if not isinstance(payload, dict):
+        raise RegistryError(f"unknown consumer dataset id {dataset_id!r}")
+    consumers = payload.get("consumers")
+    if not isinstance(consumers, list):
+        raise RegistryError(f"dataset {dataset_id!r}: consumers must be a list")
+    return consumers
+
+
+def datasets_for_consumer(graph: dict[str, Any], consumer_id: str) -> list[dict[str, Any]]:
+    """Return datasets registered for one consumer."""
+
+    return list(find_consumer(graph, consumer_id)["datasets"])
+
+
+def render_consumer_summary_table(items: Sequence[dict[str, Any]]) -> str:
+    """Render a compact table of consumer repositories and dataset counts."""
+
+    if not items:
+        return "No canonical consumers are registered."
+
+    rows = [
+        (
+            str(item["consumer_id"]),
+            str(item.get("consumer_repository") or "—"),
+            str(item["dataset_count"]),
+            ", ".join(str(value) for value in item["datasets"]) or "—",
+        )
+        for item in items
+    ]
+    headers = ("CONSUMER", "REPOSITORY", "DATASETS", "DATASET IDS")
+    widths = [
+        max(len(headers[index]), *(len(row[index]) for row in rows))
+        for index in range(len(headers))
+    ]
+    lines = [
+        "  ".join(headers[index].ljust(widths[index]) for index in range(len(headers)))
+    ]
+    lines.append("  ".join("-" * width for width in widths))
+    lines.extend(
+        "  ".join(row[index].ljust(widths[index]) for index in range(len(headers)))
+        for row in rows
+    )
+    return "\n".join(lines)
+
+
+def render_dependency_table(
+    items: Sequence[dict[str, Any]],
+    *,
+    mode: str,
+) -> str:
+    """Render dependency rows for used-by and uses queries."""
+
+    if not items:
+        return "No matching consumer dependencies."
+
+    if mode == "used-by":
+        rows = [
+            (
+                str(item.get("consumer_id", "")),
+                str(item.get("consumer_repository", "")),
+                str(item.get("status", "")),
+                str(item.get("registry_commit", "")),
+            )
+            for item in items
+        ]
+        headers = ("CONSUMER", "REPOSITORY", "STATUS", "REGISTRY COMMIT")
+    elif mode == "uses":
+        rows = [
+            (
+                str(item.get("dataset_id", "")),
+                str(item.get("status", "")),
+                str(item.get("registry_commit", "")),
+                str(item.get("path", "")),
+            )
+            for item in items
+        ]
+        headers = ("DATASET", "STATUS", "REGISTRY COMMIT", "CANONICAL PATH")
+    else:
+        raise RegistryError(f"unknown dependency table mode: {mode}")
+
+    widths = [
+        max(len(headers[index]), *(len(row[index]) for row in rows))
+        for index in range(len(headers))
+    ]
+    lines = [
+        "  ".join(headers[index].ljust(widths[index]) for index in range(len(headers)))
+    ]
+    lines.append("  ".join("-" * width for width in widths))
+    lines.extend(
+        "  ".join(row[index].ljust(widths[index]) for index in range(len(headers)))
+        for row in rows
+    )
+    return "\n".join(lines)
+
 def filter_layer(entries: Iterable[RegistryEntry], layer: str) -> list[RegistryEntry]:
     """Filter entries by layer or return all."""
 
@@ -375,6 +533,33 @@ def build_parser() -> argparse.ArgumentParser:
     fetch_parser.add_argument("--force", action="store_true")
     fetch_parser.add_argument("--json", action="store_true", help="Emit JSON output.")
 
+    consumers_parser = subparsers.add_parser(
+        "consumers",
+        help="List registered canonical consumers.",
+    )
+    _add_common_read_options(consumers_parser)
+
+    consumer_parser = subparsers.add_parser(
+        "consumer",
+        help="Show one registered canonical consumer.",
+    )
+    consumer_parser.add_argument("id")
+    _add_common_read_options(consumer_parser)
+
+    used_by_parser = subparsers.add_parser(
+        "used-by",
+        help="List consumers of one canonical dataset.",
+    )
+    used_by_parser.add_argument("dataset_id")
+    _add_common_read_options(used_by_parser)
+
+    uses_parser = subparsers.add_parser(
+        "uses",
+        help="List canonical datasets used by one consumer.",
+    )
+    uses_parser.add_argument("consumer_id")
+    _add_common_read_options(uses_parser)
+
     return parser
 
 
@@ -443,6 +628,45 @@ def main(argv: Sequence[str] | None = None) -> int:
                 for problem in problems:
                     print(f"{problem.severity.upper()}: {problem.message}")
             return 1 if errors else 0
+
+        if args.command == "consumers":
+            graph = load_consumer_graph(root)
+            result = consumer_summaries(graph)
+            if args.json:
+                _print_json(result)
+            else:
+                print(render_consumer_summary_table(result))
+            return 0
+
+        if args.command == "consumer":
+            graph = load_consumer_graph(root)
+            payload = find_consumer(graph, args.id)
+            if args.json:
+                _print_json(payload)
+            else:
+                print(f"Consumer:   {payload['consumer_id']}")
+                print(f"Repository: {payload.get('consumer_repository') or '—'}")
+                print("")
+                print(render_dependency_table(payload["datasets"], mode="uses"))
+            return 0
+
+        if args.command == "used-by":
+            graph = load_consumer_graph(root)
+            result = consumers_for_dataset(graph, args.dataset_id)
+            if args.json:
+                _print_json(result)
+            else:
+                print(render_dependency_table(result, mode="used-by"))
+            return 0
+
+        if args.command == "uses":
+            graph = load_consumer_graph(root)
+            result = datasets_for_consumer(graph, args.consumer_id)
+            if args.json:
+                _print_json(result)
+            else:
+                print(render_dependency_table(result, mode="uses"))
+            return 0
 
         if args.command == "fetch":
             entry = find_entry(entries, args.id, layer="canonical")
