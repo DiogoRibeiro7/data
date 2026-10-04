@@ -33,9 +33,31 @@ The report covers:
 - external-source count;
 - resolved versus unresolved redistribution status;
 - sources pinned to exact Git commits;
-- known downstream consumers;
+- external-source usage annotations;
+- active canonical consumer repositories and relationships;
+- canonical dataset adoption coverage;
+- pinned canonical consumer-contract coverage;
+- deprecated consumer relationships;
 - unresolved legacy-quarantine packages;
-- canonical and external generated-catalog freshness.
+- canonical, external, and consumer generated-catalog freshness.
+
+## Consumer coverage
+
+Canonical consumer adoption is calculated only from formal
+`consumers/<consumer-id>/<dataset-id>.yaml` records.
+
+The report keeps these metrics separate from `consumers` annotations that may
+still exist on external-source records. Those annotations describe source usage;
+they are not reproducibility contracts for canonical registry files.
+
+For active canonical relationships, the report measures:
+
+- distinct consumer repositories;
+- relationship count;
+- exact pin/checksum contract coverage;
+- canonical datasets with at least one active consumer;
+- canonical datasets with no active consumer;
+- deprecated relationships retained for traceability.
 
 ## Unresolved is not invalid
 
