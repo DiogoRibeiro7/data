@@ -22,6 +22,7 @@ SNAPSHOT_TAG_RE = re.compile(
 )
 SCHEMA_FILES = {
     "canonical": "schemas/canonical-metadata-v1.schema.json",
+    "consumer": "schemas/consumer-metadata-v1.schema.json",
     "external": "schemas/external-metadata-v1.schema.json",
     "legacy": "schemas/legacy-metadata-v0.schema.json",
 }
@@ -168,6 +169,56 @@ def catalog_record(root: Path, relative_path: str) -> dict[str, Any]:
     }
 
 
+
+def consumer_graph_record(root: Path) -> dict[str, Any]:
+    """Return the consumer dependency graph digest and relationship counts."""
+
+    relative_path = "consumers/dependency-graph.json"
+    path = root / relative_path
+    graph = load_json(path)
+    consumers = graph.get("consumers")
+    datasets = graph.get("datasets")
+    if not isinstance(consumers, dict) or not isinstance(datasets, dict):
+        raise ValueError(f"{path}: dependency graph must contain consumers and datasets")
+
+    relationship_count = 0
+    active_relationship_count = 0
+    deprecated_relationship_count = 0
+    repositories: set[str] = set()
+
+    for consumer_id, payload in sorted(consumers.items()):
+        if not isinstance(payload, dict):
+            raise ValueError(f"{path}: consumer {consumer_id!r} must be an object")
+        repository = payload.get("repository")
+        if isinstance(repository, str) and repository:
+            repositories.add(repository)
+        relationships = payload.get("datasets")
+        if not isinstance(relationships, list):
+            raise ValueError(f"{path}: consumer {consumer_id!r} datasets must be a list")
+        for item in relationships:
+            if not isinstance(item, dict):
+                raise ValueError(
+                    f"{path}: consumer {consumer_id!r} relationship must be an object"
+                )
+            relationship_count += 1
+            status = item.get("status")
+            if status == "active":
+                active_relationship_count += 1
+            elif status == "deprecated":
+                deprecated_relationship_count += 1
+
+    return {
+        "path": relative_path,
+        "schema_version": graph.get("schema_version"),
+        "sha256": sha256_file(path),
+        "consumer_count": len(consumers),
+        "repository_count": len(repositories),
+        "dataset_count": len(datasets),
+        "relationship_count": relationship_count,
+        "active_relationship_count": active_relationship_count,
+        "deprecated_relationship_count": deprecated_relationship_count,
+    }
+
 def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
     """Build the deterministic snapshot manifest."""
 
@@ -186,8 +237,10 @@ def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
         "commit": commit,
         "catalogs": {
             "canonical": catalog_record(root, "datasets/catalog.json"),
+            "consumer": catalog_record(root, "consumers/catalog.json"),
             "external": catalog_record(root, "external/catalog.json"),
         },
+        "consumer_registry": consumer_graph_record(root),
         "metadata_schemas": schemas,
         "canonical_datasets": canonical_dataset_records(root),
     }
@@ -197,6 +250,7 @@ def render_summary(manifest: dict[str, Any]) -> str:
     """Render deterministic human-readable release material."""
 
     datasets = manifest["canonical_datasets"]
+    consumers = manifest["consumer_registry"]
     file_count = sum(len(item["files"]) for item in datasets)
     lines = [
         f"# Registry snapshot {manifest['tag']}",
@@ -205,13 +259,15 @@ def render_summary(manifest: dict[str, Any]) -> str:
         f"- Commit: `{manifest['commit']}`",
         f"- Canonical datasets: **{len(datasets)}**",
         f"- Canonical data files: **{file_count}**",
+        f"- Active canonical consumer relationships: **{consumers['active_relationship_count']}**",
+        f"- Canonical consumer repositories: **{consumers['repository_count']}**",
         "",
         "## Catalog integrity",
         "",
         "| Catalog | Schema | SHA-256 |",
         "| --- | ---: | --- |",
     ]
-    for name in ("canonical", "external"):
+    for name in ("canonical", "consumer", "external"):
         record = manifest["catalogs"][name]
         lines.append(
             f"| {name} | {record['schema_version']} | `{record['sha256']}` |"
@@ -224,13 +280,28 @@ def render_summary(manifest: dict[str, Any]) -> str:
         "| Layer | Version | SHA-256 |",
         "| --- | ---: | --- |",
     ])
-    for layer in ("canonical", "external", "legacy"):
+    for layer in ("canonical", "consumer", "external", "legacy"):
         record = manifest["metadata_schemas"][layer]
         lines.append(
             f"| {layer} | {record['schema_version']} | `{record['sha256']}` |"
         )
 
-    lines.extend(["", "## Canonical datasets", ""])
+    lines.extend([
+        "",
+        "## Consumer registry",
+        "",
+        f"- Catalog: `{manifest['catalogs']['consumer']['path']}`",
+        f"- Dependency graph: `{consumers['path']}`",
+        f"- Dependency graph SHA-256: `{consumers['sha256']}`",
+        f"- Consumer IDs: **{consumers['consumer_count']}**",
+        f"- Distinct repositories: **{consumers['repository_count']}**",
+        f"- Datasets represented in dependency graph: **{consumers['dataset_count']}**",
+        f"- Active relationships: **{consumers['active_relationship_count']}**",
+        f"- Deprecated relationships: **{consumers['deprecated_relationship_count']}**",
+        "",
+        "## Canonical datasets",
+        "",
+    ])
     if not datasets:
         lines.append("No canonical datasets are registered in this snapshot.")
     else:
