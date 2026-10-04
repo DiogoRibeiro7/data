@@ -42,7 +42,7 @@ Browse:
 - [dataset policy](docs/DATA_POLICY.md)
 - [metadata specification](docs/METADATA.md)
 
-The catalog may legitimately be empty: data is promoted only when it meets the contract.
+Canonical promotion remains conservative: data is added only when it meets the repository contract.
 
 ### External source records
 
@@ -61,7 +61,8 @@ Browse:
 files. Each relationship pins an exact registry commit, canonical path, and SHA-256 and is
 validated against canonical metadata offline.
 
-See [Consuming canonical datasets](docs/CONSUMERS.md) for the contract.
+See [Consuming canonical datasets](docs/CONSUMERS.md) for the contract and
+[canonical consumer catalog](consumers/CATALOG.md) for current adoption.
 
 ### Legacy quarantine
 
@@ -131,6 +132,7 @@ python -m pip install -r requirements-dev.txt
 python -m unittest discover -s tests -v
 python scripts/validate_repository.py
 python scripts/generate_external_catalog.py
+python scripts/generate_consumer_catalog.py
 ```
 
 When canonical metadata changes, regenerate the catalogs first:
