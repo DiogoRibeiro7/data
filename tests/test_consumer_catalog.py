@@ -127,7 +127,7 @@ class ConsumerCatalogTests(unittest.TestCase):
             CATALOG.build_catalog(self.root / "consumers")
         )
 
-        self.assertIn("datasets/dataset/raw/a\\|b.csv", rendered)
+        self.assertIn("<code>datasets/dataset/raw/a&#124;b.csv</code>", rendered)
 
     def test_markdown_escapes_existing_backslash_before_pipe(self) -> None:
         self.add_record(
