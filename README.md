@@ -4,7 +4,8 @@
 
 A curated registry for datasets and data sources used across analysis, research, teaching, and software projects.
 
-**Documentation:** https://diogoribeiro7.github.io/data/
+**Documentation:** https://diogoribeiro7.github.io/data/  
+**Roadmap:** [ROADMAP.md](ROADMAP.md)
 
 The repository separates **canonical datasets**, **external source records**, **consumer relationships**, and **legacy quarantine material** so that provenance, licensing, reproducibility, and reuse remain explicit.
 
