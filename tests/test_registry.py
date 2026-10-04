@@ -40,6 +40,87 @@ class RegistryFixture:
         (self.root / "external").mkdir()
         (self.root / "legacy").mkdir()
 
+    def add_consumer_graph(self) -> None:
+        """Add a deterministic generated consumer dependency graph."""
+
+        consumers = self.root / "consumers"
+        consumers.mkdir()
+        graph = {
+            "schema_version": 1,
+            "consumers": {
+                "consumer-one": {
+                    "repository": "DiogoRibeiro7/consumer-one",
+                    "datasets": [
+                        {
+                            "dataset_id": "dataset-a",
+                            "status": "active",
+                            "registry_commit": "a" * 40,
+                            "path": "datasets/dataset-a/raw/example.csv",
+                            "sha256": "b" * 64,
+                        },
+                        {
+                            "dataset_id": "dataset-b",
+                            "status": "deprecated",
+                            "registry_commit": "c" * 40,
+                            "path": "datasets/dataset-b/raw/example.csv",
+                            "sha256": "d" * 64,
+                        },
+                    ],
+                },
+                "consumer-two": {
+                    "repository": "DiogoRibeiro7/consumer-two",
+                    "datasets": [
+                        {
+                            "dataset_id": "dataset-a",
+                            "status": "active",
+                            "registry_commit": "e" * 40,
+                            "path": "datasets/dataset-a/raw/example.csv",
+                            "sha256": "f" * 64,
+                        }
+                    ],
+                },
+            },
+            "datasets": {
+                "dataset-a": {
+                    "consumers": [
+                        {
+                            "consumer_id": "consumer-one",
+                            "consumer_repository": "DiogoRibeiro7/consumer-one",
+                            "status": "active",
+                            "registry_commit": "a" * 40,
+                            "path": "datasets/dataset-a/raw/example.csv",
+                            "sha256": "b" * 64,
+                        },
+                        {
+                            "consumer_id": "consumer-two",
+                            "consumer_repository": "DiogoRibeiro7/consumer-two",
+                            "status": "active",
+                            "registry_commit": "e" * 40,
+                            "path": "datasets/dataset-a/raw/example.csv",
+                            "sha256": "f" * 64,
+                        },
+                    ]
+                },
+                "dataset-b": {
+                    "consumers": [
+                        {
+                            "consumer_id": "consumer-one",
+                            "consumer_repository": "DiogoRibeiro7/consumer-one",
+                            "status": "deprecated",
+                            "registry_commit": "c" * 40,
+                            "path": "datasets/dataset-b/raw/example.csv",
+                            "sha256": "d" * 64,
+                        }
+                    ]
+                },
+            },
+        }
+        (consumers / "dependency-graph.json").write_text(
+            json.dumps(graph, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+
+
     def close(self) -> None:
         self.temp.cleanup()
 
@@ -166,6 +247,112 @@ class RegistryTests(unittest.TestCase):
         self.fixture.add_legacy("legacy-data")
         entry = REGISTRY.find_entry(REGISTRY.load_registry(self.fixture.root), "legacy-data")
         self.assertEqual(REGISTRY.verify_entry(self.fixture.root, entry), [])
+
+    def test_consumers_command_lists_registered_consumers_as_json(self) -> None:
+        self.fixture.add_consumer_graph()
+        stream = io.StringIO()
+
+        with contextlib.redirect_stdout(stream):
+            code = REGISTRY.main(
+                ["--root", str(self.fixture.root), "consumers", "--json"]
+            )
+
+        self.assertEqual(code, 0)
+        payload = json.loads(stream.getvalue())
+        self.assertEqual(
+            [item["consumer_id"] for item in payload],
+            ["consumer-one", "consumer-two"],
+        )
+        self.assertEqual(payload[0]["dataset_count"], 2)
+
+    def test_consumer_command_shows_one_consumer(self) -> None:
+        self.fixture.add_consumer_graph()
+        stream = io.StringIO()
+
+        with contextlib.redirect_stdout(stream):
+            code = REGISTRY.main(
+                ["--root", str(self.fixture.root), "consumer", "consumer-one", "--json"]
+            )
+
+        self.assertEqual(code, 0)
+        payload = json.loads(stream.getvalue())
+        self.assertEqual(payload["consumer_id"], "consumer-one")
+        self.assertEqual(
+            [item["dataset_id"] for item in payload["datasets"]],
+            ["dataset-a", "dataset-b"],
+        )
+
+    def test_used_by_returns_reverse_dataset_consumers(self) -> None:
+        self.fixture.add_consumer_graph()
+        stream = io.StringIO()
+
+        with contextlib.redirect_stdout(stream):
+            code = REGISTRY.main(
+                ["--root", str(self.fixture.root), "used-by", "dataset-a", "--json"]
+            )
+
+        self.assertEqual(code, 0)
+        payload = json.loads(stream.getvalue())
+        self.assertEqual(
+            [item["consumer_id"] for item in payload],
+            ["consumer-one", "consumer-two"],
+        )
+
+    def test_uses_returns_consumer_datasets(self) -> None:
+        self.fixture.add_consumer_graph()
+        stream = io.StringIO()
+
+        with contextlib.redirect_stdout(stream):
+            code = REGISTRY.main(
+                ["--root", str(self.fixture.root), "uses", "consumer-one", "--json"]
+            )
+
+        self.assertEqual(code, 0)
+        payload = json.loads(stream.getvalue())
+        self.assertEqual(
+            [item["dataset_id"] for item in payload],
+            ["dataset-a", "dataset-b"],
+        )
+
+    def test_unknown_consumer_id_is_a_clear_error(self) -> None:
+        self.fixture.add_consumer_graph()
+        stderr = io.StringIO()
+
+        with contextlib.redirect_stderr(stderr):
+            code = REGISTRY.main(
+                ["--root", str(self.fixture.root), "consumer", "missing"]
+            )
+
+        self.assertEqual(code, 1)
+        self.assertIn("unknown consumer id 'missing'", stderr.getvalue())
+
+    def test_unknown_used_by_dataset_is_a_clear_error(self) -> None:
+        self.fixture.add_consumer_graph()
+        stderr = io.StringIO()
+
+        with contextlib.redirect_stderr(stderr):
+            code = REGISTRY.main(
+                ["--root", str(self.fixture.root), "used-by", "missing"]
+            )
+
+        self.assertEqual(code, 1)
+        self.assertIn("unknown consumer dataset id 'missing'", stderr.getvalue())
+
+    def test_consumer_human_output_is_tabular(self) -> None:
+        self.fixture.add_consumer_graph()
+        stream = io.StringIO()
+
+        with contextlib.redirect_stdout(stream):
+            code = REGISTRY.main(
+                ["--root", str(self.fixture.root), "consumers"]
+            )
+
+        self.assertEqual(code, 0)
+        rendered = stream.getvalue()
+        self.assertIn("CONSUMER", rendered)
+        self.assertIn("consumer-one", rendered)
+        self.assertIn("dataset-a, dataset-b", rendered)
+
 
     def test_fetch_uses_metadata_checksum_and_exact_commit(self) -> None:
         payload = b"a,b\n1,2\n"
