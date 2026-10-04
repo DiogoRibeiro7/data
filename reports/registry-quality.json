@@ -27,7 +27,11 @@
     "datasets_without_consumers": [],
     "deprecated_relationship_count": 0,
     "pinned_contract_count": 2,
-    "pinned_contract_coverage": 1
+    "pinned_contract_coverage": 1,
+    "active_consumer_repositories": [
+      "DiogoRibeiro7/Medium-Blog",
+      "DiogoRibeiro7/displacement-risk-lab-dynamodb"
+    ]
   },
   "external": {
     "pinned_immutable_identity_sources": 3,
