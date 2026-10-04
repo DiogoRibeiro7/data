@@ -42,4 +42,16 @@ The initial Phase 5 backfill registers two active canonical consumers:
 - `DiogoRibeiro7/Medium-Blog` → `online-retail-ii`;
 - `DiogoRibeiro7/displacement-risk-lab-dynamodb` → `ucdp-ged-25-1`.
 
-Generated catalog and reverse dependency views are added separately in issue #70.
+Generated views are committed under:
+
+- `consumers/CATALOG.md` — human-readable relationship table;
+- `consumers/catalog.json` — machine-readable relationship catalog;
+- `consumers/dependency-graph.json` — both consumer → dataset and dataset → consumer views.
+
+Regenerate them with:
+
+```bash
+python scripts/generate_consumer_catalog.py --write
+```
+
+CI checks that all three generated artifacts remain current.
