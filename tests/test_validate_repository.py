@@ -316,6 +316,7 @@ class ValidatorTests(unittest.TestCase):
             "example-consumer",
             "example-dataset",
             record_dataset_id="missing-dataset",
+            path="datasets/missing-dataset/raw/example.csv",
         )
         self.assertTrue(
             any(
