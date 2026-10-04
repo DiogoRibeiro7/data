@@ -61,6 +61,11 @@ def main() -> int:
         GENERATED / "external-catalog.md",
         "external",
     )
+    write_catalog(
+        ROOT / "consumers" / "CATALOG.md",
+        GENERATED / "consumer-catalog.md",
+        "consumers",
+    )
     legacy_text = (ROOT / "legacy" / "INVENTORY.md").read_text(encoding="utf-8")
     legacy_text = legacy_text.replace(
         "](../docs/migrations/LEGACY_RESOLUTION.md)",
