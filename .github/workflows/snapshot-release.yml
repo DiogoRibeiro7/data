@@ -95,6 +95,12 @@ jobs:
       - name: Validate external catalog freshness
         run: python scripts/generate_external_catalog.py
 
+      - name: Validate consumer catalog freshness
+        run: python scripts/generate_consumer_catalog.py
+
+      - name: Validate registry quality freshness
+        run: python scripts/registry_quality.py
+
       - name: Generate release material
         run: |
           python scripts/create_snapshot.py             --tag "${{ inputs.snapshot_tag }}"             --commit "${{ inputs.commit_sha }}"             --output-dir release-material
