@@ -135,6 +135,10 @@ class RegistryQualityTests(unittest.TestCase):
         self.assertEqual(consumers["canonical_datasets_without_consumers"], 0)
         self.assertEqual(consumers["canonical_dataset_adoption_coverage"], 1.0)
         self.assertEqual(consumers["active_consumers"], ["consumer-one"])
+        self.assertEqual(
+            consumers["active_consumer_repositories"],
+            ["DiogoRibeiro7/consumer-one"],
+        )
 
         self.assertEqual(legacy["package_count"], 1)
         self.assertEqual(legacy["unresolved_package_count"], 1)
@@ -153,6 +157,63 @@ class RegistryQualityTests(unittest.TestCase):
         self.assertEqual(consumers["canonical_datasets_with_consumers"], 0)
         self.assertEqual(consumers["canonical_datasets_without_consumers"], 1)
         self.assertEqual(consumers["canonical_dataset_adoption_coverage"], 0.0)
+
+
+    def test_pinned_contract_requires_canonical_path_and_checksum_match(self) -> None:
+        path = self.root / "consumers" / "consumer-one" / "example.yaml"
+        metadata = yaml.safe_load(path.read_text(encoding="utf-8"))
+        metadata["sha256"] = "0" * 64
+        path.write_text(yaml.safe_dump(metadata, sort_keys=False), encoding="utf-8")
+
+        consumers = QUALITY._consumer_metrics(self.root)
+
+        self.assertEqual(consumers["active_relationship_count"], 1)
+        self.assertEqual(consumers["pinned_contract_count"], 0)
+        self.assertEqual(consumers["pinned_contract_coverage"], 0.0)
+
+    def test_missing_consumer_generated_artifact_is_not_current(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as directory:
+            temp_root = Path(directory)
+            for name in ("datasets", "external", "consumers", "scripts"):
+                (temp_root / name).mkdir()
+
+            # Reuse production generator modules through the production scripts directory.
+            # The generated consumer files are deliberately absent.
+            original_scripts = root / "scripts"
+            for script_name in (
+                "generate_consumer_catalog.py",
+                "generate_external_catalog.py",
+                "validate_repository.py",
+            ):
+                (temp_root / "scripts" / script_name).write_text(
+                    (original_scripts / script_name).read_text(encoding="utf-8"),
+                    encoding="utf-8",
+                )
+
+            (temp_root / "datasets" / "catalog.json").write_text(
+                '{"schema_version": 1, "datasets": []}\n',
+                encoding="utf-8",
+            )
+            (temp_root / "datasets" / "CATALOG.md").write_text(
+                "# Canonical dataset catalog\n\nNo canonical datasets are registered yet.\n",
+                encoding="utf-8",
+            )
+            (temp_root / "external" / "catalog.json").write_text(
+                '{"schema_version": 1, "sources": []}\n',
+                encoding="utf-8",
+            )
+            (temp_root / "external" / "CATALOG.md").write_text(
+                "# External source catalog\n\n"
+                "This file is generated from `external/*/metadata.yaml` records.\n"
+                "Do not edit it by hand.\n\n"
+                "No external sources are registered yet.\n",
+                encoding="utf-8",
+            )
+
+            status = QUALITY._catalog_status(temp_root)
+
+        self.assertFalse(status["consumer_current"])
 
 
     def test_missing_redistribution_is_unresolved(self) -> None:
