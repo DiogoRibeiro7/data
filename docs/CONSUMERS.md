@@ -32,7 +32,7 @@ The registry currently records two active canonical relationships:
 - `DiogoRibeiro7/Medium-Blog` → `online-retail-ii`;
 - `DiogoRibeiro7/displacement-risk-lab-dynamodb` → `ucdp-ged-25-1`.
 
-Browse the generated [canonical consumer catalog](../consumers/CATALOG.md) or use
+Browse the generated [canonical consumer catalog](generated/consumer-catalog.md) or use
 the registry CLI's `consumers`, `consumer`, `used-by`, and `uses` commands.
 
 ## Reference manifest
