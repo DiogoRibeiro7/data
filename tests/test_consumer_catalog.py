@@ -129,6 +129,19 @@ class ConsumerCatalogTests(unittest.TestCase):
 
         self.assertIn("datasets/dataset/raw/a\\|b.csv", rendered)
 
+    def test_markdown_escapes_existing_backslash_before_pipe(self) -> None:
+        self.add_record(
+            "consumer",
+            "dataset",
+            canonical_path=r"datasets/dataset/raw/a\|b.csv",
+        )
+
+        rendered = CATALOG.render_markdown(
+            CATALOG.build_catalog(self.root / "consumers")
+        )
+
+        self.assertIn(r"datasets/dataset/raw/a\\\|b.csv", rendered)
+
 
     def test_markdown_contains_contract_and_evidence(self) -> None:
         self.add_record("consumer", "dataset")
