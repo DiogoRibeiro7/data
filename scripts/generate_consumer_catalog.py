@@ -79,13 +79,17 @@ def build_dependency_graph(catalog: dict[str, Any]) -> dict[str, Any]:
         consumer_id = item["consumer_id"]
         dataset_id = item["dataset_id"]
 
-        consumer = consumer_view.setdefault(
-            consumer_id,
-            {
+        consumer = consumer_view.get(consumer_id)
+        if consumer is None:
+            consumer = {
                 "repository": item["consumer_repository"],
                 "datasets": [],
-            },
-        )
+            }
+            consumer_view[consumer_id] = consumer
+        elif consumer["repository"] != item["consumer_repository"]:
+            raise ValueError(
+                f"consumer {consumer_id}: conflicting consumer_repository values"
+            )
         consumer["datasets"].append(
             {
                 "dataset_id": dataset_id,
@@ -120,6 +124,12 @@ def build_dependency_graph(catalog: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _markdown_cell(value: object) -> str:
+    """Escape text that will be embedded in a Markdown table cell."""
+
+    return str(value).replace("|", "\\|").replace("\n", "<br>")
+
+
 def render_markdown(catalog: dict[str, Any]) -> str:
     """Render the human-readable consumer catalog."""
 
@@ -148,10 +158,11 @@ def render_markdown(catalog: dict[str, Any]) -> str:
         evidence_url = item.get("evidence_url")
         evidence = f"[evidence]({evidence_url})" if evidence_url else "—"
         lines.append(
-            f"| [{item['consumer_repository']}]({record_path}) | "
-            f"`{item['dataset_id']}` | {item['status']} | "
-            f"`{item['registry_commit']}` | `{item['path']}` | "
-            f"`{item['sha256']}` | {evidence} |"
+            f"| [{_markdown_cell(item['consumer_repository'])}]({record_path}) | "
+            f"`{_markdown_cell(item['dataset_id'])}` | {_markdown_cell(item['status'])} | "
+            f"`{_markdown_cell(item['registry_commit'])}` | "
+            f"`{_markdown_cell(item['path'])}` | "
+            f"`{_markdown_cell(item['sha256'])}` | {evidence} |"
         )
 
     lines.append("")

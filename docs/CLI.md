@@ -1,10 +1,11 @@
 # Registry CLI
 
-The local registry CLI provides a lightweight interface over the repository's three data layers:
+The local registry CLI provides a lightweight interface over the repository's three data layers plus the canonical consumer relationship graph:
 
 - canonical datasets under `datasets/`;
 - external source records under `external/`;
-- legacy quarantine packages under `legacy/`.
+- legacy quarantine packages under `legacy/`;
+- canonical consumer relationships generated from `consumers/`.
 
 It runs directly from the repository and does not require a service or database.
 
@@ -65,7 +66,46 @@ For complete CI-equivalent validation, continue to use:
 ```bash
 python scripts/validate_repository.py
 python scripts/generate_external_catalog.py
+python scripts/generate_consumer_catalog.py
 ```
+
+
+## Consumer relationships
+
+List all registered canonical consumers:
+
+```bash
+python scripts/registry.py consumers
+python scripts/registry.py consumers --json
+```
+
+Show one consumer and its canonical datasets:
+
+```bash
+python scripts/registry.py consumer medium-blog
+python scripts/registry.py consumer medium-blog --json
+```
+
+Find which consumers use one canonical dataset:
+
+```bash
+python scripts/registry.py used-by online-retail-ii
+python scripts/registry.py used-by online-retail-ii --json
+```
+
+Find which canonical datasets are used by one consumer:
+
+```bash
+python scripts/registry.py uses displacement-risk-lab-dynamodb
+python scripts/registry.py uses displacement-risk-lab-dynamodb --json
+```
+
+These commands read the committed deterministic
+`consumers/dependency-graph.json`. They do not query GitHub or rebuild the
+graph on demand.
+
+The graph includes active and deprecated relationships. Unknown consumer or
+dataset IDs fail clearly rather than returning an ambiguous empty result.
 
 ## Fetch a canonical file
 

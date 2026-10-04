@@ -35,6 +35,7 @@ class ConsumerCatalogTests(unittest.TestCase):
         filename: str | None = None,
         status: str = "active",
         repository: str | None = None,
+        canonical_path: str | None = None,
     ) -> Path:
         """Add one consumer relationship fixture."""
 
@@ -50,7 +51,7 @@ class ConsumerCatalogTests(unittest.TestCase):
             "registry_layer": "canonical",
             "registry_repository": "DiogoRibeiro7/data",
             "registry_commit": "a" * 40,
-            "path": f"datasets/{dataset_id}/raw/data.csv",
+            "path": canonical_path or f"datasets/{dataset_id}/raw/data.csv",
             "sha256": "b" * 64,
             "consumer_commit": "c" * 40,
             "evidence_url": f"https://example.test/{consumer_id}/{dataset_id}",
@@ -105,6 +106,29 @@ class ConsumerCatalogTests(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, "duplicate consumer/dataset relationship"):
             CATALOG.build_catalog(self.root / "consumers")
+
+    def test_conflicting_repository_for_same_consumer_fails(self) -> None:
+        self.add_record("consumer", "dataset-a", repository="DiogoRibeiro7/one")
+        self.add_record("consumer", "dataset-b", repository="DiogoRibeiro7/two")
+
+        catalog = CATALOG.build_catalog(self.root / "consumers")
+
+        with self.assertRaisesRegex(ValueError, "conflicting consumer_repository"):
+            CATALOG.build_dependency_graph(catalog)
+
+    def test_markdown_escapes_pipe_in_canonical_path(self) -> None:
+        self.add_record(
+            "consumer",
+            "dataset",
+            canonical_path="datasets/dataset/raw/a|b.csv",
+        )
+
+        rendered = CATALOG.render_markdown(
+            CATALOG.build_catalog(self.root / "consumers")
+        )
+
+        self.assertIn("datasets/dataset/raw/a\\|b.csv", rendered)
+
 
     def test_markdown_contains_contract_and_evidence(self) -> None:
         self.add_record("consumer", "dataset")
