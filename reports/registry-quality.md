@@ -32,6 +32,7 @@ External source usage annotations:
 - Active canonical relationships: **2**
 - Deprecated relationships: **0**
 - Pinned contracts: **2 / 2**
+- Pinned contract coverage: **100%**
 - Canonical datasets with >=1 active consumer: **2**
 - Canonical datasets with zero active consumers: **0**
 - Canonical dataset adoption coverage: **100%**
