@@ -376,6 +376,30 @@ class ValidatorTests(unittest.TestCase):
             )
         )
 
+    def test_resolution_rejects_malformed_evidence_uri(self) -> None:
+        self.fixture.add_external(
+            "bad-evidence-uri",
+            extra={
+                "resolution": {
+                    "review_status": "actionable",
+                    "last_reviewed": "2026-10-05",
+                    "blocker_category": "redistribution-rights",
+                    "blocker_summary": "Terms are unclear.",
+                    "evidence": ["not a uri"],
+                    "next_action": "Find authoritative terms.",
+                    "terminal": False,
+                }
+            },
+        )
+        self.assertTrue(
+            any(
+                "schema violation" in msg
+                and "evidence" in msg
+                for msg in self.errors()
+            )
+        )
+
+
     def test_terminal_flag_must_match_review_status(self) -> None:
         self.fixture.add_external(
             "bad-terminal",
