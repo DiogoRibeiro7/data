@@ -14,3 +14,15 @@ redistribution: unresolved
 storage: authoritative-upstream-and-pinned-project-snapshot
 consumers:
   - crop-protection-predictive-science
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-05
+  blocker_category: dataset-vs-repository-licence-scope
+  blocker_summary: "The pinned repository has a root MIT licence and explicitly includes maize_bipolaris.csv as data, but the licence text covers software and associated documentation and no authoritative statement was recovered that explicitly applies MIT redistribution rights to the dataset bytes."
+  evidence:
+    - "https://github.com/emdelponte/paper-hgam-curves/blob/d793d54c17ad404df2f6618d2681c993fcf144cf/README.md"
+    - "https://github.com/emdelponte/paper-hgam-curves/blob/d793d54c17ad404df2f6618d2681c993fcf144cf/LICENSE"
+    - "https://doi.org/10.1094/PHYTO-01-26-0009-LE"
+  reviewer_note: "The exact upstream commit, path, blob identity and consumer copy are known; only dataset-specific redistribution scope remains unresolved."
+  next_action: "Reopen only if the author or another authoritative source explicitly states that the MIT licence covers maize_bipolaris.csv, or publishes separate dataset reuse terms."
+  terminal: true
