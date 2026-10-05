@@ -20,13 +20,13 @@ Do not edit it by hand.
 
 | Layer | ID | Review status | Blocker | Last reviewed | Age (days) | Evidence | Redistribution | Next action |
 | --- | --- | --- | --- | --- | ---: | ---: | --- | --- |
-| external | `dgs-infoclique-mortality` | — | — | — | — | 0 | unresolved | Backfill structured resolution evidence. |
-| external | `ibm-telco-customer-churn` | — | — | — | — | 0 | unresolved | Backfill structured resolution evidence. |
-| external | `maize-bipolaris-disease-progress` | — | — | — | — | 0 | unresolved | Backfill structured resolution evidence. |
-| external | `pordata-portugal-resident-population` | — | — | — | — | 0 | unresolved | Backfill structured resolution evidence. |
-| external | `unhcr-refugee-statistics` | — | — | — | — | 0 | unresolved | Backfill structured resolution evidence. |
-| legacy | `country-age-sex-2019` | — | — | — | — | 0 | unknown | Backfill structured resolution evidence. |
-| legacy | `portugal-covid19` | — | — | — | — | 0 | unknown | Backfill structured resolution evidence. |
+| external | `dgs-infoclique-mortality` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
+| external | `ibm-telco-customer-churn` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
+| external | `maize-bipolaris-disease-progress` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
+| external | `pordata-portugal-resident-population` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
+| external | `unhcr-refugee-statistics` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
+| legacy | `country-age-sex-2019` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unknown | Backfill structured resolution evidence. |
+| legacy | `portugal-covid19` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unknown | Backfill structured resolution evidence. |
 
 ## Age semantics
 
