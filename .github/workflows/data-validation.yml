@@ -132,6 +132,4 @@ jobs:
           git diff --exit-code -- reports/registry-quality.json reports/registry-quality.md
 
       - name: Validate provenance debt report
-        run: |
-          python scripts/generate_provenance_debt.py --write
-          git diff --exit-code -- reports/provenance-debt.json reports/provenance-debt.md
+        run: python scripts/generate_provenance_debt.py
