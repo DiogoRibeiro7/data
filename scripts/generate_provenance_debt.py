@@ -248,7 +248,7 @@ def render_markdown(report: dict[str, Any]) -> str:
             f"| {_markdown_cell(item['layer'])} | "
             f"`{_markdown_cell(item['id'])}` | "
             f"{_markdown_cell(item['review_status'])} | "
-            f"{_markdown_cell(item['blocker_category'])} | "
+            f"{_markdown_cell(item['blocker_summary'])} | "
             f"{_markdown_cell(item['last_reviewed'])} | "
             f"{_markdown_cell(item['age_days'])} | "
             f"{item['evidence_count']} | "
