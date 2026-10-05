@@ -69,3 +69,14 @@ files:
     path: "raw/United States of America-2019.csv"
     size_bytes: 503
     git_blob_sha: 5aa524e915103b12fb6b6c4171ec8e8bf61d0170
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-05
+  blocker_category: exact-snapshot-identity
+  blocker_summary: "The retained age/sex files are strongly attributable to UN World Population Prospects 2019, whose publications are CC BY 3.0 IGO, but the exact download/export route and the lineage of the Portugal CSV/XLSX variants cannot be reconstructed sufficiently to claim file-level provenance for these historical artifacts."
+  evidence:
+    - "https://www.un.org/development/desa/pd/sites/www.un.org.development.desa.pd/files/files/documents/2020/Jan/un_2019_wpp_vol1_comprehensive-tables.pdf"
+    - "https://population.un.org/wpp/Publications/Files/WPP2019_DataBooklet.pdf"
+  reviewer_note: "Final disposition: terminal legacy quarantine. Source-family attribution is strong, but exact artifact identity and Portugal variant lineage remain below the registry threshold for promotion or externalization."
+  next_action: "Reopen only if the original authoritative UN export identity can be tied to the retained files and the Portugal workbook/CSV lineage can be resolved."
+  terminal: true
