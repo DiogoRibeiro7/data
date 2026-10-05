@@ -101,6 +101,106 @@
           }
         }
       }
+    },
+    "resolution": {
+      "type": "object",
+      "required": [
+        "review_status",
+        "last_reviewed",
+        "blocker_category",
+        "blocker_summary",
+        "evidence",
+        "next_action",
+        "terminal"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "review_status": {
+          "enum": [
+            "actionable",
+            "terminal"
+          ]
+        },
+        "last_reviewed": {
+          "type": "string",
+          "format": "date"
+        },
+        "blocker_category": {
+          "enum": [
+            "exact-snapshot-identity",
+            "redistribution-rights",
+            "dataset-vs-repository-licence-scope",
+            "derived-lineage",
+            "authoritative-source-identity",
+            "historical-export-route"
+          ]
+        },
+        "blocker_summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "uri",
+            "minLength": 1
+          }
+        },
+        "reviewer_note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "next_action": {
+          "type": "string",
+          "minLength": 1
+        },
+        "terminal": {
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "review_status": {
+                "const": "terminal"
+              }
+            },
+            "required": [
+              "review_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "terminal": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "review_status": {
+                "const": "actionable"
+              }
+            },
+            "required": [
+              "review_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "terminal": {
+                "const": false
+              }
+            }
+          }
+        }
+      ]
     }
   }
 }
