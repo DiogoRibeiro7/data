@@ -21,7 +21,7 @@
       "medium-blog"
     ],
     "active_relationship_count": 2,
-    "canonical_dataset_adoption_coverage": 1.0,
+    "canonical_dataset_adoption_coverage": 1,
     "canonical_datasets_with_consumers": 2,
     "canonical_datasets_without_consumers": 0,
     "datasets_with_consumers": [
@@ -31,13 +31,13 @@
     "datasets_without_consumers": [],
     "deprecated_relationship_count": 0,
     "pinned_contract_count": 2,
-    "pinned_contract_coverage": 1.0
+    "pinned_contract_coverage": 1
   },
   "external": {
     "pinned_immutable_identity_sources": 3,
     "redistribution": {
-      "resolved": 8,
-      "unresolved": 5
+      "resolved": 9,
+      "unresolved": 4
     },
     "source_count": 13,
     "source_usage": {
