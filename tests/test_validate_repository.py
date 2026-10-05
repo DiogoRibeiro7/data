@@ -265,6 +265,141 @@ class ValidatorTests(unittest.TestCase):
         metadata_path.write_text(yaml.safe_dump(metadata, sort_keys=False), encoding="utf-8")
         self.assertTrue(any("schema violation" in msg and "size_bytes" in msg for msg in self.errors()))
 
+    def test_external_resolution_evidence_actionable_is_valid(self) -> None:
+        self.fixture.add_external(
+            "review-source",
+            extra={
+                "redistribution": "unresolved",
+                "resolution": {
+                    "review_status": "actionable",
+                    "last_reviewed": "2026-10-05",
+                    "blocker_category": "redistribution-rights",
+                    "blocker_summary": "Dataset-specific reuse terms are not yet explicit.",
+                    "evidence": ["https://example.test/terms"],
+                    "reviewer_note": "Recheck the publisher terms page.",
+                    "next_action": "Review updated provider terms.",
+                    "terminal": False,
+                },
+            },
+        )
+        self.fixture.write_catalogs()
+        self.assertEqual(self.errors(), [])
+
+    def test_legacy_resolution_evidence_terminal_is_valid(self) -> None:
+        self.fixture.add_legacy("terminal-legacy")
+        metadata_path = (
+            self.fixture.root / "legacy" / "terminal-legacy" / "metadata.yaml"
+        )
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata["resolution"] = {
+            "review_status": "terminal",
+            "last_reviewed": "2026-10-05",
+            "blocker_category": "historical-export-route",
+            "blocker_summary": "Exact historical export cannot be reconstructed.",
+            "evidence": ["https://example.test/archive"],
+            "next_action": "Retain in legacy quarantine unless new evidence appears.",
+            "terminal": True,
+        }
+        metadata_path.write_text(
+            yaml.safe_dump(metadata, sort_keys=False),
+            encoding="utf-8",
+        )
+        self.fixture.write_catalogs()
+        self.assertEqual(self.errors(), [])
+
+    def test_resolution_rejects_invalid_review_date(self) -> None:
+        self.fixture.add_external(
+            "bad-date",
+            extra={
+                "resolution": {
+                    "review_status": "actionable",
+                    "last_reviewed": "2026-02-30",
+                    "blocker_category": "redistribution-rights",
+                    "blocker_summary": "Terms are unclear.",
+                    "evidence": ["https://example.test/terms"],
+                    "next_action": "Recheck terms.",
+                    "terminal": False,
+                }
+            },
+        )
+        self.assertTrue(
+            any(
+                "schema violation" in msg
+                and "last_reviewed" in msg
+                for msg in self.errors()
+            )
+        )
+
+    def test_resolution_rejects_unknown_blocker_category(self) -> None:
+        self.fixture.add_external(
+            "bad-category",
+            extra={
+                "resolution": {
+                    "review_status": "actionable",
+                    "last_reviewed": "2026-10-05",
+                    "blocker_category": "something-vague",
+                    "blocker_summary": "Unknown blocker.",
+                    "evidence": ["https://example.test/terms"],
+                    "next_action": "Investigate.",
+                    "terminal": False,
+                }
+            },
+        )
+        self.assertTrue(
+            any(
+                "schema violation" in msg
+                and "blocker_category" in msg
+                for msg in self.errors()
+            )
+        )
+
+    def test_resolution_requires_evidence(self) -> None:
+        self.fixture.add_external(
+            "no-evidence",
+            extra={
+                "resolution": {
+                    "review_status": "actionable",
+                    "last_reviewed": "2026-10-05",
+                    "blocker_category": "redistribution-rights",
+                    "blocker_summary": "Terms are unclear.",
+                    "evidence": [],
+                    "next_action": "Find authoritative terms.",
+                    "terminal": False,
+                }
+            },
+        )
+        self.assertTrue(
+            any(
+                "schema violation" in msg
+                and "evidence" in msg
+                for msg in self.errors()
+            )
+        )
+
+    def test_terminal_flag_must_match_review_status(self) -> None:
+        self.fixture.add_external(
+            "bad-terminal",
+            extra={
+                "resolution": {
+                    "review_status": "terminal",
+                    "last_reviewed": "2026-10-05",
+                    "blocker_category": "dataset-vs-repository-licence-scope",
+                    "blocker_summary": "No dataset-specific grant was found.",
+                    "evidence": ["https://example.test/license"],
+                    "next_action": "Keep external unless upstream terms change.",
+                    "terminal": False,
+                }
+            },
+        )
+        self.assertTrue(
+            any(
+                "schema violation" in msg
+                and "terminal" in msg
+                for msg in self.errors()
+            )
+        )
+
+
     def test_checksum_mismatch_fails(self) -> None:
         self.fixture.add_canonical("bad-checksum", sha256="0" * 64)
         self.assertTrue(any("sha256 does not match file" in msg for msg in self.errors()))
