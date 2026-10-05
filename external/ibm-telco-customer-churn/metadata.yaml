@@ -8,3 +8,15 @@ source_commit: "d5371f5d83a446ad5673cbcca3b814b926491f8a"
 source_path: "data/Telco-Customer-Churn.csv"
 redistribution: unresolved
 storage: authoritative-upstream-pinned-snapshot
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-05
+  blocker_category: dataset-vs-repository-licence-scope
+  blocker_summary: "The pinned IBM repository is Apache-2.0 licensed as a code pattern, but the README explicitly separates third-party objects and no dataset-specific redistribution licence for Telco-Customer-Churn.csv was established."
+  evidence:
+    - "https://github.com/IBM/telco-customer-churn-on-icp4d/blob/d5371f5d83a446ad5673cbcca3b814b926491f8a/README.md"
+    - "https://github.com/IBM/telco-customer-churn-on-icp4d/blob/d5371f5d83a446ad5673cbcca3b814b926491f8a/LICENSE"
+    - "https://github.com/IBM/telco-customer-churn-on-icp4d/issues/22"
+  reviewer_note: "The dataset is deliberately kept as an external pinned reference and is not mirrored canonically."
+  next_action: "Reopen only if IBM publishes dataset-specific terms or an authoritative licence statement covering Telco-Customer-Churn.csv."
+  terminal: true
