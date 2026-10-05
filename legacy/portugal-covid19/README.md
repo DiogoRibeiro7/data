@@ -1,6 +1,6 @@
 # Portugal COVID-19 MTSSS monitoring workbook
 
-> **Resolution:** retain the official-looking MTSSS workbook in legacy quarantine; remove the unrelated derived ARS model-output table.
+> **Final Phase 6 resolution:** terminal legacy quarantine for the retained GEP/MTSSS workbook; the unrelated ARS model-output table remains removed.
 
 ## Evidence recovered
 
@@ -37,6 +37,16 @@ The MTSSS workbook stays in legacy because:
 - no immutable upstream identifier is available.
 
 The source family is strong enough to retain the workbook with attribution, but
-not strong enough for canonical promotion or byte mirroring.
+not strong enough for canonical promotion, externalization, or byte mirroring.
 
-See [the phase-four re-audit](../../docs/migrations/LEGACY_REAUDIT_2026-10-03.md).
+## Final decision
+
+**Terminal legacy quarantine.**
+
+The blocker is the unrecovered historical export route: the exact 27 May 2020
+workbook URL, immutable upstream identity, and dataset-specific redistribution
+terms are not available. Reopen only if GEP/MTSSS exposes that exact historical
+artifact with stable identity and explicit reuse terms.
+
+See [the phase-four re-audit](../../docs/migrations/LEGACY_REAUDIT_2026-10-03.md)
+and the [Phase 6 terminal audit](../../docs/migrations/PHASE6_FINAL_HARD_CASE_AUDIT_2026-10-05.md).

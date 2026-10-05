@@ -34,19 +34,19 @@
       "title": "IBM Telco Customer Churn sample"
     },
     {
-      "age_days": null,
-      "blocker_category": null,
-      "blocker_summary": "Structured resolution evidence not yet recorded.",
-      "evidence_count": 0,
+      "age_days": 0,
+      "blocker_category": "dataset-vs-repository-licence-scope",
+      "blocker_summary": "The pinned repository has a root MIT licence and explicitly includes maize_bipolaris.csv as data, but the licence text covers software and associated documentation and no authoritative statement was recovered that explicitly applies MIT redistribution rights to the dataset bytes.",
+      "evidence_count": 3,
       "id": "maize-bipolaris-disease-progress",
-      "last_reviewed": null,
+      "last_reviewed": "2026-10-05",
       "layer": "external",
-      "next_action": "Backfill structured resolution evidence.",
+      "next_action": "Reopen only if the author or another authoritative source explicitly states that the MIT licence covers maize_bipolaris.csv, or publishes separate dataset reuse terms.",
       "path": "external/maize-bipolaris-disease-progress/metadata.yaml",
       "redistribution": "unresolved",
-      "review_status": null,
-      "structured_evidence": false,
-      "terminal": null,
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
       "title": "Maize Bipolaris disease-progress data"
     },
     {
@@ -66,35 +66,35 @@
       "title": "Portugal resident population estimates by age group"
     },
     {
-      "age_days": null,
-      "blocker_category": null,
-      "blocker_summary": "Structured resolution evidence not yet recorded.",
-      "evidence_count": 0,
+      "age_days": 0,
+      "blocker_category": "exact-snapshot-identity",
+      "blocker_summary": "The retained age/sex files are strongly attributable to UN World Population Prospects 2019, whose publications are CC BY 3.0 IGO, but the exact download/export route and the lineage of the Portugal CSV/XLSX variants cannot be reconstructed sufficiently to claim file-level provenance for these historical artifacts.",
+      "evidence_count": 2,
       "id": "country-age-sex-2019",
-      "last_reviewed": null,
+      "last_reviewed": "2026-10-05",
       "layer": "legacy",
-      "next_action": "Backfill structured resolution evidence.",
+      "next_action": "Reopen only if the original authoritative UN export identity can be tied to the retained files and the Portugal workbook/CSV lineage can be resolved.",
       "path": "legacy/country-age-sex-2019/metadata.yaml",
       "redistribution": "unknown",
-      "review_status": null,
-      "structured_evidence": false,
-      "terminal": null,
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
       "title": "Country age/sex population snapshots (2019)"
     },
     {
-      "age_days": null,
-      "blocker_category": null,
-      "blocker_summary": "Structured resolution evidence not yet recorded.",
-      "evidence_count": 0,
+      "age_days": 0,
+      "blocker_category": "historical-export-route",
+      "blocker_summary": "The retained workbook is attributable to the GEP/MTSSS Indicadores COVID-19 monitoring series and dated 27 May 2020, but the exact historical workbook URL, immutable upstream identity and dataset-specific redistribution terms were not recovered.",
+      "evidence_count": 2,
       "id": "portugal-covid19",
-      "last_reviewed": null,
+      "last_reviewed": "2026-10-05",
       "layer": "legacy",
-      "next_action": "Backfill structured resolution evidence.",
+      "next_action": "Reopen only if GEP/MTSSS exposes the exact 27 May 2020 workbook with stable identity and explicit redistribution terms.",
       "path": "legacy/portugal-covid19/metadata.yaml",
       "redistribution": "unknown",
-      "review_status": null,
-      "structured_evidence": false,
-      "terminal": null,
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
       "title": "Portugal COVID-19 MTSSS monitoring workbook"
     }
   ],
@@ -102,15 +102,16 @@
   "summary": {
     "actionable_count": 0,
     "by_blocker_category": {
-      "dataset-vs-repository-licence-scope": 1,
-      "redistribution-rights": 2,
-      "unstructured": 3
+      "dataset-vs-repository-licence-scope": 2,
+      "exact-snapshot-identity": 1,
+      "historical-export-route": 1,
+      "redistribution-rights": 2
     },
     "external_count": 4,
     "legacy_count": 2,
-    "structured_count": 3,
-    "terminal_count": 3,
+    "structured_count": 6,
+    "terminal_count": 6,
     "total_debt": 6,
-    "unstructured_count": 3
+    "unstructured_count": 0
   }
 }

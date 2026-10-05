@@ -13,3 +13,14 @@ files:
     path: "raw/Monitorizacao_COVID-19_MTSSS_27_maio_2020.xlsx"
     size_bytes: 91305
     git_blob_sha: 724f2a87714f883494231a838baecbb32adf5d4c
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-05
+  blocker_category: historical-export-route
+  blocker_summary: "The retained workbook is attributable to the GEP/MTSSS Indicadores COVID-19 monitoring series and dated 27 May 2020, but the exact historical workbook URL, immutable upstream identity and dataset-specific redistribution terms were not recovered."
+  evidence:
+    - "https://www.gep.mtsss.gov.pt/analises-e-notas"
+    - "https://catesoc.gep.mtsss.gov.pt/uploads/f1f0115f017893d1007c4bebbbcf76b8.pdf"
+  reviewer_note: "Final disposition: terminal legacy quarantine. The source family is established, but the historical export cannot be promoted or safely externalized as an exact immutable artifact."
+  next_action: "Reopen only if GEP/MTSSS exposes the exact 27 May 2020 workbook with stable identity and explicit redistribution terms."
+  terminal: true

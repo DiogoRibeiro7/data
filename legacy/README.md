@@ -2,12 +2,12 @@
 
 This directory contains historical data that cannot yet be promoted to the canonical registry or replaced safely by an authoritative external source.
 
-After the 2026-10-03 re-audit, two packages remain:
+After the final Phase 6 audit on 2026-10-05, two packages remain in terminal quarantine:
 
 - `country-age-sex-2019`
 - `portugal-covid19`
 
-Each remaining package has a concrete documented blocker. Legacy quarantine is not a staging area for new data.
+Each remaining package has a structured terminal decision with an explicit reopen condition. Legacy quarantine is not a staging area for new data.
 
 Resolved packages were either removed as obsolete project inputs or replaced with external source records when the upstream source could be identified. External records may still carry unresolved snapshot or redistribution status, which is documented explicitly.
 
@@ -16,6 +16,7 @@ See:
 - [current inventory](INVENTORY.md)
 - [legacy resolution audit](../docs/migrations/LEGACY_RESOLUTION.md)
 - [phase-four legacy re-audit](../docs/migrations/LEGACY_REAUDIT_2026-10-03.md)
+- [Phase 6 final hard-case audit](../docs/migrations/PHASE6_FINAL_HARD_CASE_AUDIT_2026-10-05.md)
 
 
 ## Structured unresolved evidence

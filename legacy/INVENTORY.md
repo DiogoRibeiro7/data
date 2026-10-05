@@ -2,7 +2,7 @@
 
 ## Current state
 
-Resolution audit date: **2026-10-03**
+Final Phase 6 audit date: **2026-10-05**
 
 - Initial root data files inventoried: **37**
 - Initial unique Git blobs: **36**
@@ -16,11 +16,11 @@ Resolution audit date: **2026-10-03**
 
 | Package | Status | Resolution / blocker |
 | --- | --- | --- |
-| `country-age-sex-2019` | retained | Re-audit strongly identifies UN WPP 2019 as the source family; exact historical download/export route and Portugal workbook/CSV lineage remain unresolved. |
+| `country-age-sex-2019` | terminal quarantine | UN WPP 2019 source-family attribution is strong and the UN publication is CC BY 3.0 IGO, but exact artifact identity and Portugal workbook/CSV lineage remain unresolved. |
 | `covid19-modeling` | removed | Mixed Kaggle/OWID/manual project inputs; no consumers; no coherent reusable dataset identity. |
 | `italy-covid19` | removed | Re-audit identified a hand-assembled research helper table authored by Marco Ferrante from public Italian Government/AIFA sources; no consumers; not a reusable authoritative dataset. |
 | `jhu-covid19-time-series` | externalized | Five files traced by Git blob identity to JHU commit `dd07d05ff02d8aea12cab868e8a36c0e31cadf66`; replaced by `external/jhu-csse-covid19/`. |
-| `portugal-covid19` | retained | Re-audit narrows package to the 27 May 2020 GEP/MTSSS monitoring workbook; orphaned `Portugal_ARS.csv` model output removed; exact historical workbook URL and redistribution terms remain unresolved. |
+| `portugal-covid19` | terminal quarantine | Retained artifact is attributable to the 27 May 2020 GEP/MTSSS monitoring series, but the exact historical export URL, immutable identity, and redistribution terms remain unrecovered. |
 | `portugal-population-2018` | externalized | Workbook re-audit identifies a PORDATA Excel export of INE-backed resident-population estimates; local generated export removed and replaced by `external/pordata-portugal-resident-population/`. |
 | `portugal-sico-mortality` | externalized | Historical SICO CSV snapshot family removed and replaced by `external/dgs-infoclique-mortality/`; DGS mortality platform remains authoritative, redistribution unresolved. |
 | `r-example-datasets` | externalized | Built-in R datasets; redundant CSV serializations removed; replaced by `external/r-base-example-datasets/`. |
