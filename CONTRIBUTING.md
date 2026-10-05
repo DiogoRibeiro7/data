@@ -74,11 +74,19 @@ An external source record should explain:
 - which projects consume it, when useful;
 - why the bytes are not mirrored here.
 
+If provenance, snapshot identity, lineage, or redistribution remains unresolved,
+add the optional structured `resolution` block rather than relying only on prose.
+See [provenance resolution evidence](docs/PROVENANCE_RESOLUTION.md).
+
 ## Legacy material
 
 Do not promote a legacy package merely because its filenames look useful.
 
 Promotion requires the same provenance, licensing, and integrity evidence as a new canonical dataset.
+
+When a legacy blocker is revisited, use the structured `resolution` block to
+record the review date, blocker category, evidence, next action, and whether the
+decision is actionable or terminal.
 
 ## Derived data
 

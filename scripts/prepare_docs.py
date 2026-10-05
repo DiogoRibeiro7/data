@@ -43,6 +43,9 @@ def copy_root_markdown(source: Path, destination: Path) -> None:
         "](docs/DATA_POLICY.md)": (
             f"]({GITHUB_BLOB}/docs/DATA_POLICY.md)"
         ),
+        "](docs/PROVENANCE_RESOLUTION.md)": (
+            "](PROVENANCE_RESOLUTION.md)"
+        ),
     }
     for old, new in replacements.items():
         text = text.replace(old, new)
