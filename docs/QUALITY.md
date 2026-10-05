@@ -59,6 +59,29 @@ For active canonical relationships, the report measures:
 - canonical datasets with no active consumer;
 - deprecated relationships retained for traceability.
 
+## Provenance and licensing debt
+
+The registry also publishes a deterministic unresolved-debt queue:
+
+- [human-readable debt queue](generated/provenance-debt.md);
+- `reports/provenance-debt.json` for machine-readable use.
+
+Generate or verify it with:
+
+```bash
+python scripts/generate_provenance_debt.py --write
+python scripts/generate_provenance_debt.py
+```
+
+The debt queue is derived only from committed external and legacy metadata. It
+keeps unstructured unresolved records visible while Phase 6 migrates them to the
+structured `resolution` model.
+
+Age is deliberately content-based rather than wall-clock based: when structured
+review dates exist, the latest committed `last_reviewed` date is the reference
+point. This keeps the generated report byte-deterministic across machines and
+reruns.
+
 ## Unresolved is not invalid
 
 External records may deliberately use an unresolved redistribution state.

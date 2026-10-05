@@ -14,6 +14,8 @@ on:
       - "scripts/prepare_docs.py"
       - "scripts/registry_quality.py"
       - "reports/registry-quality.md"
+      - "reports/provenance-debt.md"
+      - "scripts/generate_provenance_debt.py"
       - ".github/workflows/docs.yml"
   push:
     branches:
@@ -30,6 +32,8 @@ on:
       - "scripts/prepare_docs.py"
       - "scripts/registry_quality.py"
       - "reports/registry-quality.md"
+      - "reports/provenance-debt.md"
+      - "scripts/generate_provenance_debt.py"
       - ".github/workflows/docs.yml"
   workflow_dispatch:
 

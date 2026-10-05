@@ -48,6 +48,7 @@ nav:
       - Consumers: CONSUMERS.md
       - Quality methodology: QUALITY.md
       - Quality report: generated/registry-quality.md
+      - Provenance debt: generated/provenance-debt.md
   - Governance:
       - Data policy: DATA_POLICY.md
       - External source health: EXTERNAL_HEALTH.md
