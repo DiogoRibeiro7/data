@@ -134,6 +134,7 @@ python -m unittest discover -s tests -v
 python scripts/validate_repository.py
 python scripts/generate_external_catalog.py
 python scripts/generate_consumer_catalog.py
+python scripts/generate_provenance_debt.py
 ```
 
 When canonical metadata changes, regenerate the catalogs first:
