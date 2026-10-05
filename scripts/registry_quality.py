@@ -249,6 +249,71 @@ def _legacy_metrics(root: Path) -> dict[str, Any]:
     }
 
 
+def _provenance_debt_metrics(root: Path) -> dict[str, Any]:
+    """Return deterministic provenance/licensing debt metrics."""
+
+    path = root / "reports" / "provenance-debt.json"
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(raw, dict):
+        raise ValueError(f"{path}: provenance debt report root must be an object")
+    items = raw.get("items")
+    if not isinstance(items, list):
+        raise ValueError(f"{path}: provenance debt report must contain an items list")
+
+    external_actionable = 0
+    external_terminal = 0
+    legacy_actionable = 0
+    legacy_terminal = 0
+    category_counts: dict[str, int] = {}
+    oldest_review_date: str | None = None
+    max_age_days: int | None = None
+
+    for item in items:
+        if not isinstance(item, dict):
+            raise ValueError(f"{path}: provenance debt items must be objects")
+        layer = item.get("layer")
+        status = item.get("review_status")
+        category = item.get("blocker_category")
+        if isinstance(category, str) and category:
+            category_counts[category] = category_counts.get(category, 0) + 1
+
+        if layer == "external" and status == "actionable":
+            external_actionable += 1
+        elif layer == "external" and status == "terminal":
+            external_terminal += 1
+        elif layer == "legacy" and status == "actionable":
+            legacy_actionable += 1
+        elif layer == "legacy" and status == "terminal":
+            legacy_terminal += 1
+
+        last_reviewed = item.get("last_reviewed")
+        if isinstance(last_reviewed, str) and (
+            oldest_review_date is None or last_reviewed < oldest_review_date
+        ):
+            oldest_review_date = last_reviewed
+
+        age_days = item.get("age_days")
+        if isinstance(age_days, int) and (
+            max_age_days is None or age_days > max_age_days
+        ):
+            max_age_days = age_days
+
+    return {
+        "total_count": len(items),
+        "external": {
+            "actionable": external_actionable,
+            "terminal": external_terminal,
+        },
+        "legacy": {
+            "actionable": legacy_actionable,
+            "terminal": legacy_terminal,
+        },
+        "by_blocker_category": dict(sorted(category_counts.items())),
+        "oldest_review_date": oldest_review_date,
+        "oldest_age_days": max_age_days,
+    }
+
+
 def _catalog_status(root: Path) -> dict[str, bool]:
     """Return generated-catalog freshness based on repository source state."""
     scripts = root / "scripts"
@@ -306,6 +371,7 @@ def build_report(root: Path) -> dict[str, Any]:
         "external": _external_metrics(root),
         "consumers": _consumer_metrics(root),
         "legacy": _legacy_metrics(root),
+        "provenance_debt": _provenance_debt_metrics(root),
         "catalogs": _catalog_status(root),
         "snapshots": {
             "available_from_repository_state": False,
@@ -324,6 +390,7 @@ def render_markdown(report: dict[str, Any]) -> str:
     external = report["external"]
     consumers = report["consumers"]
     legacy = report["legacy"]
+    debt = report["provenance_debt"]
     catalogs = report["catalogs"]
     snapshots = report["snapshots"]
 
@@ -424,6 +491,29 @@ def render_markdown(report: dict[str, Any]) -> str:
             "",
             f"- Remaining packages: **{legacy['package_count']}**",
             f"- Unresolved packages: **{legacy['unresolved_package_count']}**",
+            "",
+            "## Provenance and licensing debt",
+            "",
+            f"- Total debt items: **{debt['total_count']}**",
+            f"- External actionable / terminal: **{debt['external']['actionable']} / {debt['external']['terminal']}**",
+            f"- Legacy actionable / terminal: **{debt['legacy']['actionable']} / {debt['legacy']['terminal']}**",
+            f"- Oldest review date: **{debt['oldest_review_date'] or 'not available'}**",
+            f"- Oldest deterministic debt age (days): **{debt['oldest_age_days'] if debt['oldest_age_days'] is not None else 'not available'}**",
+            "",
+            "Debt by blocker category:",
+            "",
+        ]
+    )
+    if debt["by_blocker_category"]:
+        lines.extend(
+            f"- `{category}`: **{count}**"
+            for category, count in debt["by_blocker_category"].items()
+        )
+    else:
+        lines.append("- None")
+
+    lines.extend(
+        [
             "",
             "## Generated catalog freshness",
             "",
