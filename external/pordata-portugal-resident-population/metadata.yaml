@@ -7,3 +7,15 @@ source_url: "https://www.pordata.pt/Portugal/Populacao%2Bresidente%2B%2Bestimati
 redistribution: unresolved
 storage: public-secondary-source
 consumers: []
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-05
+  blocker_category: redistribution-rights
+  blocker_summary: "INE permits rediffusion of official statistical information with source attribution, but the historical workbook was a PORDATA-generated Excel export and no authoritative term was recovered that clearly permits mirroring that secondary-source artifact."
+  evidence:
+    - "https://www.ine.pt/ine_novidades/CSE_2017/105/"
+    - "https://www.pordata.pt/About.aspx"
+    - "https://www.pordata.pt/Portugal/Populacao%2Bresidente%2B%2Bestimativas%2Ba%2B31%2Bde%2BDezembro%2Btotal%2Be%2Bpor%2Bgrupo%2Betario-7"
+  reviewer_note: "The underlying INE statistics may be rediffused with attribution; this does not by itself license redistribution of PORDATA's application-generated Excel serialization."
+  next_action: "Reopen only if PORDATA or FFMS publishes terms explicitly authorizing redistribution of exported table files, or if the registry replaces the artifact with a directly sourced INE representation under INE reuse terms."
+  terminal: true

@@ -2,19 +2,19 @@
   "age_reference_date": "2026-10-05",
   "items": [
     {
-      "age_days": null,
-      "blocker_category": null,
-      "blocker_summary": "Structured resolution evidence not yet recorded.",
-      "evidence_count": 0,
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "DGS publicly disseminates SICO mortality information, but its current legal notice protects site contents and no dataset-specific redistribution grant covering the historical InfoClique/SICO CSV exports was recovered.",
+      "evidence_count": 2,
       "id": "dgs-infoclique-mortality",
-      "last_reviewed": null,
+      "last_reviewed": "2026-10-05",
       "layer": "external",
-      "next_action": "Backfill structured resolution evidence.",
+      "next_action": "Reopen only if DGS publishes dataset-specific reuse terms or an authoritative open-data licence covering the historical mortality exports.",
       "path": "external/dgs-infoclique-mortality/metadata.yaml",
       "redistribution": "unresolved",
-      "review_status": null,
-      "structured_evidence": false,
-      "terminal": null,
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
       "title": "DGS InfoClique mortality platform"
     },
     {
@@ -50,19 +50,19 @@
       "title": "Maize Bipolaris disease-progress data"
     },
     {
-      "age_days": null,
-      "blocker_category": null,
-      "blocker_summary": "Structured resolution evidence not yet recorded.",
-      "evidence_count": 0,
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "INE permits rediffusion of official statistical information with source attribution, but the historical workbook was a PORDATA-generated Excel export and no authoritative term was recovered that clearly permits mirroring that secondary-source artifact.",
+      "evidence_count": 3,
       "id": "pordata-portugal-resident-population",
-      "last_reviewed": null,
+      "last_reviewed": "2026-10-05",
       "layer": "external",
-      "next_action": "Backfill structured resolution evidence.",
+      "next_action": "Reopen only if PORDATA or FFMS publishes terms explicitly authorizing redistribution of exported table files, or if the registry replaces the artifact with a directly sourced INE representation under INE reuse terms.",
       "path": "external/pordata-portugal-resident-population/metadata.yaml",
       "redistribution": "unresolved",
-      "review_status": null,
-      "structured_evidence": false,
-      "terminal": null,
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
       "title": "Portugal resident population estimates by age group"
     },
     {
@@ -103,13 +103,14 @@
     "actionable_count": 0,
     "by_blocker_category": {
       "dataset-vs-repository-licence-scope": 1,
-      "unstructured": 5
+      "redistribution-rights": 2,
+      "unstructured": 3
     },
     "external_count": 4,
     "legacy_count": 2,
-    "structured_count": 1,
-    "terminal_count": 1,
+    "structured_count": 3,
+    "terminal_count": 3,
     "total_debt": 6,
-    "unstructured_count": 5
+    "unstructured_count": 3
   }
 }
