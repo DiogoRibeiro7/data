@@ -34,7 +34,7 @@ long-term preservation rather than simply increasing dataset count.
 
 ## Phase 6 — Provenance and licensing debt
 
-**Status:** active.
+**Status:** complete.
 
 **Tracking issue:** #84
 
@@ -74,7 +74,9 @@ Phase 6 is complete when:
 
 ## Phase 7 — Expand the canonical registry from real demand
 
-**Status:** planned.
+**Status:** active.
+
+**Tracking issue:** #101
 
 ### Goal
 
