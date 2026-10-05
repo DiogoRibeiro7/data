@@ -1,6 +1,6 @@
 # Country age/sex population snapshots (2019)
 
-> **Resolution:** retained in legacy quarantine after re-audit on 2026-10-03.
+> **Final Phase 6 resolution:** terminal legacy quarantine, reviewed 2026-10-05.
 
 These historical male/female population snapshots are strongly consistent with
 the **United Nations World Population Prospects 2019 Revision**, but the exact
@@ -64,11 +64,18 @@ or externalized solely on the basis of the likely source family.
 - file-level redistribution evidence for these exact historical artifacts is
   therefore not strong enough for canonical promotion.
 
-## Decision
+## Final decision
 
-**Retain in legacy quarantine.**
+**Terminal legacy quarantine.**
 
-The re-audit materially strengthens the source attribution to UN WPP 2019, but
-does not meet the registry's standard for canonical or external replacement.
+The source family is strongly attributable to UN WPP 2019, and the UN
+publication is available under CC BY 3.0 IGO. The retained historical files,
+however, cannot be tied to an exact authoritative export identity, and the
+Portugal CSV/XLSX variant lineage remains unresolved.
 
-See [the phase-four re-audit](../../docs/migrations/LEGACY_REAUDIT_2026-10-03.md).
+This is no longer generic "re-audit later" debt. Reopen only if the original UN
+export identity can be tied to the retained artifacts and the Portugal variant
+lineage can be resolved.
+
+See [the phase-four re-audit](../../docs/migrations/LEGACY_REAUDIT_2026-10-03.md)
+and the [Phase 6 terminal audit](../../docs/migrations/PHASE6_FINAL_HARD_CASE_AUDIT_2026-10-05.md).
