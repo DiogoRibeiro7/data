@@ -27,6 +27,36 @@ class RegistryQualityTests(unittest.TestCase):
         (self.root / "consumers" / "consumer-one").mkdir(parents=True)
         (self.root / "legacy" / "legacy-one").mkdir(parents=True)
         (self.root / "scripts").mkdir()
+        (self.root / "reports").mkdir()
+
+        debt_report = {
+            "schema_version": 1,
+            "age_reference_date": "2026-10-05",
+            "summary": {},
+            "items": [
+                {
+                    "id": "external-terminal",
+                    "layer": "external",
+                    "review_status": "terminal",
+                    "blocker_category": "redistribution-rights",
+                    "last_reviewed": "2026-10-05",
+                    "age_days": 0,
+                },
+                {
+                    "id": "legacy-actionable",
+                    "layer": "legacy",
+                    "review_status": "actionable",
+                    "blocker_category": "exact-snapshot-identity",
+                    "last_reviewed": "2026-10-03",
+                    "age_days": 2,
+                },
+            ],
+        }
+        import json
+        (self.root / "reports" / "provenance-debt.json").write_text(
+            json.dumps(debt_report, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
 
         raw = self.root / "datasets" / "example" / "raw" / "data.csv"
         raw.write_text("x\n1\n", encoding="utf-8")
@@ -143,6 +173,33 @@ class RegistryQualityTests(unittest.TestCase):
         self.assertEqual(legacy["package_count"], 1)
         self.assertEqual(legacy["unresolved_package_count"], 1)
 
+
+    def test_provenance_debt_metrics_distinguish_layers_and_status(self) -> None:
+        debt = QUALITY._provenance_debt_metrics(self.root)
+
+        self.assertEqual(debt["total_count"], 2)
+        self.assertEqual(debt["external"], {"actionable": 0, "terminal": 1})
+        self.assertEqual(debt["legacy"], {"actionable": 1, "terminal": 0})
+        self.assertEqual(
+            debt["by_blocker_category"],
+            {"exact-snapshot-identity": 1, "redistribution-rights": 1},
+        )
+        self.assertEqual(debt["oldest_review_date"], "2026-10-03")
+        self.assertEqual(debt["oldest_age_days"], 2)
+
+    def test_provenance_debt_metrics_empty_state(self) -> None:
+        path = self.root / "reports" / "provenance-debt.json"
+        path.write_text(
+            '{"schema_version": 1, "items": []}\n',
+            encoding="utf-8",
+        )
+
+        debt = QUALITY._provenance_debt_metrics(self.root)
+
+        self.assertEqual(debt["total_count"], 0)
+        self.assertEqual(debt["by_blocker_category"], {})
+        self.assertIsNone(debt["oldest_review_date"])
+        self.assertIsNone(debt["oldest_age_days"])
 
     def test_consumer_metrics_distinguish_deprecated_relationships(self) -> None:
         path = self.root / "consumers" / "consumer-one" / "example.yaml"
@@ -286,6 +343,14 @@ class RegistryQualityTests(unittest.TestCase):
                 "datasets_without_consumers": [],
             },
             "legacy": {"package_count": 1, "unresolved_package_count": 1},
+            "provenance_debt": {
+                "total_count": 2,
+                "external": {"actionable": 0, "terminal": 1},
+                "legacy": {"actionable": 1, "terminal": 0},
+                "by_blocker_category": {"redistribution-rights": 2},
+                "oldest_review_date": "2026-10-03",
+                "oldest_age_days": 2,
+            },
             "catalogs": {
                 "canonical_current": True,
                 "external_current": True,
