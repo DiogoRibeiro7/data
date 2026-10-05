@@ -335,7 +335,7 @@ def render_summary(manifest: dict[str, Any]) -> str:
         "",
         "| Catalog | Schema | SHA-256 |",
         "| --- | ---: | --- |",
-    ]
+    ])
     for name in ("canonical", "consumer", "external"):
         record = manifest["catalogs"][name]
         lines.append(
