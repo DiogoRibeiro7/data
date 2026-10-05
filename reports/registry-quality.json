@@ -1,9 +1,9 @@
 {
   "canonical": {
-    "complete_license_datasets": 2,
-    "dataset_count": 2,
-    "file_count": 2,
-    "verified_checksum_files": 2
+    "complete_license_datasets": 3,
+    "dataset_count": 3,
+    "file_count": 3,
+    "verified_checksum_files": 3
   },
   "catalogs": {
     "canonical_current": true,
@@ -13,25 +13,28 @@
   "consumers": {
     "active_consumer_repositories": [
       "DiogoRibeiro7/Medium-Blog",
+      "DiogoRibeiro7/city-wage-cost-global",
       "DiogoRibeiro7/displacement-risk-lab-dynamodb"
     ],
-    "active_consumer_repository_count": 2,
+    "active_consumer_repository_count": 3,
     "active_consumers": [
+      "city-wage-cost-global",
       "displacement-risk-lab-dynamodb",
       "medium-blog"
     ],
-    "active_relationship_count": 2,
-    "canonical_dataset_adoption_coverage": 1.0,
-    "canonical_datasets_with_consumers": 2,
+    "active_relationship_count": 3,
+    "canonical_dataset_adoption_coverage": 1,
+    "canonical_datasets_with_consumers": 3,
     "canonical_datasets_without_consumers": 0,
     "datasets_with_consumers": [
       "online-retail-ii",
+      "ons-gross-median-weekly-pay",
       "ucdp-ged-25-1"
     ],
     "datasets_without_consumers": [],
     "deprecated_relationship_count": 0,
-    "pinned_contract_count": 2,
-    "pinned_contract_coverage": 1.0
+    "pinned_contract_count": 3,
+    "pinned_contract_coverage": 1
   },
   "external": {
     "pinned_immutable_identity_sources": 3,
