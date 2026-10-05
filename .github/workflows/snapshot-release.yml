@@ -101,6 +101,9 @@ jobs:
       - name: Validate registry quality freshness
         run: python scripts/registry_quality.py
 
+      - name: Validate provenance debt freshness
+        run: python scripts/generate_provenance_debt.py
+
       - name: Generate release material
         run: |
           python scripts/create_snapshot.py             --tag "${{ inputs.snapshot_tag }}"             --commit "${{ inputs.commit_sha }}"             --output-dir release-material
