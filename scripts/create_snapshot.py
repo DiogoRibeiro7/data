@@ -170,6 +170,49 @@ def catalog_record(root: Path, relative_path: str) -> dict[str, Any]:
 
 
 
+def provenance_debt_record(root: Path) -> dict[str, Any]:
+    """Return the provenance-debt report digest and summary metrics."""
+
+    relative_path = "reports/provenance-debt.json"
+    path = root / relative_path
+    report = load_json(path)
+    summary = report.get("summary")
+    if not isinstance(summary, dict):
+        raise ValueError(f"{path}: provenance debt report has no summary object")
+
+    required_counts = (
+        "total_debt",
+        "external_count",
+        "legacy_count",
+        "structured_count",
+        "unstructured_count",
+        "actionable_count",
+        "terminal_count",
+    )
+    for key in required_counts:
+        if not isinstance(summary.get(key), int):
+            raise ValueError(f"{path}: summary.{key} must be an integer")
+
+    categories = summary.get("by_blocker_category")
+    if not isinstance(categories, dict):
+        raise ValueError(f"{path}: summary.by_blocker_category must be an object")
+
+    return {
+        "path": relative_path,
+        "schema_version": report.get("schema_version"),
+        "sha256": sha256_file(path),
+        "age_reference_date": report.get("age_reference_date"),
+        "total_debt": summary["total_debt"],
+        "external_count": summary["external_count"],
+        "legacy_count": summary["legacy_count"],
+        "structured_count": summary["structured_count"],
+        "unstructured_count": summary["unstructured_count"],
+        "actionable_count": summary["actionable_count"],
+        "terminal_count": summary["terminal_count"],
+        "by_blocker_category": dict(sorted(categories.items())),
+    }
+
+
 def consumer_graph_record(root: Path) -> dict[str, Any]:
     """Return the consumer dependency graph digest and relationship counts."""
 
@@ -231,7 +274,7 @@ def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
         for layer, relative_path in sorted(SCHEMA_FILES.items())
     }
     return {
-        "manifest_version": 2,
+        "manifest_version": 3,
         "repository": REPOSITORY,
         "tag": tag,
         "commit": commit,
@@ -241,6 +284,7 @@ def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
             "external": catalog_record(root, "external/catalog.json"),
         },
         "consumer_registry": consumer_graph_record(root),
+        "provenance_debt": provenance_debt_record(root),
         "metadata_schemas": schemas,
         "canonical_datasets": canonical_dataset_records(root),
     }
@@ -251,6 +295,7 @@ def render_summary(manifest: dict[str, Any]) -> str:
 
     datasets = manifest["canonical_datasets"]
     consumers = manifest["consumer_registry"]
+    debt = manifest["provenance_debt"]
     file_count = sum(len(item["files"]) for item in datasets)
     lines = [
         f"# Registry snapshot {manifest['tag']}",
@@ -261,12 +306,36 @@ def render_summary(manifest: dict[str, Any]) -> str:
         f"- Canonical data files: **{file_count}**",
         f"- Active canonical consumer relationships: **{consumers['active_relationship_count']}**",
         f"- Canonical consumer repositories: **{consumers['repository_count']}**",
+        f"- Provenance/licensing debt items: **{debt['total_debt']}**",
+        f"- Terminal debt items: **{debt['terminal_count']}**",
+        f"- Actionable debt items: **{debt['actionable_count']}**",
+        "",
+        "## Provenance and licensing debt",
+        "",
+        f"- Report: `{debt['path']}`",
+        f"- Report SHA-256: `{debt['sha256']}`",
+        f"- Structured / unstructured: **{debt['structured_count']} / {debt['unstructured_count']}**",
+        f"- External / legacy: **{debt['external_count']} / {debt['legacy_count']}**",
+        f"- Age reference date: **{debt['age_reference_date'] or 'not available'}**",
+        "",
+        "Blocker categories:",
+        "",
+    ]
+    if debt["by_blocker_category"]:
+        lines.extend(
+            f"- `{category}`: **{count}**"
+            for category, count in debt["by_blocker_category"].items()
+        )
+    else:
+        lines.append("- None")
+
+    lines.extend([
         "",
         "## Catalog integrity",
         "",
         "| Catalog | Schema | SHA-256 |",
         "| --- | ---: | --- |",
-    ]
+    ])
     for name in ("canonical", "consumer", "external"):
         record = manifest["catalogs"][name]
         lines.append(
