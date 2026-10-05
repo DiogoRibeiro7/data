@@ -82,6 +82,17 @@ review dates exist, the latest committed `last_reviewed` date is the reference
 point. This keeps the generated report byte-deterministic across machines and
 reruns.
 
+The main registry quality report now incorporates the debt queue and reports:
+
+- actionable and terminal external debt;
+- actionable and terminal legacy debt;
+- counts by blocker category;
+- oldest committed review date;
+- oldest deterministic debt age.
+
+The local registry CLI exposes the same committed debt state through `debt`
+and `debt-show` queries.
+
 ## Unresolved is not invalid
 
 External records may deliberately use an unresolved redistribution state.
