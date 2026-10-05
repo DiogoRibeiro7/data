@@ -28,6 +28,34 @@ class SnapshotFixture:
         (self.root / "consumers").mkdir()
         (self.root / "schemas").mkdir()
         (self.root / "legacy").mkdir()
+        (self.root / "reports").mkdir()
+
+        (self.root / "reports" / "provenance-debt.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "age_reference_date": "2026-10-05",
+                    "summary": {
+                        "total_debt": 2,
+                        "external_count": 1,
+                        "legacy_count": 1,
+                        "structured_count": 2,
+                        "unstructured_count": 0,
+                        "actionable_count": 0,
+                        "terminal_count": 2,
+                        "by_blocker_category": {
+                            "redistribution-rights": 1,
+                            "historical-export-route": 1,
+                        },
+                    },
+                    "items": [],
+                },
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
 
         (self.root / "datasets" / "catalog.json").write_text(
             json.dumps({"schema_version": 1, "datasets": []}, indent=2) + "\n",
@@ -230,7 +258,7 @@ class SnapshotTests(unittest.TestCase):
             tag="snapshot-2026.10.01",
             commit="a" * 40,
         )
-        self.assertEqual(manifest["manifest_version"], 2)
+        self.assertEqual(manifest["manifest_version"], 3)
         self.assertEqual(manifest["commit"], "a" * 40)
         self.assertEqual(manifest["catalogs"]["canonical"]["schema_version"], 1)
         self.assertEqual(manifest["metadata_schemas"]["legacy"]["schema_version"], 0)
@@ -238,6 +266,9 @@ class SnapshotTests(unittest.TestCase):
         self.assertEqual(manifest["catalogs"]["consumer"]["schema_version"], 1)
         self.assertEqual(len(manifest["catalogs"]["external"]["sha256"]), 64)
         self.assertEqual(len(manifest["consumer_registry"]["sha256"]), 64)
+        self.assertEqual(len(manifest["provenance_debt"]["sha256"]), 64)
+        self.assertEqual(manifest["provenance_debt"]["terminal_count"], 2)
+        self.assertEqual(manifest["provenance_debt"]["unstructured_count"], 0)
 
     def test_consumer_relationships_are_recorded(self) -> None:
         self.fixture.add_consumer(
@@ -274,6 +305,31 @@ class SnapshotTests(unittest.TestCase):
         self.assertIn("Distinct repositories: **1**", summary)
         self.assertIn("consumers/dependency-graph.json", summary)
 
+
+    def test_snapshot_summary_includes_provenance_debt(self) -> None:
+        manifest = SNAPSHOT.build_manifest(
+            self.fixture.root,
+            tag="snapshot-2026.10.05",
+            commit="e" * 40,
+        )
+
+        summary = SNAPSHOT.render_summary(manifest)
+
+        self.assertIn("## Provenance and licensing debt", summary)
+        self.assertIn("Terminal debt items: **2**", summary)
+        self.assertIn("Actionable debt items: **0**", summary)
+        self.assertIn("reports/provenance-debt.json", summary)
+
+    def test_provenance_debt_summary_must_be_well_formed(self) -> None:
+        path = self.fixture.root / "reports" / "provenance-debt.json"
+        path.write_text('{"schema_version": 1, "summary": {}}\n', encoding="utf-8")
+
+        with self.assertRaisesRegex(ValueError, "summary.total_debt"):
+            SNAPSHOT.build_manifest(
+                self.fixture.root,
+                tag="snapshot-2026.10.05",
+                commit="f" * 40,
+            )
 
     def test_canonical_file_checksums_are_recorded(self) -> None:
         checksum = self.fixture.add_canonical("dataset")
