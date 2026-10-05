@@ -47,6 +47,21 @@ Active consumers:
 - Remaining packages: **2**
 - Unresolved packages: **2**
 
+## Provenance and licensing debt
+
+- Total debt items: **6**
+- External actionable / terminal: **0 / 4**
+- Legacy actionable / terminal: **0 / 2**
+- Oldest review date: **2026-10-05**
+- Oldest deterministic debt age (days): **0**
+
+Debt by blocker category:
+
+- `dataset-vs-repository-licence-scope`: **2**
+- `exact-snapshot-identity`: **1**
+- `historical-export-route`: **1**
+- `redistribution-rights`: **2**
+
 ## Generated catalog freshness
 
 - Canonical catalog current: **true**
