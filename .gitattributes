@@ -14,6 +14,10 @@
 # Legacy quarantine preserves original source bytes exactly, including line endings.
 legacy/**/raw/** -text
 
+# Canonical source snapshots may opt out of text normalization when exact upstream
+# byte identity includes source line endings or encoding markers.
+datasets/ons-gross-median-weekly-pay/raw/** -text
+
 # Common binary data/archive formats.
 *.xlsx -text
 *.xls -text

@@ -1,5 +1,17 @@
 {
   "consumers": {
+    "city-wage-cost-global": {
+      "datasets": [
+        {
+          "dataset_id": "ons-gross-median-weekly-pay",
+          "path": "datasets/ons-gross-median-weekly-pay/raw/gross-median-weekly-pay.csv",
+          "registry_commit": "886278edfd3948494378e4d4b1aead42f66b92d6",
+          "sha256": "285a76982afdfd38e9366535b43bf3e68c878ada7b819d722d2ec188c38eff17",
+          "status": "active"
+        }
+      ],
+      "repository": "DiogoRibeiro7/city-wage-cost-global"
+    },
     "displacement-risk-lab-dynamodb": {
       "datasets": [
         {
@@ -34,6 +46,18 @@
           "path": "datasets/online-retail-ii/raw/online_retail_II.xlsx",
           "registry_commit": "e90eed21a474c0a54ab9bf658c01dbd778bf58f1",
           "sha256": "bcbe73b35f5b7babf197fb0cb983a11f5d9ff929078d4aa53d171b1f2df2e980",
+          "status": "active"
+        }
+      ]
+    },
+    "ons-gross-median-weekly-pay": {
+      "consumers": [
+        {
+          "consumer_id": "city-wage-cost-global",
+          "consumer_repository": "DiogoRibeiro7/city-wage-cost-global",
+          "path": "datasets/ons-gross-median-weekly-pay/raw/gross-median-weekly-pay.csv",
+          "registry_commit": "886278edfd3948494378e4d4b1aead42f66b92d6",
+          "sha256": "285a76982afdfd38e9366535b43bf3e68c878ada7b819d722d2ec188c38eff17",
           "status": "active"
         }
       ]

@@ -1,0 +1,22 @@
+schema_version: 1
+status: active
+
+consumer_id: city-wage-cost-global
+consumer_repository: DiogoRibeiro7/city-wage-cost-global
+
+dataset_id: ons-gross-median-weekly-pay
+
+registry_layer: canonical
+registry_repository: DiogoRibeiro7/data
+registry_commit: "886278edfd3948494378e4d4b1aead42f66b92d6"
+
+path: datasets/ons-gross-median-weekly-pay/raw/gross-median-weekly-pay.csv
+sha256: "285a76982afdfd38e9366535b43bf3e68c878ada7b819d722d2ec188c38eff17"
+
+consumer_commit: "f536f262e17eeea8d666205a7025fa855f48d5da"
+evidence_url: https://github.com/DiogoRibeiro7/city-wage-cost-global/pull/1
+
+notes: >
+  The UK wage analysis now pins the canonical registry commit and verifies the
+  exact ONS weekly-pay CSV SHA-256 before loading. The separate ONS
+  housing-affordability input remains upstream-managed.
