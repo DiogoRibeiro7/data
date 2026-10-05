@@ -321,6 +321,97 @@ def render_dependency_table(
     )
     return "\n".join(lines)
 
+
+def load_provenance_debt(root: Path) -> dict[str, Any]:
+    """Load the committed deterministic provenance-debt report."""
+
+    path = root / "reports" / "provenance-debt.json"
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise RegistryError(f"{path}: cannot load provenance debt report: {exc}") from exc
+    if not isinstance(raw, dict):
+        raise RegistryError(f"{path}: provenance debt report root must be an object")
+    items = raw.get("items")
+    if not isinstance(items, list):
+        raise RegistryError(f"{path}: provenance debt report must contain an items list")
+    return raw
+
+
+def filter_debt_items(
+    report: dict[str, Any],
+    *,
+    layer: str = "all",
+    category: str | None = None,
+    status: str = "all",
+) -> list[dict[str, Any]]:
+    """Filter provenance-debt items deterministically."""
+
+    raw_items = report.get("items")
+    if not isinstance(raw_items, list):
+        raise RegistryError("provenance debt report must contain an items list")
+
+    result: list[dict[str, Any]] = []
+    for item in raw_items:
+        if not isinstance(item, dict):
+            raise RegistryError("provenance debt items must be objects")
+        if layer != "all" and item.get("layer") != layer:
+            continue
+        if category is not None and item.get("blocker_category") != category:
+            continue
+        if status != "all" and item.get("review_status") != status:
+            continue
+        result.append(item)
+    return result
+
+
+def find_debt_item(report: dict[str, Any], item_id: str) -> dict[str, Any]:
+    """Return one exact provenance-debt item by ID."""
+
+    matches = [
+        item
+        for item in filter_debt_items(report)
+        if item.get("id") == item_id
+    ]
+    if not matches:
+        raise RegistryError(f"unknown provenance debt id {item_id!r}")
+    if len(matches) > 1:
+        raise RegistryError(f"provenance debt id {item_id!r} is not unique")
+    return matches[0]
+
+
+def render_debt_table(items: Sequence[dict[str, Any]]) -> str:
+    """Render compact human-readable provenance-debt output."""
+
+    if not items:
+        return "No matching provenance debt items."
+
+    rows = [
+        (
+            str(item.get("layer") or "—"),
+            str(item.get("id") or "—"),
+            str(item.get("review_status") or "—"),
+            str(item.get("blocker_category") or "—"),
+            str(item.get("age_days") if item.get("age_days") is not None else "—"),
+        )
+        for item in items
+    ]
+    headers = ("LAYER", "ID", "STATUS", "CATEGORY", "AGE")
+    widths = [
+        max(len(headers[index]), *(len(row[index]) for row in rows))
+        for index in range(len(headers))
+    ]
+    lines = [
+        "  ".join(headers[index].ljust(widths[index]) for index in range(len(headers)))
+    ]
+    lines.append("  ".join("-" * width for width in widths))
+    lines.extend(
+        "  ".join(row[index].ljust(widths[index]) for index in range(len(headers)))
+        for row in rows
+    )
+    return "\n".join(lines)
+
+
 def filter_layer(entries: Iterable[RegistryEntry], layer: str) -> list[RegistryEntry]:
     """Filter entries by layer or return all."""
 
@@ -579,6 +670,33 @@ def build_parser() -> argparse.ArgumentParser:
     uses_parser.add_argument("consumer_id")
     _add_common_read_options(uses_parser)
 
+    debt_parser = subparsers.add_parser(
+        "debt",
+        help="List unresolved provenance/licensing debt.",
+    )
+    debt_parser.add_argument(
+        "--layer",
+        choices=("all", "external", "legacy"),
+        default="all",
+    )
+    debt_parser.add_argument(
+        "--category",
+        help="Filter by blocker category.",
+    )
+    debt_parser.add_argument(
+        "--status",
+        choices=("all", "actionable", "terminal"),
+        default="all",
+    )
+    _add_common_read_options(debt_parser)
+
+    debt_show_parser = subparsers.add_parser(
+        "debt-show",
+        help="Show one provenance/licensing debt item.",
+    )
+    debt_show_parser.add_argument("id")
+    _add_common_read_options(debt_show_parser)
+
     return parser
 
 
@@ -596,6 +714,29 @@ def main(argv: Sequence[str] | None = None) -> int:
     root = args.root.resolve()
     try:
         entries = load_registry(root)
+
+        if args.command == "debt":
+            report = load_provenance_debt(root)
+            result = filter_debt_items(
+                report,
+                layer=args.layer,
+                category=args.category,
+                status=args.status,
+            )
+            if args.json:
+                _print_json(result)
+            else:
+                print(render_debt_table(result))
+            return 0
+
+        if args.command == "debt-show":
+            report = load_provenance_debt(root)
+            payload = find_debt_item(report, args.id)
+            if args.json:
+                _print_json(payload)
+            else:
+                print(yaml.safe_dump(json_compatible(payload), sort_keys=False).rstrip())
+            return 0
 
         if args.command == "list":
             result = filter_layer(entries, args.layer)

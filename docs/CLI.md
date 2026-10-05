@@ -107,6 +107,37 @@ graph on demand.
 The graph includes active and deprecated relationships. Unknown consumer or
 dataset IDs fail clearly rather than returning an ambiguous empty result.
 
+## Provenance and licensing debt
+
+The CLI can inspect the committed deterministic debt queue without network
+access.
+
+List all debt items:
+
+```bash
+python scripts/registry.py debt
+python scripts/registry.py debt --json
+```
+
+Filter by layer, blocker category, or review status:
+
+```bash
+python scripts/registry.py debt --layer external
+python scripts/registry.py debt --category redistribution-rights
+python scripts/registry.py debt --status terminal
+python scripts/registry.py debt --layer legacy --status terminal --json
+```
+
+Show one debt item:
+
+```bash
+python scripts/registry.py debt-show pordata-portugal-resident-population
+python scripts/registry.py debt-show pordata-portugal-resident-population --json
+```
+
+These commands read `reports/provenance-debt.json`. They do not query remote
+sources or regenerate the debt queue on demand.
+
 ## Fetch a canonical file
 
 Fetching is available only for canonical datasets.

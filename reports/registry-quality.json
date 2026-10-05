@@ -21,7 +21,7 @@
       "medium-blog"
     ],
     "active_relationship_count": 2,
-    "canonical_dataset_adoption_coverage": 1.0,
+    "canonical_dataset_adoption_coverage": 1,
     "canonical_datasets_with_consumers": 2,
     "canonical_datasets_without_consumers": 0,
     "datasets_with_consumers": [
@@ -31,7 +31,7 @@
     "datasets_without_consumers": [],
     "deprecated_relationship_count": 0,
     "pinned_contract_count": 2,
-    "pinned_contract_coverage": 1.0
+    "pinned_contract_coverage": 1
   },
   "external": {
     "pinned_immutable_identity_sources": 3,
@@ -64,5 +64,24 @@
     "available_from_repository_state": false,
     "count": null,
     "note": "Published snapshot tags/releases are not counted because their presence depends on Git fetch depth and remote state rather than committed files."
+  },
+  "provenance_debt": {
+    "total_count": 6,
+    "external": {
+      "actionable": 0,
+      "terminal": 4
+    },
+    "legacy": {
+      "actionable": 0,
+      "terminal": 2
+    },
+    "by_blocker_category": {
+      "dataset-vs-repository-licence-scope": 2,
+      "exact-snapshot-identity": 1,
+      "historical-export-route": 1,
+      "redistribution-rights": 2
+    },
+    "oldest_review_date": "2026-10-05",
+    "oldest_age_days": 0
   }
 }

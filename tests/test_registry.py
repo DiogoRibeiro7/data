@@ -121,6 +121,55 @@ class RegistryFixture:
         )
 
 
+    def add_provenance_debt(self) -> None:
+        """Add a deterministic provenance-debt report."""
+
+        reports = self.root / "reports"
+        reports.mkdir(exist_ok=True)
+        payload = {
+            "schema_version": 1,
+            "age_reference_date": "2026-10-05",
+            "summary": {},
+            "items": [
+                {
+                    "id": "external-terminal",
+                    "layer": "external",
+                    "title": "External terminal",
+                    "path": "external/external-terminal/metadata.yaml",
+                    "redistribution": "unresolved",
+                    "structured_evidence": True,
+                    "review_status": "terminal",
+                    "terminal": True,
+                    "blocker_category": "redistribution-rights",
+                    "blocker_summary": "No redistribution grant.",
+                    "last_reviewed": "2026-10-05",
+                    "age_days": 0,
+                    "evidence_count": 1,
+                    "next_action": "Reopen on new terms.",
+                },
+                {
+                    "id": "legacy-actionable",
+                    "layer": "legacy",
+                    "title": "Legacy actionable",
+                    "path": "legacy/legacy-actionable/metadata.yaml",
+                    "redistribution": "unknown",
+                    "structured_evidence": True,
+                    "review_status": "actionable",
+                    "terminal": False,
+                    "blocker_category": "exact-snapshot-identity",
+                    "blocker_summary": "Snapshot identity needs research.",
+                    "last_reviewed": "2026-10-04",
+                    "age_days": 1,
+                    "evidence_count": 1,
+                    "next_action": "Find authoritative snapshot.",
+                },
+            ],
+        }
+        (reports / "provenance-debt.json").write_text(
+            json.dumps(payload, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+
     def close(self) -> None:
         self.temp.cleanup()
 
@@ -441,6 +490,86 @@ class RegistryTests(unittest.TestCase):
                 finally:
                     server.shutdown()
                     thread.join(timeout=5)
+
+    def test_debt_filters_by_layer_category_and_status(self) -> None:
+        self.fixture.add_provenance_debt()
+        stream = io.StringIO()
+
+        with contextlib.redirect_stdout(stream):
+            code = REGISTRY.main(
+                [
+                    "--root",
+                    str(self.fixture.root),
+                    "debt",
+                    "--layer",
+                    "legacy",
+                    "--category",
+                    "exact-snapshot-identity",
+                    "--status",
+                    "actionable",
+                    "--json",
+                ]
+            )
+
+        self.assertEqual(code, 0)
+        payload = json.loads(stream.getvalue())
+        self.assertEqual([item["id"] for item in payload], ["legacy-actionable"])
+
+    def test_debt_empty_filter_returns_stable_empty_json(self) -> None:
+        self.fixture.add_provenance_debt()
+        stream = io.StringIO()
+
+        with contextlib.redirect_stdout(stream):
+            code = REGISTRY.main(
+                [
+                    "--root",
+                    str(self.fixture.root),
+                    "debt",
+                    "--category",
+                    "historical-export-route",
+                    "--json",
+                ]
+            )
+
+        self.assertEqual(code, 0)
+        self.assertEqual(json.loads(stream.getvalue()), [])
+
+    def test_debt_show_returns_one_item(self) -> None:
+        self.fixture.add_provenance_debt()
+        stream = io.StringIO()
+
+        with contextlib.redirect_stdout(stream):
+            code = REGISTRY.main(
+                [
+                    "--root",
+                    str(self.fixture.root),
+                    "debt-show",
+                    "external-terminal",
+                    "--json",
+                ]
+            )
+
+        self.assertEqual(code, 0)
+        payload = json.loads(stream.getvalue())
+        self.assertEqual(payload["id"], "external-terminal")
+        self.assertEqual(payload["review_status"], "terminal")
+
+    def test_debt_show_unknown_id_is_clear_error(self) -> None:
+        self.fixture.add_provenance_debt()
+        stderr = io.StringIO()
+
+        with contextlib.redirect_stderr(stderr):
+            code = REGISTRY.main(
+                [
+                    "--root",
+                    str(self.fixture.root),
+                    "debt-show",
+                    "missing",
+                ]
+            )
+
+        self.assertEqual(code, 1)
+        self.assertIn("unknown provenance debt id 'missing'", stderr.getvalue())
 
     def test_fetch_rejects_branch_name(self) -> None:
         self.fixture.add_canonical("dataset")
