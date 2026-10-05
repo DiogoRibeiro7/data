@@ -3,28 +3,28 @@
 This file is generated deterministically from committed external and legacy metadata.
 Do not edit it by hand.
 
-- Total debt items: **7**
-- External records: **5**
+- Total debt items: **6**
+- External records: **4**
 - Legacy packages: **2**
-- Structured evidence: **0**
-- Unstructured debt: **7**
+- Structured evidence: **1**
+- Unstructured debt: **5**
 - Actionable: **0**
-- Terminal: **0**
-- Age reference date: **not available**
+- Terminal: **1**
+- Age reference date: **2026-10-05**
 
 ## Blocker categories
 
-- `unstructured`: **7**
+- `dataset-vs-repository-licence-scope`: **1**
+- `unstructured`: **5**
 
 ## Queue
 
 | Layer | ID | Review status | Blocker | Last reviewed | Age (days) | Evidence | Redistribution | Next action |
 | --- | --- | --- | --- | --- | ---: | ---: | --- | --- |
 | external | `dgs-infoclique-mortality` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
-| external | `ibm-telco-customer-churn` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
+| external | `ibm-telco-customer-churn` | terminal | The pinned IBM repository is Apache-2.0 licensed as a code pattern, but the README explicitly separates third-party objects and no dataset-specific redistribution licence for Telco-Customer-Churn.csv was established. | 2026-10-05 | 0 | 3 | unresolved | Reopen only if IBM publishes dataset-specific terms or an authoritative licence statement covering Telco-Customer-Churn.csv. |
 | external | `maize-bipolaris-disease-progress` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
 | external | `pordata-portugal-resident-population` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
-| external | `unhcr-refugee-statistics` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
 | legacy | `country-age-sex-2019` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unknown | Backfill structured resolution evidence. |
 | legacy | `portugal-covid19` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unknown | Backfill structured resolution evidence. |
 

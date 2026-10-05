@@ -36,8 +36,8 @@
   "external": {
     "pinned_immutable_identity_sources": 3,
     "redistribution": {
-      "resolved": 8,
-      "unresolved": 5
+      "resolved": 9,
+      "unresolved": 4
     },
     "source_count": 13,
     "source_usage": {
