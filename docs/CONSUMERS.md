@@ -27,9 +27,10 @@ Each record pins the exact registry commit, canonical path, and SHA-256, and ide
 downstream repository plus evidence of the migration. The central record is validated offline
 against canonical metadata.
 
-The registry currently records two active canonical relationships:
+The registry currently records three active canonical relationships:
 
 - `DiogoRibeiro7/Medium-Blog` → `online-retail-ii`;
+- `DiogoRibeiro7/city-wage-cost-global` → `ons-gross-median-weekly-pay`;
 - `DiogoRibeiro7/displacement-risk-lab-dynamodb` → `ucdp-ged-25-1`.
 
 Browse the generated [canonical consumer catalog](generated/consumer-catalog.md) or use
@@ -80,7 +81,7 @@ A project may deliberately retain a full immutable snapshot when offline scienti
 
 ## Current adoption
 
-Both canonical datasets currently have at least one registered active consumer.
+All three canonical datasets currently have at least one registered active consumer.
 Consumer adoption is measured from formal `consumers/` records, not from
 free-form external-source annotations.
 
