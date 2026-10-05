@@ -26,34 +26,28 @@ The removed legacy package contained six CSV files named:
 - `Dados_SICO_2020-05-31_2019.csv`
 - `Dados_SICO_2020-05-31_2020.csv`
 
-All six use the same schema of daily counts by nature-of-death category:
+All six use the same schema of daily counts by nature-of-death category.
 
-- road accident;
-- work accident;
-- possible suicide;
-- possible homicide;
-- other accident;
-- unknown.
+## Redistribution decision — terminal unresolved
 
-The 2015-2019 files contain complete calendar years. The 2020 file is a partial
-year snapshot and ends on 10 June 2020.
+The mortality information is publicly disseminated, but public accessibility is
+not itself a redistribution licence.
 
-The filenames share the snapshot marker `2020-05-31`, indicating one
-historical export family rather than six unrelated datasets.
+The current DGS legal notice protects site contents and the re-audit did not
+recover dataset-specific reuse terms that clearly authorize mirroring the
+historical InfoClique/SICO CSV export family.
 
-## Why the CSV bytes are not stored
+Evidence:
 
-No maintained repository consumes these files.
+- https://www.dgs.pt/site/notas-legais.aspx
+- https://www.dgs.pt/servicos-on-line1/sico-sistema-de-informacao-dos-certificados-de-obito.aspx
 
-The exact historical export endpoint and export procedure were not recovered,
-and the current DGS site states that its content is all rights reserved.
+The registry therefore keeps:
 
-The registry therefore records the authoritative public mortality platform but
-does not mirror the historical CSV exports.
+`redistribution: unresolved`
 
-## Redistribution
+and classifies the blocker as **terminal redistribution-rights**.
 
-Redistribution is **unresolved**.
-
-Consumers should retrieve current information from DGS and comply with the
-terms applicable to the source platform.
+No historical CSV bytes are mirrored. Reopen this decision only if DGS
+publishes dataset-specific reuse terms or an authoritative open-data licence
+covering the historical exports.
