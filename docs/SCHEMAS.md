@@ -47,7 +47,10 @@ External source records enforce a common discovery core:
 
 Known source-specific extensions such as `medium_blog`, `doi`, `source_commit`, and `source_path` are explicitly represented.
 
-Issue #19 will normalize these records further when the external catalog is generated.
+External metadata may also include an optional structured `resolution` block
+for unresolved provenance, snapshot, lineage, or redistribution debt.
+
+See [provenance and licensing resolution evidence](PROVENANCE_RESOLUTION.md).
 
 ## Consumer metadata
 
@@ -63,6 +66,10 @@ URL. Consumer records describe dependency state; they are not executable fetch c
 ## Legacy metadata
 
 Legacy schema version 0 describes quarantine packages only. It is intentionally small and records enough information to preserve file identity and unresolved provenance/licensing state.
+
+Legacy metadata may include the same optional `resolution` evidence block used
+by external records. This lets a quarantine package distinguish an actionable
+audit task from a terminal decision without changing its legacy status.
 
 Legacy schema version 0 is not a weaker canonical schema and should never be used for new reusable datasets.
 
