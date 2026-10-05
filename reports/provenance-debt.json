@@ -1,5 +1,5 @@
 {
-  "age_reference_date": null,
+  "age_reference_date": "2026-10-05",
   "items": [
     {
       "age_days": null,
@@ -18,19 +18,19 @@
       "title": "DGS InfoClique mortality platform"
     },
     {
-      "age_days": null,
-      "blocker_category": null,
-      "blocker_summary": "Structured resolution evidence not yet recorded.",
-      "evidence_count": 0,
+      "age_days": 0,
+      "blocker_category": "dataset-vs-repository-licence-scope",
+      "blocker_summary": "The pinned IBM repository is Apache-2.0 licensed as a code pattern, but the README explicitly separates third-party objects and no dataset-specific redistribution licence for Telco-Customer-Churn.csv was established.",
+      "evidence_count": 3,
       "id": "ibm-telco-customer-churn",
-      "last_reviewed": null,
+      "last_reviewed": "2026-10-05",
       "layer": "external",
-      "next_action": "Backfill structured resolution evidence.",
+      "next_action": "Reopen only if IBM publishes dataset-specific terms or an authoritative licence statement covering Telco-Customer-Churn.csv.",
       "path": "external/ibm-telco-customer-churn/metadata.yaml",
       "redistribution": "unresolved",
-      "review_status": null,
-      "structured_evidence": false,
-      "terminal": null,
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
       "title": "IBM Telco Customer Churn sample"
     },
     {
@@ -70,22 +70,6 @@
       "blocker_category": null,
       "blocker_summary": "Structured resolution evidence not yet recorded.",
       "evidence_count": 0,
-      "id": "unhcr-refugee-statistics",
-      "last_reviewed": null,
-      "layer": "external",
-      "next_action": "Backfill structured resolution evidence.",
-      "path": "external/unhcr-refugee-statistics/metadata.yaml",
-      "redistribution": "unresolved",
-      "review_status": null,
-      "structured_evidence": false,
-      "terminal": null,
-      "title": "UNHCR Refugee Population Statistics"
-    },
-    {
-      "age_days": null,
-      "blocker_category": null,
-      "blocker_summary": "Structured resolution evidence not yet recorded.",
-      "evidence_count": 0,
       "id": "country-age-sex-2019",
       "last_reviewed": null,
       "layer": "legacy",
@@ -118,13 +102,14 @@
   "summary": {
     "actionable_count": 0,
     "by_blocker_category": {
-      "unstructured": 7
+      "dataset-vs-repository-licence-scope": 1,
+      "unstructured": 5
     },
-    "external_count": 5,
+    "external_count": 4,
     "legacy_count": 2,
-    "structured_count": 0,
-    "terminal_count": 0,
-    "total_debt": 7,
-    "unstructured_count": 7
+    "structured_count": 1,
+    "terminal_count": 1,
+    "total_debt": 6,
+    "unstructured_count": 5
   }
 }
