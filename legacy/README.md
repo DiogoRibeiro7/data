@@ -16,3 +16,11 @@ See:
 - [current inventory](INVENTORY.md)
 - [legacy resolution audit](../docs/migrations/LEGACY_RESOLUTION.md)
 - [phase-four legacy re-audit](../docs/migrations/LEGACY_REAUDIT_2026-10-03.md)
+
+
+## Structured unresolved evidence
+
+Remaining quarantine packages may use the optional metadata `resolution`
+block to distinguish actionable research from terminal quarantine decisions.
+
+See [provenance and licensing resolution evidence](../docs/PROVENANCE_RESOLUTION.md).
