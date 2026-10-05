@@ -54,6 +54,7 @@ nav:
       - Consumer contract health: CONSUMER_HEALTH.md
       - Metadata: METADATA.md
       - Schemas: SCHEMAS.md
+      - Provenance resolution: PROVENANCE_RESOLUTION.md
       - Migration: MIGRATION.md
       - Releases: RELEASES.md
       - Citation: CITATION.md
