@@ -1,0 +1,40 @@
+schema_version: 1
+
+id: ons-gross-median-weekly-pay
+title: "ONS Explore Local Statistics: Gross median weekly pay"
+description: >
+  Gross median weekly pay by UK geography and reference period, published by
+  the Office for National Statistics Explore Local Statistics service.
+
+domain:
+  - economics
+  - earnings
+  - labour-market
+  - uk
+  - subnational
+
+source:
+  publisher: "Office for National Statistics"
+  url: "https://github.com/ONSdigital/explore-local-statistics-data/blob/005f2da64d498b80ef9579db17d82933f6119745/gross-median-weekly-pay/gross-median-weekly-pay.csv"
+  retrieved_at: 2026-10-05
+  snapshot: "ONS Explore Local Statistics gross-median-weekly-pay.csv at Git commit 005f2da64d498b80ef9579db17d82933f6119745; Git blob f7904856bac0accd44bfc731f2d188a4ab8a5237"
+
+license:
+  name: "Open Government Licence v3.0"
+  url: "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+  redistribution: allowed
+
+citation:
+  text: "Office for National Statistics, Explore Local Statistics, Gross median weekly pay. Source: Office for National Statistics licensed under the Open Government Licence v3.0."
+  url: "https://www.ons.gov.uk/explore-local-statistics/"
+
+files:
+  - path: raw/gross-median-weekly-pay.csv
+    role: raw
+    format: csv
+    sha256: "285a76982afdfd38e9366535b43bf3e68c878ada7b819d722d2ec188c38eff17"
+    row_count: 7109
+    column_count: 12
+    notes: "Exact upstream Git blob, 894,555 bytes. UTF-8 BOM and CRLF line endings are preserved byte-for-byte."
+
+lineage: []

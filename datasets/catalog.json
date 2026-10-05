@@ -23,6 +23,29 @@
       "path": "datasets/online-retail-ii"
     },
     {
+      "id": "ons-gross-median-weekly-pay",
+      "title": "ONS Explore Local Statistics: Gross median weekly pay",
+      "description": "Gross median weekly pay by UK geography and reference period, published by the Office for National Statistics Explore Local Statistics service.\n",
+      "domain": [
+        "economics",
+        "earnings",
+        "labour-market",
+        "uk",
+        "subnational"
+      ],
+      "snapshot": "ONS Explore Local Statistics gross-median-weekly-pay.csv at Git commit 005f2da64d498b80ef9579db17d82933f6119745; Git blob f7904856bac0accd44bfc731f2d188a4ab8a5237",
+      "source": {
+        "publisher": "Office for National Statistics",
+        "url": "https://github.com/ONSdigital/explore-local-statistics-data/blob/005f2da64d498b80ef9579db17d82933f6119745/gross-median-weekly-pay/gross-median-weekly-pay.csv"
+      },
+      "license": {
+        "name": "Open Government Licence v3.0",
+        "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "redistribution": "allowed"
+      },
+      "path": "datasets/ons-gross-median-weekly-pay"
+    },
+    {
       "id": "ucdp-ged-25-1",
       "title": "UCDP Georeferenced Event Dataset (GED) 25.1",
       "description": "Version 25.1 of the Uppsala Conflict Data Program Georeferenced Event Dataset, containing geocoded events of organized violence from 1989 through 2024.\n",
