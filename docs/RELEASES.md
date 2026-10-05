@@ -111,7 +111,8 @@ The manifest records:
 - SHA-256 of the canonical and external catalogs;
 - canonical/external catalog schema versions;
 - metadata schema versions and schema-file SHA-256 digests;
-- every canonical dataset file path and SHA-256 checksum.
+- every canonical dataset file path and SHA-256 checksum;
+- the committed provenance-debt report SHA-256 and Phase 6 debt summary.
 
 No runtime timestamp is included. Given the same repository bytes, tag, and commit, the generated JSON and Markdown are byte-for-byte deterministic.
 
@@ -134,8 +135,10 @@ Every manual run:
 5. runs the full unit-test suite;
 6. validates repository metadata, checksums, catalogs, and hygiene;
 7. validates the external catalog freshness;
-8. generates deterministic snapshot material;
-9. uploads the material as a workflow artifact.
+8. validates the registry quality report freshness;
+9. validates the provenance-debt report freshness;
+10. generates deterministic snapshot material;
+11. uploads the material as a workflow artifact.
 
 When `publish_release=false`, the workflow stops there. This is the recommended dry run.
 
