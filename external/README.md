@@ -28,3 +28,12 @@ python scripts/generate_external_catalog.py --write
 CI runs the generator in check mode and fails when either catalog is missing or stale.
 
 A missing licence in the catalog is rendered as **Unresolved** rather than inferred from unrelated repository licensing.
+
+
+## Structured unresolved evidence
+
+When provenance, snapshot identity, or redistribution remains unresolved, the
+source metadata may include a structured `resolution` block with review date,
+blocker category, evidence, next action, and actionable/terminal status.
+
+See [provenance and licensing resolution evidence](../docs/PROVENANCE_RESOLUTION.md).
