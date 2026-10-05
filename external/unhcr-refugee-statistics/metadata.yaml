@@ -6,7 +6,8 @@ publisher: "UNHCR"
 source_url: "https://www.unhcr.org/refugee-statistics/"
 license:
   name: "CC BY 4.0 unless otherwise indicated"
-  url: "https://creativecommons.org/licenses/by/4.0/"
+  url: "https://www.unhcr.org/uk/terms-use-datasets"
+redistribution: allowed
 storage: authoritative-upstream
 consumers:
   - displacement-risk-lab-dynamodb
