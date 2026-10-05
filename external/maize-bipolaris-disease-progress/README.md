@@ -27,7 +27,15 @@ Because dataset-specific redistribution permission has not been established
 clearly, this registry records **redistribution as unresolved** and does not
 republish the CSV.
 
-The exact reasoning is documented in
+The Phase 6 re-audit on 2026-10-05 classifies this as a **terminal
+dataset-vs-repository-licence-scope** blocker. The exact source identity is
+known; only the legal scope over the dataset bytes remains unresolved.
+
+Reopen only if the author or another authoritative source explicitly states
+that the repository MIT licence covers `maize_bipolaris.csv`, or publishes
+separate dataset reuse terms.
+
+The earlier promotion reversal is documented in
 `docs/migrations/MAIZE_BIPOLARIS_PROMOTION_2026-10-03.md`.
 
 ## Consumer
