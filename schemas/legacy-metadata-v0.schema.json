@@ -146,7 +146,8 @@
           "items": {
             "type": "string",
             "format": "uri",
-            "minLength": 1
+            "minLength": 1,
+            "pattern": "^https?://"
           }
         },
         "reviewer_note": {
