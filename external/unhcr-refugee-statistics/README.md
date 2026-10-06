@@ -32,3 +32,15 @@ subject to the UNHCR attribution and supplemental dataset terms.
 
 `displacement-risk-lab-dynamodb` is recorded as an external-source consumer.
 Its committed sample fixtures remain synthetic and are not copies of UNHCR data.
+
+## Canonical Global Trends 2024 snapshot
+
+The broader source-family record remains external because UNHCR continues to
+publish current and historical statistics beyond one fixed registry version.
+
+Phase 7 adds a separate canonical snapshot at:
+
+`datasets/unhcr-refugee-population-2024/`
+
+That canonical object is the exact `population.rda` shipped by refugees package
+version 2024.12.0 and does not replace this broader upstream source record.
