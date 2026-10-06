@@ -137,9 +137,78 @@ def _external_metrics(root: Path) -> dict[str, Any]:
 
 
 
+def _load_adoption_policy(root: Path) -> dict[str, Any]:
+    """Load the committed canonical-adoption policy."""
+
+    path = root / "reports" / "canonical-adoption-policy.json"
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(raw, dict):
+        raise ValueError(f"{path}: adoption policy root must be an object")
+
+    baseline = raw.get("baseline")
+    exemptions = raw.get("exemptions")
+    if not isinstance(baseline, dict):
+        raise ValueError(f"{path}: baseline must be an object")
+    if not isinstance(exemptions, list):
+        raise ValueError(f"{path}: exemptions must be a list")
+
+    snapshot = baseline.get("snapshot")
+    dataset_ids = baseline.get("dataset_ids")
+    if not isinstance(snapshot, str) or not snapshot:
+        raise ValueError(f"{path}: baseline.snapshot must be non-empty text")
+    if not isinstance(dataset_ids, list) or not all(
+        isinstance(item, str) and item for item in dataset_ids
+    ):
+        raise ValueError(f"{path}: baseline.dataset_ids must be a list of dataset IDs")
+
+    normalized_exemptions: dict[str, str] = {}
+    for item in exemptions:
+        if not isinstance(item, dict):
+            raise ValueError(f"{path}: adoption exemptions must be objects")
+        dataset_id = item.get("dataset_id")
+        rationale = item.get("rationale")
+        if not isinstance(dataset_id, str) or not dataset_id:
+            raise ValueError(f"{path}: exemption dataset_id must be non-empty text")
+        if not isinstance(rationale, str) or not rationale.strip():
+            raise ValueError(f"{path}: exemption rationale must be non-empty text")
+        if dataset_id in normalized_exemptions:
+            raise ValueError(f"{path}: duplicate exemption for {dataset_id!r}")
+        normalized_exemptions[dataset_id] = rationale.strip()
+
+    return {
+        "baseline_snapshot": snapshot,
+        "baseline_dataset_ids": sorted(set(dataset_ids)),
+        "exemptions": normalized_exemptions,
+    }
+
+
+def _enforce_canonical_adoption(report: dict[str, Any]) -> None:
+    """Fail when canonical adoption or pinning invariants are violated."""
+
+    consumers = report["consumers"]
+    expansion = report["canonical_expansion"]
+
+    active = int(consumers["active_relationship_count"])
+    pinned = int(consumers["pinned_contract_count"])
+    if active != pinned:
+        raise ValueError(
+            "canonical adoption invariant failed: every active relationship must "
+            "match a canonical path and SHA-256"
+        )
+
+    uncovered = expansion["uncovered_datasets"]
+    if uncovered:
+        joined = ", ".join(uncovered)
+        raise ValueError(
+            "canonical adoption invariant failed: datasets without an active "
+            f"consumer or documented exemption: {joined}"
+        )
+
+
 def _consumer_metrics(root: Path) -> dict[str, Any]:
     """Return first-class canonical consumer-adoption metrics."""
 
+    policy = _load_adoption_policy(root)
     consumers_root = root / "consumers"
     dataset_ids: set[str] = set()
     canonical_contracts: dict[tuple[str, str], str] = {}
@@ -214,6 +283,12 @@ def _consumer_metrics(root: Path) -> dict[str, Any]:
 
     without_consumers = sorted(dataset_ids - consumed_datasets)
     with_consumers = sorted(consumed_datasets)
+    exempted = sorted(
+        dataset_id
+        for dataset_id in without_consumers
+        if dataset_id in policy["exemptions"]
+    )
+    uncovered = sorted(set(without_consumers) - set(exempted))
 
     return {
         "active_consumer_repository_count": len(active_repositories),
@@ -232,7 +307,44 @@ def _consumer_metrics(root: Path) -> dict[str, Any]:
         "active_consumer_repositories": sorted(active_repositories),
         "datasets_with_consumers": with_consumers,
         "datasets_without_consumers": without_consumers,
+        "exempted_datasets_without_consumers": exempted,
+        "uncovered_datasets_without_consumers": uncovered,
     }
+
+def _canonical_expansion_metrics(root: Path) -> dict[str, Any]:
+    """Return deterministic growth metrics from the committed baseline."""
+
+    policy = _load_adoption_policy(root)
+    current_ids = sorted(
+        path.name
+        for path in (root / "datasets").iterdir()
+        if path.is_dir() and (path / "metadata.yaml").is_file()
+    )
+    baseline_ids = set(policy["baseline_dataset_ids"])
+    current = set(current_ids)
+    added = sorted(current - baseline_ids)
+    removed = sorted(baseline_ids - current)
+
+    consumer_metrics = _consumer_metrics(root)
+    with_consumers = set(consumer_metrics["datasets_with_consumers"])
+    exemptions = policy["exemptions"]
+
+    added_with_consumers = sorted(set(added) & with_consumers)
+    added_exempted = sorted(dataset_id for dataset_id in added if dataset_id in exemptions)
+    uncovered = sorted(current - with_consumers - set(exemptions))
+
+    return {
+        "baseline_snapshot": policy["baseline_snapshot"],
+        "baseline_dataset_count": len(baseline_ids),
+        "current_dataset_count": len(current_ids),
+        "datasets_added_since_baseline": added,
+        "datasets_removed_since_baseline": removed,
+        "added_datasets_with_consumers": added_with_consumers,
+        "added_datasets_exempted": added_exempted,
+        "exemptions": dict(sorted(exemptions.items())),
+        "uncovered_datasets": uncovered,
+    }
+
 
 def _legacy_metrics(root: Path) -> dict[str, Any]:
     """Return legacy-quarantine coverage metrics."""
@@ -365,11 +477,13 @@ def _catalog_status(root: Path) -> dict[str, bool]:
 
 def build_report(root: Path) -> dict[str, Any]:
     """Build the deterministic registry quality report."""
-    return {
+
+    report = {
         "schema_version": 1,
         "canonical": _canonical_metrics(root),
         "external": _external_metrics(root),
         "consumers": _consumer_metrics(root),
+        "canonical_expansion": _canonical_expansion_metrics(root),
         "legacy": _legacy_metrics(root),
         "provenance_debt": _provenance_debt_metrics(root),
         "catalogs": _catalog_status(root),
@@ -382,6 +496,8 @@ def build_report(root: Path) -> dict[str, Any]:
             ),
         },
     }
+    _enforce_canonical_adoption(report)
+    return report
 
 
 def render_markdown(report: dict[str, Any]) -> str:
@@ -389,6 +505,7 @@ def render_markdown(report: dict[str, Any]) -> str:
     canonical = report["canonical"]
     external = report["external"]
     consumers = report["consumers"]
+    expansion = report["canonical_expansion"]
     legacy = report["legacy"]
     debt = report["provenance_debt"]
     catalogs = report["catalogs"]
@@ -481,6 +598,40 @@ def render_markdown(report: dict[str, Any]) -> str:
     )
     if consumers["active_consumers"]:
         lines.extend(f"- `{name}`" for name in consumers["active_consumers"])
+    else:
+        lines.append("- None")
+
+    lines.extend(
+        [
+            "",
+            "## Canonical expansion",
+            "",
+            f"- Baseline snapshot: **{expansion['baseline_snapshot']}**",
+            f"- Baseline canonical datasets: **{expansion['baseline_dataset_count']}**",
+            f"- Current canonical datasets: **{expansion['current_dataset_count']}**",
+            f"- Added since baseline: **{len(expansion['datasets_added_since_baseline'])}**",
+            f"- Added with active consumers: **{len(expansion['added_datasets_with_consumers'])}**",
+            f"- Added with exemptions: **{len(expansion['added_datasets_exempted'])}**",
+            f"- Uncovered canonical datasets: **{len(expansion['uncovered_datasets'])}**",
+            "",
+            "Datasets added since baseline:",
+            "",
+        ]
+    )
+    if expansion["datasets_added_since_baseline"]:
+        lines.extend(
+            f"- `{dataset_id}`"
+            for dataset_id in expansion["datasets_added_since_baseline"]
+        )
+    else:
+        lines.append("- None")
+
+    lines.extend(["", "Adoption exemptions:", ""])
+    if expansion["exemptions"]:
+        lines.extend(
+            f"- `{dataset_id}`: {rationale}"
+            for dataset_id, rationale in expansion["exemptions"].items()
+        )
     else:
         lines.append("- None")
 
