@@ -428,10 +428,10 @@ def validate_canonical_dataset(
     if metadata is None:
         return None, data_files
 
-    validate_schema(metadata, "canonical-metadata-v1.schema.json", metadata_path, problems)
+    validate_schema(metadata, "canonical-metadata-v2.schema.json", metadata_path, problems)
 
-    if metadata.get("schema_version") != 1:
-        problems.append(Problem("error", f"{metadata_path}: schema_version must be 1"))
+    if metadata.get("schema_version") != 2:
+        problems.append(Problem("error", f"{metadata_path}: schema_version must be 2"))
     if metadata.get("id") != slug:
         problems.append(Problem("error", f"{metadata_path}: id must match directory '{slug}'"))
 
