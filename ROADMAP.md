@@ -74,7 +74,7 @@ Phase 6 is complete when:
 
 ## Phase 7 — Expand the canonical registry from real demand
 
-**Status:** release-ready; immutable snapshot pending (#107).
+**Status:** complete.
 
 **Tracking issue:** #101
 
@@ -109,13 +109,15 @@ need for an immutable, reusable dataset.
 - [x] every newly promoted dataset has at least one real registered consumer;
 - [x] no new unresolved redistribution debt is introduced by promotion;
 - [x] canonical consumer coverage remains explicit and reproducible;
-- [ ] snapshot release captures the expanded registry (#107).
+- [x] snapshot release captures the expanded registry (`snapshot-2026.10.06`).
 
 ---
 
 ## Phase 8 — Dataset lifecycle, supersession, and version semantics
 
-**Status:** planned.
+**Status:** active.
+
+**Tracking issue:** #126.
 
 ### Goal
 
@@ -128,15 +130,13 @@ migration.
 
 ### Planned capabilities
 
-- canonical dataset lifecycle states;
-- `supersedes` / `superseded_by` relationships;
-- version lineage between canonical snapshots;
-- deprecation metadata and dates;
-- compatibility notes for schema-changing replacements;
-- consumer migration status;
-- CLI commands for lifecycle and replacement lookup;
-- validation that prevents ambiguous active replacements;
-- generated lifecycle/deprecation reports.
+- #127 — canonical lifecycle metadata and supersession relationships;
+- #128 — lifecycle graph validation and ambiguity prevention;
+- #129 — deterministic lifecycle and deprecation reports;
+- #130 — lifecycle and replacement lookup in the registry CLI;
+- #131 — consumer migration semantics for superseded datasets;
+- #132 — lifecycle state in snapshot manifests and summaries;
+- #133 — Phase 8 immutable registry snapshot.
 
 ### Exit criteria
 
