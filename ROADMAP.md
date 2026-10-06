@@ -9,9 +9,9 @@ the capabilities the repository should grow toward.
 
 ## Current baseline
 
-The baseline for future work is the immutable release
-`snapshot-2026.10.04` at commit
-`62f94eaabec7c7f3ffd3b22dde7bdc434ad6b1cc`.
+The Phase 7 baseline is the immutable release
+`snapshot-2026.10.05` at commit
+`91f0ff2d5580313137fba4908d4f793c4b577823`.
 
 At that point the registry has:
 
@@ -74,7 +74,7 @@ Phase 6 is complete when:
 
 ## Phase 7 — Expand the canonical registry from real demand
 
-**Status:** active.
+**Status:** release-ready; immutable snapshot pending (#107).
 
 **Tracking issue:** #101
 
@@ -105,11 +105,11 @@ need for an immutable, reusable dataset.
 
 ### Exit criteria
 
-- at least **4 canonical datasets** in total;
-- every newly promoted dataset has at least one real registered consumer;
-- no new unresolved redistribution debt is introduced by promotion;
-- canonical consumer coverage remains explicit and reproducible;
-- snapshot release captures the expanded registry.
+- [x] at least **4 canonical datasets** in total;
+- [x] every newly promoted dataset has at least one real registered consumer;
+- [x] no new unresolved redistribution debt is introduced by promotion;
+- [x] canonical consumer coverage remains explicit and reproducible;
+- [ ] snapshot release captures the expanded registry (#107).
 
 ---
 
