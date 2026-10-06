@@ -38,6 +38,9 @@ The report covers:
 - canonical dataset adoption coverage;
 - pinned canonical consumer-contract coverage;
 - deprecated consumer relationships;
+- canonical expansion relative to the committed Phase 7 baseline;
+- datasets added since the baseline with/without active consumers;
+- explicit adoption exemptions with rationale;
 - unresolved legacy-quarantine packages;
 - canonical, external, and consumer generated-catalog freshness.
 
@@ -108,3 +111,33 @@ The report does not count GitHub releases or tags.
 Those values depend on remote Git state and checkout depth, so including them
 would make the generated report environment-dependent. Snapshot material
 remains covered by the separate immutable-release workflow.
+
+
+## Canonical expansion safeguards
+
+Phase 7 adds a committed adoption policy at
+`reports/canonical-adoption-policy.json`.
+
+The policy records:
+
+- the immutable baseline snapshot used for deterministic expansion metrics;
+- the canonical dataset IDs present at that baseline;
+- optional adoption exemptions, each requiring a dataset ID and non-empty
+  rationale.
+
+The current baseline is `snapshot-2026.10.05`, which contained
+`online-retail-ii` and `ucdp-ged-25-1`.
+
+Quality generation now fails when:
+
+1. an active consumer relationship does not match a canonical path and SHA-256;
+2. a canonical dataset has no active consumer and no documented exemption.
+
+The current Phase 7 state has two additions since the baseline:
+`ons-gross-median-weekly-pay` and
+`unhcr-refugee-population-2024`. Both have active consumers, so the exemption
+list is empty.
+
+This policy is committed repository state and therefore remains offline and
+deterministic. It does not inspect GitHub releases or account-wide repositories
+during ordinary validation.
