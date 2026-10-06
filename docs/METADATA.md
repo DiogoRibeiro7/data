@@ -7,9 +7,17 @@ The metadata file is the machine-readable source of truth for discovery, provena
 ## Required fields
 
 ```yaml
-schema_version: 1
+schema_version: 2
 
 id: portugal-sico-mortality
+family: portugal-sico-mortality
+version: "2026-09-30"
+lifecycle:
+  state: active
+  supersedes: null
+  transitioned_at: null
+  compatibility: null
+  notes: "Initial canonical version."
 title: Portugal SICO mortality data
 description: >
   Short description of the dataset and its intended analytical use.
@@ -46,11 +54,31 @@ lineage: []
 
 ### `schema_version`
 
-Integer version of this repository metadata contract. Start with `1`.
+Integer version of this repository metadata contract. Current canonical metadata uses `2`; v1 is retained only for historical snapshots.
 
 ### `id`
 
-Stable dataset identifier. It must match the dataset directory slug.
+Stable immutable identifier for this canonical snapshot. It must match the dataset directory slug.
+
+### `family`
+
+Stable identifier shared by all canonical versions of the same dataset family.
+
+### `version`
+
+Human/machine-readable version identifier unique within the dataset family.
+
+### `lifecycle`
+
+Required lifecycle state for canonical metadata v2.
+
+- `state`: `active`, `deprecated`, or `superseded`;
+- `supersedes`: immediate predecessor dataset ID, or `null` for the first canonical version;
+- `transitioned_at`: optional ISO date for a lifecycle transition;
+- `compatibility`: optional compatibility/migration note;
+- `notes`: optional lifecycle note.
+
+Only `supersedes` is authored as the replacement edge. Reverse `superseded_by` lookup is derived from the registry graph.
 
 ### `title`
 
@@ -106,7 +134,7 @@ For derived artifacts, each entry should identify the output, raw inputs, transf
 
 ## Formal schema
 
-The canonical contract is defined by [`schemas/canonical-metadata-v1.schema.json`](https://github.com/DiogoRibeiro7/data/blob/main/schemas/canonical-metadata-v1.schema.json). See [Metadata schemas](SCHEMAS.md) for external/legacy schemas and schema evolution rules.
+The canonical contract is defined by [`schemas/canonical-metadata-v2.schema.json`](https://github.com/DiogoRibeiro7/data/blob/main/schemas/canonical-metadata-v1.schema.json). See [Metadata schemas](SCHEMAS.md) for external/legacy schemas and schema evolution rules.
 
 ## Validation principles
 
