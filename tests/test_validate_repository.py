@@ -122,8 +122,17 @@ class RepositoryFixture:
 
         checksum = sha256 or hashlib.sha256(data).hexdigest()
         metadata: dict[str, Any] = {
-            "schema_version": 1,
+            "schema_version": 2,
             "id": slug,
+            "family": slug,
+            "version": "v1",
+            "lifecycle": {
+                "state": "active",
+                "supersedes": None,
+                "transitioned_at": None,
+                "compatibility": None,
+                "notes": "Initial canonical test version.",
+            },
             "title": f"Dataset {slug}",
             "description": "Fixture dataset used by validator tests.",
             "domain": ["testing"],
@@ -230,6 +239,41 @@ class ValidatorTests(unittest.TestCase):
             (self.fixture.root / "datasets" / "catalog.json").read_text(encoding="utf-8")
         )
         self.assertEqual(catalog["datasets"][0]["id"], "example-dataset")
+
+    def test_current_canonical_schema_v1_is_rejected(self) -> None:
+        self.fixture.add_canonical("old-schema")
+        metadata_path = self.fixture.root / "datasets" / "old-schema" / "metadata.yaml"
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata["schema_version"] = 1
+        metadata_path.write_text(
+            yaml.safe_dump(metadata, sort_keys=False),
+            encoding="utf-8",
+        )
+
+        errors = self.errors()
+        self.assertTrue(
+            any("schema violation" in msg and "schema_version" in msg for msg in errors)
+        )
+        self.assertTrue(any("schema_version must be 2" in msg for msg in errors))
+
+    def test_canonical_schema_requires_lifecycle_contract(self) -> None:
+        self.fixture.add_canonical("missing-lifecycle")
+        metadata_path = (
+            self.fixture.root / "datasets" / "missing-lifecycle" / "metadata.yaml"
+        )
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata.pop("lifecycle")
+        metadata_path.write_text(
+            yaml.safe_dump(metadata, sort_keys=False),
+            encoding="utf-8",
+        )
+
+        self.assertTrue(
+            any(
+                "schema violation" in msg and "lifecycle" in msg
+                for msg in self.errors()
+            )
+        )
 
     def test_canonical_schema_rejects_wrong_field_type(self) -> None:
         self.fixture.add_canonical("bad-domain")
