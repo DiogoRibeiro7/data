@@ -1,0 +1,10 @@
+{
+  "baseline": {
+    "snapshot": "snapshot-2026.10.05",
+    "dataset_ids": [
+      "online-retail-ii",
+      "ucdp-ged-25-1"
+    ]
+  },
+  "exemptions": []
+}
