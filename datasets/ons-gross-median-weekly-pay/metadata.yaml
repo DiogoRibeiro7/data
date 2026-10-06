@@ -1,4 +1,13 @@
-schema_version: 1
+schema_version: 2
+
+family: ons-gross-median-weekly-pay
+version: "ons-005f2da64d498b80"
+lifecycle:
+  state: active
+  supersedes: null
+  transitioned_at: null
+  compatibility: null
+  notes: "Initial canonical version in lifecycle metadata v2."
 
 id: ons-gross-median-weekly-pay
 title: "ONS Explore Local Statistics: Gross median weekly pay"
