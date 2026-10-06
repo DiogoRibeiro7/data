@@ -25,6 +25,18 @@
       "status": "active"
     },
     {
+      "consumer_commit": "cc0835d7246a776b3653305e0976074ad42cabf1",
+      "consumer_id": "displacement-risk-lab-dynamodb",
+      "consumer_repository": "DiogoRibeiro7/displacement-risk-lab-dynamodb",
+      "dataset_id": "unhcr-refugee-population-2024",
+      "evidence_url": "https://github.com/DiogoRibeiro7/displacement-risk-lab-dynamodb/pull/7",
+      "path": "datasets/unhcr-refugee-population-2024/raw/population.rda",
+      "registry_commit": "d9fc9ef79e2cec47f619243590b78958ce7e4cb4",
+      "registry_repository": "DiogoRibeiro7/data",
+      "sha256": "261acf0b3efb5e87fddfe794ec1b5d42fe7bc7217d80990bd7ae0bce31524e52",
+      "status": "active"
+    },
+    {
       "consumer_commit": "71e4db18ab7af4ad2d5f3997a00e46e53676312b",
       "consumer_id": "medium-blog",
       "consumer_repository": "DiogoRibeiro7/Medium-Blog",
