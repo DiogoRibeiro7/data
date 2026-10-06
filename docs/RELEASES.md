@@ -142,16 +142,20 @@ Every manual run:
 10. generates deterministic snapshot material;
 11. uploads the material as a workflow artifact.
 
-When `publish_release=false`, the workflow stops there. This is the recommended dry run.
+After the repository-specific validation and release-material generation, the workflow delegates snapshot publication to the reusable `snapshot-release.yml` workflow in `DiogoRibeiro7/git-actions-collection`, pinned to an exact collection commit.
 
-When `publish_release=true`, a second job:
+When `publish_release=false`, the reusable workflow runs in dry-run mode. It validates the snapshot identity and prepared artifact but does not create a tag or release. This is the recommended dry run.
+
+When `publish_release=true`, the reusable workflow:
 
 1. refuses to overwrite an existing tag;
 2. downloads the exact prepared artifact;
 3. creates an annotated tag pointing to the requested commit;
 4. pushes the tag;
 5. creates a GitHub release using `snapshot-summary.md` as release notes;
-6. attaches both snapshot files to the release.
+6. attaches the prepared snapshot files to the release.
+
+The data repository therefore owns registry validation and deterministic snapshot generation, while the shared Actions collection owns the generic immutable publication machinery.
 
 Ordinary pushes and pull requests **never create tags or releases**.
 
