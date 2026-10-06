@@ -30,6 +30,50 @@ class SnapshotFixture:
         (self.root / "legacy").mkdir()
         (self.root / "reports").mkdir()
 
+        (self.root / "reports" / "canonical-adoption-policy.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "baseline": {
+                        "snapshot": "snapshot-2026.10.05",
+                        "dataset_ids": [],
+                    },
+                    "exemptions": [],
+                },
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        (self.root / "reports" / "registry-quality.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "canonical_expansion": {
+                        "baseline_snapshot": "snapshot-2026.10.05",
+                        "baseline_dataset_count": 0,
+                        "current_dataset_count": 0,
+                        "datasets_added_since_baseline": [],
+                        "datasets_removed_since_baseline": [],
+                        "added_datasets_with_consumers": [],
+                        "added_datasets_exempted": [],
+                        "exemptions": {},
+                        "uncovered_datasets": [],
+                    },
+                    "consumers": {
+                        "active_relationship_count": 0,
+                        "pinned_contract_count": 0,
+                        "pinned_contract_coverage": 1.0,
+                        "canonical_dataset_adoption_coverage": 1.0,
+                    },
+                },
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
         (self.root / "reports" / "provenance-debt.json").write_text(
             json.dumps(
                 {
@@ -258,7 +302,7 @@ class SnapshotTests(unittest.TestCase):
             tag="snapshot-2026.10.01",
             commit="a" * 40,
         )
-        self.assertEqual(manifest["manifest_version"], 3)
+        self.assertEqual(manifest["manifest_version"], 4)
         self.assertEqual(manifest["commit"], "a" * 40)
         self.assertEqual(manifest["catalogs"]["canonical"]["schema_version"], 1)
         self.assertEqual(manifest["metadata_schemas"]["legacy"]["schema_version"], 0)
@@ -269,6 +313,18 @@ class SnapshotTests(unittest.TestCase):
         self.assertEqual(len(manifest["provenance_debt"]["sha256"]), 64)
         self.assertEqual(manifest["provenance_debt"]["terminal_count"], 2)
         self.assertEqual(manifest["provenance_debt"]["unstructured_count"], 0)
+        self.assertEqual(
+            manifest["canonical_expansion"]["baseline_snapshot"],
+            "snapshot-2026.10.05",
+        )
+        self.assertEqual(
+            len(manifest["canonical_expansion"]["quality_report_sha256"]),
+            64,
+        )
+        self.assertEqual(
+            len(manifest["canonical_expansion"]["adoption_policy_sha256"]),
+            64,
+        )
 
     def test_consumer_relationships_are_recorded(self) -> None:
         self.fixture.add_consumer(
@@ -331,6 +387,55 @@ class SnapshotTests(unittest.TestCase):
                 commit="f" * 40,
             )
 
+    def test_snapshot_summary_includes_canonical_expansion_state(self) -> None:
+        quality_path = self.fixture.root / "reports" / "registry-quality.json"
+        quality = json.loads(quality_path.read_text(encoding="utf-8"))
+        quality["canonical_expansion"].update(
+            {
+                "baseline_dataset_count": 2,
+                "current_dataset_count": 4,
+                "datasets_added_since_baseline": ["ons", "unhcr"],
+                "added_datasets_with_consumers": ["ons", "unhcr"],
+            }
+        )
+        quality["consumers"].update(
+            {
+                "active_relationship_count": 4,
+                "pinned_contract_count": 4,
+                "pinned_contract_coverage": 1.0,
+                "canonical_dataset_adoption_coverage": 1.0,
+            }
+        )
+        quality_path.write_text(
+            json.dumps(quality, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+
+        manifest = SNAPSHOT.build_manifest(
+            self.fixture.root,
+            tag="snapshot-2026.10.06",
+            commit="a" * 40,
+        )
+        summary = SNAPSHOT.render_summary(manifest)
+
+        self.assertIn("## Canonical expansion and adoption", summary)
+        self.assertIn("Baseline / current canonical datasets: **2 / 4**", summary)
+        self.assertIn("ons", summary)
+        self.assertIn("unhcr", summary)
+        self.assertIn("Uncovered canonical datasets: **0**", summary)
+
+    def test_canonical_source_identity_is_recorded(self) -> None:
+        self.fixture.add_canonical("dataset")
+        manifest = SNAPSHOT.build_manifest(
+            self.fixture.root,
+            tag="snapshot-2026.10.06",
+            commit="b" * 40,
+        )
+
+        item = manifest["canonical_datasets"][0]
+        self.assertEqual(item["source"]["publisher"], "Fixture")
+        self.assertEqual(item["source"]["snapshot"], "v1")
+        self.assertEqual(item["license"]["redistribution"], "allowed")
     def test_canonical_file_checksums_are_recorded(self) -> None:
         checksum = self.fixture.add_canonical("dataset")
         manifest = SNAPSHOT.build_manifest(

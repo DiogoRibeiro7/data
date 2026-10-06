@@ -112,7 +112,9 @@ The manifest records:
 - canonical/external catalog schema versions;
 - metadata schema versions and schema-file SHA-256 digests;
 - every canonical dataset file path and SHA-256 checksum;
-- the committed provenance-debt report SHA-256 and Phase 6 debt summary.
+- each canonical dataset's committed source snapshot and licence identity;
+- the committed provenance-debt report SHA-256 and debt summary;
+- the committed registry-quality/adoption-policy digests and canonical expansion state.
 
 No runtime timestamp is included. Given the same repository bytes, tag, and commit, the generated JSON and Markdown are byte-for-byte deterministic.
 

@@ -144,9 +144,27 @@ def canonical_dataset_records(root: Path) -> list[dict[str, Any]]:
             })
 
         file_records.sort(key=lambda item: item["path"])
+        source = metadata.get("source")
+        license_data = metadata.get("license")
+        if not isinstance(source, dict):
+            raise ValueError(f"{metadata_path}: source must be a mapping")
+        if not isinstance(license_data, dict):
+            raise ValueError(f"{metadata_path}: license must be a mapping")
+
         records.append({
             "id": dataset_id,
             "path": f"datasets/{dataset_id}",
+            "source": {
+                "publisher": source.get("publisher"),
+                "url": source.get("url"),
+                "retrieved_at": source.get("retrieved_at"),
+                "snapshot": source.get("snapshot"),
+            },
+            "license": {
+                "name": license_data.get("name"),
+                "url": license_data.get("url"),
+                "redistribution": license_data.get("redistribution"),
+            },
             "files": file_records,
         })
 
@@ -213,6 +231,76 @@ def provenance_debt_record(root: Path) -> dict[str, Any]:
     }
 
 
+def canonical_expansion_record(root: Path) -> dict[str, Any]:
+    """Return canonical-expansion policy and quality state."""
+
+    quality_relative = "reports/registry-quality.json"
+    policy_relative = "reports/canonical-adoption-policy.json"
+    quality_path = root / quality_relative
+    policy_path = root / policy_relative
+
+    quality = load_json(quality_path)
+    expansion = quality.get("canonical_expansion")
+    consumers = quality.get("consumers")
+    if not isinstance(expansion, dict):
+        raise ValueError(f"{quality_path}: canonical_expansion must be an object")
+    if not isinstance(consumers, dict):
+        raise ValueError(f"{quality_path}: consumers must be an object")
+
+    required_ints = (
+        "baseline_dataset_count",
+        "current_dataset_count",
+    )
+    for key in required_ints:
+        if not isinstance(expansion.get(key), int):
+            raise ValueError(f"{quality_path}: canonical_expansion.{key} must be an integer")
+
+    required_lists = (
+        "datasets_added_since_baseline",
+        "datasets_removed_since_baseline",
+        "added_datasets_with_consumers",
+        "added_datasets_exempted",
+        "uncovered_datasets",
+    )
+    for key in required_lists:
+        value = expansion.get(key)
+        if not isinstance(value, list) or not all(isinstance(item, str) for item in value):
+            raise ValueError(f"{quality_path}: canonical_expansion.{key} must be a string list")
+
+    baseline_snapshot = expansion.get("baseline_snapshot")
+    exemptions = expansion.get("exemptions")
+    if not isinstance(baseline_snapshot, str) or not baseline_snapshot:
+        raise ValueError(
+            f"{quality_path}: canonical_expansion.baseline_snapshot must be non-empty text"
+        )
+    if not isinstance(exemptions, dict):
+        raise ValueError(f"{quality_path}: canonical_expansion.exemptions must be an object")
+
+    policy = load_json(policy_path)
+    return {
+        "quality_report_path": quality_relative,
+        "quality_report_sha256": sha256_file(quality_path),
+        "adoption_policy_path": policy_relative,
+        "adoption_policy_sha256": sha256_file(policy_path),
+        "adoption_policy_schema": policy.get("schema_version"),
+        "baseline_snapshot": baseline_snapshot,
+        "baseline_dataset_count": expansion["baseline_dataset_count"],
+        "current_dataset_count": expansion["current_dataset_count"],
+        "datasets_added_since_baseline": sorted(expansion["datasets_added_since_baseline"]),
+        "datasets_removed_since_baseline": sorted(expansion["datasets_removed_since_baseline"]),
+        "added_datasets_with_consumers": sorted(expansion["added_datasets_with_consumers"]),
+        "added_datasets_exempted": sorted(expansion["added_datasets_exempted"]),
+        "uncovered_datasets": sorted(expansion["uncovered_datasets"]),
+        "exemptions": dict(sorted(exemptions.items())),
+        "active_relationship_count": consumers.get("active_relationship_count"),
+        "pinned_contract_count": consumers.get("pinned_contract_count"),
+        "pinned_contract_coverage": consumers.get("pinned_contract_coverage"),
+        "canonical_dataset_adoption_coverage": consumers.get(
+            "canonical_dataset_adoption_coverage"
+        ),
+    }
+
+
 def consumer_graph_record(root: Path) -> dict[str, Any]:
     """Return the consumer dependency graph digest and relationship counts."""
 
@@ -274,7 +362,7 @@ def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
         for layer, relative_path in sorted(SCHEMA_FILES.items())
     }
     return {
-        "manifest_version": 3,
+        "manifest_version": 4,
         "repository": REPOSITORY,
         "tag": tag,
         "commit": commit,
@@ -284,6 +372,7 @@ def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
             "external": catalog_record(root, "external/catalog.json"),
         },
         "consumer_registry": consumer_graph_record(root),
+        "canonical_expansion": canonical_expansion_record(root),
         "provenance_debt": provenance_debt_record(root),
         "metadata_schemas": schemas,
         "canonical_datasets": canonical_dataset_records(root),
@@ -295,6 +384,7 @@ def render_summary(manifest: dict[str, Any]) -> str:
 
     datasets = manifest["canonical_datasets"]
     consumers = manifest["consumer_registry"]
+    expansion = manifest["canonical_expansion"]
     debt = manifest["provenance_debt"]
     file_count = sum(len(item["files"]) for item in datasets)
     lines = [
@@ -306,9 +396,46 @@ def render_summary(manifest: dict[str, Any]) -> str:
         f"- Canonical data files: **{file_count}**",
         f"- Active canonical consumer relationships: **{consumers['active_relationship_count']}**",
         f"- Canonical consumer repositories: **{consumers['repository_count']}**",
+        f"- Canonical datasets added since {expansion['baseline_snapshot']}: **{len(expansion['datasets_added_since_baseline'])}**",
+        f"- Uncovered canonical datasets: **{len(expansion['uncovered_datasets'])}**",
         f"- Provenance/licensing debt items: **{debt['total_debt']}**",
         f"- Terminal debt items: **{debt['terminal_count']}**",
         f"- Actionable debt items: **{debt['actionable_count']}**",
+        "",
+        "## Canonical expansion and adoption",
+        "",
+        f"- Baseline snapshot: **{expansion['baseline_snapshot']}**",
+        f"- Baseline / current canonical datasets: **{expansion['baseline_dataset_count']} / {expansion['current_dataset_count']}**",
+        f"- Quality report: `{expansion['quality_report_path']}`",
+        f"- Quality report SHA-256: `{expansion['quality_report_sha256']}`",
+        f"- Adoption policy: `{expansion['adoption_policy_path']}`",
+        f"- Adoption policy SHA-256: `{expansion['adoption_policy_sha256']}`",
+        f"- Active / pinned consumer contracts: **{expansion['active_relationship_count']} / {expansion['pinned_contract_count']}**",
+        f"- Pinned contract coverage: **{expansion['pinned_contract_coverage']:.0%}**",
+        f"- Canonical adoption coverage: **{expansion['canonical_dataset_adoption_coverage']:.0%}**",
+        f"- Uncovered canonical datasets: **{len(expansion['uncovered_datasets'])}**",
+        "",
+        "Datasets added since baseline:",
+        "",
+    ]
+    if expansion["datasets_added_since_baseline"]:
+        lines.extend(
+            f"- `{dataset_id}`"
+            for dataset_id in expansion["datasets_added_since_baseline"]
+        )
+    else:
+        lines.append("- None")
+
+    lines.extend(["", "Adoption exemptions:", ""])
+    if expansion["exemptions"]:
+        lines.extend(
+            f"- `{dataset_id}`: {rationale}"
+            for dataset_id, rationale in expansion["exemptions"].items()
+        )
+    else:
+        lines.append("- None")
+
+    lines.extend([
         "",
         "## Provenance and licensing debt",
         "",
@@ -320,7 +447,7 @@ def render_summary(manifest: dict[str, Any]) -> str:
         "",
         "Blocker categories:",
         "",
-    ]
+    ])
     if debt["by_blocker_category"]:
         lines.extend(
             f"- `{category}`: **{count}**"
@@ -377,6 +504,16 @@ def render_summary(manifest: dict[str, Any]) -> str:
         for dataset in datasets:
             lines.append(f"### `{dataset['id']}`")
             lines.append("")
+            source = dataset["source"]
+            license_data = dataset["license"]
+            lines.append(f"- Publisher: {source['publisher']}")
+            lines.append(f"- Source: {source['url']}")
+            lines.append(f"- Snapshot identity: {source['snapshot']}")
+            lines.append(f"- Retrieved: {source['retrieved_at']}")
+            lines.append(
+                f"- Licence: {license_data['name']} "
+                f"({license_data['redistribution']}) — {license_data['url']}"
+            )
             for item in dataset["files"]:
                 lines.append(f"- `{item['path']}` — `{item['sha256']}`")
             lines.append("")
