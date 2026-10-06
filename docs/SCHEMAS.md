@@ -6,7 +6,7 @@ Repository metadata is validated against versioned JSON Schemas in `schemas/`.
 
 | Layer | Schema | Metadata version |
 | --- | --- | ---: |
-| Canonical datasets | `schemas/canonical-metadata-v1.schema.json` | 1 |
+| Canonical datasets | `schemas/canonical-metadata-v2.schema.json` | 2 |
 | External source records | `schemas/external-metadata-v1.schema.json` | 1 |
 | Consumer relationships | `schemas/consumer-metadata-v1.schema.json` | 1 |
 | Legacy quarantine | `schemas/legacy-metadata-v0.schema.json` | 0 |
@@ -29,9 +29,9 @@ The Python validator retains semantic checks that cannot be represented cleanly 
 
 ## Canonical metadata
 
-Canonical metadata is intentionally strict. Unknown top-level fields are rejected.
+Canonical metadata is intentionally strict. Current canonical records must use schema version 2. The v1 schema remains committed so historical snapshots can still be interpreted, but v1 records are not accepted as current canonical metadata.
 
-If a new generally useful metadata field is required, update the schema and documentation rather than adding ad-hoc fields to one dataset.
+Version 2 adds mandatory dataset-family, version, and lifecycle semantics. If a new generally useful metadata field is required, update the schema and documentation rather than adding ad-hoc fields to one dataset.
 
 ## External metadata
 
