@@ -32,6 +32,8 @@ on:
       - "tests/test_provenance_debt.py"
       - "reports/registry-quality.json"
       - "reports/registry-quality.md"
+      - "reports/canonical-adoption-policy.json"
+      - "reports/canonical-adoption-policy.json"
       - "reports/provenance-debt.json"
       - "reports/provenance-debt.md"
       - "docs/QUALITY.md"
