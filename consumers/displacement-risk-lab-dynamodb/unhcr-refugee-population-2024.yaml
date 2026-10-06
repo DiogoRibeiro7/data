@@ -1,0 +1,22 @@
+schema_version: 1
+status: active
+
+consumer_id: displacement-risk-lab-dynamodb
+consumer_repository: DiogoRibeiro7/displacement-risk-lab-dynamodb
+
+dataset_id: unhcr-refugee-population-2024
+
+registry_layer: canonical
+registry_repository: DiogoRibeiro7/data
+registry_commit: "d9fc9ef79e2cec47f619243590b78958ce7e4cb4"
+
+path: datasets/unhcr-refugee-population-2024/raw/population.rda
+sha256: "261acf0b3efb5e87fddfe794ec1b5d42fe7bc7217d80990bd7ae0bce31524e52"
+
+consumer_commit: "cc0835d7246a776b3653305e0976074ad42cabf1"
+evidence_url: https://github.com/DiogoRibeiro7/displacement-risk-lab-dynamodb/pull/7
+
+notes: >
+  The downstream project provides a checksum-verified immutable UNHCR Global
+  Trends 2024 snapshot fetcher alongside its live API helper. Synthetic sample
+  fixtures remain local and are not canonical copies.
