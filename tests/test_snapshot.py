@@ -125,7 +125,7 @@ class SnapshotFixture:
             encoding="utf-8",
         )
         schemas = {
-            "canonical-metadata-v1.schema.json": 1,
+            "canonical-metadata-v2.schema.json": 2,
             "consumer-metadata-v1.schema.json": 1,
             "external-metadata-v1.schema.json": 1,
             "legacy-metadata-v0.schema.json": 0,
@@ -154,8 +154,17 @@ class SnapshotFixture:
         data_path.write_bytes(payload)
         checksum = hashlib.sha256(payload).hexdigest()
         metadata = {
-            "schema_version": 1,
+            "schema_version": 2,
             "id": slug,
+            "family": slug,
+            "version": "v1",
+            "lifecycle": {
+                "state": "active",
+                "supersedes": None,
+                "transitioned_at": None,
+                "compatibility": None,
+                "notes": "Initial canonical test version.",
+            },
             "title": slug,
             "description": "fixture",
             "domain": ["testing"],
@@ -305,6 +314,7 @@ class SnapshotTests(unittest.TestCase):
         self.assertEqual(manifest["manifest_version"], 4)
         self.assertEqual(manifest["commit"], "a" * 40)
         self.assertEqual(manifest["catalogs"]["canonical"]["schema_version"], 1)
+        self.assertEqual(manifest["metadata_schemas"]["canonical"]["schema_version"], 2)
         self.assertEqual(manifest["metadata_schemas"]["legacy"]["schema_version"], 0)
         self.assertEqual(manifest["metadata_schemas"]["consumer"]["schema_version"], 1)
         self.assertEqual(manifest["catalogs"]["consumer"]["schema_version"], 1)
