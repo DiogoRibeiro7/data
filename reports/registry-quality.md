@@ -5,10 +5,10 @@ It makes no live network requests.
 
 ## Canonical registry
 
-- Canonical datasets: **3**
-- Canonical files: **3**
-- Files with verified SHA-256: **3**
-- Canonical datasets with complete licence metadata: **3**
+- Canonical datasets: **4**
+- Canonical files: **4**
+- Files with verified SHA-256: **4**
+- Canonical datasets with complete licence metadata: **4**
 
 ## External sources
 
@@ -29,11 +29,11 @@ External source usage annotations:
 ## Canonical consumer adoption
 
 - Active consumer repositories: **3**
-- Active canonical relationships: **3**
+- Active canonical relationships: **4**
 - Deprecated relationships: **0**
-- Pinned contracts: **3 / 3**
+- Pinned contracts: **4 / 4**
 - Pinned contract coverage: **100%**
-- Canonical datasets with >=1 active consumer: **3**
+- Canonical datasets with >=1 active consumer: **4**
 - Canonical datasets with zero active consumers: **0**
 - Canonical dataset adoption coverage: **100%**
 
