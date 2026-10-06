@@ -29,6 +29,19 @@ class RegistryQualityTests(unittest.TestCase):
         (self.root / "scripts").mkdir()
         (self.root / "reports").mkdir()
 
+        import json
+        adoption_policy = {
+            "baseline": {
+                "snapshot": "snapshot-2026.10.05",
+                "dataset_ids": ["example"],
+            },
+            "exemptions": [],
+        }
+        (self.root / "reports" / "canonical-adoption-policy.json").write_text(
+            json.dumps(adoption_policy, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+
         debt_report = {
             "schema_version": 1,
             "age_reference_date": "2026-10-05",
@@ -52,7 +65,6 @@ class RegistryQualityTests(unittest.TestCase):
                 },
             ],
         }
-        import json
         (self.root / "reports" / "provenance-debt.json").write_text(
             json.dumps(debt_report, indent=2, sort_keys=True) + "\n",
             encoding="utf-8",
@@ -201,6 +213,117 @@ class RegistryQualityTests(unittest.TestCase):
         self.assertIsNone(debt["oldest_review_date"])
         self.assertIsNone(debt["oldest_age_days"])
 
+    def test_canonical_expansion_tracks_added_datasets(self) -> None:
+        second = self.root / "datasets" / "second"
+        (second / "raw").mkdir(parents=True)
+        raw = second / "raw" / "data.csv"
+        raw.write_text("x\n2\n", encoding="utf-8")
+
+        import hashlib
+        checksum = hashlib.sha256(raw.read_bytes()).hexdigest()
+        metadata = {
+            "schema_version": 1,
+            "id": "second",
+            "title": "Second",
+            "description": "Second dataset",
+            "domain": ["example"],
+            "source": {
+                "publisher": "Example",
+                "url": "https://example.com/second",
+                "retrieved_at": "2026-10-06",
+                "snapshot": "second-v1",
+            },
+            "license": {
+                "name": "CC0",
+                "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "redistribution": "allowed",
+            },
+            "files": [{
+                "path": "raw/data.csv",
+                "role": "raw",
+                "format": "csv",
+                "sha256": checksum,
+            }],
+            "lineage": [],
+        }
+        (second / "metadata.yaml").write_text(
+            yaml.safe_dump(metadata, sort_keys=False),
+            encoding="utf-8",
+        )
+
+        second_consumer = self.root / "consumers" / "consumer-two"
+        second_consumer.mkdir()
+        relationship = {
+            "schema_version": 1,
+            "status": "active",
+            "consumer_id": "consumer-two",
+            "consumer_repository": "DiogoRibeiro7/consumer-two",
+            "dataset_id": "second",
+            "registry_layer": "canonical",
+            "registry_repository": "DiogoRibeiro7/data",
+            "registry_commit": "d" * 40,
+            "path": "datasets/second/raw/data.csv",
+            "sha256": checksum,
+            "consumer_commit": "e" * 40,
+        }
+        (second_consumer / "second.yaml").write_text(
+            yaml.safe_dump(relationship, sort_keys=False),
+            encoding="utf-8",
+        )
+
+        expansion = QUALITY._canonical_expansion_metrics(self.root)
+
+        self.assertEqual(expansion["baseline_snapshot"], "snapshot-2026.10.05")
+        self.assertEqual(expansion["datasets_added_since_baseline"], ["second"])
+        self.assertEqual(expansion["added_datasets_with_consumers"], ["second"])
+        self.assertEqual(expansion["uncovered_datasets"], [])
+
+    def test_build_report_rejects_unconsumed_dataset_without_exemption(self) -> None:
+        path = self.root / "consumers" / "consumer-one" / "example.yaml"
+        path.unlink()
+
+        with self.assertRaisesRegex(ValueError, "without an active consumer"):
+            QUALITY.build_report(self.root)
+
+    def test_build_report_allows_documented_adoption_exemption(self) -> None:
+        path = self.root / "consumers" / "consumer-one" / "example.yaml"
+        path.unlink()
+        policy_path = self.root / "reports" / "canonical-adoption-policy.json"
+        policy = {
+            "baseline": {
+                "snapshot": "snapshot-2026.10.05",
+                "dataset_ids": ["example"],
+            },
+            "exemptions": [
+                {
+                    "dataset_id": "example",
+                    "rationale": "Historical reference dataset retained without a live consumer.",
+                }
+            ],
+        }
+        import json
+        policy_path.write_text(
+            json.dumps(policy, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+
+        report = QUALITY.build_report(self.root)
+
+        self.assertEqual(
+            report["canonical_expansion"]["exemptions"],
+            {"example": "Historical reference dataset retained without a live consumer."},
+        )
+        self.assertEqual(report["canonical_expansion"]["uncovered_datasets"], [])
+
+    def test_build_report_rejects_unpinned_active_contract(self) -> None:
+        path = self.root / "consumers" / "consumer-one" / "example.yaml"
+        metadata = yaml.safe_load(path.read_text(encoding="utf-8"))
+        metadata["sha256"] = "0" * 64
+        path.write_text(yaml.safe_dump(metadata, sort_keys=False), encoding="utf-8")
+
+        with self.assertRaisesRegex(ValueError, "every active relationship"):
+            QUALITY.build_report(self.root)
+
     def test_consumer_metrics_distinguish_deprecated_relationships(self) -> None:
         path = self.root / "consumers" / "consumer-one" / "example.yaml"
         metadata = yaml.safe_load(path.read_text(encoding="utf-8"))
@@ -341,6 +464,17 @@ class RegistryQualityTests(unittest.TestCase):
                 "active_consumers": ["consumer-one"],
                 "datasets_with_consumers": ["example"],
                 "datasets_without_consumers": [],
+            },
+            "canonical_expansion": {
+                "baseline_snapshot": "snapshot-2026.10.05",
+                "baseline_dataset_count": 1,
+                "current_dataset_count": 1,
+                "datasets_added_since_baseline": [],
+                "datasets_removed_since_baseline": [],
+                "added_datasets_with_consumers": [],
+                "added_datasets_exempted": [],
+                "exemptions": {},
+                "uncovered_datasets": [],
             },
             "legacy": {"package_count": 1, "unresolved_package_count": 1},
             "provenance_debt": {
