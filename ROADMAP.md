@@ -15,11 +15,11 @@ The Phase 7 baseline is the immutable release
 
 At that point the registry has:
 
-- **2 canonical datasets** with verified checksums and explicit redistribution
+- **4 canonical datasets** with verified checksums and explicit redistribution
   rights;
 - **13 external source records**;
 - **2 remaining legacy packages**;
-- **2 active canonical consumer relationships**;
+- **4 active canonical consumer relationships**;
 - **100% canonical dataset adoption coverage**;
 - deterministic canonical, external, and consumer catalogs;
 - a reverse consumer dependency graph;
@@ -115,7 +115,9 @@ need for an immutable, reusable dataset.
 
 ## Phase 8 — Dataset lifecycle, supersession, and version semantics
 
-**Status:** planned.
+**Status:** active.
+
+**Tracking issue:** #117
 
 ### Goal
 
