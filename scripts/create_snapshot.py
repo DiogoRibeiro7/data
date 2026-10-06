@@ -81,6 +81,14 @@ def load_yaml(path: Path) -> dict[str, Any]:
     return raw
 
 
+def _json_safe_value(value: Any) -> Any:
+    """Normalize YAML scalar types that JSON cannot encode directly."""
+
+    if isinstance(value, date):
+        return value.isoformat()
+    return value
+
+
 def schema_record(root: Path, layer: str, relative_path: str) -> dict[str, Any]:
     """Return one metadata schema record."""
 
@@ -157,7 +165,7 @@ def canonical_dataset_records(root: Path) -> list[dict[str, Any]]:
             "source": {
                 "publisher": source.get("publisher"),
                 "url": source.get("url"),
-                "retrieved_at": source.get("retrieved_at"),
+                "retrieved_at": _json_safe_value(source.get("retrieved_at")),
                 "snapshot": source.get("snapshot"),
             },
             "license": {
