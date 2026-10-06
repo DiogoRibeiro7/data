@@ -21,7 +21,7 @@ SNAPSHOT_TAG_RE = re.compile(
     r"(?:\.(?P<sequence>[1-9]\d*))?$"
 )
 SCHEMA_FILES = {
-    "canonical": "schemas/canonical-metadata-v1.schema.json",
+    "canonical": "schemas/canonical-metadata-v2.schema.json",
     "consumer": "schemas/consumer-metadata-v1.schema.json",
     "external": "schemas/external-metadata-v1.schema.json",
     "legacy": "schemas/legacy-metadata-v0.schema.json",
