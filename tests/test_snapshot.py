@@ -424,6 +424,27 @@ class SnapshotTests(unittest.TestCase):
         self.assertIn("unhcr", summary)
         self.assertIn("Uncovered canonical datasets: **0**", summary)
 
+    def test_unquoted_yaml_date_is_serialized_as_iso_string(self) -> None:
+        self.fixture.add_canonical("dataset")
+        metadata_path = self.fixture.root / "datasets" / "dataset" / "metadata.yaml"
+        lines = metadata_path.read_text(encoding="utf-8").splitlines()
+        rewritten = [
+            "  retrieved_at: 2026-10-01"
+            if line.lstrip().startswith("retrieved_at:")
+            else line
+            for line in lines
+        ]
+        metadata_path.write_text("\n".join(rewritten) + "\n", encoding="utf-8")
+
+        manifest = SNAPSHOT.build_manifest(
+            self.fixture.root,
+            tag="snapshot-2026.10.06",
+            commit="b" * 40,
+        )
+
+        retrieved_at = manifest["canonical_datasets"][0]["source"]["retrieved_at"]
+        self.assertEqual(retrieved_at, "2026-10-01")
+        json.dumps(manifest)
     def test_canonical_source_identity_is_recorded(self) -> None:
         self.fixture.add_canonical("dataset")
         manifest = SNAPSHOT.build_manifest(
