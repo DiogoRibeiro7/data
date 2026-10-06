@@ -43,6 +43,25 @@ Active consumers:
 - `displacement-risk-lab-dynamodb`
 - `medium-blog`
 
+## Canonical expansion
+
+- Baseline snapshot: **snapshot-2026.10.05**
+- Baseline canonical datasets: **2**
+- Current canonical datasets: **4**
+- Added since baseline: **2**
+- Added with active consumers: **2**
+- Added with exemptions: **0**
+- Uncovered canonical datasets: **0**
+
+Datasets added since baseline:
+
+- `ons-gross-median-weekly-pay`
+- `unhcr-refugee-population-2024`
+
+Adoption exemptions:
+
+- None
+
 ## Legacy quarantine
 
 - Remaining packages: **2**
