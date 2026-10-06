@@ -1,0 +1,39 @@
+schema_version: 1
+
+id: unhcr-refugee-population-2024
+title: "UNHCR Refugee Population Statistics — Global Trends 2024"
+description: >
+  Versioned population table from the refugees R package release 2024.12.0,
+  representing the UNHCR Refugee Population Statistics Database through the
+  Global Trends 2024 update.
+
+domain:
+  - displacement
+  - humanitarian
+  - population
+  - refugees
+  - statelessness
+
+source:
+  publisher: "UNHCR / PopulationStatistics refugees package"
+  url: "https://github.com/PopulationStatistics/refugees/blob/5b1f3a14960441177e5f5dc1752d2416edcc388b/data/population.rda"
+  retrieved_at: 2026-10-05
+  snapshot: "refugees package 2024.12.0 (Global Trends 2024), Git commit 5b1f3a14960441177e5f5dc1752d2416edcc388b, population.rda blob 017d710c6a0a8c3229625ff56786db1d2d91f9ad"
+
+license:
+  name: "CC BY 4.0"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+  redistribution: allowed
+
+citation:
+  text: "UNHCR Refugee Population Statistics Database. Source: UNHCR Refugee Data Finder. refugees R package version 2024.12.0."
+  url: "https://www.unhcr.org/refugee-statistics/"
+
+files:
+  - path: raw/population.rda
+    role: raw
+    format: rda
+    sha256: "261acf0b3efb5e87fddfe794ec1b5d42fe7bc7217d80990bd7ae0bce31524e52"
+    notes: "Exact upstream Git blob, 456,835 bytes. The package build script retrieves population data from the UNHCR Refugee Statistics API with coo_all=true, coa_all=true and paginated 10,000-row requests."
+
+lineage: []
