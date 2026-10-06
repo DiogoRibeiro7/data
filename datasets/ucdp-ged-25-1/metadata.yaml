@@ -1,4 +1,13 @@
-schema_version: 1
+schema_version: 2
+
+family: ucdp-ged
+version: "25.1"
+lifecycle:
+  state: active
+  supersedes: null
+  transitioned_at: null
+  compatibility: null
+  notes: "Initial canonical version in lifecycle metadata v2."
 
 id: ucdp-ged-25-1
 title: "UCDP Georeferenced Event Dataset (GED) 25.1"
