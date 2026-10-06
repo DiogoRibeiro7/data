@@ -24,6 +24,7 @@ datasets/ons-gross-median-weekly-pay/raw/** -text
 *.parquet -text
 *.feather -text
 *.arrow -text
+*.rda -text
 *.zip -text
 *.gz -text
 *.bz2 -text
