@@ -20,6 +20,13 @@
           "registry_commit": "24d66b6f78d3bcfa8ddc2cc77b5d84d2b9a6e3c5",
           "sha256": "e256f1fb20a579d8b2f910e5bae212f486d3002adaa2e4359ace740c737da05d",
           "status": "active"
+        },
+        {
+          "dataset_id": "unhcr-refugee-population-2024",
+          "path": "datasets/unhcr-refugee-population-2024/raw/population.rda",
+          "registry_commit": "d9fc9ef79e2cec47f619243590b78958ce7e4cb4",
+          "sha256": "261acf0b3efb5e87fddfe794ec1b5d42fe7bc7217d80990bd7ae0bce31524e52",
+          "status": "active"
         }
       ],
       "repository": "DiogoRibeiro7/displacement-risk-lab-dynamodb"
@@ -70,6 +77,18 @@
           "path": "datasets/ucdp-ged-25-1/raw/ged251-csv.zip",
           "registry_commit": "24d66b6f78d3bcfa8ddc2cc77b5d84d2b9a6e3c5",
           "sha256": "e256f1fb20a579d8b2f910e5bae212f486d3002adaa2e4359ace740c737da05d",
+          "status": "active"
+        }
+      ]
+    },
+    "unhcr-refugee-population-2024": {
+      "consumers": [
+        {
+          "consumer_id": "displacement-risk-lab-dynamodb",
+          "consumer_repository": "DiogoRibeiro7/displacement-risk-lab-dynamodb",
+          "path": "datasets/unhcr-refugee-population-2024/raw/population.rda",
+          "registry_commit": "d9fc9ef79e2cec47f619243590b78958ce7e4cb4",
+          "sha256": "261acf0b3efb5e87fddfe794ec1b5d42fe7bc7217d80990bd7ae0bce31524e52",
           "status": "active"
         }
       ]
