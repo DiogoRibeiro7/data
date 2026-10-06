@@ -447,7 +447,7 @@ def render_summary(manifest: dict[str, Any]) -> str:
         "",
         "Blocker categories:",
         "",
-    ]
+    ])
     if debt["by_blocker_category"]:
         lines.extend(
             f"- `{category}`: **{count}**"
