@@ -65,6 +65,7 @@ nav:
       - UNHCR and IBM licensing re-audit: migrations/EXTERNAL_LICENSING_REAUDIT_2026-10-05.md
       - DGS and PORDATA licensing re-audit: migrations/PORTUGUESE_SOURCE_LICENSING_REAUDIT_2026-10-05.md
       - Phase 6 final hard-case audit: migrations/PHASE6_FINAL_HARD_CASE_AUDIT_2026-10-05.md
+      - Phase 7 downstream cleanup audit: migrations/PHASE7_DOWNSTREAM_CLEANUP_2026-10-06.md
       - Second canonical dataset decision: migrations/SECOND_CANONICAL_DATASET_2026-10-02.md
       - Maize Bipolaris promotion: migrations/MAIZE_BIPOLARIS_PROMOTION_2026-10-03.md
       - UCDP GED 25.1 promotion: migrations/UCDP_GED_25_1_PROMOTION_2026-10-03.md
