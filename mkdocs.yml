@@ -54,6 +54,7 @@ nav:
       - External source health: EXTERNAL_HEALTH.md
       - Consumer contract health: CONSUMER_HEALTH.md
       - Metadata: METADATA.md
+      - Dataset lifecycle: LIFECYCLE.md
       - Schemas: SCHEMAS.md
       - Provenance resolution: PROVENANCE_RESOLUTION.md
       - Migration: MIGRATION.md
