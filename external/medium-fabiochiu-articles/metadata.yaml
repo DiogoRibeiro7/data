@@ -1,0 +1,21 @@
+schema_version: 1
+status: external-reference
+id: medium-fabiochiu-articles
+title: "Fabio Chiu Medium articles corpus (candidate)"
+publisher: "Fabio Chiu / Fabio Chiusano (identity unverified)"
+source_url: "https://huggingface.co/datasets/fabiochiu/medium-articles"
+redistribution: unresolved
+storage: authoritative-upstream
+consumers:
+  - medium-statistical-dynamics
+resolution:
+  review_status: actionable
+  last_reviewed: 2026-10-07
+  blocker_category: redistribution-rights
+  blocker_summary: "Dataset-specific reuse and redistribution permissions, source snapshot identity, and collection provenance have not been independently established."
+  evidence:
+    - "https://huggingface.co/datasets/fabiochiu/medium-articles"
+    - "https://github.com/DiogoRibeiro7/data/blob/main/docs/research/medium-source-feasibility.md"
+  reviewer_note: "Candidate corpus for H1/H2/H5; do not infer platform-wide representativeness or mirror unverified article text."
+  next_action: "Verify exact dataset files, applicable licenses, collection permission, sample selection, timestamps, and outcome fields before any canonical promotion."
+  terminal: false
