@@ -1,8 +1,8 @@
 {
-  "age_reference_date": "2026-10-05",
+  "age_reference_date": "2026-10-07",
   "items": [
     {
-      "age_days": 0,
+      "age_days": 2,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "DGS publicly disseminates SICO mortality information, but its current legal notice protects site contents and no dataset-specific redistribution grant covering the historical InfoClique/SICO CSV exports was recovered.",
       "evidence_count": 2,
@@ -18,7 +18,7 @@
       "title": "DGS InfoClique mortality platform"
     },
     {
-      "age_days": 0,
+      "age_days": 2,
       "blocker_category": "dataset-vs-repository-licence-scope",
       "blocker_summary": "The pinned IBM repository is Apache-2.0 licensed as a code pattern, but the README explicitly separates third-party objects and no dataset-specific redistribution licence for Telco-Customer-Churn.csv was established.",
       "evidence_count": 3,
@@ -34,7 +34,7 @@
       "title": "IBM Telco Customer Churn sample"
     },
     {
-      "age_days": 0,
+      "age_days": 2,
       "blocker_category": "dataset-vs-repository-licence-scope",
       "blocker_summary": "The pinned repository has a root MIT licence and explicitly includes maize_bipolaris.csv as data, but the licence text covers software and associated documentation and no authoritative statement was recovered that explicitly applies MIT redistribution rights to the dataset bytes.",
       "evidence_count": 3,
@@ -52,6 +52,54 @@
     {
       "age_days": 0,
       "blocker_category": "redistribution-rights",
+      "blocker_summary": "Dataset-specific reuse and redistribution permissions, source snapshot identity, and collection provenance have not been independently established.",
+      "evidence_count": 2,
+      "id": "medium-crawlfeeds-corpus",
+      "last_reviewed": "2026-10-07",
+      "layer": "external",
+      "next_action": "Verify exact dataset files, applicable licenses, collection permission, sample selection, timestamps, and outcome fields before any canonical promotion.",
+      "path": "external/medium-crawlfeeds-corpus/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "actionable",
+      "structured_evidence": true,
+      "terminal": false,
+      "title": "Crawlfeeds Medium Articles Corpus"
+    },
+    {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "Dataset-specific reuse and redistribution permissions, source snapshot identity, and collection provenance have not been independently established.",
+      "evidence_count": 2,
+      "id": "medium-fabiochiu-articles",
+      "last_reviewed": "2026-10-07",
+      "layer": "external",
+      "next_action": "Verify exact dataset files, applicable licenses, collection permission, sample selection, timestamps, and outcome fields before any canonical promotion.",
+      "path": "external/medium-fabiochiu-articles/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "actionable",
+      "structured_evidence": true,
+      "terminal": false,
+      "title": "Fabio Chiu Medium articles corpus (candidate)"
+    },
+    {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "Dataset-specific reuse and redistribution permissions, source snapshot identity, and collection provenance have not been independently established.",
+      "evidence_count": 2,
+      "id": "medium-jansma-historical",
+      "last_reviewed": "2026-10-07",
+      "layer": "external",
+      "next_action": "Verify exact dataset files, applicable licenses, collection permission, sample selection, timestamps, and outcome fields before any canonical promotion.",
+      "path": "external/medium-jansma-historical/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "actionable",
+      "structured_evidence": true,
+      "terminal": false,
+      "title": "Historical Medium article study (Jansma)"
+    },
+    {
+      "age_days": 2,
+      "blocker_category": "redistribution-rights",
       "blocker_summary": "INE permits rediffusion of official statistical information with source attribution, but the historical workbook was a PORDATA-generated Excel export and no authoritative term was recovered that clearly permits mirroring that secondary-source artifact.",
       "evidence_count": 3,
       "id": "pordata-portugal-resident-population",
@@ -66,7 +114,7 @@
       "title": "Portugal resident population estimates by age group"
     },
     {
-      "age_days": 0,
+      "age_days": 2,
       "blocker_category": "exact-snapshot-identity",
       "blocker_summary": "The retained age/sex files are strongly attributable to UN World Population Prospects 2019, whose publications are CC BY 3.0 IGO, but the exact download/export route and the lineage of the Portugal CSV/XLSX variants cannot be reconstructed sufficiently to claim file-level provenance for these historical artifacts.",
       "evidence_count": 2,
@@ -82,7 +130,7 @@
       "title": "Country age/sex population snapshots (2019)"
     },
     {
-      "age_days": 0,
+      "age_days": 2,
       "blocker_category": "historical-export-route",
       "blocker_summary": "The retained workbook is attributable to the GEP/MTSSS Indicadores COVID-19 monitoring series and dated 27 May 2020, but the exact historical workbook URL, immutable upstream identity and dataset-specific redistribution terms were not recovered.",
       "evidence_count": 2,
@@ -100,18 +148,18 @@
   ],
   "schema_version": 1,
   "summary": {
-    "actionable_count": 0,
+    "actionable_count": 3,
     "by_blocker_category": {
       "dataset-vs-repository-licence-scope": 2,
       "exact-snapshot-identity": 1,
       "historical-export-route": 1,
-      "redistribution-rights": 2
+      "redistribution-rights": 5
     },
-    "external_count": 4,
+    "external_count": 7,
     "legacy_count": 2,
-    "structured_count": 6,
+    "structured_count": 9,
     "terminal_count": 6,
-    "total_debt": 6,
+    "total_debt": 9,
     "unstructured_count": 0
   }
 }
