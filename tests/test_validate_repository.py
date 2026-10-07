@@ -179,6 +179,7 @@ class RepositoryFixture:
         registry_commit: str = "a" * 40,
         consumer_id_value: str | None = None,
         status: str = "active",
+        migration: dict[str, Any] | None = None,
     ) -> Path:
         """Add one canonical consumer relationship record."""
 
@@ -204,6 +205,8 @@ class RepositoryFixture:
             "sha256": sha256 or canonical_file["sha256"],
             "consumer_commit": "b" * 40,
         }
+        if migration is not None:
+            metadata["migration"] = migration
         record_path.write_text(
             yaml.safe_dump(metadata, sort_keys=False),
             encoding="utf-8",
@@ -785,6 +788,126 @@ class ValidatorTests(unittest.TestCase):
         self.assertTrue(
             any("consumer records must use the .yaml extension" in msg for msg in self.errors())
         )
+
+    def test_active_consumer_of_superseded_dataset_requires_migration_state(self) -> None:
+        self.fixture.add_canonical("old", data=b"old\n")
+        self.fixture.add_canonical("new", data=b"new\n")
+        self.fixture.set_lifecycle(
+            "old",
+            {"status": "superseded", "superseded_by": "new"},
+        )
+        self.fixture.set_lifecycle(
+            "new",
+            {"status": "active", "supersedes": ["old"]},
+        )
+        self.fixture.add_consumer("consumer", "old")
+
+        self.assertTrue(
+            any("requires explicit migration state" in msg for msg in self.errors())
+        )
+
+    def test_planned_migration_must_target_preferred_replacement(self) -> None:
+        for dataset_id, payload in (
+            ("old", b"old\n"),
+            ("new", b"new\n"),
+            ("other", b"other\n"),
+        ):
+            self.fixture.add_canonical(dataset_id, data=payload)
+        self.fixture.set_lifecycle(
+            "old",
+            {"status": "superseded", "superseded_by": "new"},
+        )
+        self.fixture.set_lifecycle(
+            "new",
+            {"status": "active", "supersedes": ["old"]},
+        )
+        self.fixture.add_consumer(
+            "consumer",
+            "old",
+            migration={"status": "planned", "target_dataset_id": "other"},
+        )
+
+        self.assertTrue(
+            any("planned migration target must be preferred replacement 'new'" in msg for msg in self.errors())
+        )
+
+    def test_retained_consumer_on_superseded_dataset_is_valid_with_rationale(self) -> None:
+        self.fixture.add_canonical("old", data=b"old\n")
+        self.fixture.add_canonical("new", data=b"new\n")
+        self.fixture.set_lifecycle(
+            "old",
+            {"status": "superseded", "superseded_by": "new"},
+        )
+        self.fixture.set_lifecycle(
+            "new",
+            {"status": "active", "supersedes": ["old"]},
+        )
+        self.fixture.add_consumer(
+            "consumer",
+            "old",
+            migration={
+                "status": "retained",
+                "target_dataset_id": "new",
+                "rationale": "Historical reproduction still requires the old snapshot.",
+            },
+        )
+        self.fixture.write_catalogs()
+
+        self.assertEqual(self.errors(), [])
+
+    def test_active_consumer_of_active_dataset_rejects_migration_state(self) -> None:
+        self.fixture.add_canonical("dataset")
+        self.fixture.add_consumer(
+            "consumer",
+            "dataset",
+            migration={"status": "required"},
+        )
+
+        self.assertTrue(
+            any("must not declare migration state" in msg for msg in self.errors())
+        )
+
+    def test_migrated_state_requires_deprecated_relationship(self) -> None:
+        self.fixture.add_canonical("old", data=b"old\n")
+        self.fixture.add_canonical("new", data=b"new\n")
+        self.fixture.set_lifecycle(
+            "old",
+            {"status": "superseded", "superseded_by": "new"},
+        )
+        self.fixture.set_lifecycle(
+            "new",
+            {"status": "active", "supersedes": ["old"]},
+        )
+        self.fixture.add_consumer(
+            "consumer",
+            "old",
+            migration={"status": "migrated", "target_dataset_id": "new"},
+        )
+
+        self.assertTrue(
+            any("active consumer migration status must be one of" in msg for msg in self.errors())
+        )
+
+    def test_deprecated_relationship_accepts_migrated_state(self) -> None:
+        self.fixture.add_canonical("old", data=b"old\n")
+        self.fixture.add_canonical("new", data=b"new\n")
+        self.fixture.set_lifecycle(
+            "old",
+            {"status": "superseded", "superseded_by": "new"},
+        )
+        self.fixture.set_lifecycle(
+            "new",
+            {"status": "active", "supersedes": ["old"]},
+        )
+        self.fixture.add_consumer(
+            "consumer",
+            "old",
+            status="deprecated",
+            migration={"status": "migrated", "target_dataset_id": "new"},
+        )
+        self.fixture.write_catalogs()
+
+        self.assertEqual(self.errors(), [])
 
     def test_deprecated_consumer_may_reference_missing_dataset(self) -> None:
         self.fixture.add_canonical("example-dataset")
