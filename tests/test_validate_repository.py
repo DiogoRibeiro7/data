@@ -905,9 +905,36 @@ class ValidatorTests(unittest.TestCase):
             status="deprecated",
             migration={"status": "migrated", "target_dataset_id": "new"},
         )
+        self.fixture.add_consumer("consumer", "new")
         self.fixture.write_catalogs()
 
         self.assertEqual(self.errors(), [])
+
+    def test_migrated_state_requires_active_target_relationship(self) -> None:
+        self.fixture.add_canonical("old", data=b"old\n")
+        self.fixture.add_canonical("new", data=b"new\n")
+        self.fixture.set_lifecycle(
+            "old",
+            {"status": "superseded", "superseded_by": "new"},
+        )
+        self.fixture.set_lifecycle(
+            "new",
+            {"status": "active", "supersedes": ["old"]},
+        )
+        self.fixture.add_consumer(
+            "consumer",
+            "old",
+            status="deprecated",
+            migration={"status": "migrated", "target_dataset_id": "new"},
+        )
+
+        self.assertTrue(
+            any(
+                "requires an active consumer relationship to target dataset 'new'"
+                in msg
+                for msg in self.errors()
+            )
+        )
 
     def test_deprecated_consumer_may_reference_missing_dataset(self) -> None:
         self.fixture.add_canonical("example-dataset")
