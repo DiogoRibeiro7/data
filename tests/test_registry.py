@@ -170,6 +170,83 @@ class RegistryFixture:
             encoding="utf-8",
         )
 
+    def add_lifecycle_report(self) -> None:
+        """Add a deterministic lifecycle report fixture."""
+
+        reports = self.root / "reports"
+        reports.mkdir(exist_ok=True)
+        report = {
+            "schema_version": 1,
+            "summary": {
+                "canonical_dataset_count": 3,
+                "active_count": 1,
+                "deprecated_count": 0,
+                "superseded_count": 2,
+                "replacement_edge_count": 2,
+                "active_consumer_relationship_count": 1,
+                "current_consumer_relationship_count": 0,
+                "migration_needed_count": 1,
+            },
+            "preferred_replacements": {
+                "dataset-v1": "dataset-v2",
+                "dataset-v2": "dataset-v3",
+            },
+            "datasets": [
+                {
+                    "id": "dataset-v1",
+                    "title": "Dataset v1",
+                    "status": "superseded",
+                    "deprecated_at": "2026-10-07",
+                    "migration_note": "Move forward.",
+                    "direct_replacement": "dataset-v2",
+                    "direct_predecessors": [],
+                    "preferred_dataset_id": "dataset-v3",
+                    "replacement_chain": ["dataset-v1", "dataset-v2", "dataset-v3"],
+                    "active_consumer_count": 1,
+                    "migration_needed_consumer_count": 1,
+                },
+                {
+                    "id": "dataset-v2",
+                    "title": "Dataset v2",
+                    "status": "superseded",
+                    "deprecated_at": "2026-10-07",
+                    "migration_note": None,
+                    "direct_replacement": "dataset-v3",
+                    "direct_predecessors": ["dataset-v1"],
+                    "preferred_dataset_id": "dataset-v3",
+                    "replacement_chain": ["dataset-v2", "dataset-v3"],
+                    "active_consumer_count": 0,
+                    "migration_needed_consumer_count": 0,
+                },
+                {
+                    "id": "dataset-v3",
+                    "title": "Dataset v3",
+                    "status": "active",
+                    "deprecated_at": None,
+                    "migration_note": None,
+                    "direct_replacement": None,
+                    "direct_predecessors": ["dataset-v2"],
+                    "preferred_dataset_id": "dataset-v3",
+                    "replacement_chain": ["dataset-v3"],
+                    "active_consumer_count": 0,
+                    "migration_needed_consumer_count": 0,
+                },
+            ],
+            "consumer_migrations": [
+                {
+                    "consumer_id": "consumer-one",
+                    "consumer_repository": "DiogoRibeiro7/consumer-one",
+                    "dataset_id": "dataset-v1",
+                    "status": "migration-needed",
+                    "preferred_dataset_id": "dataset-v3",
+                }
+            ],
+        }
+        (reports / "lifecycle.json").write_text(
+            json.dumps(report, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+
     def close(self) -> None:
         self.temp.cleanup()
 
@@ -570,6 +647,90 @@ class RegistryTests(unittest.TestCase):
 
         self.assertEqual(code, 1)
         self.assertIn("unknown provenance debt id 'missing'", stderr.getvalue())
+
+    def test_lifecycle_command_returns_dataset_state(self) -> None:
+        self.fixture.add_lifecycle_report()
+        stream = io.StringIO()
+
+        with contextlib.redirect_stdout(stream):
+            code = REGISTRY.main(
+                [
+                    "--root",
+                    str(self.fixture.root),
+                    "lifecycle",
+                    "dataset-v1",
+                    "--json",
+                ]
+            )
+
+        self.assertEqual(code, 0)
+        payload = json.loads(stream.getvalue())
+        self.assertEqual(payload["status"], "superseded")
+        self.assertEqual(payload["preferred_dataset_id"], "dataset-v3")
+        self.assertEqual(
+            payload["replacement_chain"],
+            ["dataset-v1", "dataset-v2", "dataset-v3"],
+        )
+
+    def test_replacement_command_resolves_terminal_preferred_dataset(self) -> None:
+        self.fixture.add_lifecycle_report()
+        stream = io.StringIO()
+
+        with contextlib.redirect_stdout(stream):
+            code = REGISTRY.main(
+                [
+                    "--root",
+                    str(self.fixture.root),
+                    "replacement",
+                    "dataset-v1",
+                    "--json",
+                ]
+            )
+
+        self.assertEqual(code, 0)
+        payload = json.loads(stream.getvalue())
+        self.assertEqual(payload["direct_replacement"], "dataset-v2")
+        self.assertEqual(payload["preferred_dataset_id"], "dataset-v3")
+
+    def test_supersedes_command_returns_direct_and_transitive_history(self) -> None:
+        self.fixture.add_lifecycle_report()
+        stream = io.StringIO()
+
+        with contextlib.redirect_stdout(stream):
+            code = REGISTRY.main(
+                [
+                    "--root",
+                    str(self.fixture.root),
+                    "supersedes",
+                    "dataset-v3",
+                    "--json",
+                ]
+            )
+
+        self.assertEqual(code, 0)
+        payload = json.loads(stream.getvalue())
+        self.assertEqual(payload["direct_predecessors"], ["dataset-v2"])
+        self.assertEqual(
+            payload["superseded_datasets"],
+            ["dataset-v1", "dataset-v2"],
+        )
+
+    def test_lifecycle_unknown_dataset_is_clear_error(self) -> None:
+        self.fixture.add_lifecycle_report()
+        stderr = io.StringIO()
+
+        with contextlib.redirect_stderr(stderr):
+            code = REGISTRY.main(
+                [
+                    "--root",
+                    str(self.fixture.root),
+                    "lifecycle",
+                    "missing",
+                ]
+            )
+
+        self.assertEqual(code, 1)
+        self.assertIn("unknown lifecycle dataset id 'missing'", stderr.getvalue())
 
     def test_fetch_rejects_branch_name(self) -> None:
         self.fixture.add_canonical("dataset")

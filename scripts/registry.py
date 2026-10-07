@@ -412,6 +412,150 @@ def render_debt_table(items: Sequence[dict[str, Any]]) -> str:
     return "\n".join(lines)
 
 
+def load_lifecycle_report(root: Path) -> dict[str, Any]:
+    """Load the committed deterministic lifecycle report."""
+
+    path = root / "reports" / "lifecycle.json"
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise RegistryError(f"{path}: cannot load lifecycle report: {exc}") from exc
+    if not isinstance(raw, dict):
+        raise RegistryError(f"{path}: lifecycle report root must be an object")
+    datasets = raw.get("datasets")
+    if not isinstance(datasets, list):
+        raise RegistryError(f"{path}: lifecycle report must contain a datasets list")
+    return raw
+
+
+def find_lifecycle_dataset(report: dict[str, Any], dataset_id: str) -> dict[str, Any]:
+    """Return one canonical lifecycle dataset entry."""
+
+    datasets = report.get("datasets")
+    if not isinstance(datasets, list):
+        raise RegistryError("lifecycle report must contain a datasets list")
+
+    matches = [
+        item
+        for item in datasets
+        if isinstance(item, dict) and item.get("id") == dataset_id
+    ]
+    if not matches:
+        raise RegistryError(f"unknown lifecycle dataset id {dataset_id!r}")
+    if len(matches) > 1:
+        raise RegistryError(f"lifecycle dataset id {dataset_id!r} is not unique")
+    return matches[0]
+
+
+def replacement_payload(report: dict[str, Any], dataset_id: str) -> dict[str, Any]:
+    """Return deterministic preferred-replacement information."""
+
+    item = find_lifecycle_dataset(report, dataset_id)
+    chain = item.get("replacement_chain")
+    if not isinstance(chain, list) or not all(isinstance(value, str) for value in chain):
+        raise RegistryError(
+            f"lifecycle dataset {dataset_id!r}: replacement_chain must be a string list"
+        )
+    return {
+        "dataset_id": dataset_id,
+        "status": item.get("status"),
+        "direct_replacement": item.get("direct_replacement"),
+        "preferred_dataset_id": item.get("preferred_dataset_id"),
+        "replacement_chain": chain,
+        "deprecated_at": item.get("deprecated_at"),
+        "migration_note": item.get("migration_note"),
+    }
+
+
+def supersedes_payload(report: dict[str, Any], dataset_id: str) -> dict[str, Any]:
+    """Return direct and transitive datasets superseded by one dataset."""
+
+    target = find_lifecycle_dataset(report, dataset_id)
+    direct = target.get("direct_predecessors")
+    if not isinstance(direct, list) or not all(isinstance(value, str) for value in direct):
+        raise RegistryError(
+            f"lifecycle dataset {dataset_id!r}: direct_predecessors must be a string list"
+        )
+
+    datasets = report.get("datasets")
+    if not isinstance(datasets, list):
+        raise RegistryError("lifecycle report must contain a datasets list")
+
+    transitive: list[str] = []
+    for item in datasets:
+        if not isinstance(item, dict):
+            raise RegistryError("lifecycle dataset entries must be objects")
+        item_id = item.get("id")
+        chain = item.get("replacement_chain")
+        if (
+            isinstance(item_id, str)
+            and isinstance(chain, list)
+            and all(isinstance(value, str) for value in chain)
+            and item_id != dataset_id
+            and dataset_id in chain[1:]
+        ):
+            transitive.append(item_id)
+
+    return {
+        "dataset_id": dataset_id,
+        "direct_predecessors": sorted(direct),
+        "superseded_datasets": sorted(transitive),
+    }
+
+
+def render_lifecycle_summary(item: dict[str, Any]) -> str:
+    """Render one canonical dataset lifecycle entry."""
+
+    chain = item.get("replacement_chain")
+    rendered_chain = " -> ".join(str(value) for value in chain) if isinstance(chain, list) else "—"
+    return "\n".join(
+        [
+            f"Dataset:            {item.get('id')}",
+            f"Status:             {item.get('status')}",
+            f"Direct replacement: {item.get('direct_replacement') or '—'}",
+            f"Preferred dataset:  {item.get('preferred_dataset_id') or '—'}",
+            f"Deprecated at:      {item.get('deprecated_at') or '—'}",
+            f"Replacement chain:  {rendered_chain}",
+            f"Active consumers:   {item.get('active_consumer_count', 0)}",
+            f"Migration needed:   {item.get('migration_needed_consumer_count', 0)}",
+            f"Migration note:     {item.get('migration_note') or '—'}",
+        ]
+    )
+
+
+def render_replacement(payload: dict[str, Any]) -> str:
+    """Render preferred replacement information."""
+
+    chain = payload.get("replacement_chain")
+    rendered_chain = " -> ".join(str(value) for value in chain) if isinstance(chain, list) else "—"
+    return "\n".join(
+        [
+            f"Dataset:            {payload.get('dataset_id')}",
+            f"Status:             {payload.get('status')}",
+            f"Direct replacement: {payload.get('direct_replacement') or '—'}",
+            f"Preferred dataset:  {payload.get('preferred_dataset_id') or '—'}",
+            f"Replacement chain:  {rendered_chain}",
+            f"Migration note:     {payload.get('migration_note') or '—'}",
+        ]
+    )
+
+
+def render_supersedes(payload: dict[str, Any]) -> str:
+    """Render reverse supersession lookup."""
+
+    direct = payload.get("direct_predecessors")
+    all_items = payload.get("superseded_datasets")
+    direct_text = ", ".join(str(value) for value in direct) if direct else "—"
+    all_text = ", ".join(str(value) for value in all_items) if all_items else "—"
+    return "\n".join(
+        [
+            f"Dataset:             {payload.get('dataset_id')}",
+            f"Direct predecessors: {direct_text}",
+            f"Superseded datasets: {all_text}",
+        ]
+    )
+
+
 def filter_layer(entries: Iterable[RegistryEntry], layer: str) -> list[RegistryEntry]:
     """Filter entries by layer or return all."""
 
@@ -697,6 +841,27 @@ def build_parser() -> argparse.ArgumentParser:
     debt_show_parser.add_argument("id")
     _add_common_read_options(debt_show_parser)
 
+    lifecycle_parser = subparsers.add_parser(
+        "lifecycle",
+        help="Show canonical lifecycle state for one dataset.",
+    )
+    lifecycle_parser.add_argument("dataset_id")
+    _add_common_read_options(lifecycle_parser)
+
+    replacement_parser = subparsers.add_parser(
+        "replacement",
+        help="Resolve the preferred canonical replacement for one dataset.",
+    )
+    replacement_parser.add_argument("dataset_id")
+    _add_common_read_options(replacement_parser)
+
+    supersedes_parser = subparsers.add_parser(
+        "supersedes",
+        help="Show datasets superseded by one canonical dataset.",
+    )
+    supersedes_parser.add_argument("dataset_id")
+    _add_common_read_options(supersedes_parser)
+
     return parser
 
 
@@ -736,6 +901,33 @@ def main(argv: Sequence[str] | None = None) -> int:
                 _print_json(payload)
             else:
                 print(yaml.safe_dump(json_compatible(payload), sort_keys=False).rstrip())
+            return 0
+
+        if args.command == "lifecycle":
+            report = load_lifecycle_report(root)
+            payload = find_lifecycle_dataset(report, args.dataset_id)
+            if args.json:
+                _print_json(payload)
+            else:
+                print(render_lifecycle_summary(payload))
+            return 0
+
+        if args.command == "replacement":
+            report = load_lifecycle_report(root)
+            payload = replacement_payload(report, args.dataset_id)
+            if args.json:
+                _print_json(payload)
+            else:
+                print(render_replacement(payload))
+            return 0
+
+        if args.command == "supersedes":
+            report = load_lifecycle_report(root)
+            payload = supersedes_payload(report, args.dataset_id)
+            if args.json:
+                _print_json(payload)
+            else:
+                print(render_supersedes(payload))
             return 0
 
         if args.command == "list":
