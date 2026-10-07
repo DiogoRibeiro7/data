@@ -9,9 +9,9 @@ the capabilities the repository should grow toward.
 
 ## Current baseline
 
-The Phase 7 baseline is the immutable release
-`snapshot-2026.10.05` at commit
-`91f0ff2d5580313137fba4908d4f793c4b577823`.
+The current baseline is the immutable Phase 8 release
+`snapshot-2026.10.07` at commit
+`25bbf223bcf1ed00e62e5768b6de9a1d07b13ad9`.
 
 At that point the registry has:
 
@@ -115,7 +115,7 @@ need for an immutable, reusable dataset.
 
 ## Phase 8 — Dataset lifecycle, supersession, and version semantics
 
-**Status:** active.
+**Status:** complete.
 
 **Tracking issue:** #126.
 
@@ -149,7 +149,9 @@ migration.
 
 ## Phase 9 — Registry client and machine-readable distribution
 
-**Status:** planned.
+**Status:** active.
+
+**Tracking issue:** #146.
 
 ### Goal
 
@@ -158,18 +160,14 @@ requiring consumers to copy command snippets or import scripts from the repo.
 
 ### Planned capabilities
 
-- package the registry reader/fetcher as a Python package;
-- stable programmatic API for:
-  - dataset lookup;
-  - checksum-verified fetch;
-  - consumer lookup;
-  - provenance/debt lookup;
-  - lifecycle lookup;
-- typed models for canonical, external, consumer, and provenance records;
-- machine-readable static registry endpoints suitable for automation;
-- CLI installed as an entry point instead of invoked only through
-  `python scripts/registry.py`;
-- backward-compatibility policy for schema/API versions.
+- #147 — extract reusable registry core modules;
+- #148 — add typed registry models;
+- #149 — package the registry client and CLI entry point;
+- #150 — add stable programmatic registry APIs;
+- #151 — add checksum-verified fetch to the packaged client;
+- #152 — publish machine-readable static registry distribution;
+- #153 — define client/API/schema compatibility and versioning policy;
+- #154 — publish the Phase 9 immutable registry snapshot.
 
 ### Non-goal
 
