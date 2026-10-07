@@ -49,6 +49,7 @@ nav:
       - Quality methodology: QUALITY.md
       - Quality report: generated/registry-quality.md
       - Provenance debt: generated/provenance-debt.md
+      - Dataset lifecycle: generated/lifecycle.md
   - Governance:
       - Data policy: DATA_POLICY.md
       - External source health: EXTERNAL_HEALTH.md
