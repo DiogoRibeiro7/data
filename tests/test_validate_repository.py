@@ -247,6 +247,87 @@ class ValidatorTests(unittest.TestCase):
         metadata_path.write_text(yaml.safe_dump(metadata, sort_keys=False), encoding="utf-8")
         self.assertTrue(any("Additional properties are not allowed" in msg for msg in self.errors()))
 
+    def test_canonical_lifecycle_is_optional_and_defaults_to_active(self) -> None:
+        self.fixture.add_canonical("implicit-active")
+        self.fixture.write_catalogs()
+
+        self.assertEqual(self.errors(), [])
+
+    def test_canonical_lifecycle_accepts_supported_fields(self) -> None:
+        self.fixture.add_canonical("new-dataset")
+        metadata_path = self.fixture.root / "datasets" / "new-dataset" / "metadata.yaml"
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata["lifecycle"] = {
+            "status": "deprecated",
+            "deprecated_at": "2026-10-07",
+            "supersedes": ["older-dataset"],
+            "migration_note": "Consumers should migrate to the preferred replacement.",
+        }
+        metadata_path.write_text(
+            yaml.safe_dump(metadata, sort_keys=False),
+            encoding="utf-8",
+        )
+        self.fixture.write_catalogs()
+
+        self.assertEqual(self.errors(), [])
+
+    def test_canonical_lifecycle_rejects_unknown_status(self) -> None:
+        self.fixture.add_canonical("bad-lifecycle")
+        metadata_path = self.fixture.root / "datasets" / "bad-lifecycle" / "metadata.yaml"
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata["lifecycle"] = {"status": "retired"}
+        metadata_path.write_text(
+            yaml.safe_dump(metadata, sort_keys=False),
+            encoding="utf-8",
+        )
+
+        self.assertTrue(
+            any("schema violation" in msg and "lifecycle.status" in msg for msg in self.errors())
+        )
+
+    def test_superseded_lifecycle_requires_replacement_id(self) -> None:
+        self.fixture.add_canonical("superseded-dataset")
+        metadata_path = (
+            self.fixture.root / "datasets" / "superseded-dataset" / "metadata.yaml"
+        )
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata["lifecycle"] = {"status": "superseded"}
+        metadata_path.write_text(
+            yaml.safe_dump(metadata, sort_keys=False),
+            encoding="utf-8",
+        )
+
+        self.assertTrue(
+            any(
+                "schema violation" in msg
+                and "superseded_by" in msg
+                for msg in self.errors()
+            )
+        )
+
+    def test_canonical_lifecycle_rejects_invalid_deprecation_date(self) -> None:
+        self.fixture.add_canonical("bad-deprecation-date")
+        metadata_path = (
+            self.fixture.root / "datasets" / "bad-deprecation-date" / "metadata.yaml"
+        )
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata["lifecycle"] = {
+            "status": "deprecated",
+            "deprecated_at": "2026-02-30",
+        }
+        metadata_path.write_text(
+            yaml.safe_dump(metadata, sort_keys=False),
+            encoding="utf-8",
+        )
+
+        self.assertTrue(
+            any(
+                "schema violation" in msg
+                and "deprecated_at" in msg
+                for msg in self.errors()
+            )
+        )
+
     def test_external_schema_is_validated(self) -> None:
         self.fixture.add_external("example-source", publisher=123)
         self.assertTrue(any("schema violation" in msg and "publisher" in msg for msg in self.errors()))
