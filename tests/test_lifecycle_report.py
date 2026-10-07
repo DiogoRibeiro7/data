@@ -111,10 +111,97 @@ class LifecycleReportTests(unittest.TestCase):
                 "consumer_id": "consumer",
                 "consumer_repository": "DiogoRibeiro7/consumer",
                 "dataset_id": "old",
-                "status": "migration-needed",
+                "status": "required",
                 "preferred_dataset_id": "new",
+                "rationale": None,
             },
         )
+        self.assertEqual(report["summary"]["migration_required_count"], 1)
+        self.assertEqual(report["summary"]["migration_resolution_coverage"], 0.0)
+
+    def test_planned_migration_is_resolved_but_still_needed(self) -> None:
+        self.add_dataset("old", status="superseded", superseded_by="new")
+        self.add_dataset("new", status="active", supersedes=["old"])
+        self.write_consumers(
+            [
+                {
+                    "consumer_id": "consumer",
+                    "consumer_repository": "DiogoRibeiro7/consumer",
+                    "dataset_id": "old",
+                    "status": "active",
+                    "migration": {
+                        "status": "planned",
+                        "target_dataset_id": "new",
+                    },
+                }
+            ]
+        )
+
+        report = LIFECYCLE.build_report(self.root)
+
+        self.assertEqual(report["consumer_migrations"][0]["status"], "planned")
+        self.assertEqual(report["summary"]["migration_planned_count"], 1)
+        self.assertEqual(report["summary"]["migration_needed_count"], 1)
+        self.assertEqual(report["summary"]["migration_resolution_coverage"], 1.0)
+
+    def test_retained_migration_records_rationale(self) -> None:
+        self.add_dataset("old", status="superseded", superseded_by="new")
+        self.add_dataset("new", status="active", supersedes=["old"])
+        self.write_consumers(
+            [
+                {
+                    "consumer_id": "consumer",
+                    "consumer_repository": "DiogoRibeiro7/consumer",
+                    "dataset_id": "old",
+                    "status": "active",
+                    "migration": {
+                        "status": "retained",
+                        "rationale": "Pinned for historical reproducibility.",
+                    },
+                }
+            ]
+        )
+
+        report = LIFECYCLE.build_report(self.root)
+
+        migration = report["consumer_migrations"][0]
+        self.assertEqual(migration["status"], "retained")
+        self.assertEqual(
+            migration["rationale"],
+            "Pinned for historical reproducibility.",
+        )
+        self.assertEqual(report["summary"]["migration_retained_count"], 1)
+        self.assertEqual(report["summary"]["migration_needed_count"], 0)
+
+    def test_migrated_historical_relationship_is_reported(self) -> None:
+        self.add_dataset("old", status="superseded", superseded_by="new")
+        self.add_dataset("new", status="active", supersedes=["old"])
+        self.write_consumers(
+            [
+                {
+                    "consumer_id": "consumer",
+                    "consumer_repository": "DiogoRibeiro7/consumer",
+                    "dataset_id": "old",
+                    "status": "deprecated",
+                    "migration": {
+                        "status": "migrated",
+                        "target_dataset_id": "new",
+                    },
+                },
+                {
+                    "consumer_id": "consumer",
+                    "consumer_repository": "DiogoRibeiro7/consumer",
+                    "dataset_id": "new",
+                    "status": "active",
+                },
+            ]
+        )
+
+        report = LIFECYCLE.build_report(self.root)
+
+        statuses = [item["status"] for item in report["consumer_migrations"]]
+        self.assertEqual(statuses, ["migrated", "current"])
+        self.assertEqual(report["summary"]["migrated_relationship_count"], 1)
 
     def test_markdown_renders_replacement_chain(self) -> None:
         self.add_dataset("old", status="superseded", superseded_by="new")
