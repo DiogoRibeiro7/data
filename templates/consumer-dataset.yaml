@@ -24,6 +24,13 @@ sha256: "0000000000000000000000000000000000000000000000000000000000000000"
 # Optional consumer-local destination.
 output: data/external/example.csv
 
+# Optional lifecycle migration state. Omit for an active consumer of an
+# active canonical dataset.
+# migration:
+#   status: planned
+#   target_dataset_id: replacement-dataset
+#   rationale: Optional explanation. Required when status is retained.
+
 # Provide at least one evidence pointer.
 consumer_commit: "1111111111111111111111111111111111111111"
 # evidence_url: https://github.com/DiogoRibeiro7/example-consumer/pull/1
