@@ -175,7 +175,13 @@ class SnapshotFixture:
     def close(self) -> None:
         self.temp.cleanup()
 
-    def add_canonical(self, slug: str, payload: bytes = b"a,b\n1,2\n") -> str:
+    def add_canonical(
+        self,
+        slug: str,
+        payload: bytes = b"a,b\n1,2\n",
+        *,
+        lifecycle: dict[str, object] | None = None,
+    ) -> str:
         dataset = self.root / "datasets" / slug
         raw = dataset / "raw"
         raw.mkdir(parents=True)
@@ -208,6 +214,8 @@ class SnapshotFixture:
             }],
             "lineage": [],
         }
+        if lifecycle is not None:
+            metadata["lifecycle"] = lifecycle
         (dataset / "metadata.yaml").write_text(
             yaml.safe_dump(metadata, sort_keys=False),
             encoding="utf-8",
@@ -533,6 +541,35 @@ class SnapshotTests(unittest.TestCase):
         self.assertEqual(old["replacement_chain"], ["old", "new"])
         self.assertEqual(old["preferred_dataset_id"], "new")
 
+    def test_canonical_dataset_record_embeds_lifecycle_metadata(self) -> None:
+        self.fixture.add_canonical(
+            "old",
+            lifecycle={
+                "status": "superseded",
+                "superseded_by": "new",
+                "deprecated_at": "2026-10-07",
+                "migration_note": "Use new.",
+            },
+        )
+        self.fixture.add_canonical(
+            "new",
+            payload=b"x\n2\n",
+            lifecycle={
+                "status": "active",
+                "supersedes": ["old"],
+            },
+        )
+
+        manifest = SNAPSHOT.build_manifest(
+            self.fixture.root,
+            tag="snapshot-2026.10.07",
+            commit="c" * 40,
+        )
+
+        by_id = {item["id"]: item for item in manifest["canonical_datasets"]}
+        self.assertEqual(by_id["old"]["lifecycle"]["status"], "superseded")
+        self.assertEqual(by_id["old"]["lifecycle"]["superseded_by"], "new")
+        self.assertEqual(by_id["new"]["lifecycle"]["supersedes"], ["old"])
     def test_unquoted_yaml_date_is_serialized_as_iso_string(self) -> None:
         self.fixture.add_canonical("dataset")
         metadata_path = self.fixture.root / "datasets" / "dataset" / "metadata.yaml"
