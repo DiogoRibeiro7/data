@@ -107,6 +107,48 @@ graph on demand.
 The graph includes active and deprecated relationships. Unknown consumer or
 dataset IDs fail clearly rather than returning an ambiguous empty result.
 
+
+## Dataset lifecycle and replacements
+
+Lifecycle commands read the committed deterministic `reports/lifecycle.json`.
+They do not rebuild the lifecycle graph and do not access the network.
+
+Show lifecycle state for one canonical dataset:
+
+```bash
+python scripts/registry.py lifecycle unhcr-refugee-population-2024
+python scripts/registry.py lifecycle unhcr-refugee-population-2024 --json
+```
+
+Resolve the direct and preferred terminal replacement:
+
+```bash
+python scripts/registry.py replacement <dataset-id>
+python scripts/registry.py replacement <dataset-id> --json
+```
+
+The replacement response includes:
+
+- lifecycle status;
+- direct replacement;
+- preferred terminal canonical dataset;
+- full replacement chain;
+- deprecation date;
+- migration note.
+
+Reverse lookup which datasets a canonical dataset supersedes:
+
+```bash
+python scripts/registry.py supersedes <dataset-id>
+python scripts/registry.py supersedes <dataset-id> --json
+```
+
+This reports both direct predecessors and all transitive historical datasets
+whose replacement chain reaches the selected dataset.
+
+Unknown lifecycle dataset IDs fail explicitly rather than returning an empty
+result.
+
 ## Provenance and licensing debt
 
 The CLI can inspect the committed deterministic debt queue without network
