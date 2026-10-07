@@ -78,6 +78,7 @@ def main() -> int:
     copy_root_markdown(ROOT / "CONTRIBUTING.md", DOCS / "CONTRIBUTING.md")
     copy_text(ROOT / "reports" / "registry-quality.md", GENERATED / "registry-quality.md")
     copy_text(ROOT / "reports" / "provenance-debt.md", GENERATED / "provenance-debt.md")
+    copy_text(ROOT / "reports" / "lifecycle.md", GENERATED / "lifecycle.md")
     return 0
 
 if __name__ == "__main__":
