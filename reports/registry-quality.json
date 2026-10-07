@@ -40,7 +40,7 @@
       "medium-blog"
     ],
     "active_relationship_count": 4,
-    "canonical_dataset_adoption_coverage": 1.0,
+    "canonical_dataset_adoption_coverage": 1,
     "canonical_datasets_with_consumers": 4,
     "canonical_datasets_without_consumers": 0,
     "datasets_with_consumers": [
@@ -53,8 +53,15 @@
     "deprecated_relationship_count": 0,
     "exempted_datasets_without_consumers": [],
     "pinned_contract_count": 4,
-    "pinned_contract_coverage": 1.0,
-    "uncovered_datasets_without_consumers": []
+    "pinned_contract_coverage": 1,
+    "uncovered_datasets_without_consumers": [],
+    "migration_applicable_relationship_count": 0,
+    "migration_explicit_relationship_count": 0,
+    "migration_coverage": 1,
+    "migration_required_count": 0,
+    "migration_planned_count": 0,
+    "migration_retained_count": 0,
+    "migration_migrated_count": 0
   },
   "external": {
     "pinned_immutable_identity_sources": 3,
