@@ -21,4 +21,3 @@ Do not edit it by hand.
 | [Uppsala Conflict Data Program datasets](ucdp-conflict-data/README.md) | [Uppsala Conflict Data Program](https://ucdp.uu.se/downloads/) | authoritative-upstream | allowed | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | displacement-risk-lab-dynamodb |
 | [UNHCR Refugee Population Statistics](unhcr-refugee-statistics/README.md) | [UNHCR](https://www.unhcr.org/refugee-statistics/) | authoritative-upstream | allowed | [CC BY 4.0 unless otherwise indicated](https://www.unhcr.org/uk/terms-use-datasets) | displacement-risk-lab-dynamodb |
 | [Climate Watch total greenhouse gas emissions (World Bank WDI EN.ATM.GHGT.KT.CE)](world-bank-greenhouse-gas/README.md) | [World Resources Institute / Climate Watch](https://www.climatewatchdata.org/ghg-emissions) | authoritative-upstream-via-world-bank-wdi | noncommercial-with-attribution | [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) | — |
-
