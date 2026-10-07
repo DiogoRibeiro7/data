@@ -37,6 +37,32 @@ The registry currently records four active canonical relationships:
 Browse the generated [canonical consumer catalog](generated/consumer-catalog.md) or use
 the registry CLI's `consumers`, `consumer`, `used-by`, and `uses` commands.
 
+## Lifecycle migration state
+
+Consumer records may include an optional `migration` block. It is unnecessary
+while an active consumer points to an active canonical dataset, but becomes
+mandatory when an active consumer still points to a `deprecated` or
+`superseded` canonical dataset.
+
+Supported migration states:
+
+- `required` — migration is required but not yet scheduled;
+- `planned` — migration is planned and names `target_dataset_id`;
+- `retained` — the consumer intentionally remains on the historical dataset
+  and must include a non-empty `rationale`;
+- `migrated` — the old consumer relationship is deprecated because the
+  downstream project moved to `target_dataset_id`.
+
+For a superseded dataset, any migration target must resolve to the active
+preferred replacement at the end of the canonical replacement chain.
+
+An active consumer of an active dataset must not declare migration state.
+A deprecated consumer relationship may declare `migration.status: migrated`;
+other migration states belong to relationships that are still active.
+
+This makes lifecycle transitions auditable without deleting historical
+consumer contracts.
+
 ## Reference manifest
 
 `templates/consumer-dataset.yaml` now mirrors the formal consumer-record schema. It can be used
