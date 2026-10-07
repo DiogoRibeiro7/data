@@ -102,8 +102,17 @@ treated as `active`.
 
 Lifecycle metadata never changes the bytes or identity of an existing canonical
 snapshot. It only records which canonical representation is currently preferred.
-Cross-dataset graph invariants such as cycles, missing targets, and ambiguous
-replacement paths are validated separately by repository lifecycle validation.
+Repository lifecycle validation enforces the cross-dataset graph:
+
+- every `supersedes` and `superseded_by` ID must name a canonical dataset;
+- a dataset cannot supersede itself;
+- a superseded dataset has exactly one direct replacement;
+- reciprocal declarations must agree when both sides provide them;
+- replacement chains must be acyclic;
+- a replacement chain must terminate at one `active` canonical dataset;
+- `deprecated_at` is invalid while a dataset remains `active`.
+
+These rules are fully offline and use only committed canonical metadata.
 
 ### `files`
 
