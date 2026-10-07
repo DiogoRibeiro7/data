@@ -69,6 +69,9 @@ jobs:
       - name: Validate provenance debt freshness
         run: python scripts/generate_provenance_debt.py
 
+      - name: Validate lifecycle report freshness
+        run: python scripts/generate_lifecycle_report.py
+
       - name: Generate release material
         run: |
           python scripts/create_snapshot.py \
