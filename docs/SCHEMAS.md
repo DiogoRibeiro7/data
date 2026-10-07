@@ -71,6 +71,14 @@ dataset and file against committed canonical metadata without network access.
 Each record also carries downstream evidence through either a consumer commit or an evidence
 URL. Consumer records describe dependency state; they are not executable fetch configuration.
 
+Consumer schema version 1 also permits an optional `migration` block with
+`required`, `planned`, `migrated`, and `retained` states. The block is a
+backward-compatible extension: current active-to-active contracts remain valid
+without it. Repository semantic validation makes migration state mandatory when
+an active consumer still references a deprecated or superseded canonical
+dataset, requires retained relationships to explain their rationale, and checks
+migration targets against the canonical preferred replacement.
+
 ## Legacy metadata
 
 Legacy schema version 0 describes quarantine packages only. It is intentionally small and records enough information to preserve file identity and unresolved provenance/licensing state.

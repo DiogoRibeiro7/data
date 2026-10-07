@@ -41,6 +41,10 @@ def relationship_entry(metadata: dict[str, Any]) -> dict[str, Any]:
         if isinstance(value, str) and value:
             entry[key] = value
 
+    migration = metadata.get("migration")
+    if isinstance(migration, dict):
+        entry["migration"] = migration
+
     return entry
 
 
@@ -91,27 +95,29 @@ def build_dependency_graph(catalog: dict[str, Any]) -> dict[str, Any]:
             raise ValueError(
                 f"consumer {consumer_id}: conflicting consumer_repository values"
             )
-        consumer["datasets"].append(
-            {
-                "dataset_id": dataset_id,
-                "status": item["status"],
-                "registry_commit": item["registry_commit"],
-                "path": item["path"],
-                "sha256": item["sha256"],
-            }
-        )
+        consumer_dataset = {
+            "dataset_id": dataset_id,
+            "status": item["status"],
+            "registry_commit": item["registry_commit"],
+            "path": item["path"],
+            "sha256": item["sha256"],
+        }
+        if isinstance(item.get("migration"), dict):
+            consumer_dataset["migration"] = item["migration"]
+        consumer["datasets"].append(consumer_dataset)
 
         dataset = dataset_view.setdefault(dataset_id, {"consumers": []})
-        dataset["consumers"].append(
-            {
-                "consumer_id": consumer_id,
-                "consumer_repository": item["consumer_repository"],
-                "status": item["status"],
-                "registry_commit": item["registry_commit"],
-                "path": item["path"],
-                "sha256": item["sha256"],
-            }
-        )
+        dataset_consumer = {
+            "consumer_id": consumer_id,
+            "consumer_repository": item["consumer_repository"],
+            "status": item["status"],
+            "registry_commit": item["registry_commit"],
+            "path": item["path"],
+            "sha256": item["sha256"],
+        }
+        if isinstance(item.get("migration"), dict):
+            dataset_consumer["migration"] = item["migration"]
+        dataset["consumers"].append(dataset_consumer)
 
     for consumer in consumer_view.values():
         consumer["datasets"].sort(key=lambda item: item["dataset_id"])

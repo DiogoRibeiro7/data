@@ -36,6 +36,8 @@ External source usage annotations:
 - Canonical datasets with >=1 active consumer: **4**
 - Canonical datasets with zero active consumers: **0**
 - Canonical dataset adoption coverage: **100%**
+- Lifecycle migration coverage: **100%** (0 / 0)
+- Migration required / planned / retained / migrated: **0 / 0 / 0 / 0**
 
 Active consumers:
 

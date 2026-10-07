@@ -17,8 +17,15 @@
   ],
   "additionalProperties": false,
   "properties": {
-    "schema_version": {"const": 1},
-    "status": {"enum": ["active", "deprecated"]},
+    "schema_version": {
+      "const": 1
+    },
+    "status": {
+      "enum": [
+        "active",
+        "deprecated"
+      ]
+    },
     "consumer_id": {
       "type": "string",
       "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
@@ -31,8 +38,12 @@
       "type": "string",
       "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
     },
-    "registry_layer": {"const": "canonical"},
-    "registry_repository": {"const": "DiogoRibeiro7/data"},
+    "registry_layer": {
+      "const": "canonical"
+    },
+    "registry_repository": {
+      "const": "DiogoRibeiro7/data"
+    },
     "registry_commit": {
       "type": "string",
       "pattern": "^[0-9a-f]{40}$"
@@ -61,10 +72,82 @@
     "notes": {
       "type": "string",
       "minLength": 1
+    },
+    "migration": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "required",
+            "planned",
+            "migrated",
+            "retained"
+          ]
+        },
+        "target_dataset_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "retained"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "rationale"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "planned",
+                  "migrated"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "target_dataset_id"
+            ]
+          }
+        }
+      ]
     }
   },
   "anyOf": [
-    {"required": ["consumer_commit"]},
-    {"required": ["evidence_url"]}
+    {
+      "required": [
+        "consumer_commit"
+      ]
+    },
+    {
+      "required": [
+        "evidence_url"
+      ]
+    }
   ]
 }

@@ -52,6 +52,13 @@
     "datasets_without_consumers": [],
     "deprecated_relationship_count": 0,
     "exempted_datasets_without_consumers": [],
+    "migration_applicable_relationship_count": 0,
+    "migration_coverage": 1.0,
+    "migration_explicit_relationship_count": 0,
+    "migration_migrated_count": 0,
+    "migration_planned_count": 0,
+    "migration_required_count": 0,
+    "migration_retained_count": 0,
     "pinned_contract_count": 4,
     "pinned_contract_coverage": 1.0,
     "uncovered_datasets_without_consumers": []

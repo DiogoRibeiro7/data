@@ -149,8 +149,8 @@ def replacement_chain(
     return chain
 
 
-def load_active_consumers(root: Path) -> list[dict[str, Any]]:
-    """Return active canonical consumer relationships."""
+def load_consumer_relationships(root: Path) -> list[dict[str, Any]]:
+    """Return canonical consumer relationships deterministically."""
 
     path = root / "consumers" / "catalog.json"
     raw = json.loads(path.read_text(encoding="utf-8"))
@@ -158,18 +158,14 @@ def load_active_consumers(root: Path) -> list[dict[str, Any]]:
     if not isinstance(relationships, list):
         raise ValueError(f"{path}: relationships must be a list")
 
-    active = [
-        item
-        for item in relationships
-        if isinstance(item, dict) and item.get("status") == "active"
-    ]
-    active.sort(
+    result = [item for item in relationships if isinstance(item, dict)]
+    result.sort(
         key=lambda item: (
             str(item.get("consumer_id", "")),
             str(item.get("dataset_id", "")),
         )
     )
-    return active
+    return result
 
 
 def build_report(root: Path) -> dict[str, Any]:
@@ -177,12 +173,15 @@ def build_report(root: Path) -> dict[str, Any]:
 
     datasets = load_canonical(root)
     edges, reverse = build_edges(datasets)
-    consumers = load_active_consumers(root)
+    consumers = load_consumer_relationships(root)
+    active_consumers = [
+        item for item in consumers if item.get("status") == "active"
+    ]
 
     consumers_by_dataset: dict[str, list[dict[str, Any]]] = {
         dataset_id: [] for dataset_id in datasets
     }
-    for relationship in consumers:
+    for relationship in active_consumers:
         dataset_id = relationship.get("dataset_id")
         if isinstance(dataset_id, str) and dataset_id in consumers_by_dataset:
             consumers_by_dataset[dataset_id].append(relationship)
@@ -198,12 +197,18 @@ def build_report(root: Path) -> dict[str, Any]:
         preferred = terminal if status == "superseded" else (
             dataset_id if status == "active" else None
         )
-        active_consumers = consumers_by_dataset[dataset_id]
-        migration_needed = (
-            len(active_consumers)
-            if status == "superseded" and terminal != dataset_id
-            else 0
-        )
+        dataset_consumers = consumers_by_dataset[dataset_id]
+        unresolved_migrations = 0
+        for relationship in dataset_consumers:
+            migration = relationship.get("migration")
+            migration_status = (
+                migration.get("status")
+                if isinstance(migration, dict)
+                else None
+            )
+            if status in {"superseded", "deprecated"}:
+                if migration_status in {None, "required", "planned"}:
+                    unresolved_migrations += 1
 
         dataset_items.append(
             {
@@ -216,22 +221,71 @@ def build_report(root: Path) -> dict[str, Any]:
                 "direct_predecessors": reverse[dataset_id],
                 "preferred_dataset_id": preferred,
                 "replacement_chain": chain,
-                "active_consumer_count": len(active_consumers),
-                "migration_needed_consumer_count": migration_needed,
+                "active_consumer_count": len(dataset_consumers),
+                "migration_needed_consumer_count": unresolved_migrations,
             }
         )
 
-        for relationship in active_consumers:
-            target = terminal if status == "superseded" and terminal != dataset_id else None
+        for relationship in dataset_consumers:
+            migration = relationship.get("migration")
+            declared_status = (
+                migration.get("status")
+                if isinstance(migration, dict)
+                else None
+            )
+            rationale = (
+                migration.get("rationale")
+                if isinstance(migration, dict)
+                else None
+            )
+            target_dataset_id = (
+                migration.get("target_dataset_id")
+                if isinstance(migration, dict)
+                else None
+            )
+
+            if status == "active":
+                effective_status = "current"
+                preferred_id = dataset_id
+            elif declared_status == "retained":
+                effective_status = "retained"
+                preferred_id = terminal if status == "superseded" else target_dataset_id
+            elif declared_status == "planned":
+                effective_status = "planned"
+                preferred_id = target_dataset_id or terminal
+            else:
+                effective_status = "required"
+                preferred_id = target_dataset_id or (
+                    terminal if status == "superseded" else None
+                )
+
             migration_items.append(
                 {
                     "consumer_id": relationship.get("consumer_id"),
                     "consumer_repository": relationship.get("consumer_repository"),
                     "dataset_id": dataset_id,
-                    "status": "migration-needed" if target else "current",
-                    "preferred_dataset_id": target or dataset_id,
+                    "status": effective_status,
+                    "preferred_dataset_id": preferred_id or dataset_id,
+                    "rationale": rationale,
                 }
             )
+
+    for relationship in consumers:
+        if relationship.get("status") != "deprecated":
+            continue
+        migration = relationship.get("migration")
+        if not isinstance(migration, dict) or migration.get("status") != "migrated":
+            continue
+        migration_items.append(
+            {
+                "consumer_id": relationship.get("consumer_id"),
+                "consumer_repository": relationship.get("consumer_repository"),
+                "dataset_id": relationship.get("dataset_id"),
+                "status": "migrated",
+                "preferred_dataset_id": migration.get("target_dataset_id"),
+                "rationale": migration.get("rationale"),
+            }
+        )
 
     dataset_items.sort(key=lambda item: str(item["id"]))
     migration_items.sort(
@@ -245,8 +299,18 @@ def build_report(root: Path) -> dict[str, Any]:
         state: sum(item["status"] == state for item in dataset_items)
         for state in ("active", "deprecated", "superseded")
     }
-    migration_needed_count = sum(
-        item["status"] == "migration-needed" for item in migration_items
+    migration_counts = {
+        state: sum(item["status"] == state for item in migration_items)
+        for state in ("current", "required", "planned", "retained", "migrated")
+    }
+    affected_active = (
+        migration_counts["required"]
+        + migration_counts["planned"]
+        + migration_counts["retained"]
+    )
+    resolved_active = migration_counts["planned"] + migration_counts["retained"]
+    migration_resolution_coverage = (
+        resolved_active / affected_active if affected_active else 1.0
     )
 
     return {
@@ -257,11 +321,16 @@ def build_report(root: Path) -> dict[str, Any]:
             "deprecated_count": status_counts["deprecated"],
             "superseded_count": status_counts["superseded"],
             "replacement_edge_count": len(edges),
-            "active_consumer_relationship_count": len(migration_items),
-            "current_consumer_relationship_count": (
-                len(migration_items) - migration_needed_count
+            "active_consumer_relationship_count": len(active_consumers),
+            "current_consumer_relationship_count": migration_counts["current"],
+            "migration_required_count": migration_counts["required"],
+            "migration_planned_count": migration_counts["planned"],
+            "migration_retained_count": migration_counts["retained"],
+            "migrated_relationship_count": migration_counts["migrated"],
+            "migration_needed_count": (
+                migration_counts["required"] + migration_counts["planned"]
             ),
-            "migration_needed_count": migration_needed_count,
+            "migration_resolution_coverage": migration_resolution_coverage,
         },
         "preferred_replacements": dict(sorted(edges.items())),
         "datasets": dataset_items,
@@ -294,7 +363,12 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- Replacement edges: **{summary['replacement_edge_count']}**",
         f"- Active consumer relationships: **{summary['active_consumer_relationship_count']}**",
         f"- Current consumer relationships: **{summary['current_consumer_relationship_count']}**",
+        f"- Migration required: **{summary['migration_required_count']}**",
+        f"- Migration planned: **{summary['migration_planned_count']}**",
+        f"- Intentionally retained: **{summary['migration_retained_count']}**",
+        f"- Historical migrated relationships: **{summary['migrated_relationship_count']}**",
         f"- Migration needed: **{summary['migration_needed_count']}**",
+        f"- Migration resolution coverage: **{summary['migration_resolution_coverage']:.0%}**",
         "",
         "## Dataset lifecycle",
         "",
@@ -328,15 +402,16 @@ def render_markdown(report: dict[str, Any]) -> str:
     if report["consumer_migrations"]:
         lines.extend(
             [
-                "| Consumer | Dataset | State | Preferred dataset |",
-                "| --- | --- | --- | --- |",
+                "| Consumer | Dataset | State | Preferred dataset | Rationale |",
+                "| --- | --- | --- | --- | --- |",
             ]
         )
         for item in report["consumer_migrations"]:
             lines.append(
                 f"| `{_cell(item['consumer_id'])}` | "
                 f"`{_cell(item['dataset_id'])}` | {_cell(item['status'])} | "
-                f"`{_cell(item['preferred_dataset_id'])}` |"
+                f"`{_cell(item['preferred_dataset_id'])}` | "
+                f"{_cell(item.get('rationale'))} |"
             )
     else:
         lines.append("No active canonical consumer relationships are registered.")
@@ -349,7 +424,9 @@ def render_markdown(report: dict[str, Any]) -> str:
             "- Missing lifecycle metadata is interpreted as `active`.",
             "- Replacement edges are derived from committed `supersedes` and `superseded_by` declarations.",
             "- A superseded dataset's preferred replacement is the active terminal dataset in its replacement chain.",
-            "- Consumer migration state is informational here; explicit retention/waiver semantics are defined separately.",
+            "- Active consumers of superseded/deprecated datasets are classified as required, planned, or retained.",
+            "- Retained historical consumption requires an explicit rationale.",
+            "- Deprecated historical relationships may record migration.status=migrated when a matching active target relationship exists.",
             "",
         ]
     )

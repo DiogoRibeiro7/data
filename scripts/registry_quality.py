@@ -212,6 +212,7 @@ def _consumer_metrics(root: Path) -> dict[str, Any]:
     consumers_root = root / "consumers"
     dataset_ids: set[str] = set()
     canonical_contracts: dict[tuple[str, str], str] = {}
+    lifecycle_status_by_dataset: dict[str, str] = {}
     for dataset_dir in sorted(
         path
         for path in (root / "datasets").iterdir()
@@ -220,6 +221,13 @@ def _consumer_metrics(root: Path) -> dict[str, Any]:
         dataset_id = dataset_dir.name
         dataset_ids.add(dataset_id)
         metadata = _load_yaml(dataset_dir / "metadata.yaml")
+        lifecycle = metadata.get("lifecycle")
+        lifecycle_status = (
+            lifecycle.get("status")
+            if isinstance(lifecycle, dict) and isinstance(lifecycle.get("status"), str)
+            else "active"
+        )
+        lifecycle_status_by_dataset[dataset_id] = lifecycle_status
         files = metadata.get("files")
         if not isinstance(files, list):
             continue
@@ -236,6 +244,12 @@ def _consumer_metrics(root: Path) -> dict[str, Any]:
     active_relationships = 0
     deprecated_relationships = 0
     pinned_contracts = 0
+    migration_applicable = 0
+    migration_explicit = 0
+    migration_required = 0
+    migration_planned = 0
+    migration_retained = 0
+    migration_migrated = 0
     active_consumers: set[str] = set()
     active_repositories: set[str] = set()
     consumed_datasets: set[str] = set()
@@ -247,8 +261,18 @@ def _consumer_metrics(root: Path) -> dict[str, Any]:
             for record_path in sorted(consumer_dir.glob("*.yaml")):
                 metadata = _load_yaml(record_path)
                 status = metadata.get("status")
+                migration = metadata.get("migration")
+                migration_status = (
+                    migration.get("status")
+                    if isinstance(migration, dict)
+                    and isinstance(migration.get("status"), str)
+                    else None
+                )
+
                 if status == "deprecated":
                     deprecated_relationships += 1
+                    if migration_status == "migrated":
+                        migration_migrated += 1
                     continue
                 if status != "active":
                     continue
@@ -266,6 +290,20 @@ def _consumer_metrics(root: Path) -> dict[str, Any]:
                 dataset_id = metadata.get("dataset_id")
                 if isinstance(dataset_id, str) and dataset_id in dataset_ids:
                     consumed_datasets.add(dataset_id)
+                    lifecycle_status = lifecycle_status_by_dataset.get(
+                        dataset_id,
+                        "active",
+                    )
+                    if lifecycle_status != "active":
+                        migration_applicable += 1
+                        if migration_status in {"required", "planned", "retained"}:
+                            migration_explicit += 1
+                        if migration_status == "required":
+                            migration_required += 1
+                        elif migration_status == "planned":
+                            migration_planned += 1
+                        elif migration_status == "retained":
+                            migration_retained += 1
 
                 commit = metadata.get("registry_commit")
                 path = metadata.get("path")
@@ -309,6 +347,17 @@ def _consumer_metrics(root: Path) -> dict[str, Any]:
         "datasets_without_consumers": without_consumers,
         "exempted_datasets_without_consumers": exempted,
         "uncovered_datasets_without_consumers": uncovered,
+        "migration_applicable_relationship_count": migration_applicable,
+        "migration_explicit_relationship_count": migration_explicit,
+        "migration_coverage": (
+            migration_explicit / migration_applicable
+            if migration_applicable
+            else 1.0
+        ),
+        "migration_required_count": migration_required,
+        "migration_planned_count": migration_planned,
+        "migration_retained_count": migration_retained,
+        "migration_migrated_count": migration_migrated,
     }
 
 def _canonical_expansion_metrics(root: Path) -> dict[str, Any]:
@@ -590,6 +639,19 @@ def render_markdown(report: dict[str, Any]) -> str:
             (
                 "- Canonical dataset adoption coverage: "
                 f"**{consumers['canonical_dataset_adoption_coverage']:.0%}**"
+            ),
+            (
+                "- Lifecycle migration coverage: "
+                f"**{consumers['migration_coverage']:.0%}** "
+                f"({consumers['migration_explicit_relationship_count']} / "
+                f"{consumers['migration_applicable_relationship_count']})"
+            ),
+            (
+                "- Migration required / planned / retained / migrated: "
+                f"**{consumers['migration_required_count']} / "
+                f"{consumers['migration_planned_count']} / "
+                f"{consumers['migration_retained_count']} / "
+                f"{consumers['migration_migrated_count']}**"
             ),
             "",
             "Active consumers:",
