@@ -156,6 +156,17 @@ class RepositoryFixture:
         )
         return file_path
 
+    def set_lifecycle(self, dataset_id: str, lifecycle: dict[str, Any]) -> None:
+        """Replace lifecycle metadata for one canonical dataset."""
+
+        metadata_path = self.root / "datasets" / dataset_id / "metadata.yaml"
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata["lifecycle"] = lifecycle
+        metadata_path.write_text(
+            yaml.safe_dump(metadata, sort_keys=False),
+            encoding="utf-8",
+        )
+
     def add_consumer(
         self,
         consumer_id: str,
@@ -254,18 +265,23 @@ class ValidatorTests(unittest.TestCase):
         self.assertEqual(self.errors(), [])
 
     def test_canonical_lifecycle_accepts_supported_fields(self) -> None:
-        self.fixture.add_canonical("new-dataset")
-        metadata_path = self.fixture.root / "datasets" / "new-dataset" / "metadata.yaml"
-        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
-        metadata["lifecycle"] = {
-            "status": "deprecated",
-            "deprecated_at": "2026-10-07",
-            "supersedes": ["older-dataset"],
-            "migration_note": "Consumers should migrate to the preferred replacement.",
-        }
-        metadata_path.write_text(
-            yaml.safe_dump(metadata, sort_keys=False),
-            encoding="utf-8",
+        self.fixture.add_canonical("older-dataset", data=b"version,1\n")
+        self.fixture.add_canonical("new-dataset", data=b"version,2\n")
+        self.fixture.set_lifecycle(
+            "older-dataset",
+            {
+                "status": "superseded",
+                "superseded_by": "new-dataset",
+                "deprecated_at": "2026-10-07",
+            },
+        )
+        self.fixture.set_lifecycle(
+            "new-dataset",
+            {
+                "status": "active",
+                "supersedes": ["older-dataset"],
+                "migration_note": "Consumers should migrate to the preferred replacement.",
+            },
         )
         self.fixture.write_catalogs()
 
@@ -327,6 +343,142 @@ class ValidatorTests(unittest.TestCase):
                 for msg in self.errors()
             )
         )
+
+    def test_lifecycle_graph_rejects_unknown_replacement_target(self) -> None:
+        self.fixture.add_canonical("old-dataset")
+        self.fixture.set_lifecycle(
+            "old-dataset",
+            {"status": "superseded", "superseded_by": "missing-dataset"},
+        )
+
+        self.assertTrue(
+            any("unknown canonical dataset 'missing-dataset'" in msg for msg in self.errors())
+        )
+
+    def test_lifecycle_graph_rejects_self_supersession(self) -> None:
+        self.fixture.add_canonical("same-dataset")
+        self.fixture.set_lifecycle(
+            "same-dataset",
+            {"status": "superseded", "superseded_by": "same-dataset"},
+        )
+
+        self.assertTrue(
+            any("dataset cannot supersede itself" in msg for msg in self.errors())
+        )
+
+    def test_lifecycle_graph_rejects_cycle(self) -> None:
+        self.fixture.add_canonical("dataset-a")
+        self.fixture.add_canonical("dataset-b")
+        self.fixture.set_lifecycle(
+            "dataset-a",
+            {"status": "superseded", "superseded_by": "dataset-b"},
+        )
+        self.fixture.set_lifecycle(
+            "dataset-b",
+            {"status": "superseded", "superseded_by": "dataset-a"},
+        )
+
+        self.assertTrue(
+            any("canonical lifecycle supersession cycle" in msg for msg in self.errors())
+        )
+
+    def test_lifecycle_graph_rejects_ambiguous_direct_replacements(self) -> None:
+        self.fixture.add_canonical("old-dataset")
+        self.fixture.add_canonical("replacement-a")
+        self.fixture.add_canonical("replacement-b")
+        self.fixture.set_lifecycle(
+            "old-dataset",
+            {"status": "superseded", "superseded_by": "replacement-a"},
+        )
+        self.fixture.set_lifecycle(
+            "replacement-b",
+            {"status": "active", "supersedes": ["old-dataset"]},
+        )
+
+        errors = self.errors()
+        self.assertTrue(any("ambiguous direct replacements" in msg for msg in errors))
+        self.assertTrue(
+            any("but its superseded_by points to 'replacement-a'" in msg for msg in errors)
+        )
+
+    def test_lifecycle_graph_rejects_incomplete_reciprocal_declaration(self) -> None:
+        self.fixture.add_canonical("old-dataset")
+        self.fixture.add_canonical("replacement")
+        self.fixture.add_canonical("other-old-dataset")
+        self.fixture.set_lifecycle(
+            "old-dataset",
+            {"status": "superseded", "superseded_by": "replacement"},
+        )
+        self.fixture.set_lifecycle(
+            "other-old-dataset",
+            {"status": "superseded", "superseded_by": "replacement"},
+        )
+        self.fixture.set_lifecycle(
+            "replacement",
+            {"status": "active", "supersedes": ["other-old-dataset"]},
+        )
+
+        self.assertTrue(
+            any(
+                "supersedes list does not include 'old-dataset'" in msg
+                for msg in self.errors()
+            )
+        )
+
+    def test_lifecycle_graph_rejects_active_dataset_with_deprecation_date(self) -> None:
+        self.fixture.add_canonical("active-dataset")
+        self.fixture.set_lifecycle(
+            "active-dataset",
+            {"status": "active", "deprecated_at": "2026-10-07"},
+        )
+
+        self.assertTrue(
+            any("deprecated_at is not valid" in msg for msg in self.errors())
+        )
+
+    def test_lifecycle_graph_requires_active_terminal_replacement(self) -> None:
+        self.fixture.add_canonical("old-dataset")
+        self.fixture.add_canonical("deprecated-replacement")
+        self.fixture.set_lifecycle(
+            "old-dataset",
+            {"status": "superseded", "superseded_by": "deprecated-replacement"},
+        )
+        self.fixture.set_lifecycle(
+            "deprecated-replacement",
+            {"status": "deprecated", "deprecated_at": "2026-10-07"},
+        )
+
+        self.assertTrue(
+            any("preferred replacement must be active" in msg for msg in self.errors())
+        )
+
+    def test_lifecycle_graph_accepts_valid_multi_step_chain(self) -> None:
+        for dataset_id, payload in (
+            ("dataset-v1", b"version,1\n"),
+            ("dataset-v2", b"version,2\n"),
+            ("dataset-v3", b"version,3\n"),
+        ):
+            self.fixture.add_canonical(dataset_id, data=payload)
+
+        self.fixture.set_lifecycle(
+            "dataset-v1",
+            {"status": "superseded", "superseded_by": "dataset-v2"},
+        )
+        self.fixture.set_lifecycle(
+            "dataset-v2",
+            {
+                "status": "superseded",
+                "superseded_by": "dataset-v3",
+                "supersedes": ["dataset-v1"],
+            },
+        )
+        self.fixture.set_lifecycle(
+            "dataset-v3",
+            {"status": "active", "supersedes": ["dataset-v2"]},
+        )
+        self.fixture.write_catalogs()
+
+        self.assertEqual(self.errors(), [])
 
     def test_external_schema_is_validated(self) -> None:
         self.fixture.add_external("example-source", publisher=123)
