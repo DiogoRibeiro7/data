@@ -212,6 +212,7 @@ def _consumer_metrics(root: Path) -> dict[str, Any]:
     consumers_root = root / "consumers"
     dataset_ids: set[str] = set()
     canonical_contracts: dict[tuple[str, str], str] = {}
+    lifecycle_status_by_dataset: dict[str, str] = {}
     for dataset_dir in sorted(
         path
         for path in (root / "datasets").iterdir()
@@ -226,7 +227,7 @@ def _consumer_metrics(root: Path) -> dict[str, Any]:
             if isinstance(lifecycle, dict) and isinstance(lifecycle.get("status"), str)
             else "active"
         )
-        canonical_contracts[(dataset_id, "__lifecycle_status__")] = lifecycle_status
+        lifecycle_status_by_dataset[dataset_id] = lifecycle_status
         files = metadata.get("files")
         if not isinstance(files, list):
             continue
@@ -289,8 +290,8 @@ def _consumer_metrics(root: Path) -> dict[str, Any]:
                 dataset_id = metadata.get("dataset_id")
                 if isinstance(dataset_id, str) and dataset_id in dataset_ids:
                     consumed_datasets.add(dataset_id)
-                    lifecycle_status = canonical_contracts.get(
-                        (dataset_id, "__lifecycle_status__"),
+                    lifecycle_status = lifecycle_status_by_dataset.get(
+                        dataset_id,
                         "active",
                     )
                     if lifecycle_status != "active":
