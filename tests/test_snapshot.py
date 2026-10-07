@@ -74,6 +74,35 @@ class SnapshotFixture:
             + "\n",
             encoding="utf-8",
         )
+        (self.root / "reports" / "lifecycle.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "summary": {
+                        "canonical_dataset_count": 0,
+                        "active_count": 0,
+                        "deprecated_count": 0,
+                        "superseded_count": 0,
+                        "replacement_edge_count": 0,
+                        "active_consumer_relationship_count": 0,
+                        "current_consumer_relationship_count": 0,
+                        "migration_required_count": 0,
+                        "migration_planned_count": 0,
+                        "migration_retained_count": 0,
+                        "migrated_relationship_count": 0,
+                        "migration_needed_count": 0,
+                        "migration_resolution_coverage": 1.0,
+                    },
+                    "preferred_replacements": {},
+                    "datasets": [],
+                    "consumer_migrations": [],
+                },
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
         (self.root / "reports" / "provenance-debt.json").write_text(
             json.dumps(
                 {
@@ -302,7 +331,7 @@ class SnapshotTests(unittest.TestCase):
             tag="snapshot-2026.10.01",
             commit="a" * 40,
         )
-        self.assertEqual(manifest["manifest_version"], 4)
+        self.assertEqual(manifest["manifest_version"], 5)
         self.assertEqual(manifest["commit"], "a" * 40)
         self.assertEqual(manifest["catalogs"]["canonical"]["schema_version"], 1)
         self.assertEqual(manifest["metadata_schemas"]["legacy"]["schema_version"], 0)
@@ -324,6 +353,15 @@ class SnapshotTests(unittest.TestCase):
         self.assertEqual(
             len(manifest["canonical_expansion"]["adoption_policy_sha256"]),
             64,
+        )
+        self.assertEqual(
+            len(manifest["canonical_lifecycle"]["sha256"]),
+            64,
+        )
+        self.assertEqual(manifest["canonical_lifecycle"]["active_count"], 0)
+        self.assertEqual(
+            manifest["canonical_lifecycle"]["migration_resolution_coverage"],
+            1.0,
         )
 
     def test_consumer_relationships_are_recorded(self) -> None:
@@ -423,6 +461,77 @@ class SnapshotTests(unittest.TestCase):
         self.assertIn("ons", summary)
         self.assertIn("unhcr", summary)
         self.assertIn("Uncovered canonical datasets: **0**", summary)
+
+    def test_snapshot_summary_includes_lifecycle_state(self) -> None:
+        manifest = SNAPSHOT.build_manifest(
+            self.fixture.root,
+            tag="snapshot-2026.10.07",
+            commit="a" * 40,
+        )
+
+        summary = SNAPSHOT.render_summary(manifest)
+
+        self.assertIn("## Canonical lifecycle and supersession", summary)
+        self.assertIn("Migration resolution coverage: **100%**", summary)
+        self.assertIn("Replacement chains:", summary)
+
+    def test_lifecycle_snapshot_projection_records_replacement_chain(self) -> None:
+        report_path = self.fixture.root / "reports" / "lifecycle.json"
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        report["summary"].update(
+            {
+                "canonical_dataset_count": 2,
+                "active_count": 1,
+                "superseded_count": 1,
+                "replacement_edge_count": 1,
+                "active_consumer_relationship_count": 1,
+                "current_consumer_relationship_count": 0,
+                "migration_required_count": 1,
+                "migration_needed_count": 1,
+                "migration_resolution_coverage": 0.0,
+            }
+        )
+        report["preferred_replacements"] = {"old": "new"}
+        report["datasets"] = [
+            {
+                "id": "new",
+                "status": "active",
+                "deprecated_at": None,
+                "direct_replacement": None,
+                "preferred_dataset_id": "new",
+                "replacement_chain": ["new"],
+                "active_consumer_count": 0,
+                "migration_needed_consumer_count": 0,
+                "migration_note": None,
+            },
+            {
+                "id": "old",
+                "status": "superseded",
+                "deprecated_at": "2026-10-07",
+                "direct_replacement": "new",
+                "preferred_dataset_id": "new",
+                "replacement_chain": ["old", "new"],
+                "active_consumer_count": 1,
+                "migration_needed_consumer_count": 1,
+                "migration_note": "Move to new.",
+            },
+        ]
+        report_path.write_text(
+            json.dumps(report, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+
+        manifest = SNAPSHOT.build_manifest(
+            self.fixture.root,
+            tag="snapshot-2026.10.07",
+            commit="b" * 40,
+        )
+
+        lifecycle = manifest["canonical_lifecycle"]
+        self.assertEqual(lifecycle["preferred_replacements"], {"old": "new"})
+        old = next(item for item in lifecycle["datasets"] if item["id"] == "old")
+        self.assertEqual(old["replacement_chain"], ["old", "new"])
+        self.assertEqual(old["preferred_dataset_id"], "new")
 
     def test_unquoted_yaml_date_is_serialized_as_iso_string(self) -> None:
         self.fixture.add_canonical("dataset")
