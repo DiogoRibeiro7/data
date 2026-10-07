@@ -725,6 +725,15 @@ def validate_consumer_migration(
                 )
             )
         if migration_status == "migrated":
+            if dataset_metadata is not None and canonical_lifecycle_status(dataset_metadata) == "active":
+                problems.append(
+                    Problem(
+                        "error",
+                        f"{record_path}: migrated consumer relationship requires a "
+                        "deprecated or superseded source dataset",
+                    )
+                )
+
             if not isinstance(target_dataset_id, str):
                 problems.append(
                     Problem(
