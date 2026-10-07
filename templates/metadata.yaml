@@ -23,6 +23,15 @@ citation:
   text: Citation text
   url: https://example.org/citation
 
+# Optional. Omit for the default active state.
+# lifecycle:
+#   status: active
+#   deprecated_at: 2026-10-07
+#   supersedes:
+#     - older-dataset-id
+#   superseded_by: newer-dataset-id
+#   migration_note: Explain how downstream consumers should migrate.
+
 files:
   - path: raw/example.csv
     role: raw

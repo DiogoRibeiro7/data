@@ -31,6 +31,12 @@ The Python validator retains semantic checks that cannot be represented cleanly 
 
 Canonical metadata is intentionally strict. Unknown top-level fields are rejected.
 
+Canonical schema version 1 also permits an optional `lifecycle` block. Existing
+metadata without that block remains valid and is interpreted as `active`, so
+this is a backward-compatible extension of version 1 rather than a new schema
+version. The block can represent `active`, `deprecated`, and `superseded`
+states plus deprecation dates, replacement relationships, and migration notes.
+
 If a new generally useful metadata field is required, update the schema and documentation rather than adding ad-hoc fields to one dataset.
 
 ## External metadata
