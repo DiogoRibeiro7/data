@@ -36,6 +36,7 @@ class ConsumerCatalogTests(unittest.TestCase):
         status: str = "active",
         repository: str | None = None,
         canonical_path: str | None = None,
+        migration: dict[str, object] | None = None,
     ) -> Path:
         """Add one consumer relationship fixture."""
 
@@ -56,6 +57,8 @@ class ConsumerCatalogTests(unittest.TestCase):
             "consumer_commit": "c" * 40,
             "evidence_url": f"https://example.test/{consumer_id}/{dataset_id}",
         }
+        if migration is not None:
+            metadata["migration"] = migration
         path.write_text(yaml.safe_dump(metadata, sort_keys=False), encoding="utf-8")
         return path
 
@@ -97,6 +100,26 @@ class ConsumerCatalogTests(unittest.TestCase):
                 for item in graph["datasets"]["dataset-a"]["consumers"]
             ],
             ["consumer-one", "consumer-two"],
+        )
+
+    def test_migration_state_is_preserved_in_catalog_and_graph(self) -> None:
+        migration = {
+            "status": "planned",
+            "target_dataset_id": "replacement",
+        }
+        self.add_record("consumer", "dataset", migration=migration)
+
+        catalog = CATALOG.build_catalog(self.root / "consumers")
+        graph = CATALOG.build_dependency_graph(catalog)
+
+        self.assertEqual(catalog["relationships"][0]["migration"], migration)
+        self.assertEqual(
+            graph["consumers"]["consumer"]["datasets"][0]["migration"],
+            migration,
+        )
+        self.assertEqual(
+            graph["datasets"]["dataset"]["consumers"][0]["migration"],
+            migration,
         )
 
     def test_duplicate_relationships_fail(self) -> None:
