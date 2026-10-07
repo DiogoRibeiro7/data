@@ -265,8 +265,8 @@ class ValidatorTests(unittest.TestCase):
         self.assertEqual(self.errors(), [])
 
     def test_canonical_lifecycle_accepts_supported_fields(self) -> None:
-        self.fixture.add_canonical("older-dataset")
-        self.fixture.add_canonical("new-dataset")
+        self.fixture.add_canonical("older-dataset", data=b"version,1\n")
+        self.fixture.add_canonical("new-dataset", data=b"version,2\n")
         self.fixture.set_lifecycle(
             "older-dataset",
             {
@@ -453,8 +453,12 @@ class ValidatorTests(unittest.TestCase):
         )
 
     def test_lifecycle_graph_accepts_valid_multi_step_chain(self) -> None:
-        for dataset_id in ("dataset-v1", "dataset-v2", "dataset-v3"):
-            self.fixture.add_canonical(dataset_id)
+        for dataset_id, payload in (
+            ("dataset-v1", b"version,1\n"),
+            ("dataset-v2", b"version,2\n"),
+            ("dataset-v3", b"version,3\n"),
+        ):
+            self.fixture.add_canonical(dataset_id, data=payload)
 
         self.fixture.set_lifecycle(
             "dataset-v1",
