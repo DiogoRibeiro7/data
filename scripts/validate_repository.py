@@ -866,6 +866,7 @@ def validate_consumers(
         return
 
     seen_relationships: dict[tuple[str, str], Path] = {}
+    consumer_records: list[tuple[Path, dict[str, Any]]] = []
 
     for root_entry in sorted(consumers_root.iterdir()):
         if root_entry.is_file() and root_entry.suffix.lower() in {".yaml", ".yml"}:
@@ -903,6 +904,7 @@ def validate_consumers(
             metadata = load_yaml(record_path, problems)
             if metadata is None:
                 continue
+            consumer_records.append((record_path, metadata))
 
             validate_schema(
                 metadata,
@@ -1020,6 +1022,33 @@ def validate_consumers(
                         f"{record_path}: sha256 does not match canonical dataset metadata",
                     )
                 )
+
+
+    active_relationships = {
+        (metadata.get("consumer_id"), metadata.get("dataset_id"))
+        for _, metadata in consumer_records
+        if metadata.get("status") == "active"
+    }
+    for record_path, metadata in consumer_records:
+        if metadata.get("status") != "deprecated":
+            continue
+        migration = metadata.get("migration")
+        if not isinstance(migration, dict) or migration.get("status") != "migrated":
+            continue
+        consumer_id = metadata.get("consumer_id")
+        target_dataset_id = migration.get("target_dataset_id")
+        if (
+            isinstance(consumer_id, str)
+            and isinstance(target_dataset_id, str)
+            and (consumer_id, target_dataset_id) not in active_relationships
+        ):
+            problems.append(
+                Problem(
+                    "error",
+                    f"{record_path}: migration.status=migrated requires an active "
+                    f"consumer relationship to target dataset '{target_dataset_id}'",
+                )
+            )
 
 
 
