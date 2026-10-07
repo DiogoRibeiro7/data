@@ -114,7 +114,10 @@ The manifest records:
 - every canonical dataset file path and SHA-256 checksum;
 - each canonical dataset's committed source snapshot and licence identity;
 - the committed provenance-debt report SHA-256 and debt summary;
-- the committed registry-quality/adoption-policy digests and canonical expansion state.
+- the committed registry-quality/adoption-policy digests and canonical expansion state;
+- the committed lifecycle report SHA-256, lifecycle counts, replacement chains, and consumer migration state.
+
+Snapshot manifest version 5 adds canonical lifecycle and supersession state. Historical releases that used earlier manifest versions remain unchanged.
 
 No runtime timestamp is included. Given the same repository bytes, tag, and commit, the generated JSON and Markdown are byte-for-byte deterministic.
 
@@ -139,8 +142,9 @@ Every manual run:
 7. validates the external catalog freshness;
 8. validates the registry quality report freshness;
 9. validates the provenance-debt report freshness;
-10. generates deterministic snapshot material;
-11. uploads the material as a workflow artifact.
+10. validates the lifecycle report freshness;
+11. generates deterministic snapshot material;
+12. uploads the material as a workflow artifact.
 
 After the repository-specific validation and release-material generation, the workflow delegates snapshot publication to the reusable `snapshot-release.yml` workflow in `DiogoRibeiro7/git-actions-collection`, pinned to an exact collection commit.
 
