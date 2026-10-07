@@ -173,6 +173,39 @@ def canonical_dataset_records(root: Path) -> list[dict[str, Any]]:
                 "url": license_data.get("url"),
                 "redistribution": license_data.get("redistribution"),
             },
+            "lifecycle": (
+                {
+                    "status": (
+                        metadata["lifecycle"].get("status", "active")
+                        if isinstance(metadata.get("lifecycle"), dict)
+                        else "active"
+                    ),
+                    "deprecated_at": (
+                        _json_safe_value(metadata["lifecycle"].get("deprecated_at"))
+                        if isinstance(metadata.get("lifecycle"), dict)
+                        else None
+                    ),
+                    "supersedes": (
+                        sorted(
+                            item
+                            for item in metadata["lifecycle"].get("supersedes", [])
+                            if isinstance(item, str)
+                        )
+                        if isinstance(metadata.get("lifecycle"), dict)
+                        else []
+                    ),
+                    "superseded_by": (
+                        metadata["lifecycle"].get("superseded_by")
+                        if isinstance(metadata.get("lifecycle"), dict)
+                        else None
+                    ),
+                    "migration_note": (
+                        metadata["lifecycle"].get("migration_note")
+                        if isinstance(metadata.get("lifecycle"), dict)
+                        else None
+                    ),
+                }
+            ),
             "files": file_records,
         })
 
@@ -358,6 +391,112 @@ def consumer_graph_record(root: Path) -> dict[str, Any]:
         "deprecated_relationship_count": deprecated_relationship_count,
     }
 
+
+def lifecycle_record(root: Path) -> dict[str, Any]:
+    """Return canonical lifecycle report digest and summary state."""
+
+    relative_path = "reports/lifecycle.json"
+    path = root / relative_path
+    report = load_json(path)
+    summary = report.get("summary")
+    datasets = report.get("datasets")
+    migrations = report.get("consumer_migrations")
+    if not isinstance(summary, dict):
+        raise ValueError(f"{path}: lifecycle report has no summary object")
+    if not isinstance(datasets, list):
+        raise ValueError(f"{path}: lifecycle report datasets must be a list")
+    if not isinstance(migrations, list):
+        raise ValueError(f"{path}: lifecycle report consumer_migrations must be a list")
+
+    required_counts = (
+        "canonical_dataset_count",
+        "active_count",
+        "deprecated_count",
+        "superseded_count",
+        "replacement_edge_count",
+        "active_consumer_relationship_count",
+        "current_consumer_relationship_count",
+        "migration_required_count",
+        "migration_planned_count",
+        "migration_retained_count",
+        "migrated_relationship_count",
+        "migration_needed_count",
+    )
+    for key in required_counts:
+        if not isinstance(summary.get(key), int):
+            raise ValueError(f"{path}: summary.{key} must be an integer")
+
+    coverage = summary.get("migration_resolution_coverage")
+    if not isinstance(coverage, (int, float)):
+        raise ValueError(
+            f"{path}: summary.migration_resolution_coverage must be numeric"
+        )
+
+    normalized_datasets: list[dict[str, Any]] = []
+    for item in datasets:
+        if not isinstance(item, dict):
+            raise ValueError(f"{path}: lifecycle dataset entries must be objects")
+        dataset_id = item.get("id")
+        status = item.get("status")
+        chain = item.get("replacement_chain")
+        if not isinstance(dataset_id, str) or not dataset_id:
+            raise ValueError(f"{path}: lifecycle dataset id must be non-empty text")
+        if status not in {"active", "deprecated", "superseded"}:
+            raise ValueError(f"{path}: lifecycle dataset {dataset_id!r} has invalid status")
+        if not isinstance(chain, list) or not all(isinstance(value, str) for value in chain):
+            raise ValueError(
+                f"{path}: lifecycle dataset {dataset_id!r} replacement_chain must be a string list"
+            )
+        normalized_datasets.append(
+            {
+                "id": dataset_id,
+                "status": status,
+                "deprecated_at": item.get("deprecated_at"),
+                "direct_replacement": item.get("direct_replacement"),
+                "preferred_dataset_id": item.get("preferred_dataset_id"),
+                "replacement_chain": chain,
+                "active_consumer_count": item.get("active_consumer_count"),
+                "migration_needed_consumer_count": item.get(
+                    "migration_needed_consumer_count"
+                ),
+                "migration_note": item.get("migration_note"),
+            }
+        )
+
+    normalized_datasets.sort(key=lambda item: item["id"])
+
+    return {
+        "path": relative_path,
+        "schema_version": report.get("schema_version"),
+        "sha256": sha256_file(path),
+        "canonical_dataset_count": summary["canonical_dataset_count"],
+        "active_count": summary["active_count"],
+        "deprecated_count": summary["deprecated_count"],
+        "superseded_count": summary["superseded_count"],
+        "replacement_edge_count": summary["replacement_edge_count"],
+        "active_consumer_relationship_count": summary[
+            "active_consumer_relationship_count"
+        ],
+        "current_consumer_relationship_count": summary[
+            "current_consumer_relationship_count"
+        ],
+        "migration_required_count": summary["migration_required_count"],
+        "migration_planned_count": summary["migration_planned_count"],
+        "migration_retained_count": summary["migration_retained_count"],
+        "migrated_relationship_count": summary["migrated_relationship_count"],
+        "migration_needed_count": summary["migration_needed_count"],
+        "migration_resolution_coverage": float(coverage),
+        "preferred_replacements": dict(
+            sorted(
+                report.get("preferred_replacements", {}).items()
+                if isinstance(report.get("preferred_replacements"), dict)
+                else []
+            )
+        ),
+        "datasets": normalized_datasets,
+    }
+
+
 def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
     """Build the deterministic snapshot manifest."""
 
@@ -370,7 +509,7 @@ def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
         for layer, relative_path in sorted(SCHEMA_FILES.items())
     }
     return {
-        "manifest_version": 4,
+        "manifest_version": 5,
         "repository": REPOSITORY,
         "tag": tag,
         "commit": commit,
@@ -380,6 +519,7 @@ def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
             "external": catalog_record(root, "external/catalog.json"),
         },
         "consumer_registry": consumer_graph_record(root),
+        "canonical_lifecycle": lifecycle_record(root),
         "canonical_expansion": canonical_expansion_record(root),
         "provenance_debt": provenance_debt_record(root),
         "metadata_schemas": schemas,
@@ -393,6 +533,7 @@ def render_summary(manifest: dict[str, Any]) -> str:
     datasets = manifest["canonical_datasets"]
     consumers = manifest["consumer_registry"]
     expansion = manifest["canonical_expansion"]
+    lifecycle = manifest["canonical_lifecycle"]
     debt = manifest["provenance_debt"]
     file_count = sum(len(item["files"]) for item in datasets)
     lines = [
@@ -406,6 +547,8 @@ def render_summary(manifest: dict[str, Any]) -> str:
         f"- Canonical consumer repositories: **{consumers['repository_count']}**",
         f"- Canonical datasets added since {expansion['baseline_snapshot']}: **{len(expansion['datasets_added_since_baseline'])}**",
         f"- Uncovered canonical datasets: **{len(expansion['uncovered_datasets'])}**",
+        f"- Active / deprecated / superseded canonical datasets: **{lifecycle['active_count']} / {lifecycle['deprecated_count']} / {lifecycle['superseded_count']}**",
+        f"- Consumer migrations required / planned / retained / migrated: **{lifecycle['migration_required_count']} / {lifecycle['migration_planned_count']} / {lifecycle['migration_retained_count']} / {lifecycle['migrated_relationship_count']}**",
         f"- Provenance/licensing debt items: **{debt['total_debt']}**",
         f"- Terminal debt items: **{debt['terminal_count']}**",
         f"- Actionable debt items: **{debt['actionable_count']}**",
@@ -440,6 +583,53 @@ def render_summary(manifest: dict[str, Any]) -> str:
             f"- `{dataset_id}`: {rationale}"
             for dataset_id, rationale in expansion["exemptions"].items()
         )
+    else:
+        lines.append("- None")
+
+    lines.extend([
+        "",
+        "## Canonical lifecycle and supersession",
+        "",
+        f"- Report: `{lifecycle['path']}`",
+        f"- Report SHA-256: `{lifecycle['sha256']}`",
+        f"- Active / deprecated / superseded: **{lifecycle['active_count']} / {lifecycle['deprecated_count']} / {lifecycle['superseded_count']}**",
+        f"- Replacement edges: **{lifecycle['replacement_edge_count']}**",
+        f"- Migration required / planned / retained / migrated: **{lifecycle['migration_required_count']} / {lifecycle['migration_planned_count']} / {lifecycle['migration_retained_count']} / {lifecycle['migrated_relationship_count']}**",
+        f"- Migration resolution coverage: **{lifecycle['migration_resolution_coverage']:.0%}**",
+        "",
+        "Replacement chains:",
+        "",
+    ])
+    replacement_chains = [
+        item
+        for item in lifecycle["datasets"]
+        if len(item["replacement_chain"]) > 1
+    ]
+    if replacement_chains:
+        for item in replacement_chains:
+            lines.append(
+                "- " + " -> ".join(
+                    f"`{dataset_id}`"
+                    for dataset_id in item["replacement_chain"]
+                )
+            )
+    else:
+        lines.append("- None")
+
+    deprecated_or_superseded = [
+        item
+        for item in lifecycle["datasets"]
+        if item["status"] in {"deprecated", "superseded"}
+    ]
+    lines.extend(["", "Deprecated or superseded datasets:", ""])
+    if deprecated_or_superseded:
+        for item in deprecated_or_superseded:
+            preferred = item.get("preferred_dataset_id") or "none"
+            lines.append(
+                f"- `{item['id']}`: {item['status']}; preferred `{preferred}`; "
+                f"active consumers **{item.get('active_consumer_count', 0)}**; "
+                f"migration needed **{item.get('migration_needed_consumer_count', 0)}**"
+            )
     else:
         lines.append("- None")
 
@@ -522,6 +712,23 @@ def render_summary(manifest: dict[str, Any]) -> str:
                 f"- Licence: {license_data['name']} "
                 f"({license_data['redistribution']}) — {license_data['url']}"
             )
+            dataset_lifecycle = dataset["lifecycle"]
+            lines.append(f"- Lifecycle: {dataset_lifecycle['status']}")
+            if dataset_lifecycle.get("superseded_by"):
+                lines.append(
+                    f"- Superseded by: `{dataset_lifecycle['superseded_by']}`"
+                )
+            if dataset_lifecycle.get("supersedes"):
+                lines.append(
+                    "- Supersedes: "
+                    + ", ".join(
+                        f"`{value}`" for value in dataset_lifecycle["supersedes"]
+                    )
+                )
+            if dataset_lifecycle.get("migration_note"):
+                lines.append(
+                    f"- Migration note: {dataset_lifecycle['migration_note']}"
+                )
             for item in dataset["files"]:
                 lines.append(f"- `{item['path']}` — `{item['sha256']}`")
             lines.append("")
