@@ -662,6 +662,198 @@ def validate_consumer_template(root: Path, problems: list[Problem]) -> None:
     )
 
 
+def canonical_lifecycle_status(metadata: dict[str, Any]) -> str:
+    """Return canonical lifecycle status with the backward-compatible default."""
+
+    lifecycle = metadata.get("lifecycle")
+    if not isinstance(lifecycle, dict):
+        return "active"
+    status = lifecycle.get("status")
+    return status if isinstance(status, str) else "active"
+
+
+def preferred_replacement_id(
+    dataset_id: str,
+    canonical_metadata: dict[str, dict[str, Any]],
+) -> str | None:
+    """Resolve the active terminal replacement for one canonical dataset."""
+
+    if dataset_id not in canonical_metadata:
+        return None
+
+    current = dataset_id
+    seen: set[str] = set()
+    while current not in seen:
+        seen.add(current)
+        metadata = canonical_metadata[current]
+        if canonical_lifecycle_status(metadata) != "superseded":
+            return current if current != dataset_id else None
+
+        lifecycle = metadata.get("lifecycle")
+        if not isinstance(lifecycle, dict):
+            return None
+        target = lifecycle.get("superseded_by")
+        if not isinstance(target, str) or target not in canonical_metadata:
+            return None
+        current = target
+    return None
+
+
+def validate_consumer_migration(
+    record_path: Path,
+    metadata: dict[str, Any],
+    dataset_metadata: dict[str, Any] | None,
+    canonical_metadata: dict[str, dict[str, Any]],
+    problems: list[Problem],
+) -> None:
+    """Validate consumer migration state against canonical lifecycle state."""
+
+    relationship_status = metadata.get("status")
+    migration = metadata.get("migration")
+    migration_status = migration.get("status") if isinstance(migration, dict) else None
+    target_dataset_id = (
+        migration.get("target_dataset_id") if isinstance(migration, dict) else None
+    )
+
+    if relationship_status == "deprecated":
+        if migration is not None and migration_status != "migrated":
+            problems.append(
+                Problem(
+                    "error",
+                    f"{record_path}: deprecated consumer relationships may only use "
+                    "migration.status=migrated",
+                )
+            )
+        if migration_status == "migrated":
+            if not isinstance(target_dataset_id, str):
+                problems.append(
+                    Problem(
+                        "error",
+                        f"{record_path}: migrated consumer relationship requires "
+                        "migration.target_dataset_id",
+                    )
+                )
+            elif target_dataset_id not in canonical_metadata:
+                problems.append(
+                    Problem(
+                        "error",
+                        f"{record_path}: migration target '{target_dataset_id}' is not "
+                        "a canonical dataset",
+                    )
+                )
+            elif canonical_lifecycle_status(canonical_metadata[target_dataset_id]) != "active":
+                problems.append(
+                    Problem(
+                        "error",
+                        f"{record_path}: migrated consumer target '{target_dataset_id}' "
+                        "must be lifecycle.status=active",
+                    )
+                )
+
+            dataset_id = metadata.get("dataset_id")
+            if isinstance(dataset_id, str) and dataset_metadata is not None:
+                preferred = preferred_replacement_id(dataset_id, canonical_metadata)
+                if preferred is not None and target_dataset_id != preferred:
+                    problems.append(
+                        Problem(
+                            "error",
+                            f"{record_path}: migrated consumer target must be preferred "
+                            f"replacement '{preferred}'",
+                        )
+                    )
+        return
+
+    if relationship_status != "active" or dataset_metadata is None:
+        return
+
+    lifecycle_status = canonical_lifecycle_status(dataset_metadata)
+    if lifecycle_status == "active":
+        if migration is not None:
+            problems.append(
+                Problem(
+                    "error",
+                    f"{record_path}: active consumer of an active canonical dataset "
+                    "must not declare migration state",
+                )
+            )
+        return
+
+    if not isinstance(migration, dict):
+        problems.append(
+            Problem(
+                "error",
+                f"{record_path}: active consumer of lifecycle.status={lifecycle_status} "
+                "dataset requires explicit migration state",
+            )
+        )
+        return
+
+    if migration_status not in {"required", "planned", "retained"}:
+        problems.append(
+            Problem(
+                "error",
+                f"{record_path}: active consumer migration status must be one of "
+                "required, planned, retained",
+            )
+        )
+        return
+
+    if migration_status == "retained":
+        rationale = migration.get("rationale")
+        if not isinstance(rationale, str) or not rationale.strip():
+            problems.append(
+                Problem(
+                    "error",
+                    f"{record_path}: retained migration state requires a rationale",
+                )
+            )
+
+    if isinstance(target_dataset_id, str):
+        if target_dataset_id not in canonical_metadata:
+            problems.append(
+                Problem(
+                    "error",
+                    f"{record_path}: migration target '{target_dataset_id}' is not "
+                    "a canonical dataset",
+                )
+            )
+        elif canonical_lifecycle_status(canonical_metadata[target_dataset_id]) != "active":
+            problems.append(
+                Problem(
+                    "error",
+                    f"{record_path}: migration target '{target_dataset_id}' must be "
+                    "lifecycle.status=active",
+                )
+            )
+
+    dataset_id = metadata.get("dataset_id")
+    if lifecycle_status == "superseded" and isinstance(dataset_id, str):
+        preferred = preferred_replacement_id(dataset_id, canonical_metadata)
+        if preferred is None:
+            problems.append(
+                Problem(
+                    "error",
+                    f"{record_path}: superseded dataset has no active preferred replacement",
+                )
+            )
+        elif migration_status == "planned" and target_dataset_id != preferred:
+            problems.append(
+                Problem(
+                    "error",
+                    f"{record_path}: planned migration target must be preferred "
+                    f"replacement '{preferred}'",
+                )
+            )
+        elif isinstance(target_dataset_id, str) and target_dataset_id != preferred:
+            problems.append(
+                Problem(
+                    "error",
+                    f"{record_path}: migration target must be preferred replacement "
+                    f"'{preferred}'",
+                )
+            )
+
+
 def validate_consumers(
     root: Path,
     canonical_metadata: dict[str, dict[str, Any]],
@@ -769,10 +961,18 @@ def validate_consumers(
                 )
                 continue
 
+            dataset_metadata = canonical_metadata.get(dataset_id)
+
             if metadata.get("status") == "deprecated":
+                validate_consumer_migration(
+                    record_path,
+                    metadata,
+                    dataset_metadata,
+                    canonical_metadata,
+                    problems,
+                )
                 continue
 
-            dataset_metadata = canonical_metadata.get(dataset_id)
             if dataset_metadata is None:
                 problems.append(
                     Problem(
@@ -781,6 +981,14 @@ def validate_consumers(
                     )
                 )
                 continue
+
+            validate_consumer_migration(
+                record_path,
+                metadata,
+                dataset_metadata,
+                canonical_metadata,
+                problems,
+            )
 
             relative_path = declared_path[len(expected_prefix):]
             files = dataset_metadata.get("files")
