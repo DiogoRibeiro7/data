@@ -814,6 +814,165 @@ def validate_consumers(
                 )
 
 
+
+def validate_lifecycle_graph(
+    canonical_metadata: dict[str, dict[str, Any]],
+    problems: list[Problem],
+) -> None:
+    """Validate canonical lifecycle replacement relationships offline."""
+
+    edges: dict[str, set[str]] = {dataset_id: set() for dataset_id in canonical_metadata}
+
+    def lifecycle_for(dataset_id: str) -> dict[str, Any]:
+        lifecycle = canonical_metadata[dataset_id].get("lifecycle")
+        return lifecycle if isinstance(lifecycle, dict) else {"status": "active"}
+
+    for dataset_id in sorted(canonical_metadata):
+        lifecycle = lifecycle_for(dataset_id)
+        status = lifecycle.get("status", "active")
+        superseded_by = lifecycle.get("superseded_by")
+        supersedes = lifecycle.get("supersedes")
+        deprecated_at = lifecycle.get("deprecated_at")
+
+        if superseded_by is not None and status != "superseded":
+            problems.append(
+                Problem(
+                    "error",
+                    f"datasets/{dataset_id}/metadata.yaml: superseded_by requires "
+                    "lifecycle.status=superseded",
+                )
+            )
+
+        if deprecated_at is not None and status == "active":
+            problems.append(
+                Problem(
+                    "error",
+                    f"datasets/{dataset_id}/metadata.yaml: deprecated_at is not valid "
+                    "for lifecycle.status=active",
+                )
+            )
+
+        if isinstance(superseded_by, str):
+            if superseded_by == dataset_id:
+                problems.append(
+                    Problem(
+                        "error",
+                        f"datasets/{dataset_id}/metadata.yaml: dataset cannot supersede itself",
+                    )
+                )
+            elif superseded_by not in canonical_metadata:
+                problems.append(
+                    Problem(
+                        "error",
+                        f"datasets/{dataset_id}/metadata.yaml: superseded_by references "
+                        f"unknown canonical dataset '{superseded_by}'",
+                    )
+                )
+            else:
+                edges[dataset_id].add(superseded_by)
+
+        if isinstance(supersedes, list):
+            for older_id in supersedes:
+                if not isinstance(older_id, str):
+                    continue
+                if older_id == dataset_id:
+                    problems.append(
+                        Problem(
+                            "error",
+                            f"datasets/{dataset_id}/metadata.yaml: dataset cannot supersede itself",
+                        )
+                    )
+                    continue
+                if older_id not in canonical_metadata:
+                    problems.append(
+                        Problem(
+                            "error",
+                            f"datasets/{dataset_id}/metadata.yaml: supersedes references "
+                            f"unknown canonical dataset '{older_id}'",
+                        )
+                    )
+                    continue
+
+                older_lifecycle = lifecycle_for(older_id)
+                older_status = older_lifecycle.get("status", "active")
+                older_target = older_lifecycle.get("superseded_by")
+
+                if older_status != "superseded":
+                    problems.append(
+                        Problem(
+                            "error",
+                            f"datasets/{dataset_id}/metadata.yaml: supersedes '{older_id}', "
+                            "but that dataset is not lifecycle.status=superseded",
+                        )
+                    )
+                if isinstance(older_target, str) and older_target != dataset_id:
+                    problems.append(
+                        Problem(
+                            "error",
+                            f"datasets/{dataset_id}/metadata.yaml: supersedes '{older_id}', "
+                            f"but its superseded_by points to '{older_target}'",
+                        )
+                    )
+                edges[older_id].add(dataset_id)
+
+    for dataset_id in sorted(canonical_metadata):
+        targets = edges[dataset_id]
+        if len(targets) > 1:
+            rendered = ", ".join(sorted(targets))
+            problems.append(
+                Problem(
+                    "error",
+                    f"datasets/{dataset_id}/metadata.yaml: ambiguous direct replacements: "
+                    f"{rendered}",
+                )
+            )
+
+        lifecycle = lifecycle_for(dataset_id)
+        superseded_by = lifecycle.get("superseded_by")
+        if isinstance(superseded_by, str) and superseded_by in canonical_metadata:
+            target_lifecycle = lifecycle_for(superseded_by)
+            target_supersedes = target_lifecycle.get("supersedes")
+            if isinstance(target_supersedes, list) and dataset_id not in target_supersedes:
+                problems.append(
+                    Problem(
+                        "error",
+                        f"datasets/{dataset_id}/metadata.yaml: superseded_by points to "
+                        f"'{superseded_by}', but that dataset's supersedes list does not "
+                        f"include '{dataset_id}'",
+                    )
+                )
+
+    visiting: set[str] = set()
+    visited: set[str] = set()
+
+    def visit(dataset_id: str, path: list[str]) -> None:
+        if dataset_id in visited:
+            return
+        if dataset_id in visiting:
+            cycle_start = path.index(dataset_id)
+            cycle = path[cycle_start:] + [dataset_id]
+            problems.append(
+                Problem(
+                    "error",
+                    "canonical lifecycle supersession cycle: " + " -> ".join(cycle),
+                )
+            )
+            return
+
+        visiting.add(dataset_id)
+        path.append(dataset_id)
+        for target in sorted(edges[dataset_id]):
+            visit(target, path)
+        path.pop()
+        visiting.remove(dataset_id)
+        visited.add(dataset_id)
+
+    for dataset_id in sorted(canonical_metadata):
+        if dataset_id not in visited:
+            visit(dataset_id, [])
+
+
+
 def build_catalog_entry(metadata: dict[str, Any]) -> dict[str, Any]:
     """Build a stable catalog entry from canonical metadata."""
 
@@ -954,6 +1113,7 @@ def validate_repository(root: Path, *, write_catalog: bool = False) -> list[Prob
         for metadata in metadata_items
         if isinstance(metadata.get("id"), str)
     }
+    validate_lifecycle_graph(canonical_metadata, problems)
     validate_consumers(root, canonical_metadata, problems)
 
     if not any(problem.severity == "error" for problem in problems):
