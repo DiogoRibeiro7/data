@@ -15,6 +15,8 @@ The JSON Schemas define structural requirements: required fields, types, enums, 
 
 The Python validator retains semantic checks that cannot be represented cleanly in JSON Schema, including:
 
+- canonical lifecycle graph references, cycles, reciprocal declarations, and replacement ambiguity;
+
 - directory name equals metadata `id`;
 - referenced files exist;
 - canonical raw/derived roles match directory placement;
