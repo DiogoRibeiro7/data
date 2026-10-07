@@ -34,10 +34,10 @@ and the committed consumer catalog. Do not edit it by hand.
 
 | Consumer | Dataset | State | Preferred dataset | Rationale |
 | --- | --- | --- | --- | --- |
-| `city-wage-cost-global` | `ons-gross-median-weekly-pay` | current | `ons-gross-median-weekly-pay`  -- |
-| `displacement-risk-lab-dynamodb` | `ucdp-ged-25-1` | current | `ucdp-ged-25-1`  -- |
-| `displacement-risk-lab-dynamodb` | `unhcr-refugee-population-2024` | current | `unhcr-refugee-population-2024`  -- |
-| `medium-blog` | `online-retail-ii` | current | `online-retail-ii`  -- |
+| `city-wage-cost-global` | `ons-gross-median-weekly-pay` | current | `ons-gross-median-weekly-pay` | -- |
+| `displacement-risk-lab-dynamodb` | `ucdp-ged-25-1` | current | `ucdp-ged-25-1` | -- |
+| `displacement-risk-lab-dynamodb` | `unhcr-refugee-population-2024` | current | `unhcr-refugee-population-2024` | -- |
+| `medium-blog` | `online-retail-ii` | current | `online-retail-ii` | -- |
 
 ## Semantics
 
