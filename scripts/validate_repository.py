@@ -971,6 +971,29 @@ def validate_lifecycle_graph(
         if dataset_id not in visited:
             visit(dataset_id, [])
 
+    for dataset_id in sorted(canonical_metadata):
+        if lifecycle_for(dataset_id).get("status", "active") != "superseded":
+            continue
+
+        current = dataset_id
+        seen: set[str] = set()
+        while current not in seen and len(edges[current]) == 1:
+            seen.add(current)
+            current = next(iter(edges[current]))
+
+        if current in seen or len(edges[current]) > 1:
+            continue
+
+        terminal_status = lifecycle_for(current).get("status", "active")
+        if terminal_status != "active":
+            problems.append(
+                Problem(
+                    "error",
+                    f"datasets/{dataset_id}/metadata.yaml: replacement chain ends at "
+                    f"'{current}' with lifecycle.status={terminal_status}; preferred "
+                    "replacement must be active",
+                )
+            )
 
 
 def build_catalog_entry(metadata: dict[str, Any]) -> dict[str, Any]:
