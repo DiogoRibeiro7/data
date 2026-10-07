@@ -181,6 +181,13 @@ class RegistryQualityTests(unittest.TestCase):
             consumers["active_consumer_repositories"],
             ["DiogoRibeiro7/consumer-one"],
         )
+        self.assertEqual(consumers["migration_applicable_relationship_count"], 0)
+        self.assertEqual(consumers["migration_explicit_relationship_count"], 0)
+        self.assertEqual(consumers["migration_coverage"], 1.0)
+        self.assertEqual(consumers["migration_required_count"], 0)
+        self.assertEqual(consumers["migration_planned_count"], 0)
+        self.assertEqual(consumers["migration_retained_count"], 0)
+        self.assertEqual(consumers["migration_migrated_count"], 0)
 
         self.assertEqual(legacy["package_count"], 1)
         self.assertEqual(legacy["unresolved_package_count"], 1)
@@ -339,6 +346,79 @@ class RegistryQualityTests(unittest.TestCase):
         self.assertEqual(consumers["canonical_dataset_adoption_coverage"], 0.0)
 
 
+    def test_consumer_metrics_track_lifecycle_migration_coverage(self) -> None:
+        dataset_path = self.root / "datasets" / "example" / "metadata.yaml"
+        dataset = yaml.safe_load(dataset_path.read_text(encoding="utf-8"))
+        dataset["lifecycle"] = {
+            "status": "superseded",
+            "superseded_by": "replacement",
+        }
+        dataset_path.write_text(
+            yaml.safe_dump(dataset, sort_keys=False),
+            encoding="utf-8",
+        )
+
+        replacement = self.root / "datasets" / "replacement"
+        (replacement / "raw").mkdir(parents=True)
+        raw = replacement / "raw" / "data.csv"
+        raw.write_text("x\n2\n", encoding="utf-8")
+
+        import hashlib
+        checksum = hashlib.sha256(raw.read_bytes()).hexdigest()
+        replacement_metadata = {
+            "schema_version": 1,
+            "id": "replacement",
+            "title": "Replacement",
+            "description": "Replacement dataset",
+            "domain": ["example"],
+            "source": {
+                "publisher": "Example",
+                "url": "https://example.com/replacement",
+                "retrieved_at": "2026-10-07",
+                "snapshot": "replacement-v1",
+            },
+            "license": {
+                "name": "CC0",
+                "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+                "redistribution": "allowed",
+            },
+            "lifecycle": {
+                "status": "active",
+                "supersedes": ["example"],
+            },
+            "files": [{
+                "path": "raw/data.csv",
+                "role": "raw",
+                "format": "csv",
+                "sha256": checksum,
+            }],
+            "lineage": [],
+        }
+        (replacement / "metadata.yaml").write_text(
+            yaml.safe_dump(replacement_metadata, sort_keys=False),
+            encoding="utf-8",
+        )
+
+        path = self.root / "consumers" / "consumer-one" / "example.yaml"
+        consumer = yaml.safe_load(path.read_text(encoding="utf-8"))
+        consumer["migration"] = {
+            "status": "planned",
+            "target_dataset_id": "replacement",
+        }
+        path.write_text(
+            yaml.safe_dump(consumer, sort_keys=False),
+            encoding="utf-8",
+        )
+
+        consumers = QUALITY._consumer_metrics(self.root)
+
+        self.assertEqual(consumers["migration_applicable_relationship_count"], 1)
+        self.assertEqual(consumers["migration_explicit_relationship_count"], 1)
+        self.assertEqual(consumers["migration_coverage"], 1.0)
+        self.assertEqual(consumers["migration_planned_count"], 1)
+        self.assertEqual(consumers["migration_required_count"], 0)
+        self.assertEqual(consumers["migration_retained_count"], 0)
+
     def test_consumer_repository_count_deduplicates_consumer_ids(self) -> None:
         second_dir = self.root / "consumers" / "consumer-two"
         second_dir.mkdir()
@@ -464,6 +544,13 @@ class RegistryQualityTests(unittest.TestCase):
                 "active_consumers": ["consumer-one"],
                 "datasets_with_consumers": ["example"],
                 "datasets_without_consumers": [],
+                "migration_applicable_relationship_count": 0,
+                "migration_explicit_relationship_count": 0,
+                "migration_coverage": 1.0,
+                "migration_required_count": 0,
+                "migration_planned_count": 0,
+                "migration_retained_count": 0,
+                "migration_migrated_count": 0,
             },
             "canonical_expansion": {
                 "baseline_snapshot": "snapshot-2026.10.05",
