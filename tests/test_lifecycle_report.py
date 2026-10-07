@@ -199,8 +199,14 @@ class LifecycleReportTests(unittest.TestCase):
 
         report = LIFECYCLE.build_report(self.root)
 
-        statuses = [item["status"] for item in report["consumer_migrations"]]
-        self.assertEqual(statuses, ["migrated", "current"])
+        by_dataset = {
+            item["dataset_id"]: item["status"]
+            for item in report["consumer_migrations"]
+        }
+        self.assertEqual(
+            by_dataset,
+            {"new": "current", "old": "migrated"},
+        )
         self.assertEqual(report["summary"]["migrated_relationship_count"], 1)
 
     def test_markdown_renders_replacement_chain(self) -> None:
