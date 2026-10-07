@@ -19,6 +19,7 @@ on:
       - "scripts/check_consumer_contracts.py"
       - "scripts/registry_quality.py"
       - "scripts/generate_provenance_debt.py"
+      - "scripts/generate_lifecycle_report.py"
       - "tests/test_validate_repository.py"
       - "tests/test_fetch_dataset.py"
       - "tests/test_external_catalog.py"
@@ -30,12 +31,15 @@ on:
       - "tests/test_citation_metadata.py"
       - "tests/test_registry_quality.py"
       - "tests/test_provenance_debt.py"
+      - "tests/test_lifecycle_report.py"
       - "reports/registry-quality.json"
       - "reports/registry-quality.md"
       - "reports/canonical-adoption-policy.json"
       - "reports/canonical-adoption-policy.json"
       - "reports/provenance-debt.json"
       - "reports/provenance-debt.md"
+      - "reports/lifecycle.json"
+      - "reports/lifecycle.md"
       - "docs/QUALITY.md"
       - "scripts/prepare_docs.py"
       - "mkdocs.yml"
@@ -67,6 +71,7 @@ on:
       - "scripts/check_consumer_contracts.py"
       - "scripts/registry_quality.py"
       - "scripts/generate_provenance_debt.py"
+      - "scripts/generate_lifecycle_report.py"
       - "tests/test_validate_repository.py"
       - "tests/test_fetch_dataset.py"
       - "tests/test_external_catalog.py"
@@ -78,10 +83,13 @@ on:
       - "tests/test_citation_metadata.py"
       - "tests/test_registry_quality.py"
       - "tests/test_provenance_debt.py"
+      - "tests/test_lifecycle_report.py"
       - "reports/registry-quality.json"
       - "reports/registry-quality.md"
       - "reports/provenance-debt.json"
       - "reports/provenance-debt.md"
+      - "reports/lifecycle.json"
+      - "reports/lifecycle.md"
       - "docs/QUALITY.md"
       - "scripts/prepare_docs.py"
       - "mkdocs.yml"
@@ -135,3 +143,6 @@ jobs:
 
       - name: Validate provenance debt report
         run: python scripts/generate_provenance_debt.py
+
+      - name: Validate lifecycle report
+        run: python scripts/generate_lifecycle_report.py
