@@ -1,0 +1,106 @@
+{
+  "consumer_migrations": [
+    {
+      "consumer_id": "city-wage-cost-global",
+      "consumer_repository": "DiogoRibeiro7/city-wage-cost-global",
+      "dataset_id": "ons-gross-median-weekly-pay",
+      "preferred_dataset_id": "ons-gross-median-weekly-pay",
+      "status": "current"
+    },
+    {
+      "consumer_id": "displacement-risk-lab-dynamodb",
+      "consumer_repository": "DiogoRibeiro7/displacement-risk-lab-dynamodb",
+      "dataset_id": "ucdp-ged-25-1",
+      "preferred_dataset_id": "ucdp-ged-25-1",
+      "status": "current"
+    },
+    {
+      "consumer_id": "displacement-risk-lab-dynamodb",
+      "consumer_repository": "DiogoRibeiro7/displacement-risk-lab-dynamodb",
+      "dataset_id": "unhcr-refugee-population-2024",
+      "preferred_dataset_id": "unhcr-refugee-population-2024",
+      "status": "current"
+    },
+    {
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "online-retail-ii",
+      "preferred_dataset_id": "online-retail-ii",
+      "status": "current"
+    }
+  ],
+  "datasets": [
+    {
+      "active_consumer_count": 1,
+      "deprecated_at": null,
+      "direct_predecessors": [],
+      "direct_replacement": null,
+      "id": "online-retail-ii",
+      "migration_needed_consumer_count": 0,
+      "migration_note": null,
+      "preferred_dataset_id": "online-retail-ii",
+      "replacement_chain": [
+        "online-retail-ii"
+      ],
+      "status": "active",
+      "title": "Online Retail II"
+    },
+    {
+      "active_consumer_count": 1,
+      "deprecated_at": null,
+      "direct_predecessors": [],
+      "direct_replacement": null,
+      "id": "ons-gross-median-weekly-pay",
+      "migration_needed_consumer_count": 0,
+      "migration_note": null,
+      "preferred_dataset_id": "ons-gross-median-weekly-pay",
+      "replacement_chain": [
+        "ons-gross-median-weekly-pay"
+      ],
+      "status": "active",
+      "title": "ONS Explore Local Statistics: Gross median weekly pay"
+    },
+    {
+      "active_consumer_count": 1,
+      "deprecated_at": null,
+      "direct_predecessors": [],
+      "direct_replacement": null,
+      "id": "ucdp-ged-25-1",
+      "migration_needed_consumer_count": 0,
+      "migration_note": null,
+      "preferred_dataset_id": "ucdp-ged-25-1",
+      "replacement_chain": [
+        "ucdp-ged-25-1"
+      ],
+      "status": "active",
+      "title": "UCDP Georeferenced Event Dataset (GED) 25.1"
+    },
+    {
+      "active_consumer_count": 1,
+      "deprecated_at": null,
+      "direct_predecessors": [],
+      "direct_replacement": null,
+      "id": "unhcr-refugee-population-2024",
+      "migration_needed_consumer_count": 0,
+      "migration_note": null,
+      "preferred_dataset_id": "unhcr-refugee-population-2024",
+      "replacement_chain": [
+        "unhcr-refugee-population-2024"
+      ],
+      "status": "active",
+      "title": "UNHCR Refugee Population Statistics — Global Trends 2024"
+    }
+  ],
+  "preferred_replacements": {},
+  "schema_version": 1,
+  "summary": {
+    "active_consumer_relationship_count": 4,
+    "active_count": 4,
+    "canonical_dataset_count": 4,
+    "current_consumer_relationship_count": 4,
+    "deprecated_count": 0,
+    "migration_needed_count": 0,
+    "replacement_edge_count": 0,
+    "superseded_count": 0
+  }
+}
