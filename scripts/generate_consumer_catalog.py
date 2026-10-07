@@ -166,8 +166,8 @@ def render_markdown(catalog: dict[str, Any]) -> str:
 
     lines.extend(
         [
-            "| Consumer | Dataset | Status | Migration | Registry commit | Canonical path | SHA-256 | Evidence |",
-            "| --- | --- | --- | --- | --- | --- | --- | --- |",
+            "| Consumer | Dataset | Status | Registry commit | Canonical path | SHA-256 | Evidence |",
+            "| --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
 
@@ -175,16 +175,9 @@ def render_markdown(catalog: dict[str, Any]) -> str:
         record_path = f"{item['consumer_id']}/{item['dataset_id']}.yaml"
         evidence_url = item.get("evidence_url")
         evidence = f"[evidence]({evidence_url})" if evidence_url else "—"
-        migration = item.get("migration")
-        migration_status = (
-            migration.get("status")
-            if isinstance(migration, dict)
-            else "—"
-        )
         lines.append(
             f"| [{_markdown_cell(item['consumer_repository'])}]({record_path}) | "
             f"{_markdown_code_cell(item['dataset_id'])} | {_markdown_cell(item['status'])} | "
-            f"{_markdown_cell(migration_status)} | "
             f"{_markdown_code_cell(item['registry_commit'])} | "
             f"{_markdown_code_cell(item['path'])} | "
             f"{_markdown_code_cell(item['sha256'])} | {evidence} |"
