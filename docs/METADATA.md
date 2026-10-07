@@ -33,6 +33,9 @@ citation:
   text: Example citation text
   url: https://example.org/citation
 
+lifecycle:
+  status: active
+
 files:
   - path: raw/example.csv
     role: raw
@@ -84,6 +87,23 @@ Datasets marked `restricted` or `unknown` must not include redistributed source 
 ### `citation`
 
 Citation text and canonical citation URL when available. Use `null` only when no citation is provided by the source.
+
+### `lifecycle`
+
+Optional lifecycle metadata for a canonical dataset. If omitted, the dataset is
+treated as `active`.
+
+- `status`: one of `active`, `deprecated`, or `superseded`;
+- `deprecated_at`: optional ISO date when deprecation became effective;
+- `supersedes`: optional list of older canonical dataset IDs replaced by this dataset;
+- `superseded_by`: canonical dataset ID that replaces this dataset; required when
+  `status: superseded`;
+- `migration_note`: optional non-empty guidance for consumers.
+
+Lifecycle metadata never changes the bytes or identity of an existing canonical
+snapshot. It only records which canonical representation is currently preferred.
+Cross-dataset graph invariants such as cycles, missing targets, and ambiguous
+replacement paths are validated separately by repository lifecycle validation.
 
 ### `files`
 
