@@ -289,6 +289,79 @@ class ConsumerRelationship:
 
 
 @dataclass(frozen=True)
+class LegacyRecord:
+    """Typed projection of legacy quarantine metadata schema v0."""
+
+    SCHEMA_VERSION: ClassVar[int] = 0
+
+    id: str
+    title: str
+    publisher: str
+    redistribution: str
+    file_count: int
+    _raw: Mapping[str, Any]
+
+    @classmethod
+    def from_mapping(cls, raw: Mapping[str, Any]) -> "LegacyRecord":
+        record = "legacy"
+        raw = _mapping(raw, field=record)
+        if raw.get("schema_version") != 0:
+            raise RegistryModelError("legacy.schema_version must be 0")
+        if raw.get("status") != "legacy-quarantine":
+            raise RegistryModelError(
+                "legacy.status must be 'legacy-quarantine'"
+            )
+
+        source = _mapping(raw.get("source"), field="legacy.source")
+        license_data = _mapping(raw.get("license"), field="legacy.license")
+        files = raw.get("files")
+        if not isinstance(files, (list, tuple)) or not files:
+            raise RegistryModelError("legacy.files must be a non-empty list")
+        for index, item in enumerate(files):
+            file_record = _mapping(item, field=f"legacy.files[{index}]")
+            _text(
+                file_record,
+                "original_path",
+                record=f"legacy.files[{index}]",
+            )
+            _text(file_record, "path", record=f"legacy.files[{index}]")
+            size = file_record.get("size_bytes")
+            if not isinstance(size, int) or size < 0:
+                raise RegistryModelError(
+                    f"legacy.files[{index}].size_bytes must be a non-negative integer"
+                )
+            blob = _text(
+                file_record,
+                "git_blob_sha",
+                record=f"legacy.files[{index}]",
+            )
+            if len(blob) != 40:
+                raise RegistryModelError(
+                    f"legacy.files[{index}].git_blob_sha must contain 40 characters"
+                )
+
+        return cls(
+            id=_text(raw, "id", record=record),
+            title=_text(raw, "title", record=record),
+            publisher=_text(
+                source,
+                "publisher",
+                record="legacy.source",
+            ),
+            redistribution=_text(
+                license_data,
+                "redistribution",
+                record="legacy.license",
+            ),
+            file_count=len(files),
+            _raw=_freeze(raw),
+        )
+
+    def to_mapping(self) -> dict[str, Any]:
+        return _thaw(self._raw)
+
+
+@dataclass(frozen=True)
 class ProvenanceDebtItem:
     """Typed projection of one generated provenance-debt queue item."""
 
