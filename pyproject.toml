@@ -3,6 +3,7 @@ name = "diogo-data-registry"
 version = "0.1.0"
 description = "Typed, provenance-first client for the DiogoRibeiro7 data registry"
 authors = ["Diogo Ribeiro"]
+maintainers = ["Diogo Ribeiro"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://diogoribeiro7.github.io/data/"
