@@ -6,6 +6,8 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+from generate_static_distribution import stage_for_docs
+
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 GENERATED = DOCS / "generated"
@@ -79,6 +81,7 @@ def main() -> int:
     copy_text(ROOT / "reports" / "registry-quality.md", GENERATED / "registry-quality.md")
     copy_text(ROOT / "reports" / "provenance-debt.md", GENERATED / "provenance-debt.md")
     copy_text(ROOT / "reports" / "lifecycle.md", GENERATED / "lifecycle.md")
+    stage_for_docs(ROOT, DOCS)
     return 0
 
 if __name__ == "__main__":
