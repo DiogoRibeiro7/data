@@ -10,6 +10,7 @@ from typing import Any, Sequence
 
 import yaml
 
+from .api import RegistryClient
 from . import fetch as FETCH
 from .core import (
     LAYER_CHOICES,
@@ -548,9 +549,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
 
         if args.command == "fetch":
-            entry = find_entry(entries, args.id, layer="canonical")
-            output, repository_path, checksum = fetch_entry_file(
-                entry,
+            fetched = RegistryClient(root).fetch(
+                args.id,
                 args.file,
                 commit=args.commit,
                 output=args.output,
@@ -559,19 +559,19 @@ def main(argv: Sequence[str] | None = None) -> int:
                 force=args.force,
             )
             payload = {
-                "id": entry.id,
-                "commit": args.commit,
-                "repository": args.repository,
-                "path": repository_path,
-                "sha256": checksum,
-                "output": str(output),
+                "id": fetched.dataset_id,
+                "commit": fetched.commit,
+                "repository": fetched.repository,
+                "path": fetched.path,
+                "sha256": fetched.sha256,
+                "output": str(fetched.output),
             }
             if args.json:
                 _print_json(payload)
             else:
-                print(f"Verified dataset file: {output}")
-                print(f"Commit: {args.commit}")
-                print(f"SHA-256: {checksum}")
+                print(f"Verified dataset file: {fetched.output}")
+                print(f"Commit: {fetched.commit}")
+                print(f"SHA-256: {fetched.sha256}")
             return 0
 
         raise RegistryError(f"unknown command: {args.command}")
