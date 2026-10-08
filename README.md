@@ -151,6 +151,8 @@ CI checks metadata consistency, integrity, duplicate content, file-size policy, 
 
 ## Versioning and releases
 
+Client/API, schema, static-distribution, and historical snapshot-manifest compatibility are defined in [the compatibility policy](docs/COMPATIBILITY.md).
+
 Dataset snapshots are immutable. Consumers pin commits and checksums; repository releases provide human-readable snapshot milestones.
 
 See [Release and snapshot policy](docs/RELEASES.md).
