@@ -17,6 +17,7 @@ sys.path.insert(0, str(SCRIPTS))
 import fetch_dataset as FETCH_SCRIPT  # noqa: E402
 import registry as REGISTRY_SCRIPT  # noqa: E402
 
+from data_registry import api as API  # noqa: E402
 from data_registry import cli as CLI  # noqa: E402
 from data_registry import core as CORE  # noqa: E402
 from data_registry import fetch as FETCH  # noqa: E402
@@ -51,6 +52,9 @@ class RegistryCoreTests(unittest.TestCase):
 
     def test_registry_script_uses_packaged_cli_main(self) -> None:
         self.assertIs(REGISTRY_SCRIPT.main, CLI.main)
+
+    def test_cli_fetch_uses_public_registry_client(self) -> None:
+        self.assertIs(CLI.RegistryClient, API.RegistryClient)
 
     def test_shared_core_import_has_no_cli_side_effects(self) -> None:
         self.assertTrue(callable(CORE.load_registry))
