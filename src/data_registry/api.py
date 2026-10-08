@@ -176,6 +176,11 @@ class RegistryClient:
     ) -> tuple[ProvenanceDebtItem, ...]:
         """Return typed provenance/licensing debt items."""
 
+        if layer not in {"all", "external", "legacy"}:
+            raise RegistryError(f"unknown provenance debt layer {layer!r}")
+        if status not in {"all", "actionable", "terminal"}:
+            raise RegistryError(f"unknown provenance debt status {status!r}")
+
         report = load_provenance_debt(self.root)
         items = filter_debt_items(
             report,
