@@ -12,6 +12,7 @@ from data_registry.models import (
     CanonicalDataset,
     ConsumerRelationship,
     ExternalRecord,
+    LegacyRecord,
     LifecycleDataset,
     ProvenanceDebtItem,
     RegistryModelError,
@@ -57,6 +58,17 @@ class RegistryModelTests(unittest.TestCase):
         self.assertEqual(model.status, "active")
         self.assertEqual(model.dataset_id, "unhcr-refugee-population-2024")
         self.assertIsNone(model.migration_status)
+        self.assertEqual(model.to_mapping(), raw)
+
+    def test_legacy_model_round_trips_production_metadata(self) -> None:
+        path = ROOT / "legacy" / "country-age-sex-2019" / "metadata.yaml"
+        raw = yaml.safe_load(path.read_text(encoding="utf-8"))
+
+        model = LegacyRecord.from_mapping(raw)
+
+        self.assertEqual(model.id, "country-age-sex-2019")
+        self.assertEqual(model.redistribution, "unknown")
+        self.assertGreater(model.file_count, 0)
         self.assertEqual(model.to_mapping(), raw)
 
     def test_debt_model_round_trips_production_item(self) -> None:
