@@ -46,6 +46,7 @@ nav:
   - Registry usage:
       - CLI: CLI.md
       - Python API: PYTHON_API.md
+      - Static distribution: STATIC_DISTRIBUTION.md
       - Client architecture: CLIENT_ARCHITECTURE.md
       - Consumers: CONSUMERS.md
       - Quality methodology: QUALITY.md
