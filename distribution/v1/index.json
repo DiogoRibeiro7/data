@@ -4,49 +4,49 @@
       "name": "canonical",
       "path": "canonical.json",
       "schema_version": 1,
-      "sha256": "ef1472500a43485b2251ad3a31acd3c4993f70091675a9f8f209337e792c6ebe"
+      "source": "datasets/catalog.json"
     },
     {
       "name": "consumers",
       "path": "consumers.json",
       "schema_version": 1,
-      "sha256": "60807734a47f55acf3180e1660f3699f6a750a9edc114fcb48538de5fc2a3a87"
+      "source": "consumers/catalog.json"
     },
     {
       "name": "dependencies",
       "path": "dependencies.json",
       "schema_version": 1,
-      "sha256": "43a4fde615eaaad59ccf71a3ff01b2a6791c19dd54bd972489b3ac651b2cc123"
+      "source": "consumers/dependency-graph.json"
     },
     {
       "name": "external",
       "path": "external.json",
       "schema_version": 1,
-      "sha256": "233cc9ed081e2ddb470716256a15f696c52f2a0318a5e8a507451461020acd72"
+      "source": "external/catalog.json"
     },
     {
       "name": "legacy",
       "path": "legacy.json",
       "schema_version": 1,
-      "sha256": "e2adf217f17add44ed00fce26ed2a337131b78fb3b6e9220580680279be5b222"
+      "source": "legacy/*/metadata.yaml"
     },
     {
       "name": "lifecycle",
       "path": "lifecycle.json",
       "schema_version": 1,
-      "sha256": "770a3be1c6c25ae52f7e2adc37b3609dfa6d107ca627304d35ff0cdb4c1dbae9"
+      "source": "reports/lifecycle.json"
     },
     {
       "name": "provenance-debt",
       "path": "provenance-debt.json",
       "schema_version": 1,
-      "sha256": "560f77478dd629b19b4603670c297ea3371dc3de9e02a661721e4e1328b3cfe8"
+      "source": "reports/provenance-debt.json"
     },
     {
       "name": "registry-quality",
       "path": "registry-quality.json",
       "schema_version": 1,
-      "sha256": "e77b9b6c87839fa75dbecfb10d6f1a9290d9a9e94135cf4d4f7c446b563ff734"
+      "source": "reports/registry-quality.json"
     }
   ],
   "distribution_version": 1,
