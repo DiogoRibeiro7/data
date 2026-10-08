@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "diogo-data-registry"
+version = "0.1.0"
+description = "Typed, provenance-first client for the DiogoRibeiro7 data registry"
+authors = ["Diogo Ribeiro"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://diogoribeiro7.github.io/data/"
+repository = "https://github.com/DiogoRibeiro7/data"
+documentation = "https://diogoribeiro7.github.io/data/"
+keywords = ["data-registry", "provenance", "reproducibility", "research-data"]
+packages = [{ include = "data_registry", from = "src" }]
+include = [
+  { path = "src/data_registry/schemas/*.json", format = ["sdist", "wheel"] },
+  { path = "LICENSE-CODE", format = ["sdist", "wheel"] }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.15"
+PyYAML = ">=6.0,<7.0"
+jsonschema = ">=4.23,<5.0"
+
+[tool.poetry.scripts]
+data-registry = "data_registry.cli:entrypoint"
+
+[build-system]
+requires = ["poetry-core>=2.0,<3.0"]
+build-backend = "poetry.core.masonry.api"
