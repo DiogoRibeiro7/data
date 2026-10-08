@@ -3,6 +3,7 @@ name: Data validation
 on:
   pull_request:
     paths:
+      - "data_registry/**"
       - "datasets/**"
       - "legacy/**"
       - "external/**"
@@ -25,6 +26,7 @@ on:
       - "tests/test_external_catalog.py"
       - "tests/test_consumer_catalog.py"
       - "tests/test_registry.py"
+      - "tests/test_registry_core.py"
       - "tests/test_snapshot.py"
       - "tests/test_external_health.py"
       - "tests/test_consumer_health.py"
@@ -55,6 +57,7 @@ on:
     branches:
       - main
     paths:
+      - "data_registry/**"
       - "datasets/**"
       - "legacy/**"
       - "external/**"
@@ -77,6 +80,7 @@ on:
       - "tests/test_external_catalog.py"
       - "tests/test_consumer_catalog.py"
       - "tests/test_registry.py"
+      - "tests/test_registry_core.py"
       - "tests/test_snapshot.py"
       - "tests/test_external_health.py"
       - "tests/test_consumer_health.py"
