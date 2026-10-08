@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import shutil
 import sys
@@ -51,12 +50,6 @@ def _json_text(value: Any) -> str:
     ) + "\n"
 
 
-def _sha256_text(text: str) -> str:
-    """Return SHA-256 for UTF-8 text."""
-
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
-
-
 def _load_json(path: Path) -> dict[str, Any]:
     """Load one JSON object."""
 
@@ -84,11 +77,26 @@ def _legacy_catalog(root: Path) -> dict[str, Any]:
         record_id = raw.get("id")
         if not isinstance(record_id, str) or not record_id:
             raise ValueError(f"{metadata_path}: missing non-empty id")
+        source = raw.get("source")
+        license_data = raw.get("license")
+        files = raw.get("files")
         records.append(
             {
                 "id": record_id,
+                "title": raw.get("title"),
+                "status": raw.get("status"),
+                "publisher": (
+                    source.get("publisher")
+                    if isinstance(source, dict)
+                    else None
+                ),
+                "redistribution": (
+                    license_data.get("redistribution")
+                    if isinstance(license_data, dict)
+                    else None
+                ),
+                "file_count": len(files) if isinstance(files, list) else 0,
                 "path": metadata_path.relative_to(root).as_posix(),
-                "metadata": _json_safe(raw),
             }
         )
 
@@ -113,6 +121,11 @@ def expected_outputs(root: Path) -> dict[str, str]:
     outputs["legacy.json"] = _json_text(_legacy_catalog(root))
 
     artifacts: list[dict[str, Any]] = []
+    source_by_filename = {
+        f"{name}.json": source_path
+        for name, source_path in SOURCE_ARTIFACTS.items()
+    }
+    source_by_filename["legacy.json"] = "legacy/*/metadata.yaml"
     for filename, text in sorted(outputs.items()):
         raw = json.loads(text)
         schema_version = raw.get("schema_version") if isinstance(raw, dict) else None
@@ -121,7 +134,7 @@ def expected_outputs(root: Path) -> dict[str, str]:
                 "name": filename.removesuffix(".json"),
                 "path": filename,
                 "schema_version": schema_version,
-                "sha256": _sha256_text(text),
+                "source": source_by_filename[filename],
             }
         )
 
