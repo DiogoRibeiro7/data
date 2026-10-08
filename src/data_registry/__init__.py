@@ -6,6 +6,7 @@ The Git repository remains the source of truth; package reads are deterministic
 and offline unless an explicit immutable fetch is requested.
 """
 
+from .api import RegistryClient, RegistryRecord
 from .core import RegistryEntry, RegistryError, load_registry
 from .fetch import DatasetReference, fetch_dataset_file
 from .models import (
@@ -26,6 +27,8 @@ __all__ = [
     "LifecycleDataset",
     "ProvenanceDebtItem",
     "RegistryModelError",
+    "RegistryClient",
+    "RegistryRecord",
     "DatasetReference",
     "RegistryEntry",
     "RegistryError",

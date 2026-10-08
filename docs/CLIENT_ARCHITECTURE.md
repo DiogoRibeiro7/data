@@ -50,6 +50,15 @@ supported schema/record shape without silently coercing incompatible versions,
 while `to_mapping()` returns a detached plain mapping that preserves the
 committed record losslessly for deterministic serialization.
 
+### `data_registry.api`
+
+Exposes the stable typed `RegistryClient` façade for downstream Python code.
+It composes `data_registry.core` reads with the strict models from
+`data_registry.models` and performs no implicit network I/O.
+
+The public read surface covers registry list/search/exact lookup, canonical
+consumer relationships, provenance/debt records, and lifecycle/replacement
+queries.
 ### `data_registry.cli`
 
 Owns the installable `data-registry` console interface. Repository wrappers
