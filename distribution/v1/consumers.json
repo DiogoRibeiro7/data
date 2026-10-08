@@ -1,0 +1,53 @@
+{
+  "relationships": [
+    {
+      "consumer_commit": "f536f262e17eeea8d666205a7025fa855f48d5da",
+      "consumer_id": "city-wage-cost-global",
+      "consumer_repository": "DiogoRibeiro7/city-wage-cost-global",
+      "dataset_id": "ons-gross-median-weekly-pay",
+      "evidence_url": "https://github.com/DiogoRibeiro7/city-wage-cost-global/pull/1",
+      "path": "datasets/ons-gross-median-weekly-pay/raw/gross-median-weekly-pay.csv",
+      "registry_commit": "886278edfd3948494378e4d4b1aead42f66b92d6",
+      "registry_repository": "DiogoRibeiro7/data",
+      "sha256": "285a76982afdfd38e9366535b43bf3e68c878ada7b819d722d2ec188c38eff17",
+      "status": "active"
+    },
+    {
+      "consumer_commit": "a0d50d277d30dce03c48bdb662298595b4fa289a",
+      "consumer_id": "displacement-risk-lab-dynamodb",
+      "consumer_repository": "DiogoRibeiro7/displacement-risk-lab-dynamodb",
+      "dataset_id": "ucdp-ged-25-1",
+      "evidence_url": "https://github.com/DiogoRibeiro7/displacement-risk-lab-dynamodb/pull/6",
+      "path": "datasets/ucdp-ged-25-1/raw/ged251-csv.zip",
+      "registry_commit": "24d66b6f78d3bcfa8ddc2cc77b5d84d2b9a6e3c5",
+      "registry_repository": "DiogoRibeiro7/data",
+      "sha256": "e256f1fb20a579d8b2f910e5bae212f486d3002adaa2e4359ace740c737da05d",
+      "status": "active"
+    },
+    {
+      "consumer_commit": "cc0835d7246a776b3653305e0976074ad42cabf1",
+      "consumer_id": "displacement-risk-lab-dynamodb",
+      "consumer_repository": "DiogoRibeiro7/displacement-risk-lab-dynamodb",
+      "dataset_id": "unhcr-refugee-population-2024",
+      "evidence_url": "https://github.com/DiogoRibeiro7/displacement-risk-lab-dynamodb/pull/7",
+      "path": "datasets/unhcr-refugee-population-2024/raw/population.rda",
+      "registry_commit": "d9fc9ef79e2cec47f619243590b78958ce7e4cb4",
+      "registry_repository": "DiogoRibeiro7/data",
+      "sha256": "261acf0b3efb5e87fddfe794ec1b5d42fe7bc7217d80990bd7ae0bce31524e52",
+      "status": "active"
+    },
+    {
+      "consumer_commit": "71e4db18ab7af4ad2d5f3997a00e46e53676312b",
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "online-retail-ii",
+      "evidence_url": "https://github.com/DiogoRibeiro7/Medium-Blog/pull/121",
+      "path": "datasets/online-retail-ii/raw/online_retail_II.xlsx",
+      "registry_commit": "e90eed21a474c0a54ab9bf658c01dbd778bf58f1",
+      "registry_repository": "DiogoRibeiro7/data",
+      "sha256": "bcbe73b35f5b7babf197fb0cb983a11f5d9ff929078d4aa53d171b1f2df2e980",
+      "status": "active"
+    }
+  ],
+  "schema_version": 1
+}
