@@ -5,6 +5,9 @@ on:
     paths:
       - "src/data_registry/**"
       - "pyproject.toml"
+      - "distribution/**"
+      - "scripts/generate_static_distribution.py"
+      - "tests/test_static_distribution.py"
       - "datasets/**"
       - "legacy/**"
       - "external/**"
@@ -64,6 +67,9 @@ on:
     paths:
       - "src/data_registry/**"
       - "pyproject.toml"
+      - "distribution/**"
+      - "scripts/generate_static_distribution.py"
+      - "tests/test_static_distribution.py"
       - "datasets/**"
       - "legacy/**"
       - "external/**"
@@ -159,6 +165,9 @@ jobs:
 
       - name: Validate lifecycle report
         run: python scripts/generate_lifecycle_report.py
+
+      - name: Validate static registry distribution
+        run: python scripts/generate_static_distribution.py
 
 
   package-smoke:

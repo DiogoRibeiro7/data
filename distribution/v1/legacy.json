@@ -1,0 +1,23 @@
+{
+  "records": [
+    {
+      "file_count": 15,
+      "id": "country-age-sex-2019",
+      "path": "legacy/country-age-sex-2019/metadata.yaml",
+      "publisher": "unknown",
+      "redistribution": "unknown",
+      "status": "legacy-quarantine",
+      "title": "Country age/sex population snapshots (2019)"
+    },
+    {
+      "file_count": 1,
+      "id": "portugal-covid19",
+      "path": "legacy/portugal-covid19/metadata.yaml",
+      "publisher": "Gabinete de Estratégia e Planeamento (GEP) / MTSSS",
+      "redistribution": "unknown",
+      "status": "legacy-quarantine",
+      "title": "Portugal COVID-19 MTSSS monitoring workbook"
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,0 +1,54 @@
+{
+  "artifacts": [
+    {
+      "name": "canonical",
+      "path": "canonical.json",
+      "schema_version": 1,
+      "source": "datasets/catalog.json"
+    },
+    {
+      "name": "consumers",
+      "path": "consumers.json",
+      "schema_version": 1,
+      "source": "consumers/catalog.json"
+    },
+    {
+      "name": "dependencies",
+      "path": "dependencies.json",
+      "schema_version": 1,
+      "source": "consumers/dependency-graph.json"
+    },
+    {
+      "name": "external",
+      "path": "external.json",
+      "schema_version": 1,
+      "source": "external/catalog.json"
+    },
+    {
+      "name": "legacy",
+      "path": "legacy.json",
+      "schema_version": 1,
+      "source": "legacy/*/metadata.yaml"
+    },
+    {
+      "name": "lifecycle",
+      "path": "lifecycle.json",
+      "schema_version": 1,
+      "source": "reports/lifecycle.json"
+    },
+    {
+      "name": "provenance-debt",
+      "path": "provenance-debt.json",
+      "schema_version": 1,
+      "source": "reports/provenance-debt.json"
+    },
+    {
+      "name": "registry-quality",
+      "path": "registry-quality.json",
+      "schema_version": 1,
+      "source": "reports/registry-quality.json"
+    }
+  ],
+  "distribution_version": 1,
+  "repository": "DiogoRibeiro7/data"
+}

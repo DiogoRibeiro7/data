@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "berkeley-earth-temperature",
+      "title": "Berkeley Earth temperature data",
+      "publisher": "Berkeley Earth",
+      "source_url": "https://berkeleyearth.org/data/",
+      "license": {
+        "name": "CC BY-NC 4.0 (general current Berkeley Earth data terms)",
+        "url": "https://creativecommons.org/licenses/by-nc/4.0/"
+      },
+      "redistribution": "noncommercial-terms",
+      "storage": "authoritative-upstream",
+      "consumers": [],
+      "path": "external/berkeley-earth-temperature"
+    },
+    {
+      "id": "dgs-infoclique-mortality",
+      "title": "DGS InfoClique mortality platform",
+      "publisher": "Direção-Geral da Saúde (DGS)",
+      "source_url": "https://www.dgs.pt/servicos-on-line1.aspx",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [],
+      "path": "external/dgs-infoclique-mortality"
+    },
+    {
+      "id": "fred-economic-data",
+      "title": "FRED economic data",
+      "publisher": "Federal Reserve Bank of St. Louis",
+      "source_url": "https://fred.stlouisfed.org/",
+      "license": null,
+      "redistribution": "series-dependent",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "productivity_taxation_inequality_project"
+      ],
+      "path": "external/fred-economic-data"
+    },
+    {
+      "id": "ibm-telco-customer-churn",
+      "title": "IBM Telco Customer Churn sample",
+      "publisher": "IBM",
+      "source_url": "https://github.com/IBM/telco-customer-churn-on-icp4d",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream-pinned-snapshot",
+      "consumers": [],
+      "path": "external/ibm-telco-customer-churn"
+    },
+    {
+      "id": "jhu-csse-covid19",
+      "title": "JHU CSSE COVID-19 time series",
+      "publisher": "Johns Hopkins University Center for Systems Science and Engineering",
+      "source_url": "https://github.com/CSSEGISandData/COVID-19",
+      "license": null,
+      "redistribution": "prohibited",
+      "storage": "authoritative-upstream-pinned-historical-snapshot",
+      "consumers": [],
+      "path": "external/jhu-csse-covid19"
+    },
+    {
+      "id": "maize-bipolaris-disease-progress",
+      "title": "Maize Bipolaris disease-progress data",
+      "publisher": "Emerson M. Del Ponte / paper-hgam-curves repository",
+      "source_url": "https://github.com/emdelponte/paper-hgam-curves",
+      "license": {
+        "name": "MIT (repository-level; dataset coverage not explicit)",
+        "url": "https://github.com/emdelponte/paper-hgam-curves/blob/d793d54c17ad404df2f6618d2681c993fcf144cf/LICENSE"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream-and-pinned-project-snapshot",
+      "consumers": [
+        "crop-protection-predictive-science"
+      ],
+      "path": "external/maize-bipolaris-disease-progress"
+    },
+    {
+      "id": "medium-crawlfeeds-corpus",
+      "title": "Crawlfeeds Medium Articles Corpus",
+      "publisher": "crawlfeeds",
+      "source_url": "https://huggingface.co/datasets/crawlfeeds/Medium-Articles-Corpus",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-statistical-dynamics"
+      ],
+      "path": "external/medium-crawlfeeds-corpus"
+    },
+    {
+      "id": "medium-fabiochiu-articles",
+      "title": "Fabio Chiu Medium articles corpus (candidate)",
+      "publisher": "Fabio Chiu / Fabio Chiusano (identity unverified)",
+      "source_url": "https://huggingface.co/datasets/fabiochiu/medium-articles",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-statistical-dynamics"
+      ],
+      "path": "external/medium-fabiochiu-articles"
+    },
+    {
+      "id": "medium-jansma-historical",
+      "title": "Historical Medium article study (Jansma)",
+      "publisher": "Harrison Jansma",
+      "source_url": "https://github.com/harrisonjansma/Analyzing_Medium",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-statistical-dynamics"
+      ],
+      "path": "external/medium-jansma-historical"
+    },
+    {
+      "id": "our-world-in-data",
+      "title": "Our World in Data / Grapher datasets",
+      "publisher": "Global Change Data Lab / Our World in Data",
+      "source_url": "https://ourworldindata.org/",
+      "license": null,
+      "redistribution": "dataset-specific",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "productivity_taxation_inequality_project"
+      ],
+      "path": "external/our-world-in-data"
+    },
+    {
+      "id": "pordata-portugal-resident-population",
+      "title": "Portugal resident population estimates by age group",
+      "publisher": "PORDATA / Fundação Francisco Manuel dos Santos (source data: INE)",
+      "source_url": "https://www.pordata.pt/Portugal/Populacao%2Bresidente%2B%2Bestimativas%2Ba%2B31%2Bde%2BDezembro%2Btotal%2Be%2Bpor%2Bgrupo%2Betario-7",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "public-secondary-source",
+      "consumers": [],
+      "path": "external/pordata-portugal-resident-population"
+    },
+    {
+      "id": "r-base-example-datasets",
+      "title": "R base example datasets",
+      "publisher": "R Core Team",
+      "source_url": "https://search.r-project.org/R/refmans/datasets/html/00Index.html",
+      "license": {
+        "name": "GPL-2 | GPL-3 (R distribution)",
+        "url": "https://www.r-project.org/Licenses/"
+      },
+      "redistribution": "package-license",
+      "storage": "authoritative-upstream",
+      "consumers": [],
+      "path": "external/r-base-example-datasets"
+    },
+    {
+      "id": "turing-change-point-dataset",
+      "title": "Turing Change Point Dataset",
+      "publisher": "The Alan Turing Institute",
+      "source_url": "https://github.com/alan-turing-institute/TCPD",
+      "license": null,
+      "redistribution": "dataset-specific",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "cpd-stress-test"
+      ],
+      "path": "external/turing-change-point-dataset"
+    },
+    {
+      "id": "ucdp-conflict-data",
+      "title": "Uppsala Conflict Data Program datasets",
+      "publisher": "Uppsala Conflict Data Program",
+      "source_url": "https://ucdp.uu.se/downloads/",
+      "license": {
+        "name": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "displacement-risk-lab-dynamodb"
+      ],
+      "path": "external/ucdp-conflict-data"
+    },
+    {
+      "id": "unhcr-refugee-statistics",
+      "title": "UNHCR Refugee Population Statistics",
+      "publisher": "UNHCR",
+      "source_url": "https://www.unhcr.org/refugee-statistics/",
+      "license": {
+        "name": "CC BY 4.0 unless otherwise indicated",
+        "url": "https://www.unhcr.org/uk/terms-use-datasets"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "displacement-risk-lab-dynamodb"
+      ],
+      "path": "external/unhcr-refugee-statistics"
+    },
+    {
+      "id": "world-bank-greenhouse-gas",
+      "title": "Climate Watch total greenhouse gas emissions (World Bank WDI EN.ATM.GHGT.KT.CE)",
+      "publisher": "World Resources Institute / Climate Watch",
+      "source_url": "https://www.climatewatchdata.org/ghg-emissions",
+      "license": {
+        "name": "CC BY-NC 4.0",
+        "url": "https://creativecommons.org/licenses/by-nc/4.0/"
+      },
+      "redistribution": "noncommercial-with-attribution",
+      "storage": "authoritative-upstream-via-world-bank-wdi",
+      "consumers": [],
+      "path": "external/world-bank-greenhouse-gas"
+    }
+  ]
+}
