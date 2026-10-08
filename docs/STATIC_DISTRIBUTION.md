@@ -18,7 +18,7 @@ Start with:
 `https://diogoribeiro7.github.io/data/registry/v1/index.json`
 
 The index records the distribution version, artifact paths, schema versions,
-and SHA-256 checksums.
+and the committed source-of-truth path for each artifact.
 
 ## Version 1 artifacts
 
@@ -33,8 +33,8 @@ and SHA-256 checksums.
 | Lifecycle state | `registry/v1/lifecycle.json` | `reports/lifecycle.json` |
 | Registry quality | `registry/v1/registry-quality.json` | `reports/registry-quality.json` |
 
-Except for the generated legacy catalog, existing machine-readable registry
-artifacts are copied byte-for-byte into the distribution.
+Except for the compact generated legacy catalog, existing machine-readable
+registry artifacts are copied byte-for-byte into the distribution.
 
 ## Determinism and freshness
 
@@ -53,8 +53,8 @@ python scripts/generate_static_distribution.py
 CI runs the freshness check. The documentation build stages the committed
 bundle under `docs/registry/v1/` before MkDocs builds the Pages artifact.
 
-The v1 index checksums allow clients to verify that a downloaded static
-artifact matches the published distribution manifest.
+Git and immutable registry snapshots remain the integrity boundary. The static
+index is a discovery/versioning manifest rather than a second checksum contract.
 
 ## Versioning
 
