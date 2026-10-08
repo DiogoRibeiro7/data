@@ -47,6 +47,7 @@ on:
       - "reports/lifecycle.json"
       - "reports/lifecycle.md"
       - "docs/QUALITY.md"
+      - "docs/API.md"
       - "scripts/prepare_docs.py"
       - "mkdocs.yml"
       - "requirements-dev.txt"
