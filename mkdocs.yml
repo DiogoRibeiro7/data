@@ -45,6 +45,7 @@ nav:
       - Legacy quarantine: generated/legacy-inventory.md
   - Registry usage:
       - CLI: CLI.md
+      - Python API: API.md
       - Python API: PYTHON_API.md
       - Client architecture: CLIENT_ARCHITECTURE.md
       - Consumers: CONSUMERS.md
