@@ -111,10 +111,10 @@ class RegistryFetchApiTests(unittest.TestCase):
                     base_url="http://127.0.0.1:1",
                 )
 
-        self.assertIsInstance(result, FetchResult)
-        self.assertEqual(result.sha256, self.sha256)
-        self.assertEqual(result.path, "datasets/example/raw/example.csv")
-        self.assertEqual(result.output.read_bytes(), self.payload)
+            self.assertIsInstance(result, FetchResult)
+            self.assertEqual(result.sha256, self.sha256)
+            self.assertEqual(result.path, "datasets/example/raw/example.csv")
+            self.assertEqual(result.output.read_bytes(), self.payload)
 
     def test_download_verifies_registry_checksum(self) -> None:
         commit = "a" * 40
@@ -154,6 +154,22 @@ class RegistryFetchApiTests(unittest.TestCase):
             self.assertEqual(result.sha256, self.sha256)
             self.assertEqual(result.commit, commit)
             self.assertEqual(result.repository, "owner/repo")
+
+    def test_mismatched_existing_file_requires_force(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "example.csv"
+            output.write_bytes(b"stale\n")
+
+            with self.assertRaisesRegex(RegistryError, "use --force"):
+                self.client.fetch(
+                    "example",
+                    "raw/example.csv",
+                    commit="a" * 40,
+                    output=output,
+                    base_url="http://127.0.0.1:1",
+                )
+
+            self.assertEqual(output.read_bytes(), b"stale\n")
 
     def test_checksum_mismatch_is_fatal(self) -> None:
         commit = "b" * 40
