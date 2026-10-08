@@ -66,6 +66,19 @@ A registry snapshot release should state:
 - migration notes affecting consumers;
 - the release commit SHA.
 
+## Client and manifest compatibility
+
+Package/API, metadata-schema, static-distribution, deprecation, and historical
+snapshot-manifest compatibility are governed by
+[Compatibility and versioning policy](COMPATIBILITY.md).
+
+Registry snapshot tags, package versions, metadata schema versions, static
+distribution versions, and snapshot manifest versions are deliberately
+independent version domains.
+
+The current snapshot manifest is version 5. Published historical manifests
+versions 1–5 remain recognized and are never rewritten in place.
+
 ## Metadata schema versioning
 
 `schema_version` inside dataset metadata is independent of repository snapshot tags.
