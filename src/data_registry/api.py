@@ -12,6 +12,7 @@ from .core import (
     LAYER_CHOICES,
     RegistryEntry,
     RegistryError,
+    fetch_entry_file,
     filter_debt_items,
     find_debt_item,
     find_entry,
@@ -33,6 +34,18 @@ from .models import (
 )
 
 RegistryRecord: TypeAlias = CanonicalDataset | ExternalRecord | LegacyRecord
+
+
+@dataclass(frozen=True)
+class FetchResult:
+    """Verified immutable canonical fetch result."""
+
+    dataset_id: str
+    repository: str
+    commit: str
+    path: str
+    sha256: str
+    output: Path
 
 
 @dataclass(frozen=True)
@@ -167,6 +180,47 @@ class RegistryClient:
             if item.dataset_id == dataset_id
         )
 
+    def fetch(
+        self,
+        dataset_id: str,
+        relative_path: str,
+        *,
+        commit: str,
+        output: Path,
+        repository: str = "DiogoRibeiro7/data",
+        timeout: float = 60.0,
+        force: bool = False,
+        base_url: str = "https://raw.githubusercontent.com",
+    ) -> FetchResult:
+        """Fetch one canonical file using registry metadata identity.
+
+        The caller supplies only the exact Git commit and canonical relative
+        file path. SHA-256 is resolved from committed canonical metadata.
+        """
+
+        entry = find_entry(self._entries(), dataset_id, layer="canonical")
+        try:
+            result, repository_path, checksum = fetch_entry_file(
+                entry,
+                relative_path,
+                commit=commit,
+                output=output,
+                repository=repository,
+                timeout=timeout,
+                force=force,
+                base_url=base_url,
+            )
+        except RegistryError:
+            raise
+        return FetchResult(
+            dataset_id=dataset_id,
+            repository=repository,
+            commit=commit,
+            path=repository_path,
+            sha256=checksum,
+            output=result,
+        )
+
     def provenance_debt(
         self,
         *,
@@ -239,6 +293,7 @@ class RegistryClient:
 
 
 __all__ = [
+    "FetchResult",
     "RegistryClient",
     "RegistryModelError",
     "RegistryRecord",
