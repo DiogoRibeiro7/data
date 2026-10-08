@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DiogoRibeiro7/data/schemas/consumer-metadata-v1.schema.json",
+  "title": "Canonical consumer relationship metadata v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "consumer_id",
+    "consumer_repository",
+    "dataset_id",
+    "registry_layer",
+    "registry_repository",
+    "registry_commit",
+    "path",
+    "sha256"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "status": {
+      "enum": [
+        "active",
+        "deprecated"
+      ]
+    },
+    "consumer_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "consumer_repository": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+    },
+    "dataset_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "registry_layer": {
+      "const": "canonical"
+    },
+    "registry_repository": {
+      "const": "DiogoRibeiro7/data"
+    },
+    "registry_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "path": {
+      "type": "string",
+      "pattern": "^datasets/[a-z0-9]+(?:-[a-z0-9]+)*/(?:raw|derived)/.+"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "output": {
+      "type": "string",
+      "minLength": 1
+    },
+    "consumer_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "evidence_url": {
+      "type": "string",
+      "format": "uri",
+      "minLength": 1
+    },
+    "notes": {
+      "type": "string",
+      "minLength": 1
+    },
+    "migration": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "required",
+            "planned",
+            "migrated",
+            "retained"
+          ]
+        },
+        "target_dataset_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "retained"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "rationale"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "planned",
+                  "migrated"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "target_dataset_id"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "anyOf": [
+    {
+      "required": [
+        "consumer_commit"
+      ]
+    },
+    {
+      "required": [
+        "evidence_url"
+      ]
+    }
+  ]
+}
