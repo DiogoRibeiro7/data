@@ -7,6 +7,11 @@ and offline unless an explicit immutable fetch is requested.
 """
 
 from .api import FetchResult, RegistryClient, RegistryRecord
+from .compatibility import (
+    PACKAGE_API_VERSION,
+    STATIC_DISTRIBUTION_VERSION,
+    SUPPORTED_SNAPSHOT_MANIFEST_VERSIONS,
+)
 from .core import RegistryEntry, RegistryError, load_registry
 from .fetch import DatasetReference, fetch_dataset_file
 from .models import (
@@ -28,6 +33,9 @@ __all__ = [
     "LifecycleDataset",
     "ProvenanceDebtItem",
     "RegistryModelError",
+    "SUPPORTED_SNAPSHOT_MANIFEST_VERSIONS",
+    "STATIC_DISTRIBUTION_VERSION",
+    "PACKAGE_API_VERSION",
     "RegistryClient",
     "RegistryRecord",
     "DatasetReference",
