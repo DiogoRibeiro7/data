@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch one canonical dataset file from a pinned data-repository commit."""
+"""Compatibility wrapper for immutable registry fetch primitives."""
 
 from __future__ import annotations
 
@@ -8,8 +8,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
+SRC = ROOT / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
 
 from data_registry.fetch import (  # noqa: E402
     COMMIT_RE,
@@ -38,7 +39,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
-    """Run the command-line fetch operation."""
+    """Run the compatibility fetch command."""
 
     args = parse_args()
     try:
@@ -63,4 +64,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())
