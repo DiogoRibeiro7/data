@@ -33,6 +33,23 @@ Owns deterministic registry reads and lookups:
 These operations read committed repository files only. They do not perform
 implicit network requests.
 
+
+### `data_registry.models`
+
+Defines strict typed boundaries for public registry records:
+
+- canonical datasets;
+- external source records;
+- legacy quarantine records;
+- consumer relationships;
+- provenance/debt queue items;
+- lifecycle/replacement dataset state.
+
+Models are dependency-free frozen dataclasses. `from_mapping()` validates the
+supported schema/record shape without silently coercing incompatible versions,
+while `to_mapping()` returns a detached plain mapping that preserves the
+committed record losslessly for deterministic serialization.
+
 ## Compatibility scripts
 
 `scripts/registry.py` remains the repository CLI. It owns argument parsing,
