@@ -28,6 +28,8 @@ on:
       - "tests/test_consumer_catalog.py"
       - "tests/test_registry.py"
       - "tests/test_registry_core.py"
+      - "tests/test_models.py"
+      - "tests/test_package.py"
       - "tests/test_snapshot.py"
       - "tests/test_external_health.py"
       - "tests/test_consumer_health.py"
@@ -184,10 +186,13 @@ jobs:
         run: |
           python -c "import data_registry; print(data_registry.__name__)"
           data-registry --root . list --json > /tmp/registry.json
+          data-registry --root . verify online-retail-ii --json > /tmp/verify.json
           python - <<'PY'
           import json
           from pathlib import Path
           payload = json.loads(Path("/tmp/registry.json").read_text())
           assert isinstance(payload, list)
           assert payload
+          verified = json.loads(Path("/tmp/verify.json").read_text())
+          assert verified["ok"] is True
           PY
