@@ -30,6 +30,12 @@ class RegistryApiTests(unittest.TestCase):
     def setUp(self) -> None:
         self.client = RegistryClient(ROOT)
 
+    def test_client_accepts_string_root(self) -> None:
+        client = RegistryClient(str(ROOT))
+
+        self.assertEqual(client.root, ROOT.resolve())
+        self.assertEqual(client.canonical("online-retail-ii").id, "online-retail-ii")
+
     def test_list_returns_typed_records_in_deterministic_order(self) -> None:
         records = self.client.list()
         keys = [
