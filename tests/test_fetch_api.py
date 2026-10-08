@@ -171,6 +171,45 @@ class RegistryFetchApiTests(unittest.TestCase):
 
             self.assertEqual(output.read_bytes(), b"stale\n")
 
+    def test_force_replaces_mismatched_existing_file_after_verification(self) -> None:
+        commit = "c" * 40
+        with tempfile.TemporaryDirectory() as server_dir, tempfile.TemporaryDirectory() as out_dir:
+            source = (
+                Path(server_dir)
+                / "owner"
+                / "repo"
+                / commit
+                / "datasets"
+                / "example"
+                / "raw"
+            )
+            source.mkdir(parents=True)
+            (source / "example.csv").write_bytes(self.payload)
+
+            output = Path(out_dir) / "example.csv"
+            output.write_bytes(b"stale\n")
+
+            handler = partial(QuietHandler, directory=server_dir)
+            with socketserver.TCPServer(("127.0.0.1", 0), handler) as server:
+                port = server.server_address[1]
+                thread = threading.Thread(target=server.serve_forever, daemon=True)
+                thread.start()
+                try:
+                    result = self.client.fetch(
+                        "example",
+                        "raw/example.csv",
+                        commit=commit,
+                        output=output,
+                        repository="owner/repo",
+                        base_url=f"http://127.0.0.1:{port}",
+                        force=True,
+                    )
+                finally:
+                    server.shutdown()
+                    thread.join(timeout=5)
+
+            self.assertEqual(result.output.read_bytes(), self.payload)
+
     def test_checksum_mismatch_is_fatal(self) -> None:
         commit = "b" * 40
         bad_payload = b"wrong bytes\n"
