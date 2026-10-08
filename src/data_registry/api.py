@@ -23,6 +23,7 @@ from .core import (
     search_entries,
     supersedes_payload,
 )
+from .fetch import DEFAULT_RAW_BASE_URL, DEFAULT_REPOSITORY
 from .models import (
     CanonicalDataset,
     ConsumerRelationship,
@@ -187,10 +188,10 @@ class RegistryClient:
         *,
         commit: str,
         output: Path,
-        repository: str = "DiogoRibeiro7/data",
+        repository: str = DEFAULT_REPOSITORY,
         timeout: float = 60.0,
         force: bool = False,
-        base_url: str = "https://raw.githubusercontent.com",
+        base_url: str = DEFAULT_RAW_BASE_URL,
     ) -> FetchResult:
         """Fetch one canonical file using registry metadata identity.
 
@@ -199,19 +200,16 @@ class RegistryClient:
         """
 
         entry = find_entry(self._entries(), dataset_id, layer="canonical")
-        try:
-            result, repository_path, checksum = fetch_entry_file(
-                entry,
-                relative_path,
-                commit=commit,
-                output=output,
-                repository=repository,
-                timeout=timeout,
-                force=force,
-                base_url=base_url,
-            )
-        except RegistryError:
-            raise
+        result, repository_path, checksum = fetch_entry_file(
+            entry,
+            relative_path,
+            commit=commit,
+            output=output,
+            repository=repository,
+            timeout=timeout,
+            force=force,
+            base_url=base_url,
+        )
         return FetchResult(
             dataset_id=dataset_id,
             repository=repository,
