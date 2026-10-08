@@ -204,16 +204,22 @@ sources or regenerate the debt queue on demand.
 
 ## Fetch a canonical file
 
-Fetching is available only for canonical datasets.
+Fetching is available only for canonical datasets. The installed command and
+the compatibility script use the same `RegistryClient.fetch()` implementation.
 
 ```bash
+data-registry --root /path/to/data fetch <dataset-id> \
+  --file raw/example.csv \
+  --commit <40-character-git-sha> \
+  --output data/external/example.csv
+
 python scripts/registry.py fetch <dataset-id> \
   --file raw/example.csv \
   --commit <40-character-git-sha> \
   --output data/external/example.csv
 ```
 
-The CLI does **not** accept a checksum from the caller. It reads the expected SHA-256 from the canonical dataset's `metadata.yaml` and delegates downloading to the existing immutable fetch helper.
+The CLI does **not** accept a checksum from the caller. It reads the expected SHA-256 from canonical metadata and uses the same packaged fetch path as the Python API.
 
 The operation requires:
 
