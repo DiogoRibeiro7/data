@@ -16,7 +16,7 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 - Explicit compatibility, deprecation, schema, distribution, and historical
   snapshot policy.
 
-## [0.1.0] - 2026-10-08
+## 0.1.0 - current repository package version
 
 ### Added
 
@@ -34,5 +34,4 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 - Static distribution version: **1**.
 - Historical snapshot-manifest versions recognized: **1–5**.
 
-[Unreleased]: https://github.com/DiogoRibeiro7/data/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/DiogoRibeiro7/data/releases/tag/v0.1.0
+The repository does not yet publish a separate `v0.1.0` GitHub package-release tag; snapshot tags remain independent registry release identities.
