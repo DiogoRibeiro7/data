@@ -67,16 +67,17 @@
     "pinned_immutable_identity_sources": 3,
     "redistribution": {
       "resolved": 9,
-      "unresolved": 4
+      "unresolved": 7
     },
-    "source_count": 13,
+    "source_count": 16,
     "source_usage": {
-      "consumer_count": 4,
-      "consumer_references": 6,
+      "consumer_count": 5,
+      "consumer_references": 9,
       "consumers": [
         "cpd-stress-test",
         "crop-protection-predictive-science",
         "displacement-risk-lab-dynamodb",
+        "medium-statistical-dynamics",
         "productivity_taxation_inequality_project"
       ]
     }
@@ -94,19 +95,19 @@
       "dataset-vs-repository-licence-scope": 2,
       "exact-snapshot-identity": 1,
       "historical-export-route": 1,
-      "redistribution-rights": 2
+      "redistribution-rights": 5
     },
     "external": {
-      "actionable": 0,
+      "actionable": 3,
       "terminal": 4
     },
     "legacy": {
       "actionable": 0,
       "terminal": 2
     },
-    "oldest_age_days": 0,
+    "oldest_age_days": 2,
     "oldest_review_date": "2026-10-05",
-    "total_count": 6
+    "total_count": 9
   },
   "schema_version": 1,
   "snapshots": {

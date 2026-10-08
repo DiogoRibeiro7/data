@@ -78,6 +78,45 @@
       "path": "external/maize-bipolaris-disease-progress"
     },
     {
+      "id": "medium-crawlfeeds-corpus",
+      "title": "Crawlfeeds Medium Articles Corpus",
+      "publisher": "crawlfeeds",
+      "source_url": "https://huggingface.co/datasets/crawlfeeds/Medium-Articles-Corpus",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-statistical-dynamics"
+      ],
+      "path": "external/medium-crawlfeeds-corpus"
+    },
+    {
+      "id": "medium-fabiochiu-articles",
+      "title": "Fabio Chiu Medium articles corpus (candidate)",
+      "publisher": "Fabio Chiu / Fabio Chiusano (identity unverified)",
+      "source_url": "https://huggingface.co/datasets/fabiochiu/medium-articles",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-statistical-dynamics"
+      ],
+      "path": "external/medium-fabiochiu-articles"
+    },
+    {
+      "id": "medium-jansma-historical",
+      "title": "Historical Medium article study (Jansma)",
+      "publisher": "Harrison Jansma",
+      "source_url": "https://github.com/harrisonjansma/Analyzing_Medium",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-statistical-dynamics"
+      ],
+      "path": "external/medium-jansma-historical"
+    },
+    {
       "id": "our-world-in-data",
       "title": "Our World in Data / Grapher datasets",
       "publisher": "Global Change Data Lab / Our World in Data",
