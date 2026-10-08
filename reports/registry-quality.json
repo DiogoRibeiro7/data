@@ -95,19 +95,19 @@
       "dataset-vs-repository-licence-scope": 2,
       "exact-snapshot-identity": 1,
       "historical-export-route": 1,
-      "redistribution-rights": 2
+      "redistribution-rights": 5
     },
     "external": {
-      "actionable": 0,
+      "actionable": 3,
       "terminal": 4
     },
     "legacy": {
       "actionable": 0,
       "terminal": 2
     },
-    "oldest_age_days": 0,
+    "oldest_age_days": 2,
     "oldest_review_date": "2026-10-05",
-    "total_count": 6
+    "total_count": 9
   },
   "schema_version": 1,
   "snapshots": {
