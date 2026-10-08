@@ -1,0 +1,118 @@
+{
+  "canonical": {
+    "complete_license_datasets": 4,
+    "dataset_count": 4,
+    "file_count": 4,
+    "verified_checksum_files": 4
+  },
+  "canonical_expansion": {
+    "added_datasets_exempted": [],
+    "added_datasets_with_consumers": [
+      "ons-gross-median-weekly-pay",
+      "unhcr-refugee-population-2024"
+    ],
+    "baseline_dataset_count": 2,
+    "baseline_snapshot": "snapshot-2026.10.05",
+    "current_dataset_count": 4,
+    "datasets_added_since_baseline": [
+      "ons-gross-median-weekly-pay",
+      "unhcr-refugee-population-2024"
+    ],
+    "datasets_removed_since_baseline": [],
+    "exemptions": {},
+    "uncovered_datasets": []
+  },
+  "catalogs": {
+    "canonical_current": true,
+    "consumer_current": true,
+    "external_current": true
+  },
+  "consumers": {
+    "active_consumer_repositories": [
+      "DiogoRibeiro7/Medium-Blog",
+      "DiogoRibeiro7/city-wage-cost-global",
+      "DiogoRibeiro7/displacement-risk-lab-dynamodb"
+    ],
+    "active_consumer_repository_count": 3,
+    "active_consumers": [
+      "city-wage-cost-global",
+      "displacement-risk-lab-dynamodb",
+      "medium-blog"
+    ],
+    "active_relationship_count": 4,
+    "canonical_dataset_adoption_coverage": 1.0,
+    "canonical_datasets_with_consumers": 4,
+    "canonical_datasets_without_consumers": 0,
+    "datasets_with_consumers": [
+      "online-retail-ii",
+      "ons-gross-median-weekly-pay",
+      "ucdp-ged-25-1",
+      "unhcr-refugee-population-2024"
+    ],
+    "datasets_without_consumers": [],
+    "deprecated_relationship_count": 0,
+    "exempted_datasets_without_consumers": [],
+    "migration_applicable_relationship_count": 0,
+    "migration_coverage": 1.0,
+    "migration_explicit_relationship_count": 0,
+    "migration_migrated_count": 0,
+    "migration_planned_count": 0,
+    "migration_required_count": 0,
+    "migration_retained_count": 0,
+    "pinned_contract_count": 4,
+    "pinned_contract_coverage": 1.0,
+    "uncovered_datasets_without_consumers": []
+  },
+  "external": {
+    "pinned_immutable_identity_sources": 3,
+    "redistribution": {
+      "resolved": 9,
+      "unresolved": 7
+    },
+    "source_count": 16,
+    "source_usage": {
+      "consumer_count": 5,
+      "consumer_references": 9,
+      "consumers": [
+        "cpd-stress-test",
+        "crop-protection-predictive-science",
+        "displacement-risk-lab-dynamodb",
+        "medium-statistical-dynamics",
+        "productivity_taxation_inequality_project"
+      ]
+    }
+  },
+  "legacy": {
+    "package_count": 2,
+    "packages": [
+      "country-age-sex-2019",
+      "portugal-covid19"
+    ],
+    "unresolved_package_count": 2
+  },
+  "provenance_debt": {
+    "by_blocker_category": {
+      "dataset-vs-repository-licence-scope": 2,
+      "exact-snapshot-identity": 1,
+      "historical-export-route": 1,
+      "redistribution-rights": 5
+    },
+    "external": {
+      "actionable": 3,
+      "terminal": 4
+    },
+    "legacy": {
+      "actionable": 0,
+      "terminal": 2
+    },
+    "oldest_age_days": 2,
+    "oldest_review_date": "2026-10-05",
+    "total_count": 9
+  },
+  "schema_version": 1,
+  "snapshots": {
+    "available_from_repository_state": false,
+    "count": null,
+    "note": "Published snapshot tags/releases are not counted because their presence depends on Git fetch depth and remote state rather than committed files."
+  }
+}
