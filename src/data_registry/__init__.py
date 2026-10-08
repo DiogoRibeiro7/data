@@ -25,6 +25,12 @@ from .models import (
 )
 
 __all__ = [
+    "CURRENT_SNAPSHOT_MANIFEST_VERSION",
+    "PACKAGE_VERSION",
+    "PUBLIC_API_VERSION",
+    "SUPPORTED_METADATA_SCHEMA_VERSIONS",
+    "supports_metadata_schema",
+    "supports_snapshot_manifest",
     "CanonicalDataset",
     "ConsumerRelationship",
     "ExternalRecord",
