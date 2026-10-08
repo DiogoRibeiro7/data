@@ -39,5 +39,6 @@ Thumbs.db
 
 # Generated documentation staging
 docs/generated/
+docs/registry/
 docs/CONTRIBUTING.md
 site/
