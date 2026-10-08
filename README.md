@@ -73,14 +73,17 @@ Legacy files are **not canonical**. Their presence does not imply verified prove
 
 ## Explore the registry locally
 
-The repository includes a lightweight CLI for listing, searching, inspecting, and verifying all registry layers:
+The repository includes an installable CLI for listing, searching, inspecting, and verifying all registry layers:
 
 ```bash
-python scripts/registry.py list
-python scripts/registry.py search climate
-python scripts/registry.py show world-bank-greenhouse-gas
-python scripts/registry.py verify world-bank-greenhouse-gas
+python -m pip install -e .
+data-registry list
+data-registry search climate
+data-registry show world-bank-greenhouse-gas
+data-registry verify world-bank-greenhouse-gas
 ```
+
+The historical `python scripts/registry.py ...` command remains as a compatibility wrapper over the same packaged implementation.
 
 Add `--json` to read commands for machine-readable output.
 
@@ -126,10 +129,11 @@ Do not commit private, personal, confidential, regulated, or redistribution-rest
 
 ## Validation
 
-Install the lightweight development dependency and run:
+Install the client in editable mode plus the lightweight development dependencies and run:
 
 ```bash
 python -m pip install -r requirements-dev.txt
+python -m pip install -e .
 python -m unittest discover -s tests -v
 python scripts/validate_repository.py
 python scripts/generate_external_catalog.py
