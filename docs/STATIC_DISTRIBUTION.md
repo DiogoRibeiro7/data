@@ -62,5 +62,5 @@ index is a discovery/versioning manifest rather than a second checksum contract.
 version. A breaking layout or interpretation change requires a new distribution
 version rather than silently changing the meaning of v1.
 
-Package/API compatibility and the broader versioning policy are defined
-separately in Phase 9 issue #153.
+Package/API, schema, and distribution compatibility rules are defined in
+[Compatibility and versioning policy](COMPATIBILITY.md).
