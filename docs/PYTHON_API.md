@@ -85,6 +85,34 @@ Lifecycle methods return `LifecycleDataset` models.
 
 `superseded_by()` returns historical datasets whose replacement chain reaches the selected dataset.
 
+## Fetch a canonical file
+
+Fetching is explicit and is the only `RegistryClient` operation that performs network I/O.
+
+```python
+from pathlib import Path
+
+result = registry.fetch(
+    "online-retail-ii",
+    "raw/online_retail_II.csv",
+    commit="<40-character-lowercase-git-sha>",
+    output=Path("data/online_retail_II.csv"),
+)
+```
+
+The caller supplies the exact commit and canonical file path. The expected SHA-256 is resolved from committed canonical metadata; callers cannot substitute a checksum.
+
+The returned `FetchResult` records the dataset ID, repository, exact commit, canonical repository path, verified SHA-256, and local output path.
+
+Fetch guarantees:
+
+- branch and floating refs are rejected;
+- the commit must be a full lowercase 40-character Git SHA;
+- the file must be declared by canonical metadata;
+- downloaded bytes must match the registry SHA-256;
+- writes are atomic;
+- a matching verified local copy is reused without network access;
+- a mismatched existing destination is refused unless `force=True` is explicit.
 ## Error contract
 
 Public read methods raise `RegistryError` for operational lookup errors such as unknown IDs, ambiguous IDs, invalid layer/filter values, and malformed generated report/graph files.
@@ -93,4 +121,4 @@ Typed model construction raises `RegistryModelError` when committed data does no
 
 ## Network behavior
 
-Registry reads are offline by design. The only package behavior that performs network I/O is an explicit immutable fetch through the fetch API/CLI. Programmatic fetch is addressed separately in Phase 9 issue #151.
+Registry reads are offline by design. Network I/O occurs only when `RegistryClient.fetch()` or the explicit CLI fetch command needs bytes that are not already available as a verified local copy.
