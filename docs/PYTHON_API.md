@@ -2,7 +2,7 @@
 
 The installable client exposes a deterministic, typed Python API for registry reads.
 
-The current public compatibility contract is `PACKAGE_API_VERSION = 1`; see [Compatibility and versioning policy](COMPATIBILITY.md).
+The current public compatibility contract is `PUBLIC_API_VERSION = 1`; see [Compatibility and versioning policy](COMPATIBILITY.md).
 
 ```python
 from pathlib import Path
