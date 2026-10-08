@@ -14,6 +14,7 @@ from .core import (
     RegistryError,
     filter_debt_items,
     find_debt_item,
+    fetch_entry_file,
     find_entry,
     find_lifecycle_dataset,
     load_lifecycle_report,
@@ -22,6 +23,7 @@ from .core import (
     search_entries,
     supersedes_payload,
 )
+from .fetch import DEFAULT_RAW_BASE_URL, DEFAULT_REPOSITORY
 from .models import (
     CanonicalDataset,
     ConsumerRelationship,
@@ -33,6 +35,18 @@ from .models import (
 )
 
 RegistryRecord: TypeAlias = CanonicalDataset | ExternalRecord | LegacyRecord
+
+
+@dataclass(frozen=True)
+class FetchResult:
+    """Verified result of one immutable canonical fetch."""
+
+    dataset_id: str
+    repository: str
+    commit: str
+    path: str
+    sha256: str
+    output: Path
 
 
 @dataclass(frozen=True)
@@ -167,6 +181,41 @@ class RegistryClient:
             if item.dataset_id == dataset_id
         )
 
+    def fetch(
+        self,
+        dataset_id: str,
+        relative_path: str,
+        *,
+        commit: str,
+        output: Path | str,
+        repository: str = DEFAULT_REPOSITORY,
+        timeout: float = 60.0,
+        force: bool = False,
+        base_url: str = DEFAULT_RAW_BASE_URL,
+    ) -> FetchResult:
+        """Fetch one canonical file by exact commit and metadata SHA-256."""
+
+        entry = find_entry(self._entries(), dataset_id, layer="canonical")
+        output_path = Path(output)
+        result, repository_path, checksum = fetch_entry_file(
+            entry,
+            relative_path,
+            commit=commit,
+            output=output_path,
+            repository=repository,
+            timeout=timeout,
+            force=force,
+            base_url=base_url,
+        )
+        return FetchResult(
+            dataset_id=dataset_id,
+            repository=repository,
+            commit=commit,
+            path=repository_path,
+            sha256=checksum,
+            output=result,
+        )
+
     def provenance_debt(
         self,
         *,
@@ -239,6 +288,7 @@ class RegistryClient:
 
 
 __all__ = [
+    "FetchResult",
     "RegistryClient",
     "RegistryModelError",
     "RegistryRecord",

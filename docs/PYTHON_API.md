@@ -93,4 +93,40 @@ Typed model construction raises `RegistryModelError` when committed data does no
 
 ## Network behavior
 
-Registry reads are offline by design. The only package behavior that performs network I/O is an explicit immutable fetch through the fetch API/CLI. Programmatic fetch is addressed separately in Phase 9 issue #151.
+Registry reads are offline by design. Network I/O occurs only through an explicit immutable fetch.
+
+## Checksum-verified canonical fetch
+
+`RegistryClient.fetch()` resolves the repository path and expected SHA-256 from
+committed canonical metadata. Callers provide an exact 40-character commit:
+
+```python
+result = registry.fetch(
+    "online-retail-ii",
+    "raw/online_retail_II.xlsx",
+    commit="<40-character-git-sha>",
+    output="data/online_retail_II.xlsx",
+)
+```
+
+The returned `FetchResult` records:
+
+- canonical dataset ID;
+- repository;
+- exact commit;
+- canonical repository path;
+- expected/verified SHA-256;
+- local output path.
+
+Fetch semantics are strict:
+
+- branch names and other floating refs are rejected;
+- a checksum mismatch is fatal and the bad download is not accepted;
+- writes are atomic;
+- an existing local file with the expected checksum is reused without network access;
+- an existing mismatched local file requires `force=True`;
+- network access occurs only when the local verified copy cannot satisfy the request.
+
+The installed CLI `data-registry fetch ...`, the compatibility script, and
+`RegistryClient.fetch()` all use the same `data_registry.core.fetch_entry_file`
+implementation.
