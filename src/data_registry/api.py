@@ -6,8 +6,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import TypeAlias
 
-import yaml
-
 from .core import (
     LAYER_CHOICES,
     RegistryEntry,
@@ -17,6 +15,7 @@ from .core import (
     find_entry,
     find_lifecycle_dataset,
     load_lifecycle_report,
+    load_metadata,
     load_provenance_debt,
     load_registry,
     search_entries,
@@ -39,10 +38,10 @@ RegistryRecord: TypeAlias = CanonicalDataset | ExternalRecord | LegacyRecord
 class RegistryClient:
     """Typed, deterministic, offline client for one registry checkout."""
 
-    root: Path
+    root: Path | str
 
     def __post_init__(self) -> None:
-        object.__setattr__(self, "root", self.root.resolve())
+        object.__setattr__(self, "root", Path(self.root).resolve())
 
     def _entries(self) -> list[RegistryEntry]:
         return load_registry(self.root)
@@ -124,13 +123,9 @@ class RegistryClient:
 
         relationships: list[ConsumerRelationship] = []
         for path in sorted(consumers_root.glob("*/*.yaml")):
-            try:
-                raw = yaml.safe_load(path.read_text(encoding="utf-8"))
-            except (OSError, UnicodeError, yaml.YAMLError) as exc:
-                raise RegistryError(f"{path}: cannot load consumer metadata: {exc}") from exc
-            if not isinstance(raw, dict):
-                raise RegistryError(f"{path}: consumer metadata root must be an object")
-            relationships.append(ConsumerRelationship.from_mapping(raw))
+            relationships.append(
+                ConsumerRelationship.from_mapping(load_metadata(path))
+            )
 
         relationships.sort(
             key=lambda item: (item.consumer_id, item.dataset_id)
