@@ -3,7 +3,8 @@ name: Data validation
 on:
   pull_request:
     paths:
-      - "data_registry/**"
+      - "src/data_registry/**"
+      - "pyproject.toml"
       - "datasets/**"
       - "legacy/**"
       - "external/**"
@@ -27,6 +28,8 @@ on:
       - "tests/test_consumer_catalog.py"
       - "tests/test_registry.py"
       - "tests/test_registry_core.py"
+      - "tests/test_models.py"
+      - "tests/test_package.py"
       - "tests/test_snapshot.py"
       - "tests/test_external_health.py"
       - "tests/test_consumer_health.py"
@@ -57,7 +60,8 @@ on:
     branches:
       - main
     paths:
-      - "data_registry/**"
+      - "src/data_registry/**"
+      - "pyproject.toml"
       - "datasets/**"
       - "legacy/**"
       - "external/**"
@@ -125,8 +129,10 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-dev.txt
 
-      - name: Install validation dependency
-        run: python -m pip install -r requirements-dev.txt
+      - name: Install registry package and validation dependencies
+        run: |
+          python -m pip install -r requirements-dev.txt
+          python -m pip install -e .
 
       - name: Run validator tests
         run: python -m unittest discover -s tests -v
@@ -150,3 +156,43 @@ jobs:
 
       - name: Validate lifecycle report
         run: python scripts/generate_lifecycle_report.py
+
+
+  package-smoke:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13", "3.14"]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Build wheel
+        run: |
+          python -m pip install build
+          python -m build --wheel
+
+      - name: Install wheel
+        run: python -m pip install dist/*.whl
+
+      - name: Smoke-test installed client
+        run: |
+          python -c "import data_registry; print(data_registry.__name__)"
+          data-registry --root . list --json > /tmp/registry.json
+          data-registry --root . verify online-retail-ii --json > /tmp/verify.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          payload = json.loads(Path("/tmp/registry.json").read_text())
+          assert isinstance(payload, list)
+          assert payload
+          verified = json.loads(Path("/tmp/verify.json").read_text())
+          assert verified["ok"] is True
+          PY

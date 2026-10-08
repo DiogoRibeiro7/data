@@ -1,5 +1,27 @@
 # Registry CLI
 
+## Installable client
+
+The registry client is packaged as `diogo-data-registry` and exposes the
+`data-registry` console command.
+
+For local development:
+
+```bash
+python -m pip install -e .
+data-registry list
+```
+
+The package supports Python **3.12, 3.13, and 3.14**.
+
+For downstream use from a Git checkout, pin the exact repository revision in
+your dependency tooling. Package release/version compatibility is defined in a
+later Phase 9 issue.
+
+`python scripts/registry.py ...` remains available as a compatibility wrapper
+and calls the same packaged CLI implementation.
+
+
 The local registry CLI provides a lightweight interface over the repository's three data layers plus the canonical consumer relationship graph:
 
 - canonical datasets under `datasets/`;

@@ -1,8 +1,9 @@
 """Reusable core for the DiogoRibeiro7 data registry.
 
-This package is intentionally not yet distributed as an installable project.
-Phase 9 first establishes shared importable modules; packaging and public API
-versioning are handled by later roadmap issues.
+Installable client core for the DiogoRibeiro7 data registry.
+
+The Git repository remains the source of truth; package reads are deterministic
+and offline unless an explicit immutable fetch is requested.
 """
 
 from .core import RegistryEntry, RegistryError, load_registry

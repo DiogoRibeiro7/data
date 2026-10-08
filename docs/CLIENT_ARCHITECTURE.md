@@ -50,6 +50,18 @@ supported schema/record shape without silently coercing incompatible versions,
 while `to_mapping()` returns a detached plain mapping that preserves the
 committed record losslessly for deterministic serialization.
 
+### `data_registry.cli`
+
+Owns the installable `data-registry` console interface. Repository wrappers
+delegate to this module so installed and source-checkout CLI behavior share one
+implementation path.
+
+### `data_registry.validator`
+
+Contains the reusable validation implementation and packaged JSON Schemas used
+by the CLI's focused `verify` command and by the repository compatibility
+validator wrapper.
+
 ## Compatibility scripts
 
 `scripts/registry.py` remains the repository CLI. It owns argument parsing,
@@ -74,8 +86,7 @@ Report generators and snapshot publication also remain repository tooling.
 
 ## Next Phase 9 steps
 
-This issue establishes a package-oriented module boundary only. It deliberately
-does not yet define a released package API.
+The reusable client now lives under `src/data_registry/` and is installable through Poetry metadata in `pyproject.toml`. The public API is still intentionally narrow until #150 formalizes it.
 
 The following Phase 9 issues build on this exact layout:
 
