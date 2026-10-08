@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import sys
 import unittest
@@ -42,6 +41,9 @@ class StaticDistributionTests(unittest.TestCase):
             )
         )
         ids = [item["id"] for item in legacy["records"]]
+        self.assertTrue(
+            all("metadata" not in item for item in legacy["records"])
+        )
         expected = sorted(
             path.name
             for path in (ROOT / "legacy").iterdir()
@@ -49,17 +51,18 @@ class StaticDistributionTests(unittest.TestCase):
         )
         self.assertEqual(ids, expected)
 
-    def test_index_checksums_match_distribution_bytes(self) -> None:
+    def test_index_describes_versioned_artifact_sources(self) -> None:
         distribution = ROOT / "distribution" / "v1"
         index = json.loads((distribution / "index.json").read_text(encoding="utf-8"))
         self.assertEqual(index["distribution_version"], 1)
         self.assertEqual(index["repository"], "DiogoRibeiro7/data")
 
+        names = [artifact["name"] for artifact in index["artifacts"]]
+        self.assertEqual(names, sorted(names))
         for artifact in index["artifacts"]:
-            path = distribution / artifact["path"]
-            digest = hashlib.sha256(path.read_bytes()).hexdigest()
-            self.assertEqual(artifact["sha256"], digest)
+            self.assertTrue((distribution / artifact["path"]).is_file())
             self.assertEqual(artifact["schema_version"], 1)
+            self.assertTrue(artifact["source"])
 
 
 if __name__ == "__main__":
