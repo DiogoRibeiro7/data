@@ -20,7 +20,7 @@ The initial packaged client is `0.1.0`. Before package version 1.0:
   API;
 - minor releases may introduce new public capabilities;
 - an unavoidable breaking public API change requires both a package minor
-  version bump and a `PACKAGE_API_VERSION` increment.
+  version bump and a `PUBLIC_API_VERSION` increment.
 
 At and after package version 1.0, breaking public API changes require a package
 major-version bump.
@@ -32,7 +32,7 @@ versions.
 
 The current public API contract is:
 
-`PACKAGE_API_VERSION = 1`
+`PUBLIC_API_VERSION = 1`
 
 The supported public surface is the documented package-root API and
 `RegistryClient` behavior described in [Python API](PYTHON_API.md).
