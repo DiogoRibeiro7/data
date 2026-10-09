@@ -9,9 +9,9 @@ the capabilities the repository should grow toward.
 
 ## Current baseline
 
-The current baseline is the immutable Phase 8 release
-`snapshot-2026.10.07` at commit
-`25bbf223bcf1ed00e62e5768b6de9a1d07b13ad9`.
+The current baseline is the immutable Phase 9 release
+`snapshot-2026.10.09` at commit
+`caea1de8daec085b0af39525b9c5f8eb7ec5ce37`.
 
 At that point the registry has:
 
@@ -149,7 +149,7 @@ migration.
 
 ## Phase 9 — Registry client and machine-readable distribution
 
-**Status:** active.
+**Status:** complete.
 
 **Tracking issue:** #146.
 
@@ -185,7 +185,9 @@ real consumer requires one. The Git repository remains the source of truth.
 
 ## Phase 10 — Archival preservation, citation, and trust
 
-**Status:** long-term.
+**Status:** active.
+
+**Tracking issue:** #165.
 
 ### Goal
 
@@ -194,18 +196,14 @@ citation beyond GitHub alone.
 
 ### Planned capabilities
 
-- archive selected immutable snapshots in a preservation service such as
-  Zenodo;
-- DOI-backed citation for milestone releases where appropriate;
-- release provenance/attestation metadata;
-- signed or otherwise verifiable release identities;
-- snapshot-to-snapshot diff summaries;
-- machine-readable changelog of:
-  - added/removed canonical datasets;
-  - consumer changes;
-  - provenance/licensing resolutions;
-  - lifecycle transitions;
-- preservation policy for external records whose upstream source disappears.
+- #166 — archival preservation policy and eligibility rules;
+- #167 — deterministic snapshot-to-snapshot diff summaries;
+- #168 — machine-readable registry changelog artifacts;
+- #169 — release provenance and attestation metadata;
+- #170 — verifiable release identity support;
+- #171 — DOI/archive metadata for eligible milestone releases;
+- #172 — preservation policy for disappearing external sources;
+- #173 — Phase 10 immutable registry snapshot.
 
 ### Exit criteria
 
