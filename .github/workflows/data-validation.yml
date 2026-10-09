@@ -58,6 +58,8 @@ on:
       - "CITATION.cff"
       - "codemeta.json"
       - "docs/CITATION.md"
+      - "docs/COMPATIBILITY.md"
+      - "CHANGELOG.md"
       - ".github/workflows/data-validation.yml"
       - ".github/workflows/snapshot-release.yml"
       - ".github/workflows/external-source-health.yml"
