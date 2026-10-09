@@ -29,6 +29,40 @@ class SnapshotFixture:
         (self.root / "schemas").mkdir()
         (self.root / "legacy").mkdir()
         (self.root / "reports").mkdir()
+        (self.root / "distribution" / "v1").mkdir(parents=True)
+        (self.root / "pyproject.toml").write_text(
+            """[tool.poetry]
+name = "diogo-data-registry"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.15"
+
+[tool.poetry.scripts]
+data-registry = "data_registry.cli:entrypoint"
+""",
+            encoding="utf-8",
+        )
+        (self.root / "distribution" / "v1" / "index.json").write_text(
+            json.dumps(
+                {
+                    "distribution_version": 1,
+                    "repository": "DiogoRibeiro7/data",
+                    "artifacts": [
+                        {
+                            "name": "canonical",
+                            "path": "canonical.json",
+                            "schema_version": 1,
+                            "source": "datasets/catalog.json",
+                        }
+                    ],
+                },
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
 
         (self.root / "reports" / "canonical-adoption-policy.json").write_text(
             json.dumps(
@@ -339,7 +373,7 @@ class SnapshotTests(unittest.TestCase):
             tag="snapshot-2026.10.01",
             commit="a" * 40,
         )
-        self.assertEqual(manifest["manifest_version"], 5)
+        self.assertEqual(manifest["manifest_version"], 6)
         self.assertEqual(manifest["commit"], "a" * 40)
         self.assertEqual(manifest["catalogs"]["canonical"]["schema_version"], 1)
         self.assertEqual(manifest["metadata_schemas"]["legacy"]["schema_version"], 0)
@@ -469,6 +503,60 @@ class SnapshotTests(unittest.TestCase):
         self.assertIn("ons", summary)
         self.assertIn("unhcr", summary)
         self.assertIn("Uncovered canonical datasets: **0**", summary)
+
+    def test_snapshot_records_registry_client_state(self) -> None:
+        manifest = SNAPSHOT.build_manifest(
+            self.fixture.root,
+            tag="snapshot-2026.10.09",
+            commit="a" * 40,
+        )
+
+        client = manifest["registry_client"]
+        self.assertEqual(client["name"], "diogo-data-registry")
+        self.assertEqual(client["version"], "0.1.0")
+        self.assertEqual(client["public_api_version"], 1)
+        self.assertEqual(client["python"], ">=3.12,<3.15")
+        self.assertEqual(
+            client["console_entry"],
+            "data_registry.cli:entrypoint",
+        )
+        self.assertEqual(len(client["sha256"]), 64)
+
+    def test_snapshot_records_static_distribution_state(self) -> None:
+        manifest = SNAPSHOT.build_manifest(
+            self.fixture.root,
+            tag="snapshot-2026.10.09",
+            commit="b" * 40,
+        )
+
+        distribution = manifest["static_distribution"]
+        self.assertEqual(distribution["distribution_version"], 1)
+        self.assertEqual(distribution["repository"], "DiogoRibeiro7/data")
+        self.assertEqual(len(distribution["sha256"]), 64)
+        self.assertEqual(
+            distribution["artifacts"],
+            [
+                {
+                    "name": "canonical",
+                    "path": "canonical.json",
+                    "schema_version": 1,
+                    "source": "datasets/catalog.json",
+                }
+            ],
+        )
+
+    def test_snapshot_summary_includes_client_distribution_state(self) -> None:
+        manifest = SNAPSHOT.build_manifest(
+            self.fixture.root,
+            tag="snapshot-2026.10.09",
+            commit="c" * 40,
+        )
+
+        summary = SNAPSHOT.render_summary(manifest)
+
+        self.assertIn("## Registry client and static distribution", summary)
+        self.assertIn("diogo-data-registry 0.1.0", summary)
+        self.assertIn("Static distribution version: **v1**", summary)
 
     def test_snapshot_summary_includes_lifecycle_state(self) -> None:
         manifest = SNAPSHOT.build_manifest(
