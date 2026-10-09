@@ -8,11 +8,17 @@ import hashlib
 import json
 import re
 import sys
+import tomllib
 from datetime import date
 from pathlib import Path
 from typing import Any
 
 import yaml
+
+from data_registry.compatibility import (
+    PUBLIC_API_VERSION,
+    STATIC_DISTRIBUTION_VERSION,
+)
 
 REPOSITORY = "DiogoRibeiro7/data"
 COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
@@ -497,6 +503,90 @@ def lifecycle_record(root: Path) -> dict[str, Any]:
     }
 
 
+def registry_client_record(root: Path) -> dict[str, Any]:
+    """Return installable client package identity and supported Python range."""
+
+    relative_path = "pyproject.toml"
+    path = root / relative_path
+    project = tomllib.loads(path.read_text(encoding="utf-8"))
+    poetry = project.get("tool", {}).get("poetry", {})
+    dependencies = poetry.get("dependencies", {})
+    scripts = poetry.get("scripts", {})
+    if not isinstance(poetry, dict):
+        raise ValueError(f"{path}: tool.poetry must be an object")
+    package_name = poetry.get("name")
+    package_version = poetry.get("version")
+    python_requires = dependencies.get("python") if isinstance(dependencies, dict) else None
+    cli_entry = scripts.get("data-registry") if isinstance(scripts, dict) else None
+    if not isinstance(package_name, str) or not package_name:
+        raise ValueError(f"{path}: package name must be non-empty text")
+    if not isinstance(package_version, str) or not package_version:
+        raise ValueError(f"{path}: package version must be non-empty text")
+    if not isinstance(python_requires, str) or not python_requires:
+        raise ValueError(f"{path}: Python requirement must be non-empty text")
+    if not isinstance(cli_entry, str) or not cli_entry:
+        raise ValueError(f"{path}: data-registry console entry must be non-empty text")
+    return {
+        "path": relative_path,
+        "sha256": sha256_file(path),
+        "name": package_name,
+        "version": package_version,
+        "public_api_version": PUBLIC_API_VERSION,
+        "python": python_requires,
+        "console_entry": cli_entry,
+    }
+
+
+def static_distribution_record(root: Path) -> dict[str, Any]:
+    """Return versioned static distribution identity and artifact contract."""
+
+    relative_path = f"distribution/v{STATIC_DISTRIBUTION_VERSION}/index.json"
+    path = root / relative_path
+    index = load_json(path)
+    version = index.get("distribution_version")
+    artifacts = index.get("artifacts")
+    if version != STATIC_DISTRIBUTION_VERSION:
+        raise ValueError(
+            f"{path}: distribution_version must be {STATIC_DISTRIBUTION_VERSION}"
+        )
+    if not isinstance(artifacts, list):
+        raise ValueError(f"{path}: artifacts must be a list")
+
+    normalized: list[dict[str, Any]] = []
+    for item in artifacts:
+        if not isinstance(item, dict):
+            raise ValueError(f"{path}: artifact entries must be objects")
+        name = item.get("name")
+        artifact_path = item.get("path")
+        schema_version = item.get("schema_version")
+        source = item.get("source")
+        if not isinstance(name, str) or not name:
+            raise ValueError(f"{path}: artifact name must be non-empty text")
+        if not isinstance(artifact_path, str) or not artifact_path:
+            raise ValueError(f"{path}: artifact path must be non-empty text")
+        if not isinstance(schema_version, int):
+            raise ValueError(f"{path}: artifact schema_version must be an integer")
+        if not isinstance(source, str) or not source:
+            raise ValueError(f"{path}: artifact source must be non-empty text")
+        normalized.append(
+            {
+                "name": name,
+                "path": artifact_path,
+                "schema_version": schema_version,
+                "source": source,
+            }
+        )
+
+    normalized.sort(key=lambda item: item["name"])
+    return {
+        "path": relative_path,
+        "sha256": sha256_file(path),
+        "distribution_version": version,
+        "repository": index.get("repository"),
+        "artifacts": normalized,
+    }
+
+
 def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
     """Build the deterministic snapshot manifest."""
 
@@ -509,7 +599,7 @@ def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
         for layer, relative_path in sorted(SCHEMA_FILES.items())
     }
     return {
-        "manifest_version": 5,
+        "manifest_version": 6,
         "repository": REPOSITORY,
         "tag": tag,
         "commit": commit,
@@ -518,6 +608,8 @@ def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
             "consumer": catalog_record(root, "consumers/catalog.json"),
             "external": catalog_record(root, "external/catalog.json"),
         },
+        "registry_client": registry_client_record(root),
+        "static_distribution": static_distribution_record(root),
         "consumer_registry": consumer_graph_record(root),
         "canonical_lifecycle": lifecycle_record(root),
         "canonical_expansion": canonical_expansion_record(root),
@@ -535,12 +627,16 @@ def render_summary(manifest: dict[str, Any]) -> str:
     expansion = manifest["canonical_expansion"]
     lifecycle = manifest["canonical_lifecycle"]
     debt = manifest["provenance_debt"]
+    client = manifest["registry_client"]
+    distribution = manifest["static_distribution"]
     file_count = sum(len(item["files"]) for item in datasets)
     lines = [
         f"# Registry snapshot {manifest['tag']}",
         "",
         f"- Repository: `{manifest['repository']}`",
         f"- Commit: `{manifest['commit']}`",
+        f"- Registry client: **{client['name']} {client['version']}** (API v{client['public_api_version']})",
+        f"- Static distribution: **v{distribution['distribution_version']}**",
         f"- Canonical datasets: **{len(datasets)}**",
         f"- Canonical data files: **{file_count}**",
         f"- Active canonical consumer relationships: **{consumers['active_relationship_count']}**",
@@ -552,6 +648,19 @@ def render_summary(manifest: dict[str, Any]) -> str:
         f"- Provenance/licensing debt items: **{debt['total_debt']}**",
         f"- Terminal debt items: **{debt['terminal_count']}**",
         f"- Actionable debt items: **{debt['actionable_count']}**",
+        "",
+        "## Registry client and static distribution",
+        "",
+        f"- Package: **{client['name']} {client['version']}**",
+        f"- Public API version: **{client['public_api_version']}**",
+        f"- Supported Python: `{client['python']}`",
+        f"- Console entry: `{client['console_entry']}`",
+        f"- Package metadata: `{client['path']}`",
+        f"- Package metadata SHA-256: `{client['sha256']}`",
+        f"- Static distribution version: **v{distribution['distribution_version']}**",
+        f"- Static distribution index: `{distribution['path']}`",
+        f"- Static distribution index SHA-256: `{distribution['sha256']}`",
+        f"- Static distribution artifacts: **{len(distribution['artifacts'])}**",
         "",
         "## Canonical expansion and adoption",
         "",
