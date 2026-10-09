@@ -9,26 +9,27 @@ the capabilities the repository should grow toward.
 
 ## Current baseline
 
-The current baseline is the immutable Phase 8 release
-`snapshot-2026.10.07` at commit
-`25bbf223bcf1ed00e62e5768b6de9a1d07b13ad9`.
+The current baseline is the immutable Phase 9 release
+`snapshot-2026.10.09` at commit
+`caea1de8daec085b0af39525b9c5f8eb7ec5ce37`.
 
 At that point the registry has:
 
-- **2 canonical datasets** with verified checksums and explicit redistribution
-  rights;
-- **13 external source records**;
+- **4 canonical datasets** with verified checksums and explicit redistribution rights;
+- **16 external source records**;
 - **2 remaining legacy packages**;
-- **2 active canonical consumer relationships**;
+- **4 active canonical consumer relationships** across **3 repositories**;
 - **100% canonical dataset adoption coverage**;
-- deterministic canonical, external, and consumer catalogs;
-- a reverse consumer dependency graph;
-- offline repository validation;
-- scheduled external-source and consumer-contract health checks;
-- immutable snapshot manifests that include the consumer registry.
+- explicit lifecycle and consumer-migration semantics;
+- deterministic canonical, external, consumer, provenance-debt, lifecycle, quality, and static-distribution artifacts;
+- an installable `diogo-data-registry 0.1.0` client;
+- public API version **1** and Python **3.12–3.14** support;
+- checksum-verified immutable fetch through the packaged client;
+- static machine-readable distribution **v1**;
+- snapshot manifest **v6** capturing client and distribution identity;
+- immutable snapshot and compatibility/versioning policies.
 
-The next phases should improve trust, lifecycle management, adoption, and
-long-term preservation rather than simply increasing dataset count.
+Phase 10 focuses on long-term preservation, citation, and independently verifiable release trust.
 
 ---
 
@@ -149,7 +150,7 @@ migration.
 
 ## Phase 9 — Registry client and machine-readable distribution
 
-**Status:** active.
+**Status:** complete.
 
 **Tracking issue:** #146.
 
@@ -185,7 +186,9 @@ real consumer requires one. The Git repository remains the source of truth.
 
 ## Phase 10 — Archival preservation, citation, and trust
 
-**Status:** long-term.
+**Status:** active.
+
+**Tracking issue:** #165.
 
 ### Goal
 
@@ -194,18 +197,14 @@ citation beyond GitHub alone.
 
 ### Planned capabilities
 
-- archive selected immutable snapshots in a preservation service such as
-  Zenodo;
-- DOI-backed citation for milestone releases where appropriate;
-- release provenance/attestation metadata;
-- signed or otherwise verifiable release identities;
-- snapshot-to-snapshot diff summaries;
-- machine-readable changelog of:
-  - added/removed canonical datasets;
-  - consumer changes;
-  - provenance/licensing resolutions;
-  - lifecycle transitions;
-- preservation policy for external records whose upstream source disappears.
+- #175 — archival preservation policy and snapshot eligibility;
+- #176 — deterministic snapshot-to-snapshot diff summaries;
+- #177 — machine-readable registry changelog artifacts;
+- #178 — deterministic release provenance and attestation metadata;
+- #179 — independently verifiable release identity support;
+- #180 — archival and DOI metadata for eligible milestone snapshots;
+- #181 — external-source disappearance and preservation policy;
+- #182 — Phase 10 immutable preservation snapshot.
 
 ### Exit criteria
 
