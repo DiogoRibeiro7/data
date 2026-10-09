@@ -74,6 +74,9 @@ jobs:
       - name: Validate lifecycle report freshness
         run: python scripts/generate_lifecycle_report.py
 
+      - name: Validate static registry distribution
+        run: python scripts/generate_static_distribution.py
+
       - name: Generate release material
         run: |
           python scripts/create_snapshot.py \
