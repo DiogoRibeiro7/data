@@ -9,9 +9,9 @@ the capabilities the repository should grow toward.
 
 ## Current baseline
 
-The current baseline is the immutable Phase 9 release
-`snapshot-2026.10.09` at commit
-`caea1de8daec085b0af39525b9c5f8eb7ec5ce37`.
+The current baseline is the immutable Phase 10 release
+`snapshot-2026.10.10` at commit
+`9bcfaebd2fad950a7e62e0a1acfbf2d95e51e614`.
 
 At that point the registry has:
 
@@ -29,7 +29,7 @@ At that point the registry has:
 - snapshot manifest **v6** capturing client and distribution identity;
 - immutable snapshot and compatibility/versioning policies.
 
-Phase 10 is release-ready. All preservation, citation, provenance, verification, archive/DOI, and external-source disappearance contracts are implemented; the final immutable snapshot remains to be published.
+Phase 10 is complete. Preservation, citation, provenance, verification, archive/DOI, external-source disappearance, and immutable release-trust contracts are captured by `snapshot-2026.10.10`.
 
 ---
 
@@ -186,7 +186,7 @@ real consumer requires one. The Git repository remains the source of truth.
 
 ## Phase 10 — Archival preservation, citation, and trust
 
-**Status:** release-ready.
+**Status:** complete.
 
 **Tracking issue:** #165.
 
@@ -204,7 +204,7 @@ citation beyond GitHub alone.
 - #179 — independently verifiable release identity support;
 - #180 — archival and DOI metadata for eligible milestone snapshots;
 - #181 — external-source disappearance and preservation policy;
-- #182 — Phase 10 immutable preservation snapshot.
+- #182 — Phase 10 immutable preservation snapshot (`snapshot-2026.10.10`).
 
 ### Exit criteria
 
