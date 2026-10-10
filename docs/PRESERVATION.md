@@ -106,3 +106,18 @@ The deterministic report currently classifies:
 
 This is a mechanical policy decision from committed metadata, not a new legal
 grant. Upstream terms remain controlling.
+
+
+## Archive-ready generation
+
+The preservation profiles are implemented by
+`scripts/generate_archive_bundle.py`. The snapshot workflow defaults to the
+`release-metadata` profile and uploads the resulting archive-ready material as
+a separate workflow artifact.
+
+Selecting `eligible-canonical-bytes` is explicit. The generator includes only
+canonical datasets that the committed preservation report marks eligible; it
+does not copy external-source or legacy-quarantine bytes.
+
+See [Archive and DOI metadata](ARCHIVING.md) for the bundle format, DOI
+recording contract, and publication procedure.
