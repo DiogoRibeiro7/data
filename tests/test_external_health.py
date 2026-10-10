@@ -153,6 +153,63 @@ class ExternalHealthTests(unittest.TestCase):
         pinned = next(item for item in results if item.check == "pinned-commit")
         self.assertEqual(pinned.status, "drift")
 
+    def test_moved_source_checks_replacement_not_old_url(self) -> None:
+        temp, root = self.make_root()
+        self.addCleanup(temp.cleanup)
+        metadata_path = root / "external" / "example" / "metadata.yaml"
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata["availability"] = {
+            "state": "moved",
+            "last_reviewed": "2026-10-10",
+            "replacement_url": "https://example.test/new-data",
+            "evidence": ["https://example.test/move-notice"],
+        }
+        metadata_path.write_text(
+            yaml.safe_dump(metadata, sort_keys=False),
+            encoding="utf-8",
+        )
+
+        seen: list[str] = []
+
+        def opener(request, _timeout):
+            seen.append(request.full_url)
+            return 200
+
+        results = HEALTH.check_external_sources(root, opener=opener)
+        self.assertTrue(any(item.status == "moved" for item in results))
+        self.assertTrue(any(item.check == "replacement-url" for item in results))
+        self.assertNotIn("https://example.test/data", seen)
+        self.assertIn("https://example.test/new-data", seen)
+
+    def test_terminal_tombstone_skips_live_endpoint_checks(self) -> None:
+        temp, root = self.make_root()
+        self.addCleanup(temp.cleanup)
+        metadata_path = root / "external" / "example" / "metadata.yaml"
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata["availability"] = {
+            "state": "permanently-unavailable",
+            "last_reviewed": "2026-10-10",
+            "evidence": ["https://example.test/withdrawal-notice"],
+        }
+        metadata_path.write_text(
+            yaml.safe_dump(metadata, sort_keys=False),
+            encoding="utf-8",
+        )
+
+        seen: list[str] = []
+
+        def opener(request, _timeout):
+            seen.append(request.full_url)
+            return 404
+
+        results = HEALTH.check_external_sources(root, opener=opener)
+        tombstone = next(
+            item for item in results if item.check == "availability-state"
+        )
+        self.assertEqual(tombstone.status, "tombstone")
+        self.assertEqual(seen, [])
+        self.assertEqual(HEALTH.report_payload(results)["summary"]["drift"], 0)
+
     def test_report_rendering_distinguishes_warning_and_drift(self) -> None:
         results = [
             HEALTH.CheckResult("a", "source-url", "x", "healthy", "HTTP 200"),

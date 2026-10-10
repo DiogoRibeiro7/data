@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DiogoRibeiro7/data/schemas/external-disappearance-policy-v1.schema.json",
+  "title": "External source disappearance policy v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "repository",
+    "states",
+    "preservation",
+    "health_mapping",
+    "tombstone_semantics"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "repository": {"const": "DiogoRibeiro7/data"},
+    "states": {"type": "object", "minProperties": 5},
+    "preservation": {"type": "object"},
+    "health_mapping": {"type": "object"},
+    "tombstone_semantics": {"type": "object"}
+  }
+}

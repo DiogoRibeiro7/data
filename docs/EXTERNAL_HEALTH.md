@@ -20,7 +20,7 @@ python scripts/check_external_sources.py \
 
 ## Outcome classes
 
-The checker deliberately separates three classes.
+The checker separates live network observations from reviewed committed disappearance state.
 
 ### Healthy
 
@@ -54,6 +54,14 @@ Examples:
 - a pinned commit is declared for a source that cannot be mapped to a GitHub repository.
 
 The checker **never edits metadata**. A drift finding is a signal to investigate and open a normal reviewed change.
+
+### Moved source
+
+When reviewed metadata declares `availability.state: moved`, the historical source URL is preserved but is no longer probed as if it were live. The checker reports the record as moved and checks the committed `replacement_url` instead.
+
+### Terminal tombstone
+
+`permanently-unavailable` and `legal-withdrawal` are committed terminal states. They are reported as tombstones rather than drift and live endpoint probing is skipped. These states are never inferred automatically from a single HTTP response.
 
 ## GitHub Actions
 
@@ -96,3 +104,19 @@ It does not:
 - treat a transient outage as evidence that metadata is wrong.
 
 Any provenance or licensing correction must still be made through a reviewed pull request with authoritative evidence.
+
+
+## Committed disappearance state
+
+External metadata may include an optional `availability` block. See
+[External-source disappearance and preservation](EXTERNAL_DISAPPEARANCE.md).
+
+The state model distinguishes:
+
+- live availability;
+- transient outage;
+- reviewed source moves;
+- permanent disappearance;
+- legal/provider withdrawal.
+
+Terminal and moved states require reviewed evidence under the metadata schema.

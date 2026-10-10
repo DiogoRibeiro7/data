@@ -62,6 +62,7 @@ nav:
   - Governance:
       - Data policy: DATA_POLICY.md
       - External source health: EXTERNAL_HEALTH.md
+      - External disappearance: EXTERNAL_DISAPPEARANCE.md
       - Consumer contract health: CONSUMER_HEALTH.md
       - Metadata: METADATA.md
       - Schemas: SCHEMAS.md

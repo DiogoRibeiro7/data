@@ -203,11 +203,66 @@ def check_external_sources(
             )
 
         source_url = metadata.get("source_url")
-        if isinstance(source_url, str) and source_url:
+        availability = metadata.get("availability")
+        availability_state = "live"
+        replacement_url: str | None = None
+        if isinstance(availability, dict):
+            state = availability.get("state")
+            if isinstance(state, str) and state:
+                availability_state = state
+            candidate = availability.get("replacement_url")
+            if isinstance(candidate, str) and candidate:
+                replacement_url = candidate
+
+        terminal_state = availability_state in {
+            "permanently-unavailable",
+            "legal-withdrawal",
+        }
+        moved_state = availability_state == "moved"
+
+        if terminal_state:
+            results.append(
+                CheckResult(
+                    source_id,
+                    "availability-state",
+                    str(source_url or ""),
+                    "tombstone",
+                    f"committed terminal state: {availability_state}",
+                )
+            )
+        elif moved_state:
+            results.append(
+                CheckResult(
+                    source_id,
+                    "availability-state",
+                    str(source_url or ""),
+                    "moved",
+                    "authoritative source has a committed replacement endpoint",
+                )
+            )
+            if replacement_url is not None:
+                status, detail = request_url(
+                    replacement_url,
+                    opener=opener,
+                    timeout=timeout,
+                )
+                results.append(
+                    CheckResult(
+                        source_id,
+                        "replacement-url",
+                        replacement_url,
+                        status,
+                        detail,
+                    )
+                )
+        elif isinstance(source_url, str) and source_url:
             status, detail = request_url(source_url, opener=opener, timeout=timeout)
             results.append(
                 CheckResult(source_id, "source-url", source_url, status, detail)
             )
+
+        if terminal_state:
+            continue
 
         license_data = metadata.get("license")
         if isinstance(license_data, dict):
@@ -229,7 +284,7 @@ def check_external_sources(
             results.append(CheckResult(source_id, "doi", doi_url, status, detail))
 
         commit = metadata.get("source_commit")
-        if isinstance(commit, str) and commit:
+        if isinstance(commit, str) and commit and not moved_state:
             commit_url = github_commit_url(str(source_url), commit)
             if commit_url is None:
                 results.append(
@@ -266,9 +321,15 @@ def check_external_sources(
 
 
 def report_payload(results: list[CheckResult]) -> dict[str, Any]:
-    counts = {"healthy": 0, "warning": 0, "drift": 0}
+    counts = {
+        "healthy": 0,
+        "warning": 0,
+        "drift": 0,
+        "moved": 0,
+        "tombstone": 0,
+    }
     for item in results:
-        counts[item.status] += 1
+        counts[item.status] = counts.get(item.status, 0) + 1
     return {
         "schema_version": 1,
         "summary": counts,
@@ -284,6 +345,8 @@ def render_markdown(payload: dict[str, Any]) -> str:
         f"- Healthy checks: **{summary['healthy']}**",
         f"- Transient warnings: **{summary['warning']}**",
         f"- Actionable drift: **{summary['drift']}**",
+        f"- Moved sources: **{summary['moved']}**",
+        f"- Terminal tombstones: **{summary['tombstone']}**",
         "",
         "| Source | Check | Status | Target | Detail |",
         "| --- | --- | --- | --- | --- |",
@@ -301,6 +364,9 @@ def render_markdown(payload: dict[str, Any]) -> str:
     )
     lines.append(
         "Drift requires human review; this checker never edits provenance, licensing, or source metadata."
+    )
+    lines.append(
+        "Moved and tombstone states come only from reviewed committed metadata and are not inferred from one network observation."
     )
     lines.append("")
     return "\n".join(lines)
@@ -362,7 +428,9 @@ def main() -> int:
         "External source health: "
         f"{summary['healthy']} healthy, "
         f"{summary['warning']} warning(s), "
-        f"{summary['drift']} drift finding(s)."
+        f"{summary['drift']} drift finding(s), "
+        f"{summary['moved']} moved, "
+        f"{summary['tombstone']} tombstone(s)."
     )
 
     if args.fail_on_drift and summary["drift"]:
