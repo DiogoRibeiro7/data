@@ -462,7 +462,7 @@ class SnapshotTests(unittest.TestCase):
             tag="snapshot-2026.10.01",
             commit="a" * 40,
         )
-        self.assertEqual(manifest["manifest_version"], 7)
+        self.assertEqual(manifest["manifest_version"], 8)
         self.assertEqual(manifest["commit"], "a" * 40)
         self.assertEqual(manifest["catalogs"]["canonical"]["schema_version"], 1)
         self.assertEqual(manifest["metadata_schemas"]["legacy"]["schema_version"], 0)
