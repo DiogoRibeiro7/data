@@ -26,6 +26,7 @@ on:
       - "scripts/check_consumer_contracts.py"
       - "scripts/registry_quality.py"
       - "scripts/generate_provenance_debt.py"
+      - "scripts/generate_registry_changelog.py"
       - "scripts/generate_lifecycle_report.py"
       - "scripts/generate_preservation_eligibility.py"
       - "tests/test_validate_repository.py"
@@ -40,6 +41,7 @@ on:
       - "tests/test_package.py"
       - "tests/test_snapshot.py"
       - "tests/test_snapshot_diff.py"
+      - "tests/test_registry_changelog.py"
       - "tests/test_external_health.py"
       - "tests/test_consumer_health.py"
       - "tests/test_citation_metadata.py"
@@ -54,6 +56,9 @@ on:
       - "reports/canonical-adoption-policy.json"
       - "reports/provenance-debt.json"
       - "reports/provenance-debt.md"
+      - "reports/registry-changelog.json"
+      - "reports/registry-changelog.md"
+      - "changelog/**"
       - "reports/lifecycle.json"
       - "reports/lifecycle.md"
       - "reports/preservation-eligibility.json"
@@ -173,6 +178,9 @@ jobs:
 
       - name: Validate provenance debt report
         run: python scripts/generate_provenance_debt.py
+
+      - name: Validate registry changelog
+        run: python scripts/generate_registry_changelog.py
 
       - name: Validate lifecycle report
         run: python scripts/generate_lifecycle_report.py
