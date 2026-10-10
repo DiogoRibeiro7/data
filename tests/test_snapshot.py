@@ -30,6 +30,19 @@ class SnapshotFixture:
         (self.root / "legacy").mkdir()
         (self.root / "reports").mkdir()
         (self.root / "distribution" / "v1").mkdir(parents=True)
+        (self.root / "scripts").mkdir()
+        (self.root / ".github" / "workflows").mkdir(parents=True)
+        (self.root / "scripts" / "create_snapshot.py").write_text(
+            "# fixture snapshot generator\n",
+            encoding="utf-8",
+        )
+        (self.root / ".github" / "workflows" / "snapshot-release.yml").write_text(
+            "jobs:\n"
+            "  release:\n"
+            "    uses: DiogoRibeiro7/git-actions-collection/.github/workflows/"
+            "snapshot-release.yml@6c68c76f3cec5b61552d24aa724fbd3398c33dbd\n",
+            encoding="utf-8",
+        )
         (self.root / "pyproject.toml").write_text(
             """[tool.poetry]
 name = "diogo-data-registry"
@@ -721,16 +734,156 @@ class SnapshotTests(unittest.TestCase):
                 commit="c" * 40,
             )
 
+    def test_snapshot_provenance_binds_manifest_and_summary(self) -> None:
+        self.fixture.add_canonical("dataset")
+        with tempfile.TemporaryDirectory() as directory:
+            manifest_path, summary_path, provenance_path = (
+                SNAPSHOT.write_release_material(
+                    self.fixture.root,
+                    tag="snapshot-2026.10.10",
+                    commit="a" * 40,
+                    output_dir=Path(directory),
+                )
+            )
+
+            provenance = json.loads(
+                provenance_path.read_text(encoding="utf-8")
+            )
+
+            self.assertEqual(provenance["schema_version"], 1)
+            self.assertEqual(
+                provenance["snapshot"],
+                {
+                    "tag": "snapshot-2026.10.10",
+                    "commit": "a" * 40,
+                },
+            )
+            self.assertEqual(
+                provenance["artifacts"]["manifest"]["sha256"],
+                hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+            )
+            self.assertEqual(
+                provenance["artifacts"]["summary"]["sha256"],
+                hashlib.sha256(summary_path.read_bytes()).hexdigest(),
+            )
+
+    def test_snapshot_provenance_records_exact_producer_identity(self) -> None:
+        self.fixture.add_canonical("dataset")
+        manifest = SNAPSHOT.build_manifest(
+            self.fixture.root,
+            tag="snapshot-2026.10.10",
+            commit="b" * 40,
+        )
+        manifest_text = (
+            json.dumps(
+                manifest,
+                indent=2,
+                ensure_ascii=False,
+                sort_keys=True,
+            )
+            + "\n"
+        )
+        summary_text = SNAPSHOT.render_summary(manifest)
+
+        provenance = SNAPSHOT.build_snapshot_provenance(
+            self.fixture.root,
+            manifest=manifest,
+            manifest_text=manifest_text,
+            summary_text=summary_text,
+        )
+
+        self.assertEqual(
+            provenance["producer"]["reusable_publisher"]["ref"],
+            "6c68c76f3cec5b61552d24aa724fbd3398c33dbd",
+        )
+        self.assertEqual(
+            provenance["interfaces"]["snapshot_manifest_version"],
+            manifest["manifest_version"],
+        )
+        self.assertEqual(
+            provenance["interfaces"]["package_version"],
+            "0.1.0",
+        )
+        self.assertEqual(
+            provenance["interfaces"]["public_api_version"],
+            1,
+        )
+        self.assertEqual(
+            provenance["interfaces"]["static_distribution_version"],
+            1,
+        )
+
+    def test_snapshot_provenance_contains_only_deterministic_assertions(self) -> None:
+        self.fixture.add_canonical("dataset")
+        manifest = SNAPSHOT.build_manifest(
+            self.fixture.root,
+            tag="snapshot-2026.10.10",
+            commit="c" * 40,
+        )
+        manifest_text = json.dumps(
+            manifest,
+            indent=2,
+            ensure_ascii=False,
+            sort_keys=True,
+        ) + "\n"
+        provenance = SNAPSHOT.build_snapshot_provenance(
+            self.fixture.root,
+            manifest=manifest,
+            manifest_text=manifest_text,
+            summary_text=SNAPSHOT.render_summary(manifest),
+        )
+
+        self.assertTrue(provenance["assertions"])
+        self.assertTrue(
+            all(
+                item["result"] == "pass"
+                for item in provenance["assertions"]
+            )
+        )
+        serialized = json.dumps(provenance, sort_keys=True)
+        for forbidden in ("run_id", "timestamp", "actor", "created_at"):
+            self.assertNotIn(forbidden, serialized)
+
+    def test_snapshot_provenance_requires_exact_reusable_publisher_ref(self) -> None:
+        self.fixture.add_canonical("dataset")
+        workflow = (
+            self.fixture.root
+            / ".github"
+            / "workflows"
+            / "snapshot-release.yml"
+        )
+        workflow.write_text(
+            "jobs:\n  release:\n"
+            "    uses: DiogoRibeiro7/git-actions-collection/"
+            ".github/workflows/snapshot-release.yml@v1\n",
+            encoding="utf-8",
+        )
+        manifest = SNAPSHOT.build_manifest(
+            self.fixture.root,
+            tag="snapshot-2026.10.10",
+            commit="d" * 40,
+        )
+        with self.assertRaisesRegex(
+            ValueError,
+            "exact reusable snapshot publisher ref not found",
+        ):
+            SNAPSHOT.build_snapshot_provenance(
+                self.fixture.root,
+                manifest=manifest,
+                manifest_text=json.dumps(manifest),
+                summary_text=SNAPSHOT.render_summary(manifest),
+            )
+
     def test_release_material_is_byte_deterministic(self) -> None:
         self.fixture.add_canonical("dataset")
         with tempfile.TemporaryDirectory() as first, tempfile.TemporaryDirectory() as second:
-            first_json, first_md = SNAPSHOT.write_release_material(
+            first_json, first_md, first_provenance = SNAPSHOT.write_release_material(
                 self.fixture.root,
                 tag="snapshot-2026.10.01.3",
                 commit="d" * 40,
                 output_dir=Path(first),
             )
-            second_json, second_md = SNAPSHOT.write_release_material(
+            second_json, second_md, second_provenance = SNAPSHOT.write_release_material(
                 self.fixture.root,
                 tag="snapshot-2026.10.01.3",
                 commit="d" * 40,
@@ -738,6 +891,10 @@ class SnapshotTests(unittest.TestCase):
             )
             self.assertEqual(first_json.read_bytes(), second_json.read_bytes())
             self.assertEqual(first_md.read_bytes(), second_md.read_bytes())
+            self.assertEqual(
+                first_provenance.read_bytes(),
+                second_provenance.read_bytes(),
+            )
 
 
 if __name__ == "__main__":
