@@ -129,6 +129,20 @@ def verify_release_bundle(
     if interfaces.get("snapshot_manifest_version") != manifest_version:
         raise ReleaseVerificationError("provenance/manifest version mismatch")
 
+    if manifest.get("repository") != provenance.get("repository"):
+        raise ReleaseVerificationError("manifest/provenance repository mismatch")
+
+    static_distribution = manifest.get("static_distribution")
+    if not isinstance(static_distribution, dict):
+        raise ReleaseVerificationError("manifest static distribution is missing")
+    if (
+        static_distribution.get("distribution_version")
+        != interfaces.get("static_distribution_version")
+    ):
+        raise ReleaseVerificationError(
+            "provenance/static-distribution version mismatch"
+        )
+
     assertions = provenance.get("assertions")
     if not isinstance(assertions, list) or not assertions:
         raise ReleaseVerificationError("provenance assertions are missing")
