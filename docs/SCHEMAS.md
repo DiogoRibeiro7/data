@@ -138,3 +138,18 @@ digests, diff exactness, and categorized semantic changes.
 
 A breaking required-field or interpretation change requires a new changelog
 schema version. Existing committed transition entries remain immutable.
+
+
+## Snapshot provenance schema
+
+`schemas/snapshot-provenance-v1.schema.json` defines the deterministic
+`snapshot-provenance.json` release-asset contract.
+
+Schema version 1 binds an immutable snapshot tag/commit to the SHA-256 digests
+of its manifest and summary, committed producer files, exact reusable publisher
+commit, public client/distribution/manifest versions, and deterministic release
+assertions.
+
+The provenance schema is independent of the snapshot-manifest version. Adding
+the sibling provenance asset therefore does not rewrite or renumber historical
+manifest contracts.
