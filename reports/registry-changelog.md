@@ -15,5 +15,5 @@ Git snapshot tags/releases remain the authoritative release identities.
 - Canonical added / removed / changed: **0 / 0 / 0**
 - Consumer relationship count: **4 → 4**
 - Provenance debt: **6 → 9**
-- Exact consumer diff available: **false**
-- Exact provenance-debt item diff available: **false**
+- Exact consumer diff available: **False**
+- Exact provenance-debt item diff available: **False**

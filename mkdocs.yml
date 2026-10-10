@@ -67,6 +67,7 @@ nav:
       - Provenance resolution: PROVENANCE_RESOLUTION.md
       - Migration: MIGRATION.md
       - Releases: RELEASES.md
+      - Release provenance: ATTESTATION.md
       - Compatibility: COMPATIBILITY.md
       - Citation: CITATION.md
       - Contributing: CONTRIBUTING.md

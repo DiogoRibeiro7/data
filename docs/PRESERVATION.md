@@ -43,6 +43,7 @@ The safest default archive profile contains only registry-authored material:
 
 - snapshot manifest;
 - snapshot summary;
+- deterministic snapshot provenance/attestation record;
 - versioned static distribution;
 - citation/archive metadata;
 - preservation policy;

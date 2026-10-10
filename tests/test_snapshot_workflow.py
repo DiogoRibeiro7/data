@@ -16,6 +16,11 @@ class SnapshotWorkflowTests(unittest.TestCase):
             self.text,
         )
         self.assertIn("dry-run: ${{ !inputs.publish_release }}", self.text)
+        self.assertIn(
+            "required-files: '[\"snapshot-manifest.json\","
+            "\"snapshot-summary.md\",\"snapshot-provenance.json\"]'",
+            self.text,
+        )
 
     def test_data_repo_keeps_domain_specific_preparation(self) -> None:
         for command in (
@@ -24,6 +29,8 @@ class SnapshotWorkflowTests(unittest.TestCase):
             "scripts/generate_consumer_catalog.py",
             "scripts/registry_quality.py",
             "scripts/generate_provenance_debt.py",
+            "scripts/generate_preservation_eligibility.py",
+            "scripts/generate_registry_changelog.py",
             "scripts/create_snapshot.py",
         ):
             self.assertIn(command, self.text)

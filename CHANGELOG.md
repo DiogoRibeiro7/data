@@ -11,7 +11,8 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 
 ### Added
 
-- deterministic snapshot-to-snapshot diff tooling;
+- Deterministic `snapshot-provenance.json` release metadata binding snapshot identity, release-asset digests, producer workflow/generator identity, and client/distribution interface versions.
+- Deterministic snapshot-to-snapshot diff tooling;
 - snapshot manifest v7 consumer-relationship and provenance-debt identities for exact release diffs;
 
 - Public compatibility constants for package API, static distribution, and
@@ -38,6 +39,6 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 
 - Public package API version: **1**.
 - Static distribution version: **1**.
-- Historical snapshot-manifest versions recognized: **1–5**.
+- Historical snapshot-manifest versions recognized: **1–7**.
 
 The repository does not yet publish a separate `v0.1.0` GitHub package-release tag; snapshot tags remain independent registry release identities.
