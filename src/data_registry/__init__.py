@@ -20,6 +20,11 @@ from .compatibility import (
 )
 from .core import RegistryEntry, RegistryError, load_registry
 from .fetch import DatasetReference, fetch_dataset_file
+from .release_verification import (
+    ReleaseVerificationError,
+    ReleaseVerificationResult,
+    verify_release_bundle,
+)
 from .models import (
     CanonicalDataset,
     ConsumerRelationship,
@@ -45,6 +50,9 @@ __all__ = [
     "LifecycleDataset",
     "ProvenanceDebtItem",
     "RegistryModelError",
+    "verify_release_bundle",
+    "ReleaseVerificationResult",
+    "ReleaseVerificationError",
     "PRE_1_DEPRECATION_MIN_MINOR_RELEASES",
     "SUPPORTED_SNAPSHOT_MANIFEST_VERSIONS",
     "STATIC_DISTRIBUTION_VERSION",
