@@ -434,7 +434,14 @@ def main() -> int:
             commit=args.commit,
             profile=args.profile,
         )
-    except (OSError, ValueError, KeyError, json.JSONDecodeError, yaml.YAMLError) as exc:
+    except (
+        OSError,
+        ValueError,
+        KeyError,
+        json.JSONDecodeError,
+        yaml.YAMLError,
+        jsonschema.ValidationError,
+    ) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
 
