@@ -81,6 +81,22 @@ def verify_release_bundle(
     if not isinstance(interfaces, dict):
         raise ReleaseVerificationError("provenance interfaces are malformed")
 
+    manifest_artifact = artifacts.get("manifest")
+    summary_artifact = artifacts.get("summary")
+    if not isinstance(manifest_artifact, dict) or not isinstance(summary_artifact, dict):
+        raise ReleaseVerificationError("provenance artifact records are malformed")
+
+    manifest_sha = _sha256(manifest_path)
+    summary_sha = _sha256(summary_path)
+    if manifest_artifact.get("path") != "snapshot-manifest.json":
+        raise ReleaseVerificationError("unexpected manifest artifact path")
+    if summary_artifact.get("path") != "snapshot-summary.md":
+        raise ReleaseVerificationError("unexpected summary artifact path")
+    if manifest_artifact.get("sha256") != manifest_sha:
+        raise ReleaseVerificationError("snapshot-manifest.json digest mismatch")
+    if summary_artifact.get("sha256") != summary_sha:
+        raise ReleaseVerificationError("snapshot-summary.md digest mismatch")
+
     tag = snapshot.get("tag")
     commit = snapshot.get("commit")
     if not isinstance(tag, str) or not tag:
@@ -106,22 +122,6 @@ def verify_release_bundle(
             raise ReleaseVerificationError(
                 f"release commit mismatch: expected {expected_commit}, got {commit}"
             )
-
-    manifest_artifact = artifacts.get("manifest")
-    summary_artifact = artifacts.get("summary")
-    if not isinstance(manifest_artifact, dict) or not isinstance(summary_artifact, dict):
-        raise ReleaseVerificationError("provenance artifact records are malformed")
-
-    manifest_sha = _sha256(manifest_path)
-    summary_sha = _sha256(summary_path)
-    if manifest_artifact.get("path") != "snapshot-manifest.json":
-        raise ReleaseVerificationError("unexpected manifest artifact path")
-    if summary_artifact.get("path") != "snapshot-summary.md":
-        raise ReleaseVerificationError("unexpected summary artifact path")
-    if manifest_artifact.get("sha256") != manifest_sha:
-        raise ReleaseVerificationError("snapshot-manifest.json digest mismatch")
-    if summary_artifact.get("sha256") != summary_sha:
-        raise ReleaseVerificationError("snapshot-summary.md digest mismatch")
 
     manifest_version = manifest.get("manifest_version")
     if not isinstance(manifest_version, int):
