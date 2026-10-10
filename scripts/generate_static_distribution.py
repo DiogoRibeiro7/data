@@ -18,6 +18,7 @@ REPOSITORY = "DiogoRibeiro7/data"
 
 SOURCE_ARTIFACTS = {
     "canonical": "datasets/catalog.json",
+    "changelog": "reports/registry-changelog.json",
     "external": "external/catalog.json",
     "consumers": "consumers/catalog.json",
     "dependencies": "consumers/dependency-graph.json",
