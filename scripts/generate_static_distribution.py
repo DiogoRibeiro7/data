@@ -17,6 +17,7 @@ DISTRIBUTION_VERSION = 1
 REPOSITORY = "DiogoRibeiro7/data"
 
 SOURCE_ARTIFACTS = {
+    "archive-identifiers": "archive/identifiers.json",
     "canonical": "datasets/catalog.json",
     "changelog": "reports/registry-changelog.json",
     "external": "external/catalog.json",
