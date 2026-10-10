@@ -113,3 +113,13 @@ For a future Zenodo/DataCite archival release:
 6. never move or rewrite the published snapshot tag.
 
 This keeps software citation, registry-version identity, and upstream dataset attribution separate and reproducible.
+
+
+## Deterministic archive metadata
+
+Milestone snapshots can generate service-neutral archive metadata before any DOI
+exists. See [Archive and DOI metadata](ARCHIVING.md).
+
+Archive identifiers are recorded only after assignment and remain bound to the
+exact snapshot tag and commit. They are additive citation identifiers; they do
+not replace the immutable Git identity or upstream dataset citations.
