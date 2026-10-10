@@ -227,14 +227,6 @@ def catalog_record(root: Path, relative_path: str) -> dict[str, Any]:
     schema_version = catalog.get("schema_version")
     if not isinstance(schema_version, int):
         raise ValueError(f"{path}: catalog schema_version must be an integer")
-    normalized_relationships.sort(
-        key=lambda item: (
-            str(item["consumer_id"]),
-            str(item["dataset_id"]),
-            str(item["path"]),
-        )
-    )
-
     return {
         "path": relative_path,
         "schema_version": schema_version,
@@ -430,6 +422,14 @@ def consumer_graph_record(root: Path) -> dict[str, Any]:
                     "sha256": item.get("sha256"),
                 }
             )
+
+    normalized_relationships.sort(
+        key=lambda item: (
+            str(item["consumer_id"]),
+            str(item["dataset_id"]),
+            str(item["path"]),
+        )
+    )
 
     return {
         "path": relative_path,
