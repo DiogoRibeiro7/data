@@ -97,7 +97,6 @@ If a published dataset has an integrity, provenance, licensing, or privacy probl
 
 For serious publication issues, a release can be marked as superseded, but historical Git objects remain part of repository history unless a dedicated history-rewrite process is justified.
 
-
 ## Snapshot tooling
 
 The repository provides `scripts/create_snapshot.py` to generate deterministic release material.
@@ -114,7 +113,8 @@ python scripts/create_snapshot.py \
 The output directory contains:
 
 - `snapshot-manifest.json` — machine-readable immutable manifest;
-- `snapshot-summary.md` — human-readable release summary.
+- `snapshot-summary.md` — human-readable release summary;
+- `release-provenance.json` — deterministic provenance and release-attestation metadata generated after the manifest and summary.
 
 The manifest records:
 
@@ -136,6 +136,22 @@ Snapshot manifest version 7 adds normalized consumer-relationship and provenance
 
 No runtime timestamp is included. Given the same repository bytes, tag, and commit, the generated JSON and Markdown are byte-for-byte deterministic.
 
+## Release provenance and attestation metadata
+
+After snapshot material is generated, `scripts/generate_release_provenance.py` writes `release-provenance.json`.
+
+The provenance record is versioned by `schemas/release-provenance-v1.schema.json` and binds:
+
+- repository, immutable snapshot tag, exact release commit, and snapshot-manifest version;
+- SHA-256 digests of `snapshot-manifest.json` and `snapshot-summary.md`;
+- the repository workflow path and the exact commit-pinned reusable publisher workflow;
+- registry-client package/API identity and static-distribution version;
+- the validation commands that are required to have succeeded before provenance generation.
+
+The provenance payload deliberately excludes runtime timestamps, workflow run IDs, runner identities, and other execution-specific values. Those values can be useful operational evidence, but putting them into the deterministic payload would make identical release inputs produce different bytes.
+
+This provenance record is an attestation of the deterministic release inputs and required validation path. Cryptographic/offline verification of the complete release bundle is a separate trust layer and is handled by the independently verifiable release-identity work.
+
 ## Manual GitHub release workflow
 
 Use **Actions → Snapshot release → Run workflow**.
@@ -155,11 +171,14 @@ Every manual run:
 5. runs the full unit-test suite;
 6. validates repository metadata, checksums, catalogs, and hygiene;
 7. validates the external catalog freshness;
-8. validates the registry quality report freshness;
-9. validates the provenance-debt report freshness;
-10. validates the lifecycle report freshness;
-11. generates deterministic snapshot material;
-12. uploads the material as a workflow artifact.
+8. validates the consumer catalog freshness;
+9. validates the registry quality report freshness;
+10. validates the provenance-debt report freshness;
+11. validates the lifecycle report freshness;
+12. validates the static registry distribution freshness;
+13. generates deterministic snapshot material;
+14. generates deterministic release provenance;
+15. uploads the complete material as a workflow artifact.
 
 After the repository-specific validation and release-material generation, the workflow delegates snapshot publication to the reusable `snapshot-release.yml` workflow in `DiogoRibeiro7/git-actions-collection`, pinned to an exact collection commit.
 
@@ -172,7 +191,7 @@ When `publish_release=true`, the reusable workflow:
 3. creates an annotated tag pointing to the requested commit;
 4. pushes the tag;
 5. creates a GitHub release using `snapshot-summary.md` as release notes;
-6. attaches the prepared snapshot files to the release.
+6. attaches the prepared snapshot files, including provenance metadata, to the release.
 
 The data repository therefore owns registry validation and deterministic snapshot generation, while the shared Actions collection owns the generic immutable publication machinery.
 
@@ -185,6 +204,6 @@ Before publishing:
 - ensure `main` is green;
 - choose the exact commit to release;
 - run the manual workflow once with `publish_release=false`;
-- inspect the uploaded manifest and summary;
+- inspect the uploaded manifest, summary, and provenance record;
 - rerun with the same tag/commit and `publish_release=true`;
 - never reuse or move an existing snapshot tag.
