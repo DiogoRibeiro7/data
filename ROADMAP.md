@@ -29,7 +29,7 @@ At that point the registry has:
 - snapshot manifest **v6** capturing client and distribution identity;
 - immutable snapshot and compatibility/versioning policies.
 
-Phase 10 focuses on long-term preservation, citation, and independently verifiable release trust.
+Phase 10 is release-ready. All preservation, citation, provenance, verification, archive/DOI, and external-source disappearance contracts are implemented; the final immutable snapshot remains to be published.
 
 ---
 
@@ -186,7 +186,7 @@ real consumer requires one. The Git repository remains the source of truth.
 
 ## Phase 10 — Archival preservation, citation, and trust
 
-**Status:** active.
+**Status:** release-ready.
 
 **Tracking issue:** #165.
 
