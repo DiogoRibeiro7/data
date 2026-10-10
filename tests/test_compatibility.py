@@ -47,12 +47,12 @@ class CompatibilityPolicyTests(unittest.TestCase):
 
         self.assertEqual(current, CURRENT_SNAPSHOT_MANIFEST_VERSION)
         self.assertTrue(supports_snapshot_manifest(current))
-        self.assertEqual(current, 6)
+        self.assertEqual(current, 7)
 
     def test_historical_snapshot_manifest_versions_remain_supported(self) -> None:
         self.assertEqual(
             SUPPORTED_SNAPSHOT_MANIFEST_VERSIONS,
-            (1, 2, 3, 4, 5, 6),
+            (1, 2, 3, 4, 5, 6, 7),
         )
 
     def test_package_metadata_matches_initial_semver_line(self) -> None:

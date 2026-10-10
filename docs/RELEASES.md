@@ -76,8 +76,8 @@ Registry snapshot tags, package versions, metadata schema versions, static
 distribution versions, and snapshot manifest versions are deliberately
 independent version domains.
 
-The current snapshot manifest is version 6. Published historical manifests
-versions 1–6 remain recognized and are never rewritten in place.
+The current snapshot manifest is version 7. Published historical manifests
+versions 1–7 remain recognized and are never rewritten in place.
 
 ## Metadata schema versioning
 
@@ -132,7 +132,7 @@ The manifest records:
 - the installable registry client package/API/Python compatibility identity;
 - the static machine-readable distribution version, index digest, and artifact contract.
 
-Snapshot manifest version 6 adds packaged registry-client and static-distribution state. Manifest v5 added canonical lifecycle and supersession state. Historical releases that used earlier manifest versions remain unchanged.
+Snapshot manifest version 7 adds normalized consumer-relationship and provenance-debt item identities for exact snapshot-to-snapshot diffs. Manifest v6 added packaged registry-client and static-distribution state; manifest v5 added canonical lifecycle and supersession state. Historical releases that used earlier manifest versions remain unchanged.
 
 No runtime timestamp is included. Given the same repository bytes, tag, and commit, the generated JSON and Markdown are byte-for-byte deterministic.
 

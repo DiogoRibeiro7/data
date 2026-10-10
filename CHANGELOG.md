@@ -11,6 +11,9 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 
 ### Added
 
+- deterministic snapshot-to-snapshot diff tooling;
+- snapshot manifest v7 consumer-relationship and provenance-debt identities for exact release diffs;
+
 - Public compatibility constants for package API, static distribution, and
   supported historical snapshot-manifest versions.
 - Explicit compatibility, deprecation, schema, distribution, and historical
@@ -29,6 +32,9 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 - Versioned machine-readable static registry distribution v1.
 
 ### Compatibility
+
+- snapshot manifest v7 is current;
+- historical manifest versions 1–7 remain supported for interpretation;
 
 - Public package API version: **1**.
 - Static distribution version: **1**.

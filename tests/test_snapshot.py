@@ -373,7 +373,7 @@ class SnapshotTests(unittest.TestCase):
             tag="snapshot-2026.10.01",
             commit="a" * 40,
         )
-        self.assertEqual(manifest["manifest_version"], 6)
+        self.assertEqual(manifest["manifest_version"], 7)
         self.assertEqual(manifest["commit"], "a" * 40)
         self.assertEqual(manifest["catalogs"]["canonical"]["schema_version"], 1)
         self.assertEqual(manifest["metadata_schemas"]["legacy"]["schema_version"], 0)
@@ -384,6 +384,7 @@ class SnapshotTests(unittest.TestCase):
         self.assertEqual(len(manifest["provenance_debt"]["sha256"]), 64)
         self.assertEqual(manifest["provenance_debt"]["terminal_count"], 2)
         self.assertEqual(manifest["provenance_debt"]["unstructured_count"], 0)
+        self.assertEqual(manifest["provenance_debt"]["items"], [])
         self.assertEqual(
             manifest["canonical_expansion"]["baseline_snapshot"],
             "snapshot-2026.10.05",
@@ -425,6 +426,11 @@ class SnapshotTests(unittest.TestCase):
         self.assertEqual(consumer["relationship_count"], 1)
         self.assertEqual(consumer["active_relationship_count"], 1)
         self.assertEqual(consumer["deprecated_relationship_count"], 0)
+        self.assertEqual(len(consumer["relationships"]), 1)
+        self.assertEqual(
+            consumer["relationships"][0]["consumer_id"],
+            "example-consumer",
+        )
 
     def test_snapshot_summary_includes_consumer_registry(self) -> None:
         self.fixture.add_consumer("example-consumer", "dataset")
