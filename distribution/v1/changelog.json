@@ -1,0 +1,123 @@
+{
+  "entries": [
+    {
+      "base": {
+        "commit": "25bbf223bcf1ed00e62e5768b6de9a1d07b13ad9",
+        "manifest_sha256": "10893efc67c6f36aa54121c6152f77cc4c7cf3fce443ad703a022da27742ced2",
+        "manifest_version": 5,
+        "tag": "snapshot-2026.10.07"
+      },
+      "changes": {
+        "canonical": {
+          "added": [],
+          "changed": [],
+          "removed": []
+        },
+        "consumers": {
+          "active_relationship_count": [
+            4,
+            4
+          ],
+          "deprecated_relationship_count": [
+            0,
+            0
+          ],
+          "relationship_count": [
+            4,
+            4
+          ],
+          "repository_count": [
+            3,
+            3
+          ]
+        },
+        "lifecycle": {
+          "added": [],
+          "changed": [],
+          "preferred_replacements_changed": false,
+          "removed": []
+        },
+        "manifest_version": {
+          "after": 6,
+          "before": 5
+        },
+        "metadata_schemas": {
+          "changed": []
+        },
+        "provenance_debt": {
+          "actionable_count": [
+            0,
+            3
+          ],
+          "by_blocker_category": {
+            "after": {
+              "dataset-vs-repository-licence-scope": 2,
+              "exact-snapshot-identity": 1,
+              "historical-export-route": 1,
+              "redistribution-rights": 5
+            },
+            "before": {
+              "dataset-vs-repository-licence-scope": 2,
+              "exact-snapshot-identity": 1,
+              "historical-export-route": 1,
+              "redistribution-rights": 2
+            }
+          },
+          "terminal_count": [
+            6,
+            6
+          ],
+          "total_debt": [
+            6,
+            9
+          ]
+        },
+        "registry_client": {
+          "after": {
+            "console_entry": "data_registry.cli:entrypoint",
+            "name": "diogo-data-registry",
+            "public_api_version": 1,
+            "python": ">=3.12,<3.15",
+            "version": "0.1.0"
+          },
+          "before": null,
+          "introduced": true
+        },
+        "static_distribution": {
+          "after": {
+            "artifact_count": 8,
+            "distribution_version": 1
+          },
+          "before": null,
+          "introduced": true
+        }
+      },
+      "diff_schema_version": 1,
+      "exactness": {
+        "canonical": true,
+        "consumers": false,
+        "lifecycle": true,
+        "metadata_schemas": true,
+        "notes": "Consumer relationships and provenance-debt item identities were not embedded before snapshot manifest v7; aggregate comparison is exact, item-level comparison is unavailable for this historical transition.",
+        "provenance_debt": false,
+        "registry_client": true,
+        "static_distribution": true
+      },
+      "schema_version": 1,
+      "target": {
+        "commit": "caea1de8daec085b0af39525b9c5f8eb7ec5ce37",
+        "manifest_sha256": "a707b20c465c3e342b1a57e542a2776f7333a2d78c3492b246ed1f6dd3a0bae8",
+        "manifest_version": 6,
+        "tag": "snapshot-2026.10.09"
+      },
+      "transition_id": "snapshot-2026.10.07__snapshot-2026.10.09"
+    }
+  ],
+  "history_start": {
+    "commit": "25bbf223bcf1ed00e62e5768b6de9a1d07b13ad9",
+    "tag": "snapshot-2026.10.07"
+  },
+  "repository": "DiogoRibeiro7/data",
+  "schema_version": 1,
+  "source_authority": "Committed append-only transition entries derived from immutable snapshot release manifests; Git releases remain authoritative."
+}

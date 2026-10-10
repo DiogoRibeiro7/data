@@ -59,6 +59,7 @@ class StaticDistributionTests(unittest.TestCase):
 
         names = [artifact["name"] for artifact in index["artifacts"]]
         self.assertEqual(names, sorted(names))
+        self.assertIn("changelog", names)
         for artifact in index["artifacts"]:
             self.assertTrue((distribution / artifact["path"]).is_file())
             self.assertEqual(artifact["schema_version"], 1)

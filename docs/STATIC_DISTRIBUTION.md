@@ -25,6 +25,7 @@ and the committed source-of-truth path for each artifact.
 | Artifact | Public path | Source |
 | --- | --- | --- |
 | Canonical catalog | `registry/v1/canonical.json` | `datasets/catalog.json` |
+| Release changelog | `registry/v1/changelog.json` | `reports/registry-changelog.json` |
 | External sources | `registry/v1/external.json` | `external/catalog.json` |
 | Consumer relationships | `registry/v1/consumers.json` | `consumers/catalog.json` |
 | Dependency graph | `registry/v1/dependencies.json` | `consumers/dependency-graph.json` |

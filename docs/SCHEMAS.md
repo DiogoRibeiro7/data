@@ -125,3 +125,16 @@ python scripts/validate_repository.py
 ```
 
 JSON Schema validation is performed with Draft 2020-12 and URI/date format checking enabled.
+
+
+## Registry changelog schema
+
+The append-only machine-readable snapshot history is governed by:
+
+`schemas/registry-changelog-v1.schema.json`
+
+Schema version **1** records exact base/target snapshot identity, manifest
+digests, diff exactness, and categorized semantic changes.
+
+A breaking required-field or interpretation change requires a new changelog
+schema version. Existing committed transition entries remain immutable.
