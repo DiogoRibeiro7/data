@@ -58,6 +58,12 @@ Known source-specific extensions such as `medium_blog`, `doi`, `source_commit`, 
 External metadata may also include an optional structured `resolution` block
 for unresolved provenance, snapshot, lineage, or redistribution debt.
 
+It may also include an optional `availability` block for reviewed source
+moves, transient outages, permanent disappearance, or legal withdrawal.
+Moved and terminal states require evidence; moved records also require a
+replacement URL. Existing records without this block remain valid and are
+interpreted as live.
+
 See [provenance and licensing resolution evidence](PROVENANCE_RESOLUTION.md).
 
 ## Consumer metadata
@@ -169,3 +175,14 @@ Phase 10 archival preparation uses three versioned contracts:
 
 Archive identifiers are additive citation identifiers. They never replace or
 move the immutable Git snapshot identity.
+
+
+## External disappearance policy schema
+
+`schemas/external-disappearance-policy-v1.schema.json` defines the
+machine-readable policy contract implemented by
+`preservation/external-disappearance-policy-v1.json`.
+
+The policy separates transient observations from reviewed committed historical
+states and defines preservation/tombstone behavior without granting new rights
+to mirror external-source bytes.
