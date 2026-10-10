@@ -114,7 +114,9 @@ python scripts/create_snapshot.py \
 The output directory contains:
 
 - `snapshot-manifest.json` — machine-readable immutable manifest;
-- `snapshot-summary.md` — human-readable release summary.
+- `snapshot-summary.md` — human-readable release summary;
+- `snapshot-provenance.json` — deterministic provenance binding the release
+  identity, artifact digests, producer files, and interface versions.
 
 The manifest records:
 
@@ -134,7 +136,11 @@ The manifest records:
 
 Snapshot manifest version 7 adds normalized consumer-relationship and provenance-debt item identities for exact snapshot-to-snapshot diffs. Manifest v6 added packaged registry-client and static-distribution state; manifest v5 added canonical lifecycle and supersession state. Historical releases that used earlier manifest versions remain unchanged.
 
-No runtime timestamp is included. Given the same repository bytes, tag, and commit, the generated JSON and Markdown are byte-for-byte deterministic.
+No runtime timestamp is included. Given the same repository bytes, tag, and commit, the generated release material is byte-for-byte deterministic.
+
+New releases also include a separate deterministic
+[`snapshot-provenance.json` record](ATTESTATION.md). It binds the manifest and
+summary by SHA-256 without changing the snapshot manifest contract.
 
 ## Manual GitHub release workflow
 
@@ -158,8 +164,10 @@ Every manual run:
 8. validates the registry quality report freshness;
 9. validates the provenance-debt report freshness;
 10. validates the lifecycle report freshness;
-11. generates deterministic snapshot material;
-12. uploads the material as a workflow artifact.
+11. validates preservation eligibility and the registry changelog;
+12. validates the static distribution;
+13. generates deterministic snapshot material, including provenance;
+14. uploads the material as a workflow artifact.
 
 After the repository-specific validation and release-material generation, the workflow delegates snapshot publication to the reusable `snapshot-release.yml` workflow in `DiogoRibeiro7/git-actions-collection`, pinned to an exact collection commit.
 
