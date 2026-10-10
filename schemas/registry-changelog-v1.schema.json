@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DiogoRibeiro7/data/schemas/registry-changelog-v1.schema.json",
+  "title": "Registry release changelog v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "repository",
+    "history_start",
+    "source_authority",
+    "entries"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": 1},
+    "repository": {"const": "DiogoRibeiro7/data"},
+    "history_start": {
+      "type": "object",
+      "required": ["tag", "commit"],
+      "properties": {
+        "tag": {"type": "string"},
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "source_authority": {"type": "string"},
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema_version",
+          "transition_id",
+          "base",
+          "target",
+          "diff_schema_version",
+          "exactness",
+          "changes"
+        ],
+        "properties": {
+          "schema_version": {"const": 1},
+          "transition_id": {"type": "string"},
+          "base": {"type": "object"},
+          "target": {"type": "object"},
+          "diff_schema_version": {"type": "integer", "minimum": 1},
+          "exactness": {"type": "object"},
+          "changes": {"type": "object"}
+        }
+      }
+    }
+  }
+}
