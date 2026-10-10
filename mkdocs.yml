@@ -48,6 +48,7 @@ nav:
       - Python API: PYTHON_API.md
       - Static distribution: STATIC_DISTRIBUTION.md
       - Archival preservation: PRESERVATION.md
+      - Snapshot diffs: SNAPSHOT_DIFFS.md
       - Preservation eligibility: generated/preservation-eligibility.md
       - Client architecture: CLIENT_ARCHITECTURE.md
       - Consumers: CONSUMERS.md
