@@ -3,11 +3,14 @@
 from __future__ import annotations
 
 import hashlib
+import io
+from contextlib import redirect_stdout
 import json
 import tempfile
 import unittest
 from pathlib import Path
 
+from data_registry import cli as CLI
 from data_registry.release_verification import (
     ReleaseVerificationError,
     verify_release_bundle,
@@ -71,6 +74,33 @@ class ReleaseVerificationTests(unittest.TestCase):
         self.assertEqual(result.tag, tag)
         self.assertEqual(result.commit, commit)
         self.assertEqual(result.manifest_version, 7)
+
+    def test_cli_verify_release_returns_machine_readable_success(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            tag, commit = write_bundle(root)
+            stdout = io.StringIO()
+            with redirect_stdout(stdout):
+                code = CLI.main(
+                    [
+                        "--root",
+                        str(root),
+                        "verify-release",
+                        "--bundle",
+                        str(root),
+                        "--tag",
+                        tag,
+                        "--commit",
+                        commit,
+                        "--json",
+                    ]
+                )
+
+        self.assertEqual(code, 0)
+        payload = json.loads(stdout.getvalue())
+        self.assertTrue(payload["ok"])
+        self.assertEqual(payload["tag"], tag)
+        self.assertEqual(payload["commit"], commit)
 
     def test_tampered_manifest_fails(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
