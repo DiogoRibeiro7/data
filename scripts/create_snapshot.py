@@ -32,6 +32,10 @@ SCHEMA_FILES = {
     "external": "schemas/external-metadata-v1.schema.json",
     "legacy": "schemas/legacy-metadata-v0.schema.json",
 }
+REUSABLE_PUBLISHER_RE = re.compile(
+    r"uses:\s+DiogoRibeiro7/git-actions-collection/"
+    r"\.github/workflows/snapshot-release\.yml@(?P<ref>[0-9a-f]{40})"
+)
 
 
 def sha256_file(path: Path) -> str:
@@ -42,6 +46,12 @@ def sha256_file(path: Path) -> str:
         for block in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def sha256_text(text: str) -> str:
+    """Return the SHA-256 checksum for UTF-8 text."""
+
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def validate_snapshot_tag(tag: str) -> None:
@@ -898,25 +908,129 @@ def render_summary(manifest: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def _reusable_publisher_ref(root: Path) -> str:
+    """Return the exact reusable snapshot publisher commit pinned by workflow."""
+
+    workflow_path = root / ".github" / "workflows" / "snapshot-release.yml"
+    text = workflow_path.read_text(encoding="utf-8")
+    match = REUSABLE_PUBLISHER_RE.search(text)
+    if match is None:
+        raise ValueError(
+            f"{workflow_path}: exact reusable snapshot publisher ref not found"
+        )
+    return match.group("ref")
+
+
+def build_snapshot_provenance(
+    root: Path,
+    *,
+    manifest: dict[str, Any],
+    manifest_text: str,
+    summary_text: str,
+) -> dict[str, Any]:
+    """Build deterministic provenance binding release identity and artifacts."""
+
+    root = root.resolve()
+    client = manifest["registry_client"]
+    distribution = manifest["static_distribution"]
+
+    assertions = [
+        {"id": "snapshot-tag-valid", "result": "pass"},
+        {"id": "commit-sha-valid", "result": "pass"},
+        {"id": "canonical-file-checksums-verified", "result": "pass"},
+        {"id": "metadata-schemas-readable", "result": "pass"},
+        {"id": "catalogs-readable", "result": "pass"},
+        {"id": "consumer-registry-readable", "result": "pass"},
+        {"id": "lifecycle-report-readable", "result": "pass"},
+        {"id": "provenance-debt-report-readable", "result": "pass"},
+        {"id": "registry-client-state-readable", "result": "pass"},
+        {"id": "static-distribution-state-readable", "result": "pass"},
+        {"id": "snapshot-summary-rendered", "result": "pass"},
+    ]
+
+    return {
+        "schema_version": 1,
+        "predicate_type": (
+            "https://github.com/DiogoRibeiro7/data/"
+            "attestations/snapshot-provenance/v1"
+        ),
+        "repository": manifest["repository"],
+        "snapshot": {
+            "tag": manifest["tag"],
+            "commit": manifest["commit"],
+        },
+        "artifacts": {
+            "manifest": {
+                "path": "snapshot-manifest.json",
+                "sha256": sha256_text(manifest_text),
+            },
+            "summary": {
+                "path": "snapshot-summary.md",
+                "sha256": sha256_text(summary_text),
+            },
+        },
+        "producer": {
+            "generator": {
+                "path": "scripts/create_snapshot.py",
+                "sha256": sha256_file(root / "scripts" / "create_snapshot.py"),
+            },
+            "workflow": {
+                "path": ".github/workflows/snapshot-release.yml",
+                "sha256": sha256_file(
+                    root / ".github" / "workflows" / "snapshot-release.yml"
+                ),
+            },
+            "reusable_publisher": {
+                "repository": "DiogoRibeiro7/git-actions-collection",
+                "workflow": ".github/workflows/snapshot-release.yml",
+                "ref": _reusable_publisher_ref(root),
+            },
+        },
+        "interfaces": {
+            "package_name": client["name"],
+            "package_version": client["version"],
+            "public_api_version": client["public_api_version"],
+            "static_distribution_version": distribution["distribution_version"],
+            "snapshot_manifest_version": manifest["manifest_version"],
+        },
+        "assertions": assertions,
+    }
+
+
 def write_release_material(
     root: Path,
     *,
     tag: str,
     commit: str,
     output_dir: Path,
-) -> tuple[Path, Path]:
-    """Write deterministic JSON and Markdown release material."""
+) -> tuple[Path, Path, Path]:
+    """Write deterministic manifest, summary, and provenance material."""
 
+    root = root.resolve()
     manifest = build_manifest(root, tag=tag, commit=commit)
+    manifest_text = (
+        json.dumps(manifest, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
+    )
+    summary_text = render_summary(manifest)
+    provenance = build_snapshot_provenance(
+        root,
+        manifest=manifest,
+        manifest_text=manifest_text,
+        summary_text=summary_text,
+    )
+    provenance_text = (
+        json.dumps(provenance, indent=2, ensure_ascii=False, sort_keys=True) + "\n"
+    )
+
     output_dir.mkdir(parents=True, exist_ok=True)
     manifest_path = output_dir / "snapshot-manifest.json"
     summary_path = output_dir / "snapshot-summary.md"
-    manifest_path.write_text(
-        json.dumps(manifest, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
-    summary_path.write_text(render_summary(manifest), encoding="utf-8")
-    return manifest_path, summary_path
+    provenance_path = output_dir / "snapshot-provenance.json"
+
+    manifest_path.write_text(manifest_text, encoding="utf-8")
+    summary_path.write_text(summary_text, encoding="utf-8")
+    provenance_path.write_text(provenance_text, encoding="utf-8")
+    return manifest_path, summary_path, provenance_path
 
 
 def parse_args() -> argparse.Namespace:
@@ -940,7 +1054,7 @@ def main() -> int:
 
     args = parse_args()
     try:
-        manifest_path, summary_path = write_release_material(
+        manifest_path, summary_path, provenance_path = write_release_material(
             args.root,
             tag=args.tag,
             commit=args.commit,
@@ -952,6 +1066,7 @@ def main() -> int:
 
     print(f"Snapshot manifest: {manifest_path}")
     print(f"Snapshot summary: {summary_path}")
+    print(f"Snapshot provenance: {provenance_path}")
     return 0
 
 
