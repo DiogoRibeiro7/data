@@ -60,18 +60,11 @@ def _canonical_records(root: Path) -> list[dict[str, Any]]:
             continue
         metadata = _load_yaml(metadata_path)
         license_data = metadata.get("license")
-        source = metadata.get("source")
         if not isinstance(license_data, dict):
             raise ValueError(f"{metadata_path}: license must be a mapping")
-        if not isinstance(source, dict):
-            raise ValueError(f"{metadata_path}: source must be a mapping")
 
         redistribution = license_data.get("redistribution")
         eligible = redistribution == "allowed"
-        files = metadata.get("files")
-        if not isinstance(files, list):
-            raise ValueError(f"{metadata_path}: files must be a list")
-
         records.append(
             {
                 "id": metadata.get("id"),
@@ -86,26 +79,7 @@ def _canonical_records(root: Path) -> list[dict[str, Any]]:
                     else "canonical bytes are not archive-eligible without explicit redistribution permission"
                 ),
                 "redistribution": redistribution,
-                "license": {
-                    "name": license_data.get("name"),
-                    "url": license_data.get("url"),
-                },
-                "source": {
-                    "publisher": source.get("publisher"),
-                    "url": source.get("url"),
-                    "snapshot": source.get("snapshot"),
-                },
-                "files": sorted(
-                    [
-                        {
-                            "path": item.get("path"),
-                            "sha256": item.get("sha256"),
-                        }
-                        for item in files
-                        if isinstance(item, dict)
-                    ],
-                    key=lambda item: str(item["path"]),
-                ),
+                "license_name": license_data.get("name"),
             }
         )
     records.sort(key=lambda item: str(item["id"]))
@@ -123,11 +97,9 @@ def _external_records(root: Path) -> list[dict[str, Any]]:
         records.append(
             {
                 "id": metadata.get("id"),
-                "title": metadata.get("title"),
                 "metadata_path": metadata_path.relative_to(root).as_posix(),
                 "byte_archive_eligibility": "metadata-only",
                 "reason": "external-layer source bytes are never archived by default",
-                "redistribution": metadata.get("redistribution"),
             }
         )
     records.sort(key=lambda item: str(item["id"]))
@@ -142,20 +114,12 @@ def _legacy_records(root: Path) -> list[dict[str, Any]]:
         if not metadata_path.is_file():
             continue
         metadata = _load_yaml(metadata_path)
-        license_data = metadata.get("license")
-        redistribution = (
-            license_data.get("redistribution")
-            if isinstance(license_data, dict)
-            else None
-        )
         records.append(
             {
                 "id": metadata.get("id"),
-                "title": metadata.get("title"),
                 "metadata_path": metadata_path.relative_to(root).as_posix(),
                 "byte_archive_eligibility": "metadata-only",
                 "reason": "legacy quarantine bytes require separate canonical promotion before archival",
-                "redistribution": redistribution,
             }
         )
     records.sort(key=lambda item: str(item["id"]))
@@ -222,7 +186,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         "| --- | --- | --- | --- |",
     ]
     for item in report["canonical"]:
-        licence = item["license"]["name"] or "unknown"
+        licence = item["license_name"] or "unknown"
         lines.append(
             f"| `{item['id']}` | {item['byte_archive_eligibility']} | "
             f"{item['redistribution'] or 'unknown'} | {licence} |"
