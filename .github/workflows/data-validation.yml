@@ -5,6 +5,9 @@ on:
     paths:
       - "src/data_registry/**"
       - "pyproject.toml"
+      - "archive/**"
+      - "scripts/generate_archive_bundle.py"
+      - "tests/test_archive_bundle.py"
       - "distribution/**"
       - "preservation/**"
       - "scripts/generate_static_distribution.py"
@@ -82,6 +85,9 @@ on:
     paths:
       - "src/data_registry/**"
       - "pyproject.toml"
+      - "archive/**"
+      - "scripts/generate_archive_bundle.py"
+      - "tests/test_archive_bundle.py"
       - "distribution/**"
       - "scripts/generate_static_distribution.py"
       - "tests/test_static_distribution.py"
