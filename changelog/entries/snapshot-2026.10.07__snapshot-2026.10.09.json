@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "transition_id": "snapshot-2026.10.07__snapshot-2026.10.09",
+  "base": {
+    "tag": "snapshot-2026.10.07",
+    "commit": "25bbf223bcf1ed00e62e5768b6de9a1d07b13ad9",
+    "manifest_version": 5,
+    "manifest_sha256": "10893efc67c6f36aa54121c6152f77cc4c7cf3fce443ad703a022da27742ced2"
+  },
+  "target": {
+    "tag": "snapshot-2026.10.09",
+    "commit": "caea1de8daec085b0af39525b9c5f8eb7ec5ce37",
+    "manifest_version": 6,
+    "manifest_sha256": "a707b20c465c3e342b1a57e542a2776f7333a2d78c3492b246ed1f6dd3a0bae8"
+  },
+  "diff_schema_version": 1,
+  "exactness": {
+    "canonical": true,
+    "consumers": false,
+    "lifecycle": true,
+    "provenance_debt": false,
+    "metadata_schemas": true,
+    "registry_client": true,
+    "static_distribution": true,
+    "notes": "Consumer relationships and provenance-debt item identities were not embedded before snapshot manifest v7; aggregate comparison is exact, item-level comparison is unavailable for this historical transition."
+  },
+  "changes": {
+    "manifest_version": {
+      "before": 5,
+      "after": 6
+    },
+    "canonical": {
+      "added": [],
+      "removed": [],
+      "changed": []
+    },
+    "consumers": {
+      "relationship_count": [4, 4],
+      "active_relationship_count": [4, 4],
+      "deprecated_relationship_count": [0, 0],
+      "repository_count": [3, 3]
+    },
+    "lifecycle": {
+      "added": [],
+      "removed": [],
+      "changed": [],
+      "preferred_replacements_changed": false
+    },
+    "provenance_debt": {
+      "total_debt": [6, 9],
+      "actionable_count": [0, 3],
+      "terminal_count": [6, 6],
+      "by_blocker_category": {
+        "before": {
+          "dataset-vs-repository-licence-scope": 2,
+          "exact-snapshot-identity": 1,
+          "historical-export-route": 1,
+          "redistribution-rights": 2
+        },
+        "after": {
+          "dataset-vs-repository-licence-scope": 2,
+          "exact-snapshot-identity": 1,
+          "historical-export-route": 1,
+          "redistribution-rights": 5
+        }
+      }
+    },
+    "metadata_schemas": {
+      "changed": []
+    },
+    "registry_client": {
+      "introduced": true,
+      "before": null,
+      "after": {
+        "name": "diogo-data-registry",
+        "version": "0.1.0",
+        "public_api_version": 1,
+        "python": ">=3.12,<3.15",
+        "console_entry": "data_registry.cli:entrypoint"
+      }
+    },
+    "static_distribution": {
+      "introduced": true,
+      "before": null,
+      "after": {
+        "distribution_version": 1,
+        "artifact_count": 8
+      }
+    }
+  }
+}
