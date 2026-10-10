@@ -117,9 +117,11 @@ Immutable snapshot releases have historically used manifest versions:
 | `snapshot-2026.10.05` | 3 |
 | `snapshot-2026.10.06` | 4 |
 | `snapshot-2026.10.07` | 5 |
+| `snapshot-2026.10.09` | 6 |
+| Phase 10 preservation snapshot | 8 |
 
 The packaged compatibility contract currently recognizes manifest versions
-**1 through 5**.
+**1 through 8**.
 
 Historical snapshot manifests are immutable. New tooling must not rewrite an
 old release into the current manifest shape.

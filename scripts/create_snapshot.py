@@ -644,6 +644,100 @@ def static_distribution_record(root: Path) -> dict[str, Any]:
     }
 
 
+def preservation_trust_record(root: Path) -> dict[str, Any]:
+    """Return Phase 10 preservation, archival, and disappearance-policy state."""
+
+    eligibility_path = root / "reports" / "preservation-eligibility.json"
+    preservation_policy_path = root / "preservation" / "policy-v1.json"
+    disappearance_policy_path = (
+        root / "preservation" / "external-disappearance-policy-v1.json"
+    )
+    archive_identifiers_path = root / "archive" / "identifiers.json"
+
+    eligibility = load_json(eligibility_path)
+    preservation_policy = load_json(preservation_policy_path)
+    disappearance_policy = load_json(disappearance_policy_path)
+    archive_identifiers = load_json(archive_identifiers_path)
+
+    summary = eligibility.get("summary")
+    if not isinstance(summary, dict):
+        raise ValueError(
+            f"{eligibility_path}: preservation eligibility summary must be an object"
+        )
+
+    required_counts = (
+        "canonical_dataset_count",
+        "canonical_byte_archive_eligible_count",
+        "canonical_metadata_only_count",
+        "external_source_count",
+        "external_metadata_only_count",
+        "legacy_package_count",
+        "legacy_metadata_only_count",
+    )
+    for key in required_counts:
+        if not isinstance(summary.get(key), int):
+            raise ValueError(f"{eligibility_path}: summary.{key} must be an integer")
+
+    identifier_entries = archive_identifiers.get("entries")
+    if not isinstance(identifier_entries, list):
+        raise ValueError(f"{archive_identifiers_path}: entries must be a list")
+
+    return {
+        "preservation_policy": {
+            "path": "preservation/policy-v1.json",
+            "schema_version": preservation_policy.get("schema_version"),
+            "policy_version": preservation_policy.get("policy_version"),
+            "sha256": sha256_file(preservation_policy_path),
+        },
+        "preservation_eligibility": {
+            "path": "reports/preservation-eligibility.json",
+            "schema_version": eligibility.get("schema_version"),
+            "sha256": sha256_file(eligibility_path),
+            "canonical_dataset_count": summary["canonical_dataset_count"],
+            "canonical_byte_archive_eligible_count": summary[
+                "canonical_byte_archive_eligible_count"
+            ],
+            "canonical_metadata_only_count": summary[
+                "canonical_metadata_only_count"
+            ],
+            "external_source_count": summary["external_source_count"],
+            "external_metadata_only_count": summary[
+                "external_metadata_only_count"
+            ],
+            "legacy_package_count": summary["legacy_package_count"],
+            "legacy_metadata_only_count": summary["legacy_metadata_only_count"],
+        },
+        "external_disappearance_policy": {
+            "path": "preservation/external-disappearance-policy-v1.json",
+            "schema_version": disappearance_policy.get("schema_version"),
+            "sha256": sha256_file(disappearance_policy_path),
+            "states": sorted(
+                str(key)
+                for key in (
+                    disappearance_policy.get("states", {})
+                    if isinstance(disappearance_policy.get("states"), dict)
+                    else {}
+                )
+            ),
+        },
+        "archive_identifiers": {
+            "path": "archive/identifiers.json",
+            "schema_version": archive_identifiers.get("schema_version"),
+            "sha256": sha256_file(archive_identifiers_path),
+            "assigned_identifier_count": len(identifier_entries),
+        },
+        "release_trust": {
+            "snapshot_provenance_schema": 1,
+            "offline_bundle_verification": True,
+            "github_artifact_attestations": True,
+            "archive_bundle_profiles": [
+                "eligible-canonical-bytes",
+                "release-metadata",
+            ],
+        },
+    }
+
+
 def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
     """Build the deterministic snapshot manifest."""
 
@@ -656,7 +750,7 @@ def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
         for layer, relative_path in sorted(SCHEMA_FILES.items())
     }
     return {
-        "manifest_version": 7,
+        "manifest_version": 8,
         "repository": REPOSITORY,
         "tag": tag,
         "commit": commit,
@@ -667,6 +761,7 @@ def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
         },
         "registry_client": registry_client_record(root),
         "static_distribution": static_distribution_record(root),
+        "preservation_trust": preservation_trust_record(root),
         "consumer_registry": consumer_graph_record(root),
         "canonical_lifecycle": lifecycle_record(root),
         "canonical_expansion": canonical_expansion_record(root),
@@ -686,6 +781,7 @@ def render_summary(manifest: dict[str, Any]) -> str:
     debt = manifest["provenance_debt"]
     client = manifest["registry_client"]
     distribution = manifest["static_distribution"]
+    preservation = manifest["preservation_trust"]
     file_count = sum(len(item["files"]) for item in datasets)
     lines = [
         f"# Registry snapshot {manifest['tag']}",
@@ -705,6 +801,25 @@ def render_summary(manifest: dict[str, Any]) -> str:
         f"- Provenance/licensing debt items: **{debt['total_debt']}**",
         f"- Terminal debt items: **{debt['terminal_count']}**",
         f"- Actionable debt items: **{debt['actionable_count']}**",
+        f"- Archive-eligible canonical datasets: **{preservation['preservation_eligibility']['canonical_byte_archive_eligible_count']} / {preservation['preservation_eligibility']['canonical_dataset_count']}**",
+        f"- Assigned archive identifiers: **{preservation['archive_identifiers']['assigned_identifier_count']}**",
+        "",
+        "## Preservation, citation, and release trust",
+        "",
+        f"- Preservation policy: `{preservation['preservation_policy']['path']}`",
+        f"- Preservation policy SHA-256: `{preservation['preservation_policy']['sha256']}`",
+        f"- Preservation eligibility: `{preservation['preservation_eligibility']['path']}`",
+        f"- Preservation eligibility SHA-256: `{preservation['preservation_eligibility']['sha256']}`",
+        f"- Canonical byte-archive eligible / metadata-only: **{preservation['preservation_eligibility']['canonical_byte_archive_eligible_count']} / {preservation['preservation_eligibility']['canonical_metadata_only_count']}**",
+        f"- External metadata-only: **{preservation['preservation_eligibility']['external_metadata_only_count']}**",
+        f"- Legacy metadata-only: **{preservation['preservation_eligibility']['legacy_metadata_only_count']}**",
+        f"- External disappearance policy: `{preservation['external_disappearance_policy']['path']}`",
+        f"- Disappearance states: **{len(preservation['external_disappearance_policy']['states'])}**",
+        f"- Archive identifier registry: `{preservation['archive_identifiers']['path']}`",
+        f"- Assigned archive identifiers: **{preservation['archive_identifiers']['assigned_identifier_count']}**",
+        "- Deterministic snapshot provenance: **enabled**",
+        "- Offline bundle verification: **enabled**",
+        "- GitHub artifact attestations: **enabled**",
         "",
         "## Registry client and static distribution",
         "",

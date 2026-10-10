@@ -31,6 +31,8 @@ class SnapshotFixture:
         (self.root / "legacy").mkdir()
         (self.root / "reports").mkdir()
         (self.root / "distribution" / "v1").mkdir(parents=True)
+        (self.root / "preservation").mkdir()
+        (self.root / "archive").mkdir()
         (self.root / "scripts").mkdir()
         (self.root / ".github" / "workflows").mkdir(parents=True)
         (self.root / "scripts" / "create_snapshot.py").write_text(
@@ -151,6 +153,79 @@ data-registry = "data_registry.cli:entrypoint"
             + "\n",
             encoding="utf-8",
         )
+        (self.root / "preservation" / "policy-v1.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "policy_version": 1,
+                    "archive_profiles": {
+                        "release-metadata": {},
+                        "eligible-canonical-bytes": {},
+                    },
+                },
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        (
+            self.root
+            / "preservation"
+            / "external-disappearance-policy-v1.json"
+        ).write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "repository": "DiogoRibeiro7/data",
+                    "states": {
+                        "live": {},
+                        "transient-outage": {},
+                        "moved": {},
+                        "permanently-unavailable": {},
+                        "legal-withdrawal": {},
+                    },
+                },
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        (self.root / "archive" / "identifiers.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "repository": "DiogoRibeiro7/data",
+                    "entries": [],
+                },
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        (self.root / "reports" / "preservation-eligibility.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "summary": {
+                        "canonical_dataset_count": 0,
+                        "canonical_byte_archive_eligible_count": 0,
+                        "canonical_metadata_only_count": 0,
+                        "external_source_count": 0,
+                        "external_metadata_only_count": 0,
+                        "legacy_package_count": 0,
+                        "legacy_metadata_only_count": 0,
+                    },
+                },
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
         (self.root / "reports" / "provenance-debt.json").write_text(
             json.dumps(
                 {
@@ -387,7 +462,7 @@ class SnapshotTests(unittest.TestCase):
             tag="snapshot-2026.10.01",
             commit="a" * 40,
         )
-        self.assertEqual(manifest["manifest_version"], 7)
+        self.assertEqual(manifest["manifest_version"], 8)
         self.assertEqual(manifest["commit"], "a" * 40)
         self.assertEqual(manifest["catalogs"]["canonical"]["schema_version"], 1)
         self.assertEqual(manifest["metadata_schemas"]["legacy"]["schema_version"], 0)
@@ -523,6 +598,50 @@ class SnapshotTests(unittest.TestCase):
         self.assertIn("ons", summary)
         self.assertIn("unhcr", summary)
         self.assertIn("Uncovered canonical datasets: **0**", summary)
+
+    def test_snapshot_records_phase10_preservation_trust_state(self) -> None:
+        manifest = SNAPSHOT.build_manifest(
+            self.fixture.root,
+            tag="snapshot-2026.10.10",
+            commit="a" * 40,
+        )
+
+        self.assertEqual(manifest["manifest_version"], 8)
+        preservation = manifest["preservation_trust"]
+        self.assertEqual(
+            preservation["preservation_eligibility"][
+                "canonical_byte_archive_eligible_count"
+            ],
+            0,
+        )
+        self.assertEqual(
+            preservation["external_disappearance_policy"]["states"],
+            [
+                "legal-withdrawal",
+                "live",
+                "moved",
+                "permanently-unavailable",
+                "transient-outage",
+            ],
+        )
+        self.assertTrue(
+            preservation["release_trust"]["offline_bundle_verification"]
+        )
+        self.assertTrue(
+            preservation["release_trust"]["github_artifact_attestations"]
+        )
+
+    def test_snapshot_summary_includes_phase10_preservation_trust(self) -> None:
+        manifest = SNAPSHOT.build_manifest(
+            self.fixture.root,
+            tag="snapshot-2026.10.10",
+            commit="b" * 40,
+        )
+        summary = SNAPSHOT.render_summary(manifest)
+
+        self.assertIn("## Preservation, citation, and release trust", summary)
+        self.assertIn("Offline bundle verification: **enabled**", summary)
+        self.assertIn("GitHub artifact attestations: **enabled**", summary)
 
     def test_snapshot_records_registry_client_state(self) -> None:
         manifest = SNAPSHOT.build_manifest(
