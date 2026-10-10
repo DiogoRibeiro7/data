@@ -74,6 +74,12 @@ jobs:
       - name: Validate lifecycle report freshness
         run: python scripts/generate_lifecycle_report.py
 
+      - name: Validate preservation eligibility freshness
+        run: python scripts/generate_preservation_eligibility.py
+
+      - name: Validate registry changelog freshness
+        run: python scripts/generate_registry_changelog.py
+
       - name: Validate static registry distribution
         run: python scripts/generate_static_distribution.py
 
@@ -101,6 +107,7 @@ jobs:
       snapshot-tag: ${{ inputs.snapshot_tag }}
       commit-sha: ${{ inputs.commit_sha }}
       artifact-name: ${{ inputs.snapshot_tag }}
+      required-files: '["snapshot-manifest.json","snapshot-summary.md","snapshot-provenance.json"]'
       release-title: Registry snapshot ${{ inputs.snapshot_tag }}
       tag-message: Registry snapshot ${{ inputs.snapshot_tag }}
       dry-run: ${{ !inputs.publish_release }}
