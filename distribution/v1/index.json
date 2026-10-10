@@ -7,6 +7,12 @@
       "source": "datasets/catalog.json"
     },
     {
+      "name": "changelog",
+      "path": "changelog.json",
+      "schema_version": 1,
+      "source": "reports/registry-changelog.json"
+    },
+    {
       "name": "consumers",
       "path": "consumers.json",
       "schema_version": 1,
