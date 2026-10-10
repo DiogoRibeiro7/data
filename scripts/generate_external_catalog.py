@@ -64,7 +64,7 @@ def catalog_entry(metadata: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(consumers, list):
         consumers = []
 
-    return {
+    entry = {
         "id": metadata["id"],
         "title": metadata["title"],
         "publisher": metadata["publisher"],
@@ -75,6 +75,18 @@ def catalog_entry(metadata: dict[str, Any]) -> dict[str, Any]:
         "consumers": sorted(str(item) for item in consumers),
         "path": f"external/{metadata['id']}",
     }
+
+    availability = metadata.get("availability")
+    if isinstance(availability, dict):
+        state = availability.get("state")
+        if isinstance(state, str) and state:
+            entry["availability"] = {
+                "state": state,
+                "replacement_url": availability.get("replacement_url"),
+                "last_reviewed": str(availability.get("last_reviewed")),
+            }
+
+    return entry
 
 
 def build_catalog(external_root: Path) -> dict[str, Any]:
