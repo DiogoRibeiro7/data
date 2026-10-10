@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DiogoRibeiro7/data/schemas/archive-bundle-manifest-v1.schema.json",
+  "title": "Registry archive bundle manifest v1",
+  "type": "object",
+  "required": ["schema_version", "repository", "snapshot", "archive_profile", "files"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": 1},
+    "repository": {"const": "DiogoRibeiro7/data"},
+    "snapshot": {
+      "type": "object",
+      "required": ["tag", "commit"],
+      "additionalProperties": false,
+      "properties": {
+        "tag": {"type": "string"},
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "archive_profile": {"enum": ["release-metadata", "eligible-canonical-bytes"]},
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "sha256", "size"],
+        "additionalProperties": false,
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "size": {"type": "integer", "minimum": 0}
+        }
+      }
+    }
+  }
+}
