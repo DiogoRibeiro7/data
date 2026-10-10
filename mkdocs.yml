@@ -47,6 +47,8 @@ nav:
       - CLI: CLI.md
       - Python API: PYTHON_API.md
       - Static distribution: STATIC_DISTRIBUTION.md
+      - Archival preservation: PRESERVATION.md
+      - Preservation eligibility: generated/preservation-eligibility.md
       - Client architecture: CLIENT_ARCHITECTURE.md
       - Consumers: CONSUMERS.md
       - Quality methodology: QUALITY.md
