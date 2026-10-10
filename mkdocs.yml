@@ -49,6 +49,7 @@ nav:
       - Static distribution: STATIC_DISTRIBUTION.md
       - Archival preservation: PRESERVATION.md
       - Snapshot diffs: SNAPSHOT_DIFFS.md
+      - Release changelog: generated/registry-changelog.md
       - Preservation eligibility: generated/preservation-eligibility.md
       - Client architecture: CLIENT_ARCHITECTURE.md
       - Consumers: CONSUMERS.md
