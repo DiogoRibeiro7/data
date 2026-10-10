@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DiogoRibeiro7/data/schemas/snapshot-provenance-v1.schema.json",
+  "title": "Registry snapshot provenance v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "predicate_type",
+    "repository",
+    "snapshot",
+    "artifacts",
+    "producer",
+    "interfaces",
+    "assertions"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": 1},
+    "predicate_type": {
+      "const": "https://github.com/DiogoRibeiro7/data/attestations/snapshot-provenance/v1"
+    },
+    "repository": {"const": "DiogoRibeiro7/data"},
+    "snapshot": {
+      "type": "object",
+      "required": ["tag", "commit"],
+      "additionalProperties": false,
+      "properties": {
+        "tag": {"type": "string", "pattern": "^snapshot-[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}(?:\\.[1-9][0-9]*)?$"},
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "required": ["manifest", "summary"],
+      "additionalProperties": false,
+      "properties": {
+        "manifest": {"$ref": "#/$defs/artifact"},
+        "summary": {"$ref": "#/$defs/artifact"}
+      }
+    },
+    "producer": {
+      "type": "object",
+      "required": ["generator", "workflow", "reusable_publisher"],
+      "additionalProperties": false,
+      "properties": {
+        "generator": {"$ref": "#/$defs/source"},
+        "workflow": {"$ref": "#/$defs/source"},
+        "reusable_publisher": {
+          "type": "object",
+          "required": ["repository", "workflow", "ref"],
+          "additionalProperties": false,
+          "properties": {
+            "repository": {"const": "DiogoRibeiro7/git-actions-collection"},
+            "workflow": {"const": ".github/workflows/snapshot-release.yml"},
+            "ref": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+          }
+        }
+      }
+    },
+    "interfaces": {
+      "type": "object",
+      "required": [
+        "package_name",
+        "package_version",
+        "public_api_version",
+        "static_distribution_version",
+        "snapshot_manifest_version"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "package_name": {"type": "string"},
+        "package_version": {"type": "string"},
+        "public_api_version": {"type": "integer", "minimum": 1},
+        "static_distribution_version": {"type": "integer", "minimum": 1},
+        "snapshot_manifest_version": {"type": "integer", "minimum": 1}
+      }
+    },
+    "assertions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "result"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "result": {"const": "pass"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "additionalProperties": false,
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "additionalProperties": false,
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  }
+}
