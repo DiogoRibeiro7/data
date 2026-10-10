@@ -212,6 +212,103 @@
           }
         }
       ]
+    },
+    "availability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "last_reviewed"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "live",
+            "transient-outage",
+            "moved",
+            "permanently-unavailable",
+            "legal-withdrawal"
+          ]
+        },
+        "last_reviewed": {
+          "type": "string",
+          "format": "date"
+        },
+        "replacement_url": {
+          "type": "string",
+          "format": "uri",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "uri",
+            "minLength": 1,
+            "pattern": "^https?://"
+          }
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "moved"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "required": [
+              "replacement_url",
+              "evidence"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "permanently-unavailable"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "required": [
+              "evidence"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "legal-withdrawal"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "required": [
+              "evidence"
+            ]
+          }
+        }
+      ]
     }
   },
   "anyOf": [
