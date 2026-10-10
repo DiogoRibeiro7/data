@@ -16,6 +16,7 @@
     "licensing",
     "related_identifiers",
     "assigned_archive_identifiers",
+    "canonical_datasets",
     "preservation"
   ],
   "properties": {
@@ -193,6 +194,98 @@
         "canonical_byte_archive_eligible_count": {
           "type": "integer",
           "minimum": 0
+        }
+      }
+    },
+    "canonical_datasets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "byte_archive_eligibility",
+          "license",
+          "citation"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "byte_archive_eligibility": {
+            "enum": [
+              "eligible",
+              "metadata-only"
+            ]
+          },
+          "license": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "url",
+              "redistribution"
+            ],
+            "properties": {
+              "name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              },
+              "redistribution": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "citation": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "text",
+                  "url"
+                ],
+                "properties": {
+                  "text": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "url": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uri"
+                  }
+                }
+              }
+            ]
+          }
         }
       }
     }
