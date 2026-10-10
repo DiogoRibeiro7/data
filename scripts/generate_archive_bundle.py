@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml
+import jsonschema
 
 from data_registry import verify_release_bundle
 
@@ -97,14 +98,26 @@ def _identifier_records(
         return []
 
     payload = load_json(path)
+    _validate_schema(root, "schemas/archive-identifiers-v1.schema.json", payload)
     entries = payload.get("entries", [])
     if not isinstance(entries, list):
         raise ValueError(f"{path}: entries must be a list")
 
+    seen: set[tuple[str, str, str, str]] = set()
     matches: list[dict[str, Any]] = []
     for item in entries:
         if not isinstance(item, dict):
             raise ValueError(f"{path}: identifier entries must be objects")
+        row_key = (
+            str(item.get("tag")),
+            str(item.get("commit")),
+            str(item.get("provider")),
+            str(item.get("identifier")),
+        )
+        if row_key in seen:
+            raise ValueError(f"{path}: duplicate archive identifier entry {row_key!r}")
+        seen.add(row_key)
+
         if item.get("tag") == tag and item.get("commit") == commit:
             identifier = item.get("identifier")
             provider = item.get("provider")
@@ -121,6 +134,69 @@ def _identifier_records(
             )
     matches.sort(key=lambda item: (item["provider"], item["identifier"]))
     return matches
+
+
+def _canonical_archive_records(
+    root: Path,
+    eligibility: dict[str, Any],
+) -> list[dict[str, Any]]:
+    """Return upstream licence/citation records for canonical datasets."""
+
+    canonical = eligibility.get("canonical")
+    if not isinstance(canonical, list):
+        raise ValueError("preservation eligibility canonical list is missing")
+
+    records: list[dict[str, Any]] = []
+    for item in canonical:
+        if not isinstance(item, dict):
+            raise ValueError("preservation eligibility canonical entries must be objects")
+        dataset_id = item.get("id")
+        metadata_path = item.get("metadata_path")
+        if not isinstance(dataset_id, str) or not dataset_id:
+            raise ValueError("canonical eligibility id must be non-empty text")
+        if not isinstance(metadata_path, str) or not metadata_path:
+            raise ValueError("canonical eligibility metadata_path must be non-empty text")
+
+        metadata = load_yaml(root / metadata_path)
+        license_data = metadata.get("license")
+        citation = metadata.get("citation")
+        if not isinstance(license_data, dict):
+            raise ValueError(f"{metadata_path}: license must be a mapping")
+        if citation is not None and not isinstance(citation, dict):
+            raise ValueError(f"{metadata_path}: citation must be a mapping or null")
+
+        records.append(
+            {
+                "id": dataset_id,
+                "title": metadata.get("title"),
+                "byte_archive_eligibility": item.get("byte_archive_eligibility"),
+                "license": {
+                    "name": license_data.get("name"),
+                    "url": license_data.get("url"),
+                    "redistribution": license_data.get("redistribution"),
+                },
+                "citation": (
+                    {
+                        "text": citation.get("text"),
+                        "url": citation.get("url"),
+                    }
+                    if isinstance(citation, dict)
+                    else None
+                ),
+            }
+        )
+    records.sort(key=lambda item: item["id"])
+    return records
+
+
+def _validate_schema(root: Path, relative_schema: str, payload: dict[str, Any]) -> None:
+    """Validate one generated archive payload against a committed JSON Schema."""
+
+    schema = load_json(root / relative_schema)
+    jsonschema.Draft202012Validator(
+        schema,
+        format_checker=jsonschema.FormatChecker(),
+    ).validate(payload)
 
 
 def build_archive_metadata(
@@ -161,7 +237,7 @@ def build_archive_metadata(
     if not isinstance(archive_profiles, dict) or profile not in archive_profiles:
         raise ValueError(f"preservation policy does not define profile {profile}")
 
-    return {
+    metadata = {
         "schema_version": ARCHIVE_SCHEMA_VERSION,
         "repository": REPOSITORY,
         "snapshot": {
@@ -194,6 +270,7 @@ def build_archive_metadata(
         "assigned_archive_identifiers": _identifier_records(
             root, tag=tag, commit=commit
         ),
+        "canonical_datasets": _canonical_archive_records(root, eligibility),
         "preservation": {
             "policy_version": policy.get("policy_version"),
             "eligibility_schema_version": eligibility.get("schema_version"),
@@ -206,6 +283,8 @@ def build_archive_metadata(
             ),
         },
     }
+    _validate_schema(root, "schemas/archive-metadata-v1.schema.json", metadata)
+    return metadata
 
 
 def build_bundle(
@@ -227,12 +306,25 @@ def build_bundle(
         profile=profile,
     )
 
+    output_dir.mkdir(parents=True, exist_ok=True)
+    metadata_path = output_dir / "archive-metadata.json"
+    metadata_path.write_text(
+        json.dumps(metadata, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
     bundle_dir = output_dir / "archive-bundle"
     if bundle_dir.exists():
         shutil.rmtree(bundle_dir)
     bundle_dir.mkdir(parents=True)
 
-    records: list[dict[str, Any]] = []
+    records: list[dict[str, Any]] = [
+        copy_file(
+            metadata_path,
+            bundle_dir / "archive" / "archive-metadata.json",
+            bundle_root=bundle_dir,
+        )
+    ]
     for name in (
         "snapshot-manifest.json",
         "snapshot-summary.md",
@@ -287,12 +379,6 @@ def build_bundle(
                     copy_file(source, bundle_dir / relative, bundle_root=bundle_dir)
                 )
 
-    metadata_path = output_dir / "archive-metadata.json"
-    metadata_path.write_text(
-        json.dumps(metadata, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
-
     records.sort(key=lambda item: item["path"])
     manifest = {
         "schema_version": ARCHIVE_SCHEMA_VERSION,
@@ -301,6 +387,11 @@ def build_bundle(
         "archive_profile": profile,
         "files": records,
     }
+    _validate_schema(
+        root,
+        "schemas/archive-bundle-manifest-v1.schema.json",
+        manifest,
+    )
     bundle_manifest_path = output_dir / "archive-bundle-manifest.json"
     bundle_manifest_path.write_text(
         json.dumps(manifest, indent=2, ensure_ascii=False, sort_keys=True) + "\n",
