@@ -81,6 +81,7 @@ def main() -> int:
     copy_text(ROOT / "reports" / "registry-quality.md", GENERATED / "registry-quality.md")
     copy_text(ROOT / "reports" / "provenance-debt.md", GENERATED / "provenance-debt.md")
     copy_text(ROOT / "reports" / "lifecycle.md", GENERATED / "lifecycle.md")
+    copy_text(ROOT / "reports" / "preservation-eligibility.md", GENERATED / "preservation-eligibility.md")
     stage_for_docs(ROOT, DOCS)
     return 0
 
