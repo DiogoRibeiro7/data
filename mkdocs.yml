@@ -48,6 +48,7 @@ nav:
       - Python API: PYTHON_API.md
       - Static distribution: STATIC_DISTRIBUTION.md
       - Archival preservation: PRESERVATION.md
+      - Archive and DOI metadata: ARCHIVING.md
       - Snapshot diffs: SNAPSHOT_DIFFS.md
       - Release changelog: generated/registry-changelog.md
       - Changelog contract: REGISTRY_CHANGELOG.md

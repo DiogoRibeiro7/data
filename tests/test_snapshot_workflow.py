@@ -28,6 +28,13 @@ class SnapshotWorkflowTests(unittest.TestCase):
         self.assertIn("uses: actions/attest@v4", self.text)
         self.assertIn('subject-path: "release-material/*"', self.text)
 
+    def test_archive_profile_defaults_to_metadata_only(self) -> None:
+        self.assertIn('default: "release-metadata"', self.text)
+        self.assertIn("eligible-canonical-bytes", self.text)
+        self.assertIn("scripts/generate_archive_bundle.py", self.text)
+        self.assertIn('--profile "${{ inputs.archive_profile }}"', self.text)
+        self.assertIn('name: ${{ inputs.snapshot_tag }}-archive', self.text)
+
     def test_data_repo_keeps_domain_specific_preparation(self) -> None:
         for command in (
             "scripts/validate_repository.py",
@@ -38,6 +45,7 @@ class SnapshotWorkflowTests(unittest.TestCase):
             "scripts/generate_preservation_eligibility.py",
             "scripts/generate_registry_changelog.py",
             "scripts/create_snapshot.py",
+            "scripts/generate_archive_bundle.py",
         ):
             self.assertIn(command, self.text)
 

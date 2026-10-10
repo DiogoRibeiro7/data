@@ -1,6 +1,12 @@
 {
   "artifacts": [
     {
+      "name": "archive-identifiers",
+      "path": "archive-identifiers.json",
+      "schema_version": 1,
+      "source": "archive/identifiers.json"
+    },
+    {
       "name": "canonical",
       "path": "canonical.json",
       "schema_version": 1,

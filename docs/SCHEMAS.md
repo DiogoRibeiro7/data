@@ -153,3 +153,19 @@ assertions.
 The provenance schema is independent of the snapshot-manifest version. Adding
 the sibling provenance asset therefore does not rewrite or renumber historical
 manifest contracts.
+
+
+## Archive metadata schemas
+
+Phase 10 archival preparation uses three versioned contracts:
+
+- `schemas/archive-metadata-v1.schema.json` — deterministic archive citation,
+  creator, licence, related-identifier, preservation, and per-dataset
+  licence/citation metadata;
+- `schemas/archive-identifiers-v1.schema.json` — reviewed DOI/archive
+  identifiers bound to one exact snapshot tag + commit;
+- `schemas/archive-bundle-manifest-v1.schema.json` — deterministic
+  bundle-relative file paths, SHA-256 digests, and byte sizes.
+
+Archive identifiers are additive citation identifiers. They never replace or
+move the immutable Git snapshot identity.

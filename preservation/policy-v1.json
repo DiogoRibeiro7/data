@@ -16,6 +16,8 @@
       "include": [
         "snapshot-manifest.json",
         "snapshot-summary.md",
+        "archive-metadata",
+        "snapshot-provenance.json",
         "static-distribution",
         "citation-metadata",
         "preservation-policy",
@@ -28,6 +30,8 @@
       "include": [
         "snapshot-manifest.json",
         "snapshot-summary.md",
+        "archive-metadata",
+        "snapshot-provenance.json",
         "static-distribution",
         "citation-metadata",
         "preservation-policy",

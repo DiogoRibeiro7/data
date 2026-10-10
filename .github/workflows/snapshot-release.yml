@@ -11,6 +11,14 @@ on:
         description: "Exact 40-character commit SHA to snapshot"
         required: true
         type: string
+      archive_profile:
+        description: "Archive bundle profile"
+        required: true
+        default: "release-metadata"
+        type: choice
+        options:
+          - release-metadata
+          - eligible-canonical-bytes
       publish_release:
         description: "Create the Git tag and GitHub release after validation"
         required: true
@@ -92,6 +100,15 @@ jobs:
             --commit "${{ inputs.commit_sha }}" \
             --output-dir release-material
 
+      - name: Generate archive-ready material
+        run: |
+          python scripts/generate_archive_bundle.py \
+            --release-dir release-material \
+            --output-dir archive-material \
+            --tag "${{ inputs.snapshot_tag }}" \
+            --commit "${{ inputs.commit_sha }}" \
+            --profile "${{ inputs.archive_profile }}"
+
       - name: Generate GitHub artifact attestations
         uses: actions/attest@v4
         with:
@@ -102,6 +119,14 @@ jobs:
         with:
           name: ${{ inputs.snapshot_tag }}
           path: release-material/
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Upload archive-ready material
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ inputs.snapshot_tag }}-archive
+          path: archive-material/
           if-no-files-found: error
           retention-days: 90
 

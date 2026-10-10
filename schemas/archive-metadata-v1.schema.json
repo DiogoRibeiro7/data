@@ -1,0 +1,293 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DiogoRibeiro7/data/schemas/archive-metadata-v1.schema.json",
+  "title": "Registry archive metadata v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "repository",
+    "snapshot",
+    "title",
+    "description",
+    "creators",
+    "keywords",
+    "archive_profile",
+    "licensing",
+    "related_identifiers",
+    "assigned_archive_identifiers",
+    "canonical_datasets",
+    "preservation"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "repository": {
+      "const": "DiogoRibeiro7/data"
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tag",
+        "commit",
+        "citation"
+      ],
+      "properties": {
+        "tag": {
+          "type": "string",
+          "pattern": "^snapshot-[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}(?:\\.[1-9][0-9]*)?$"
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "citation": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "creators": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "orcid": {
+            "type": "string",
+            "pattern": "^https://orcid\\.org/[0-9X-]{19}$"
+          }
+        }
+      }
+    },
+    "keywords": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "archive_profile": {
+      "enum": [
+        "release-metadata",
+        "eligible-canonical-bytes"
+      ]
+    },
+    "licensing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "registry_tooling",
+        "upstream_dataset_terms_preserved",
+        "archive_level_license_does_not_override_datasets"
+      ],
+      "properties": {
+        "registry_tooling": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "upstream_dataset_terms_preserved": {
+          "const": true
+        },
+        "archive_level_license_does_not_override_datasets": {
+          "const": true
+        }
+      }
+    },
+    "related_identifiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "identifier",
+          "relation"
+        ],
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "format": "uri"
+          },
+          "relation": {
+            "enum": [
+              "isIdenticalTo",
+              "isSupplementTo",
+              "isVersionOf",
+              "isNewVersionOf",
+              "isPreviousVersionOf"
+            ]
+          }
+        }
+      }
+    },
+    "assigned_archive_identifiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "provider",
+          "identifier",
+          "relation"
+        ],
+        "properties": {
+          "provider": {
+            "type": "string",
+            "minLength": 1
+          },
+          "identifier": {
+            "type": "string",
+            "minLength": 1
+          },
+          "relation": {
+            "enum": [
+              "isIdenticalTo",
+              "isSupplementTo",
+              "isVersionOf",
+              "isNewVersionOf",
+              "isPreviousVersionOf"
+            ]
+          }
+        }
+      }
+    },
+    "preservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy_version",
+        "eligibility_schema_version",
+        "canonical_byte_archive_eligible_count"
+      ],
+      "properties": {
+        "policy_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "eligibility_schema_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "canonical_byte_archive_eligible_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "canonical_datasets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "byte_archive_eligibility",
+          "license",
+          "citation"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "byte_archive_eligibility": {
+            "enum": [
+              "eligible",
+              "metadata-only"
+            ]
+          },
+          "license": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "url",
+              "redistribution"
+            ],
+            "properties": {
+              "name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              },
+              "redistribution": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "citation": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "text",
+                  "url"
+                ],
+                "properties": {
+                  "text": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "url": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uri"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

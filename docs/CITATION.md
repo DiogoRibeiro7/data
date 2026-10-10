@@ -41,9 +41,12 @@ Do not substitute a floating branch name such as `main` for the commit.
 The snapshot release also attaches:
 
 - `snapshot-manifest.json`;
-- `snapshot-summary.md`.
+- `snapshot-summary.md`;
+- `snapshot-provenance.json`.
 
-Those files record the exact repository commit, catalog digests, schema versions, and canonical dataset file checksums.
+Those files record the exact repository commit, catalog digests, schema
+versions, canonical dataset file checksums, and deterministic release
+provenance.
 
 ## Cite a dataset from the registry
 
@@ -103,13 +106,26 @@ Dataset-specific rights and citations remain authoritative in:
 
 ## Archival workflow
 
-For a future Zenodo/DataCite archival release:
+For an eligible Zenodo/DataCite archival release:
 
 1. create the immutable registry snapshot first;
 2. verify the snapshot tag and exact commit;
 3. publish the GitHub release with its manifest/summary;
-4. archive that release;
-5. preserve the generated DOI in the release/citation metadata in a follow-up reviewed change;
-6. never move or rewrite the published snapshot tag.
+4. generate and inspect the policy-filtered archive bundle;
+5. archive that bundle;
+6. preserve the assigned DOI/archive identifier in `archive/identifiers.json`
+   in a follow-up reviewed change;
+7. regenerate the static distribution;
+8. never move or rewrite the published snapshot tag.
 
 This keeps software citation, registry-version identity, and upstream dataset attribution separate and reproducible.
+
+
+## Deterministic archive metadata
+
+Milestone snapshots can generate service-neutral archive metadata before any DOI
+exists. See [Archive and DOI metadata](ARCHIVING.md).
+
+Archive identifiers are recorded only after assignment and remain bound to the
+exact snapshot tag and commit. They are additive citation identifiers; they do
+not replace the immutable Git identity or upstream dataset citations.
