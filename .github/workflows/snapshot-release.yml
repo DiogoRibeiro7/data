@@ -21,6 +21,8 @@ on:
 # GitHub validates this permission ceiling even when publish_release=false.
 permissions:
   contents: write
+  id-token: write
+  attestations: write
 
 jobs:
   prepare:
@@ -89,6 +91,11 @@ jobs:
             --tag "${{ inputs.snapshot_tag }}" \
             --commit "${{ inputs.commit_sha }}" \
             --output-dir release-material
+
+      - name: Generate GitHub artifact attestations
+        uses: actions/attest@v4
+        with:
+          subject-path: "release-material/*"
 
       - name: Upload immutable release material
         uses: actions/upload-artifact@v7

@@ -37,6 +37,10 @@ from .core import (
     supersedes_payload,
 )
 from . import validator as VALIDATOR
+from .release_verification import (
+    ReleaseVerificationError,
+    verify_release_bundle,
+)
 
 
 def render_consumer_summary_table(items: Sequence[dict[str, Any]]) -> str:
@@ -382,6 +386,15 @@ def build_parser() -> argparse.ArgumentParser:
     supersedes_parser.add_argument("dataset_id")
     _add_common_read_options(supersedes_parser)
 
+    verify_release_parser = subparsers.add_parser(
+        "verify-release",
+        help="Verify a downloaded immutable snapshot release bundle offline.",
+    )
+    verify_release_parser.add_argument("--bundle", type=Path, required=True)
+    verify_release_parser.add_argument("--tag", required=True)
+    verify_release_parser.add_argument("--commit", required=True)
+    _add_common_read_options(verify_release_parser)
+
     return parser
 
 
@@ -448,6 +461,28 @@ def main(argv: Sequence[str] | None = None) -> int:
                 _print_json(payload)
             else:
                 print(render_supersedes(payload))
+            return 0
+
+        if args.command == "verify-release":
+            result = verify_release_bundle(
+                args.bundle,
+                expected_tag=args.tag,
+                expected_commit=args.commit,
+            )
+            payload = {
+                "ok": True,
+                "tag": result.tag,
+                "commit": result.commit,
+                "manifest_version": result.manifest_version,
+                "manifest_sha256": result.manifest_sha256,
+                "summary_sha256": result.summary_sha256,
+            }
+            if args.json:
+                _print_json(payload)
+            else:
+                print(f"OK: {result.tag} @ {result.commit}")
+                print(f"Manifest SHA-256: {result.manifest_sha256}")
+                print(f"Summary SHA-256:  {result.summary_sha256}")
             return 0
 
         if args.command == "list":
@@ -575,7 +610,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
 
         raise RegistryError(f"unknown command: {args.command}")
-    except RegistryError as exc:
+    except (RegistryError, ReleaseVerificationError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
 
