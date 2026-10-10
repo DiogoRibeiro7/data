@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DiogoRibeiro7/data/schemas/archive-metadata-v1.schema.json",
+  "title": "Registry archive metadata v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "repository",
+    "snapshot",
+    "title",
+    "description",
+    "creators",
+    "keywords",
+    "archive_profile",
+    "licensing",
+    "related_identifiers",
+    "assigned_archive_identifiers",
+    "preservation"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "repository": {"const": "DiogoRibeiro7/data"},
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tag", "commit", "citation"],
+      "properties": {
+        "tag": {"type": "string"},
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "citation": {"type": "string", "minLength": 1}
+      }
+    },
+    "title": {"type": "string", "minLength": 1},
+    "description": {"type": ["string", "null"]},
+    "creators": {"type": "array", "minItems": 1},
+    "keywords": {"type": "array", "items": {"type": "string"}},
+    "archive_profile": {
+      "enum": ["release-metadata", "eligible-canonical-bytes"]
+    },
+    "licensing": {"type": "object"},
+    "related_identifiers": {"type": "array"},
+    "assigned_archive_identifiers": {"type": "array"},
+    "preservation": {"type": "object"}
+  }
+}
