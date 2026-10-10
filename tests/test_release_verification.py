@@ -22,6 +22,7 @@ def write_bundle(root: Path) -> tuple[str, str]:
         "repository": "DiogoRibeiro7/data",
         "tag": tag,
         "commit": commit,
+        "static_distribution": {"distribution_version": 1},
     }
     manifest_text = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     summary_text = "# Summary\n"
@@ -43,7 +44,10 @@ def write_bundle(root: Path) -> tuple[str, str]:
             },
         },
         "producer": {},
-        "interfaces": {"snapshot_manifest_version": 7},
+        "interfaces": {
+            "snapshot_manifest_version": 7,
+            "static_distribution_version": 1,
+        },
         "assertions": [{"id": "fixture", "result": "pass"}],
     }
     (root / "snapshot-provenance.json").write_text(
@@ -132,6 +136,40 @@ class ReleaseVerificationTests(unittest.TestCase):
             with self.assertRaisesRegex(
                 ReleaseVerificationError,
                 "manifest/provenance tag mismatch",
+            ):
+                verify_release_bundle(root, expected_tag=tag, expected_commit=commit)
+
+    def test_static_distribution_version_mismatch_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            tag, commit = write_bundle(root)
+            provenance_path = root / "snapshot-provenance.json"
+            provenance = json.loads(provenance_path.read_text(encoding="utf-8"))
+            provenance["interfaces"]["static_distribution_version"] = 2
+            provenance_path.write_text(
+                json.dumps(provenance, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(
+                ReleaseVerificationError,
+                "static-distribution version mismatch",
+            ):
+                verify_release_bundle(root, expected_tag=tag, expected_commit=commit)
+
+    def test_repository_mismatch_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            tag, commit = write_bundle(root)
+            provenance_path = root / "snapshot-provenance.json"
+            provenance = json.loads(provenance_path.read_text(encoding="utf-8"))
+            provenance["repository"] = "someone/else"
+            provenance_path.write_text(
+                json.dumps(provenance, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(
+                ReleaseVerificationError,
+                "repository mismatch",
             ):
                 verify_release_bundle(root, expected_tag=tag, expected_commit=commit)
 
