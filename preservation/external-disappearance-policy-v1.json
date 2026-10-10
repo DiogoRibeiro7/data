@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "repository": "DiogoRibeiro7/data",
+  "states": {
+    "live": {
+      "terminal": false,
+      "meaning": "Authoritative source is currently expected to resolve."
+    },
+    "transient-outage": {
+      "terminal": false,
+      "meaning": "Temporary availability failure; do not alter provenance claims."
+    },
+    "moved": {
+      "terminal": false,
+      "meaning": "Authoritative source moved to a replacement endpoint.",
+      "requires": ["replacement_url", "evidence"]
+    },
+    "permanently-unavailable": {
+      "terminal": true,
+      "meaning": "Authoritative source is no longer available and no replacement is known.",
+      "requires": ["evidence"]
+    },
+    "legal-withdrawal": {
+      "terminal": true,
+      "meaning": "Source or access was withdrawn for legal, licensing, privacy, or provider-policy reasons.",
+      "requires": ["evidence"]
+    }
+  },
+  "preservation": {
+    "metadata": "allowed",
+    "last_known_identity": "allowed",
+    "source_bytes": "only when separately permitted by committed redistribution evidence",
+    "external_source_bytes_default": "never mirror automatically",
+    "restricted_or_withdrawn_bytes": "never preserve merely to defeat upstream withdrawal"
+  },
+  "health_mapping": {
+    "network_errors_429_5xx": "transient-outage",
+    "single_404_or_410_without_committed_disappearance_state": "actionable-drift",
+    "committed_moved_state": "moved",
+    "committed_permanently_unavailable_state": "permanently-unavailable",
+    "committed_legal_withdrawal_state": "legal-withdrawal"
+  },
+  "tombstone_semantics": {
+    "retain_metadata": true,
+    "retain_last_known_source_url": true,
+    "retain_doi_and_commit_identity": true,
+    "retain_licence_evidence": true,
+    "do_not_claim_live_availability": true,
+    "do_not_delete_history": true
+  }
+}
