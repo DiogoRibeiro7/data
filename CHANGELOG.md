@@ -11,6 +11,10 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 
 ### Added
 
+- Deterministic `snapshot-provenance.json` release metadata binding snapshot identity, release-asset digests, producer workflow/generator identity, and client/distribution interface versions.
+
+### Added
+
 - deterministic snapshot-to-snapshot diff tooling;
 - snapshot manifest v7 consumer-relationship and provenance-debt identities for exact release diffs;
 
