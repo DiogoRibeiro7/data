@@ -6,6 +6,7 @@ on:
       - "src/data_registry/**"
       - "pyproject.toml"
       - "distribution/**"
+      - "preservation/**"
       - "scripts/generate_static_distribution.py"
       - "tests/test_static_distribution.py"
       - "datasets/**"
@@ -25,6 +26,7 @@ on:
       - "scripts/registry_quality.py"
       - "scripts/generate_provenance_debt.py"
       - "scripts/generate_lifecycle_report.py"
+      - "scripts/generate_preservation_eligibility.py"
       - "tests/test_validate_repository.py"
       - "tests/test_fetch_dataset.py"
       - "tests/test_external_catalog.py"
@@ -43,6 +45,7 @@ on:
       - "tests/test_registry_quality.py"
       - "tests/test_provenance_debt.py"
       - "tests/test_lifecycle_report.py"
+      - "tests/test_preservation_eligibility.py"
       - "reports/registry-quality.json"
       - "reports/registry-quality.md"
       - "reports/canonical-adoption-policy.json"
@@ -51,6 +54,8 @@ on:
       - "reports/provenance-debt.md"
       - "reports/lifecycle.json"
       - "reports/lifecycle.md"
+      - "reports/preservation-eligibility.json"
+      - "reports/preservation-eligibility.md"
       - "docs/QUALITY.md"
       - "scripts/prepare_docs.py"
       - "mkdocs.yml"
@@ -169,6 +174,9 @@ jobs:
 
       - name: Validate lifecycle report
         run: python scripts/generate_lifecycle_report.py
+
+      - name: Validate preservation eligibility report
+        run: python scripts/generate_preservation_eligibility.py
 
       - name: Validate static registry distribution
         run: python scripts/generate_static_distribution.py

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DiogoRibeiro7/data/schemas/preservation-policy-v1.schema.json",
+  "title": "Registry preservation policy v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "policy_version",
+    "repository",
+    "identity",
+    "archive_profiles",
+    "content_classes",
+    "hard_exclusions",
+    "attribution",
+    "corrections"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": 1},
+    "policy_version": {"const": 1},
+    "repository": {"const": "DiogoRibeiro7/data"},
+    "identity": {"type": "object"},
+    "archive_profiles": {"type": "object"},
+    "content_classes": {"type": "object"},
+    "hard_exclusions": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1
+    },
+    "attribution": {"type": "object"},
+    "corrections": {"type": "object"}
+  }
+}

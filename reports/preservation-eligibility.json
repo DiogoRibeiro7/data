@@ -1,0 +1,196 @@
+{
+  "archive_profiles": {
+    "eligible-canonical-bytes": {
+      "canonical_dataset_bytes": true,
+      "description": "Release-metadata profile plus canonical dataset bytes whose committed metadata explicitly permits redistribution.",
+      "include": [
+        "snapshot-manifest.json",
+        "snapshot-summary.md",
+        "static-distribution",
+        "citation-metadata",
+        "preservation-policy",
+        "preservation-eligibility-report",
+        "eligible-canonical-dataset-bytes"
+      ]
+    },
+    "release-metadata": {
+      "canonical_dataset_bytes": false,
+      "description": "Archive registry-authored release metadata without third-party dataset bytes.",
+      "include": [
+        "snapshot-manifest.json",
+        "snapshot-summary.md",
+        "static-distribution",
+        "citation-metadata",
+        "preservation-policy",
+        "preservation-eligibility-report"
+      ]
+    }
+  },
+  "canonical": [
+    {
+      "byte_archive_eligibility": "eligible",
+      "id": "online-retail-ii",
+      "license_name": "CC BY 4.0",
+      "metadata_path": "datasets/online-retail-ii/metadata.yaml",
+      "reason": "canonical metadata explicitly permits redistribution",
+      "redistribution": "allowed",
+      "title": "Online Retail II"
+    },
+    {
+      "byte_archive_eligibility": "eligible",
+      "id": "ons-gross-median-weekly-pay",
+      "license_name": "Open Government Licence v3.0",
+      "metadata_path": "datasets/ons-gross-median-weekly-pay/metadata.yaml",
+      "reason": "canonical metadata explicitly permits redistribution",
+      "redistribution": "allowed",
+      "title": "ONS Explore Local Statistics: Gross median weekly pay"
+    },
+    {
+      "byte_archive_eligibility": "eligible",
+      "id": "ucdp-ged-25-1",
+      "license_name": "CC BY 4.0",
+      "metadata_path": "datasets/ucdp-ged-25-1/metadata.yaml",
+      "reason": "canonical metadata explicitly permits redistribution",
+      "redistribution": "allowed",
+      "title": "UCDP Georeferenced Event Dataset (GED) 25.1"
+    },
+    {
+      "byte_archive_eligibility": "eligible",
+      "id": "unhcr-refugee-population-2024",
+      "license_name": "CC BY 4.0",
+      "metadata_path": "datasets/unhcr-refugee-population-2024/metadata.yaml",
+      "reason": "canonical metadata explicitly permits redistribution",
+      "redistribution": "allowed",
+      "title": "UNHCR Refugee Population Statistics — Global Trends 2024"
+    }
+  ],
+  "external": [
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "berkeley-earth-temperature",
+      "metadata_path": "external/berkeley-earth-temperature/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "dgs-infoclique-mortality",
+      "metadata_path": "external/dgs-infoclique-mortality/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "fred-economic-data",
+      "metadata_path": "external/fred-economic-data/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "ibm-telco-customer-churn",
+      "metadata_path": "external/ibm-telco-customer-churn/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "jhu-csse-covid19",
+      "metadata_path": "external/jhu-csse-covid19/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "maize-bipolaris-disease-progress",
+      "metadata_path": "external/maize-bipolaris-disease-progress/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "medium-crawlfeeds-corpus",
+      "metadata_path": "external/medium-crawlfeeds-corpus/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "medium-fabiochiu-articles",
+      "metadata_path": "external/medium-fabiochiu-articles/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "medium-jansma-historical",
+      "metadata_path": "external/medium-jansma-historical/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "our-world-in-data",
+      "metadata_path": "external/our-world-in-data/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "pordata-portugal-resident-population",
+      "metadata_path": "external/pordata-portugal-resident-population/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "r-base-example-datasets",
+      "metadata_path": "external/r-base-example-datasets/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "turing-change-point-dataset",
+      "metadata_path": "external/turing-change-point-dataset/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "ucdp-conflict-data",
+      "metadata_path": "external/ucdp-conflict-data/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "unhcr-refugee-statistics",
+      "metadata_path": "external/unhcr-refugee-statistics/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "world-bank-greenhouse-gas",
+      "metadata_path": "external/world-bank-greenhouse-gas/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    }
+  ],
+  "legacy": [
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "country-age-sex-2019",
+      "metadata_path": "legacy/country-age-sex-2019/metadata.yaml",
+      "reason": "legacy quarantine bytes require separate canonical promotion before archival"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "portugal-covid19",
+      "metadata_path": "legacy/portugal-covid19/metadata.yaml",
+      "reason": "legacy quarantine bytes require separate canonical promotion before archival"
+    }
+  ],
+  "policy": {
+    "path": "preservation/policy-v1.json",
+    "policy_version": 1,
+    "schema_version": 1
+  },
+  "release_metadata_eligibility": "eligible",
+  "schema_version": 1,
+  "static_distribution_eligibility": "eligible",
+  "summary": {
+    "canonical_byte_archive_eligible_count": 4,
+    "canonical_dataset_count": 4,
+    "canonical_metadata_only_count": 0,
+    "external_metadata_only_count": 16,
+    "external_source_count": 16,
+    "legacy_metadata_only_count": 2,
+    "legacy_package_count": 2
+  }
+}

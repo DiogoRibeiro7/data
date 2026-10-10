@@ -17,6 +17,9 @@ on:
       - "scripts/registry_quality.py"
       - "reports/registry-quality.md"
       - "reports/provenance-debt.md"
+      - "reports/preservation-eligibility.md"
+      - "scripts/generate_preservation_eligibility.py"
+      - "preservation/**"
       - "scripts/generate_provenance_debt.py"
       - ".github/workflows/docs.yml"
   push:
@@ -37,6 +40,9 @@ on:
       - "scripts/registry_quality.py"
       - "reports/registry-quality.md"
       - "reports/provenance-debt.md"
+      - "reports/preservation-eligibility.md"
+      - "scripts/generate_preservation_eligibility.py"
+      - "preservation/**"
       - "scripts/generate_provenance_debt.py"
       - ".github/workflows/docs.yml"
   workflow_dispatch:
