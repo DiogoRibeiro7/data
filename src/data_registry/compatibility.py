@@ -7,8 +7,8 @@ from typing import Final
 PACKAGE_VERSION: Final[str] = "0.1.0"
 PUBLIC_API_VERSION: Final[int] = 1
 STATIC_DISTRIBUTION_VERSION: Final[int] = 1
-CURRENT_SNAPSHOT_MANIFEST_VERSION: Final[int] = 7
-SUPPORTED_SNAPSHOT_MANIFEST_VERSIONS: Final[tuple[int, ...]] = (1, 2, 3, 4, 5, 6, 7)
+CURRENT_SNAPSHOT_MANIFEST_VERSION: Final[int] = 8
+SUPPORTED_SNAPSHOT_MANIFEST_VERSIONS: Final[tuple[int, ...]] = (1, 2, 3, 4, 5, 6, 7, 8)
 SUPPORTED_METADATA_SCHEMA_VERSIONS: Final[dict[str, tuple[int, ...]]] = {
     "canonical": (1,),
     "consumer": (1,),
