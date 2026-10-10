@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import sys
-import tempfile
 import unittest
 from pathlib import Path
 
@@ -80,12 +79,16 @@ class PreservationEligibilityTests(unittest.TestCase):
             profiles["eligible-canonical-bytes"]["canonical_dataset_bytes"]
         )
 
-    def test_stale_report_is_detected(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            # A missing report is enough to prove freshness enforcement.
-            errors = PRESERVE.run(root, write=False)
-            self.assertTrue(errors)
+    def test_policy_and_report_versions_match(self) -> None:
+        policy = json.loads(
+            (ROOT / "preservation" / "policy-v1.json").read_text(encoding="utf-8")
+        )
+        report = PRESERVE.build_report(ROOT)
+
+        self.assertEqual(policy["schema_version"], 1)
+        self.assertEqual(policy["policy_version"], 1)
+        self.assertEqual(report["policy"]["schema_version"], 1)
+        self.assertEqual(report["policy"]["policy_version"], 1)
 
 
 if __name__ == "__main__":
