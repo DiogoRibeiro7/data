@@ -13,6 +13,8 @@ from typing import Any
 
 import yaml
 
+from data_registry import verify_release_bundle
+
 REPOSITORY = "DiogoRibeiro7/data"
 ARCHIVE_SCHEMA_VERSION = 1
 SUPPORTED_PROFILES = {"release-metadata", "eligible-canonical-bytes"}
@@ -46,13 +48,18 @@ def load_yaml(path: Path) -> dict[str, Any]:
     return value
 
 
-def copy_file(source: Path, destination: Path) -> dict[str, Any]:
-    """Copy one file and return its deterministic bundle record."""
+def copy_file(
+    source: Path,
+    destination: Path,
+    *,
+    bundle_root: Path,
+) -> dict[str, Any]:
+    """Copy one file and return its deterministic bundle-relative record."""
 
     destination.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(source, destination)
     return {
-        "path": destination.as_posix(),
+        "path": destination.relative_to(bundle_root).as_posix(),
         "sha256": sha256_file(destination),
         "size": destination.stat().st_size,
     }
@@ -129,6 +136,11 @@ def build_archive_metadata(
     if profile not in SUPPORTED_PROFILES:
         raise ValueError(f"unsupported archive profile: {profile}")
 
+    verify_release_bundle(
+        release_dir,
+        expected_tag=tag,
+        expected_commit=commit,
+    )
     manifest = load_json(release_dir / "snapshot-manifest.json")
     provenance = load_json(release_dir / "snapshot-provenance.json")
     policy = load_json(root / "preservation" / "policy-v1.json")
@@ -230,6 +242,7 @@ def build_bundle(
             copy_file(
                 release_dir / name,
                 bundle_dir / "release" / name,
+                bundle_root=bundle_dir,
             )
         )
 
@@ -242,13 +255,16 @@ def build_bundle(
             copy_file(
                 root / relative,
                 bundle_dir / relative,
+                bundle_root=bundle_dir,
             )
         )
 
     distribution = root / "distribution"
     for source in sorted(path for path in distribution.rglob("*") if path.is_file()):
         relative = source.relative_to(root)
-        records.append(copy_file(source, bundle_dir / relative))
+        records.append(
+            copy_file(source, bundle_dir / relative, bundle_root=bundle_dir)
+        )
 
     if profile == "eligible-canonical-bytes":
         eligibility = load_json(root / "reports" / "preservation-eligibility.json")
@@ -267,7 +283,9 @@ def build_bundle(
                 path for path in dataset_root.rglob("*") if path.is_file()
             ):
                 relative = source.relative_to(root)
-                records.append(copy_file(source, bundle_dir / relative))
+                records.append(
+                    copy_file(source, bundle_dir / relative, bundle_root=bundle_dir)
+                )
 
     metadata_path = output_dir / "archive-metadata.json"
     metadata_path.write_text(
