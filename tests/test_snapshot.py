@@ -10,6 +10,7 @@ import unittest
 from pathlib import Path
 
 import yaml
+import jsonschema
 
 SCRIPTS_DIR = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.insert(0, str(SCRIPTS_DIR))
@@ -766,6 +767,28 @@ class SnapshotTests(unittest.TestCase):
                 provenance["artifacts"]["summary"]["sha256"],
                 hashlib.sha256(summary_path.read_bytes()).hexdigest(),
             )
+
+    def test_snapshot_provenance_matches_public_schema(self) -> None:
+        self.fixture.add_canonical("dataset")
+        with tempfile.TemporaryDirectory() as directory:
+            _, _, provenance_path = SNAPSHOT.write_release_material(
+                self.fixture.root,
+                tag="snapshot-2026.10.10",
+                commit="e" * 40,
+                output_dir=Path(directory),
+            )
+
+            provenance = json.loads(
+                provenance_path.read_text(encoding="utf-8")
+            )
+            schema = json.loads(
+                (
+                    Path(__file__).resolve().parents[1]
+                    / "schemas"
+                    / "snapshot-provenance-v1.schema.json"
+                ).read_text(encoding="utf-8")
+            )
+            jsonschema.Draft202012Validator(schema).validate(provenance)
 
     def test_snapshot_provenance_records_exact_producer_identity(self) -> None:
         self.fixture.add_canonical("dataset")
