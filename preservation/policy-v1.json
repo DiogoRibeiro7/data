@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "policy_version": 1,
+  "repository": "DiogoRibeiro7/data",
+  "identity": {
+    "primary": [
+      "snapshot_tag",
+      "exact_commit"
+    ],
+    "archive_identifiers_are_additive": true,
+    "historical_snapshots_are_immutable": true
+  },
+  "archive_profiles": {
+    "release-metadata": {
+      "description": "Archive registry-authored release metadata without third-party dataset bytes.",
+      "include": [
+        "snapshot-manifest.json",
+        "snapshot-summary.md",
+        "static-distribution",
+        "citation-metadata",
+        "preservation-policy",
+        "preservation-eligibility-report"
+      ],
+      "canonical_dataset_bytes": false
+    },
+    "eligible-canonical-bytes": {
+      "description": "Release-metadata profile plus canonical dataset bytes whose committed metadata explicitly permits redistribution.",
+      "include": [
+        "snapshot-manifest.json",
+        "snapshot-summary.md",
+        "static-distribution",
+        "citation-metadata",
+        "preservation-policy",
+        "preservation-eligibility-report",
+        "eligible-canonical-dataset-bytes"
+      ],
+      "canonical_dataset_bytes": true
+    }
+  },
+  "content_classes": {
+    "registry-tooling": {
+      "archive": "allowed",
+      "basis": "repository-maintained code under LICENSE-CODE (MIT)",
+      "preserve_notice": true
+    },
+    "registry-metadata": {
+      "archive": "allowed",
+      "basis": "registry-authored descriptive metadata and policy",
+      "does_not_relicense_upstream_data": true
+    },
+    "release-assets": {
+      "archive": "allowed",
+      "basis": "registry-authored immutable release metadata",
+      "required_identity": [
+        "snapshot_tag",
+        "exact_commit"
+      ]
+    },
+    "static-distribution": {
+      "archive": "allowed",
+      "basis": "deterministic projection of committed registry metadata",
+      "does_not_authorize_source_bytes": true
+    },
+    "canonical-dataset-bytes": {
+      "archive": "conditional",
+      "eligible_when": {
+        "license.redistribution": [
+          "allowed"
+        ]
+      },
+      "otherwise": "metadata-only",
+      "required_companions": [
+        "dataset metadata",
+        "upstream source identity",
+        "licence/terms identity",
+        "citation when available",
+        "SHA-256 checksums"
+      ]
+    },
+    "external-source-bytes": {
+      "archive": "metadata-only",
+      "reason": "The external layer records authoritative upstream sources; bytes are not mirrored merely because a source is documented.",
+      "promotion_required_for_bytes": true
+    },
+    "legacy-bytes": {
+      "archive": "metadata-only",
+      "reason": "Legacy quarantine does not establish redistribution permission or canonical provenance.",
+      "promotion_required_for_bytes": true
+    }
+  },
+  "hard_exclusions": [
+    "private data",
+    "personal data",
+    "confidential data",
+    "regulated data",
+    "redistribution-restricted bytes",
+    "bytes with unresolved redistribution rights",
+    "external-source bytes not separately canonicalized",
+    "legacy-quarantine bytes not separately promoted"
+  ],
+  "attribution": {
+    "canonical_bytes": [
+      "preserve upstream publisher",
+      "preserve source URL and immutable snapshot identity",
+      "preserve licence/terms name and URL",
+      "preserve citation when available",
+      "preserve file SHA-256 checksums"
+    ],
+    "mixed_license_bundle": "No archive-level licence may override per-dataset upstream terms."
+  },
+  "corrections": {
+    "rewrite_published_archive": false,
+    "replacement_action": "publish a new corrected archive record and link/supersede the earlier record",
+    "git_history_rule": "never move or rewrite an existing snapshot tag to hide an earlier state"
+  }
+}
