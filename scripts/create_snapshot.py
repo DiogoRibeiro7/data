@@ -227,6 +227,14 @@ def catalog_record(root: Path, relative_path: str) -> dict[str, Any]:
     schema_version = catalog.get("schema_version")
     if not isinstance(schema_version, int):
         raise ValueError(f"{path}: catalog schema_version must be an integer")
+    normalized_relationships.sort(
+        key=lambda item: (
+            str(item["consumer_id"]),
+            str(item["dataset_id"]),
+            str(item["path"]),
+        )
+    )
+
     return {
         "path": relative_path,
         "schema_version": schema_version,
@@ -262,6 +270,31 @@ def provenance_debt_record(root: Path) -> dict[str, Any]:
     if not isinstance(categories, dict):
         raise ValueError(f"{path}: summary.by_blocker_category must be an object")
 
+    items = report.get("items")
+    if not isinstance(items, list):
+        raise ValueError(f"{path}: provenance debt items must be a list")
+    normalized_items: list[dict[str, Any]] = []
+    for item in items:
+        if not isinstance(item, dict):
+            raise ValueError(f"{path}: provenance debt item must be an object")
+        item_id = item.get("id")
+        layer = item.get("layer")
+        if not isinstance(item_id, str) or not item_id:
+            raise ValueError(f"{path}: provenance debt item id must be non-empty text")
+        if layer not in {"external", "legacy"}:
+            raise ValueError(f"{path}: provenance debt item {item_id!r} has invalid layer")
+        normalized_items.append(
+            {
+                "id": item_id,
+                "layer": layer,
+                "review_status": item.get("review_status"),
+                "terminal": item.get("terminal"),
+                "blocker_category": item.get("blocker_category"),
+                "redistribution": item.get("redistribution"),
+            }
+        )
+    normalized_items.sort(key=lambda item: (item["layer"], item["id"]))
+
     return {
         "path": relative_path,
         "schema_version": report.get("schema_version"),
@@ -275,6 +308,7 @@ def provenance_debt_record(root: Path) -> dict[str, Any]:
         "actionable_count": summary["actionable_count"],
         "terminal_count": summary["terminal_count"],
         "by_blocker_category": dict(sorted(categories.items())),
+        "items": normalized_items,
     }
 
 
@@ -363,6 +397,7 @@ def consumer_graph_record(root: Path) -> dict[str, Any]:
     active_relationship_count = 0
     deprecated_relationship_count = 0
     repositories: set[str] = set()
+    normalized_relationships: list[dict[str, Any]] = []
 
     for consumer_id, payload in sorted(consumers.items()):
         if not isinstance(payload, dict):
@@ -384,6 +419,17 @@ def consumer_graph_record(root: Path) -> dict[str, Any]:
                 active_relationship_count += 1
             elif status == "deprecated":
                 deprecated_relationship_count += 1
+            normalized_relationships.append(
+                {
+                    "consumer_id": consumer_id,
+                    "consumer_repository": repository,
+                    "dataset_id": item.get("dataset_id"),
+                    "status": status,
+                    "registry_commit": item.get("registry_commit"),
+                    "path": item.get("path"),
+                    "sha256": item.get("sha256"),
+                }
+            )
 
     return {
         "path": relative_path,
@@ -395,6 +441,7 @@ def consumer_graph_record(root: Path) -> dict[str, Any]:
         "relationship_count": relationship_count,
         "active_relationship_count": active_relationship_count,
         "deprecated_relationship_count": deprecated_relationship_count,
+        "relationships": normalized_relationships,
     }
 
 
@@ -599,7 +646,7 @@ def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
         for layer, relative_path in sorted(SCHEMA_FILES.items())
     }
     return {
-        "manifest_version": 6,
+        "manifest_version": 7,
         "repository": REPOSITORY,
         "tag": tag,
         "commit": commit,
