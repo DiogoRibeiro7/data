@@ -22,6 +22,12 @@ class SnapshotWorkflowTests(unittest.TestCase):
             self.text,
         )
 
+    def test_release_assets_receive_github_artifact_attestations(self) -> None:
+        self.assertIn("id-token: write", self.text)
+        self.assertIn("attestations: write", self.text)
+        self.assertIn("uses: actions/attest@v4", self.text)
+        self.assertIn('subject-path: "release-material/*"', self.text)
+
     def test_data_repo_keeps_domain_specific_preparation(self) -> None:
         for command in (
             "scripts/validate_repository.py",
