@@ -216,6 +216,54 @@ citation beyond GitHub alone.
 
 ---
 
+## Phase 11 — External-source evidence resolution and selective promotion
+
+**Status:** active.
+
+**Tracking issue:** #194.
+
+### Goal
+
+Resolve the remaining actionable external-source provenance debt and promote only
+sources that satisfy the canonical registry contract and have real downstream
+demand.
+
+The Phase 10 baseline has three actionable external debt items, all
+Medium-related:
+
+- `medium-crawlfeeds-corpus`;
+- `medium-fabiochiu-articles`;
+- `medium-jansma-historical`.
+
+### Planned capabilities
+
+- #195 — audit actionable Medium external-source records;
+- #196 — classify Medium source reuse and redistribution rights;
+- #197 — score Medium candidates for canonical promotion;
+- #198 — promote a justified Medium dataset and migrate a real consumer, if any candidate qualifies;
+- #199 — expose external resolution outcomes through the registry client;
+- #200 — publish the Phase 11 immutable resolution snapshot.
+
+### Principles
+
+- do not infer redistribution rights from site or code licences;
+- do not promote data merely to grow the canonical catalog;
+- promotion requires stable source identity and real downstream demand;
+- terminal evidence-backed outcomes are valid and should remain terminal unless
+  new authoritative evidence appears.
+
+### Exit criteria
+
+- [ ] all three actionable external debt items are resolved;
+- [ ] each outcome has structured evidence;
+- [ ] any promotion has explicit redistribution permission;
+- [ ] any promoted dataset has a real registered consumer;
+- [ ] provenance-debt actionable count is zero;
+- [ ] an immutable Phase 11 snapshot captures the result.
+
+
+---
+
 ## Continuous work
 
 The following are not separate phases. They apply throughout the roadmap.
