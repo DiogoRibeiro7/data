@@ -48,6 +48,16 @@ legacy = registry.legacy("country-age-sex-2019")
 
 Returned values are strict typed models: `CanonicalDataset`, `ExternalRecord`, and `LegacyRecord`.
 
+`ExternalRecord` also exposes optional resolution/availability state without changing API v1:
+
+- `resolution_status` — `actionable`, `terminal`, or `None`;
+- `terminal` — reviewed terminal flag when resolution metadata exists;
+- `blocker_category` — structured provenance/licensing blocker;
+- `availability_state` — `live`, `transient-outage`, `moved`, `permanently-unavailable`, `legal-withdrawal`, or `None`;
+- `replacement_url` — replacement endpoint for moved sources when present.
+
+These fields are projections of committed metadata and require no network access.
+
 Ambiguous IDs require an explicit layer. Unknown IDs raise `RegistryError`.
 
 ## Consumer relationships
