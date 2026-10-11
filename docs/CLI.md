@@ -41,6 +41,16 @@ python scripts/registry.py list --json
 
 Human-readable output is tabular. `--json` emits a stable machine-readable array.
 
+For external records, JSON list/search summaries also expose:
+
+- `resolution_status`;
+- `terminal`;
+- `blocker_category`;
+- `availability_state`;
+- `replacement_url`.
+
+This lets callers distinguish ordinary, actionable, terminal, moved, and tombstoned external records without reparsing raw YAML.
+
 ## Search
 
 Search covers IDs, titles, publishers, canonical descriptions, and canonical domain tags.
