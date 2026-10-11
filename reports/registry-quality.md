@@ -73,7 +73,7 @@ Adoption exemptions:
 ## Provenance and licensing debt
 
 - Total debt items: **9**
-- External actionable / terminal: **3 / 4**
+- External actionable / terminal: **0 / 7**
 - Legacy actionable / terminal: **0 / 2**
 - Oldest review date: **2026-10-05**
 - Oldest deterministic debt age (days): **6**
