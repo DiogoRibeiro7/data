@@ -10,14 +10,15 @@ storage: authoritative-upstream
 consumers:
   - medium-statistical-dynamics
 resolution:
-  review_status: actionable
+  review_status: terminal
   last_reviewed: 2026-10-11
   blocker_category: redistribution-rights
-  blocker_summary: "The research repository and methodology are identifiable at commit c0cc836bcdfbd3bd1d986bb967978d92ee43dac9. The README documents roughly 1.4 million stories across 95 popular subjects and points to a Kaggle dataset, but the actual dataset object is off-repository and no repository LICENSE establishes dataset redistribution rights."
+  blocker_summary: "The pinned research repository documents collection of roughly 1.4 million Medium stories and says the dataset was published for public use on Kaggle, but the actual dataset is off-repository, the GitHub repository has no LICENSE, and no authoritative dataset-specific redistribution licence for the exact Kaggle object was recovered. The record is terminal external-only."
   evidence:
     - "https://github.com/harrisonjansma/Analyzing_Medium"
     - "https://github.com/harrisonjansma/Analyzing_Medium/commit/c0cc836bcdfbd3bd1d986bb967978d92ee43dac9"
-    - "https://github.com/DiogoRibeiro7/data/blob/main/docs/research/medium-source-audit-2026-10-11.md"
-  reviewer_note: "Repository identity and sampling description are established. Sampling is explicitly based on 95 popular writing subjects, not a probability sample of Medium. The 1.4M-row data are distributed separately via Kaggle."
-  next_action: "In #196, identify the exact Kaggle dataset/version and authoritative licence/redistribution terms for those bytes; absent such evidence, classify the record terminal external-only."
-  terminal: false
+    - "https://medium.com/policy/medium-terms-of-service-9db0094a1e0f"
+    - "https://github.com/DiogoRibeiro7/data/blob/main/docs/research/medium-redistribution-rights-2026-10-11.md"
+  reviewer_note: "A statement that data were published for public use is useful provenance but is not an explicit redistribution licence. Keep authoritative-upstream only."
+  next_action: "Reopen only if the exact Kaggle object/version and authoritative dataset-specific redistribution terms are recovered."
+  terminal: true

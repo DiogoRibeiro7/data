@@ -9,14 +9,15 @@ storage: authoritative-upstream
 consumers:
   - medium-statistical-dynamics
 resolution:
-  review_status: actionable
+  review_status: terminal
   last_reviewed: 2026-10-11
   blocker_category: redistribution-rights
-  blocker_summary: "The Hugging Face dataset is identifiable and declares MIT; the viewer exposes revision 979af3bcd84565e3f47b9eca752d8ec112824953 and files with heterogeneous text/no-text schemas. Whether the dataset licence authorizes redistribution of copied third-party Medium article text remains unresolved."
+  blocker_summary: "The Hugging Face dataset declares MIT and exposes revision 979af3bcd84565e3f47b9eca752d8ec112824953, but full-text files reproduce third-party Medium article bodies and no evidence establishes the publisher's authority to relicense that content. Redistribution remains unresolved and the record is terminal external-only."
   evidence:
     - "https://huggingface.co/datasets/fabiochiu/medium-articles"
     - "https://huggingface.co/datasets/fabiochiu/medium-articles/tree/979af3bcd84565e3f47b9eca752d8ec112824953"
-    - "https://github.com/DiogoRibeiro7/data/blob/main/docs/research/medium-source-audit-2026-10-11.md"
-  reviewer_note: "Immutable Hugging Face revision is established. The source currently mixes files with and without article text, causing a dataset-viewer cast failure; metadata-only/no-text files should be assessed separately from full-text files."
-  next_action: "In #196, determine whether MIT applies validly to the exact dataset bytes, especially third-party article text, and whether a no-text subset has a safer redistribution profile."
-  terminal: false
+    - "https://medium.com/policy/medium-terms-of-service-9db0094a1e0f"
+    - "https://github.com/DiogoRibeiro7/data/blob/main/docs/research/medium-redistribution-rights-2026-10-11.md"
+  reviewer_note: "Treat the MIT label as insufficient to establish rights in third-party article text. The no-text representation is also not automatically approved because its exact licence scope has not been established separately."
+  next_action: "Reopen only if authoritative evidence establishes redistribution rights for the exact full-text or no-text file(s), assessed separately."
+  terminal: true
