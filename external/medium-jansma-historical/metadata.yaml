@@ -4,18 +4,20 @@ id: medium-jansma-historical
 title: "Historical Medium article study (Jansma)"
 publisher: "Harrison Jansma"
 source_url: "https://github.com/harrisonjansma/Analyzing_Medium"
+source_commit: c0cc836bcdfbd3bd1d986bb967978d92ee43dac9
 redistribution: unresolved
 storage: authoritative-upstream
 consumers:
   - medium-statistical-dynamics
 resolution:
   review_status: actionable
-  last_reviewed: 2026-10-07
+  last_reviewed: 2026-10-11
   blocker_category: redistribution-rights
-  blocker_summary: "Dataset-specific reuse and redistribution permissions, source snapshot identity, and collection provenance have not been independently established."
+  blocker_summary: "The research repository and methodology are identifiable at commit c0cc836bcdfbd3bd1d986bb967978d92ee43dac9. The README documents roughly 1.4 million stories across 95 popular subjects and points to a Kaggle dataset, but the actual dataset object is off-repository and no repository LICENSE establishes dataset redistribution rights."
   evidence:
     - "https://github.com/harrisonjansma/Analyzing_Medium"
-    - "https://github.com/DiogoRibeiro7/data/blob/main/docs/research/medium-source-feasibility.md"
-  reviewer_note: "Candidate corpus for H1/H2/H5; do not infer platform-wide representativeness or mirror unverified article text."
-  next_action: "Verify exact dataset files, applicable licenses, collection permission, sample selection, timestamps, and outcome fields before any canonical promotion."
+    - "https://github.com/harrisonjansma/Analyzing_Medium/commit/c0cc836bcdfbd3bd1d986bb967978d92ee43dac9"
+    - "https://github.com/DiogoRibeiro7/data/blob/main/docs/research/medium-source-audit-2026-10-11.md"
+  reviewer_note: "Repository identity and sampling description are established. Sampling is explicitly based on 95 popular writing subjects, not a probability sample of Medium. The 1.4M-row data are distributed separately via Kaggle."
+  next_action: "In #196, identify the exact Kaggle dataset/version and authoritative licence/redistribution terms for those bytes; absent such evidence, classify the record terminal external-only."
   terminal: false
