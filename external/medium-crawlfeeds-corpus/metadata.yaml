@@ -10,12 +10,12 @@ consumers:
   - medium-statistical-dynamics
 resolution:
   review_status: actionable
-  last_reviewed: 2026-10-07
+  last_reviewed: 2026-10-11
   blocker_category: redistribution-rights
-  blocker_summary: "Dataset-specific reuse and redistribution permissions, source snapshot identity, and collection provenance have not been independently established."
+  blocker_summary: "The Hugging Face source and current schema are established: the card labels the corpus CC BY-SA 3.0, describes a web-scraped Medium sample/subset, and exposes engagement, timestamp and full-text fields. The immutable dataset revision and authority to redistribute third-party article bodies remain unresolved."
   evidence:
     - "https://huggingface.co/datasets/crawlfeeds/Medium-Articles-Corpus"
-    - "https://github.com/DiogoRibeiro7/data/blob/main/docs/research/medium-source-feasibility.md"
-  reviewer_note: "Candidate corpus for H1/H2/H5; do not infer platform-wide representativeness or mirror unverified article text."
-  next_action: "Verify exact dataset files, applicable licenses, collection permission, sample selection, timestamps, and outcome fields before any canonical promotion."
+    - "https://github.com/DiogoRibeiro7/data/blob/main/docs/research/medium-source-audit-2026-10-11.md"
+  reviewer_note: "Source discovery is complete enough for Phase 11. Treat the corpus as a non-probability scraped sample; published_at includes a 1970-01-01 extreme. Do not mirror full article text until #196 resolves rights for the exact bytes."
+  next_action: "In #196, verify the legal scope of the dataset-card CC BY-SA 3.0 declaration for scraped third-party article content and establish an immutable dataset revision/file identity before any promotion."
   terminal: false
