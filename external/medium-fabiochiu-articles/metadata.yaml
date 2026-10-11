@@ -10,12 +10,13 @@ consumers:
   - medium-statistical-dynamics
 resolution:
   review_status: actionable
-  last_reviewed: 2026-10-07
+  last_reviewed: 2026-10-11
   blocker_category: redistribution-rights
-  blocker_summary: "Dataset-specific reuse and redistribution permissions, source snapshot identity, and collection provenance have not been independently established."
+  blocker_summary: "The Hugging Face dataset is identifiable and declares MIT; the viewer exposes revision 979af3bcd84565e3f47b9eca752d8ec112824953 and files with heterogeneous text/no-text schemas. Whether the dataset licence authorizes redistribution of copied third-party Medium article text remains unresolved."
   evidence:
     - "https://huggingface.co/datasets/fabiochiu/medium-articles"
-    - "https://github.com/DiogoRibeiro7/data/blob/main/docs/research/medium-source-feasibility.md"
-  reviewer_note: "Candidate corpus for H1/H2/H5; do not infer platform-wide representativeness or mirror unverified article text."
-  next_action: "Verify exact dataset files, applicable licenses, collection permission, sample selection, timestamps, and outcome fields before any canonical promotion."
+    - "https://huggingface.co/datasets/fabiochiu/medium-articles/tree/979af3bcd84565e3f47b9eca752d8ec112824953"
+    - "https://github.com/DiogoRibeiro7/data/blob/main/docs/research/medium-source-audit-2026-10-11.md"
+  reviewer_note: "Immutable Hugging Face revision is established. The source currently mixes files with and without article text, causing a dataset-viewer cast failure; metadata-only/no-text files should be assessed separately from full-text files."
+  next_action: "In #196, determine whether MIT applies validly to the exact dataset bytes, especially third-party article text, and whether a no-text subset has a safer redistribution profile."
   terminal: false

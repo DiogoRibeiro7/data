@@ -64,7 +64,7 @@
     "uncovered_datasets_without_consumers": []
   },
   "external": {
-    "pinned_immutable_identity_sources": 3,
+    "pinned_immutable_identity_sources": 4,
     "redistribution": {
       "resolved": 9,
       "unresolved": 7
@@ -105,7 +105,7 @@
       "actionable": 0,
       "terminal": 2
     },
-    "oldest_age_days": 2,
+    "oldest_age_days": 6,
     "oldest_review_date": "2026-10-05",
     "total_count": 9
   },

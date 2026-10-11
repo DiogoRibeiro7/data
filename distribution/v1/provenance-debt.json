@@ -1,8 +1,8 @@
 {
-  "age_reference_date": "2026-10-07",
+  "age_reference_date": "2026-10-11",
   "items": [
     {
-      "age_days": 2,
+      "age_days": 6,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "DGS publicly disseminates SICO mortality information, but its current legal notice protects site contents and no dataset-specific redistribution grant covering the historical InfoClique/SICO CSV exports was recovered.",
       "evidence_count": 2,
@@ -18,7 +18,7 @@
       "title": "DGS InfoClique mortality platform"
     },
     {
-      "age_days": 2,
+      "age_days": 6,
       "blocker_category": "dataset-vs-repository-licence-scope",
       "blocker_summary": "The pinned IBM repository is Apache-2.0 licensed as a code pattern, but the README explicitly separates third-party objects and no dataset-specific redistribution licence for Telco-Customer-Churn.csv was established.",
       "evidence_count": 3,
@@ -34,7 +34,7 @@
       "title": "IBM Telco Customer Churn sample"
     },
     {
-      "age_days": 2,
+      "age_days": 6,
       "blocker_category": "dataset-vs-repository-licence-scope",
       "blocker_summary": "The pinned repository has a root MIT licence and explicitly includes maize_bipolaris.csv as data, but the licence text covers software and associated documentation and no authoritative statement was recovered that explicitly applies MIT redistribution rights to the dataset bytes.",
       "evidence_count": 3,
@@ -52,12 +52,12 @@
     {
       "age_days": 0,
       "blocker_category": "redistribution-rights",
-      "blocker_summary": "Dataset-specific reuse and redistribution permissions, source snapshot identity, and collection provenance have not been independently established.",
+      "blocker_summary": "The Hugging Face source and current schema are established: the card labels the corpus CC BY-SA 3.0, describes a web-scraped Medium sample/subset, and exposes engagement, timestamp and full-text fields. The immutable dataset revision and authority to redistribute third-party article bodies remain unresolved.",
       "evidence_count": 2,
       "id": "medium-crawlfeeds-corpus",
-      "last_reviewed": "2026-10-07",
+      "last_reviewed": "2026-10-11",
       "layer": "external",
-      "next_action": "Verify exact dataset files, applicable licenses, collection permission, sample selection, timestamps, and outcome fields before any canonical promotion.",
+      "next_action": "In #196, verify the legal scope of the dataset-card CC BY-SA 3.0 declaration for scraped third-party article content and establish an immutable dataset revision/file identity before any promotion.",
       "path": "external/medium-crawlfeeds-corpus/metadata.yaml",
       "redistribution": "unresolved",
       "review_status": "actionable",
@@ -68,12 +68,12 @@
     {
       "age_days": 0,
       "blocker_category": "redistribution-rights",
-      "blocker_summary": "Dataset-specific reuse and redistribution permissions, source snapshot identity, and collection provenance have not been independently established.",
-      "evidence_count": 2,
+      "blocker_summary": "The Hugging Face dataset is identifiable and declares MIT; the viewer exposes revision 979af3bcd84565e3f47b9eca752d8ec112824953 and files with heterogeneous text/no-text schemas. Whether the dataset licence authorizes redistribution of copied third-party Medium article text remains unresolved.",
+      "evidence_count": 3,
       "id": "medium-fabiochiu-articles",
-      "last_reviewed": "2026-10-07",
+      "last_reviewed": "2026-10-11",
       "layer": "external",
-      "next_action": "Verify exact dataset files, applicable licenses, collection permission, sample selection, timestamps, and outcome fields before any canonical promotion.",
+      "next_action": "In #196, determine whether MIT applies validly to the exact dataset bytes, especially third-party article text, and whether a no-text subset has a safer redistribution profile.",
       "path": "external/medium-fabiochiu-articles/metadata.yaml",
       "redistribution": "unresolved",
       "review_status": "actionable",
@@ -84,12 +84,12 @@
     {
       "age_days": 0,
       "blocker_category": "redistribution-rights",
-      "blocker_summary": "Dataset-specific reuse and redistribution permissions, source snapshot identity, and collection provenance have not been independently established.",
-      "evidence_count": 2,
+      "blocker_summary": "The research repository and methodology are identifiable at commit c0cc836bcdfbd3bd1d986bb967978d92ee43dac9. The README documents roughly 1.4 million stories across 95 popular subjects and points to a Kaggle dataset, but the actual dataset object is off-repository and no repository LICENSE establishes dataset redistribution rights.",
+      "evidence_count": 3,
       "id": "medium-jansma-historical",
-      "last_reviewed": "2026-10-07",
+      "last_reviewed": "2026-10-11",
       "layer": "external",
-      "next_action": "Verify exact dataset files, applicable licenses, collection permission, sample selection, timestamps, and outcome fields before any canonical promotion.",
+      "next_action": "In #196, identify the exact Kaggle dataset/version and authoritative licence/redistribution terms for those bytes; absent such evidence, classify the record terminal external-only.",
       "path": "external/medium-jansma-historical/metadata.yaml",
       "redistribution": "unresolved",
       "review_status": "actionable",
@@ -98,7 +98,7 @@
       "title": "Historical Medium article study (Jansma)"
     },
     {
-      "age_days": 2,
+      "age_days": 6,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "INE permits rediffusion of official statistical information with source attribution, but the historical workbook was a PORDATA-generated Excel export and no authoritative term was recovered that clearly permits mirroring that secondary-source artifact.",
       "evidence_count": 3,
@@ -114,7 +114,7 @@
       "title": "Portugal resident population estimates by age group"
     },
     {
-      "age_days": 2,
+      "age_days": 6,
       "blocker_category": "exact-snapshot-identity",
       "blocker_summary": "The retained age/sex files are strongly attributable to UN World Population Prospects 2019, whose publications are CC BY 3.0 IGO, but the exact download/export route and the lineage of the Portugal CSV/XLSX variants cannot be reconstructed sufficiently to claim file-level provenance for these historical artifacts.",
       "evidence_count": 2,
@@ -130,7 +130,7 @@
       "title": "Country age/sex population snapshots (2019)"
     },
     {
-      "age_days": 2,
+      "age_days": 6,
       "blocker_category": "historical-export-route",
       "blocker_summary": "The retained workbook is attributable to the GEP/MTSSS Indicadores COVID-19 monitoring series and dated 27 May 2020, but the exact historical workbook URL, immutable upstream identity and dataset-specific redistribution terms were not recovered.",
       "evidence_count": 2,

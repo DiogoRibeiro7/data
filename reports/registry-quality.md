@@ -14,7 +14,7 @@ It makes no live network requests.
 
 - External source records: **16**
 - Redistribution resolved / unresolved: **9 / 7**
-- Sources pinned to an immutable Git commit: **3**
+- Sources pinned to an immutable Git commit: **4**
 
 External source usage annotations:
 
@@ -76,7 +76,7 @@ Adoption exemptions:
 - External actionable / terminal: **3 / 4**
 - Legacy actionable / terminal: **0 / 2**
 - Oldest review date: **2026-10-05**
-- Oldest deterministic debt age (days): **2**
+- Oldest deterministic debt age (days): **6**
 
 Debt by blocker category:
 

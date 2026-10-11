@@ -2,7 +2,8 @@
 
 Date: 2026-10-07  
 Consumer: [medium-statistical-dynamics](https://gitlab.com/DiogoRibeiro7/medium-statistical-dynamics)  
-Status: **candidate sources; no canonical datasets approved**
+Status: **candidate sources; no canonical datasets approved**  
+Phase 11 follow-up: [Medium source audit — 2026-10-11](medium-source-audit-2026-10-11.md)
 
 ## Scope and decision rule
 
