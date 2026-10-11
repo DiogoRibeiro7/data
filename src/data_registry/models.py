@@ -210,7 +210,10 @@ class ExternalRecord:
         if resolution is not None:
             resolution_map = _mapping(resolution, field="external.resolution")
             status = resolution_map.get("review_status")
-            if status not in {"actionable", "terminal"}:
+            if not isinstance(status, str) or status not in {
+                "actionable",
+                "terminal",
+            }:
                 raise RegistryModelError(
                     "external.resolution.review_status must be actionable or terminal"
                 )
@@ -237,7 +240,7 @@ class ExternalRecord:
                 field="external.availability",
             )
             state = availability_map.get("state")
-            if state not in {
+            if not isinstance(state, str) or state not in {
                 "live",
                 "transient-outage",
                 "moved",
