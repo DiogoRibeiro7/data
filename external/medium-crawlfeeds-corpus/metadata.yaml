@@ -9,13 +9,14 @@ storage: authoritative-upstream
 consumers:
   - medium-statistical-dynamics
 resolution:
-  review_status: actionable
+  review_status: terminal
   last_reviewed: 2026-10-11
   blocker_category: redistribution-rights
-  blocker_summary: "The Hugging Face source and current schema are established: the card labels the corpus CC BY-SA 3.0, describes a web-scraped Medium sample/subset, and exposes engagement, timestamp and full-text fields. The immutable dataset revision and authority to redistribute third-party article bodies remain unresolved."
+  blocker_summary: "The Hugging Face card declares CC BY-SA 3.0, but the corpus contains scraped third-party Medium article bodies and no authoritative evidence establishes Crawlfeeds' right to relicense all embedded article text. Under the registry's conservative policy, redistribution remains unresolved and the record is terminal external-only."
   evidence:
     - "https://huggingface.co/datasets/crawlfeeds/Medium-Articles-Corpus"
-    - "https://github.com/DiogoRibeiro7/data/blob/main/docs/research/medium-source-audit-2026-10-11.md"
-  reviewer_note: "Source discovery is complete enough for Phase 11. Treat the corpus as a non-probability scraped sample; published_at includes a 1970-01-01 extreme. Do not mirror full article text until #196 resolves rights for the exact bytes."
-  next_action: "In #196, verify the legal scope of the dataset-card CC BY-SA 3.0 declaration for scraped third-party article content and establish an immutable dataset revision/file identity before any promotion."
-  terminal: false
+    - "https://medium.com/policy/medium-terms-of-service-9db0094a1e0f"
+    - "https://github.com/DiogoRibeiro7/data/blob/main/docs/research/medium-redistribution-rights-2026-10-11.md"
+  reviewer_note: "The dataset-card CC BY-SA 3.0 declaration does not by itself prove rights over all embedded third-party article bodies. Keep authoritative-upstream only; do not mirror or canonically promote under current evidence."
+  next_action: "Reopen only if authoritative evidence establishes redistribution rights for the exact dataset bytes and an immutable dataset identity is pinned."
+  terminal: true
