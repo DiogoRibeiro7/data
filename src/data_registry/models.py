@@ -176,6 +176,11 @@ class ExternalRecord:
     publisher: str
     source_url: str
     redistribution: str | None
+    resolution_status: str | None
+    terminal: bool | None
+    blocker_category: str | None
+    availability_state: str | None
+    replacement_url: str | None
     _raw: Mapping[str, Any]
 
     @classmethod
@@ -198,12 +203,71 @@ class ExternalRecord:
         if redistribution is not None and not isinstance(redistribution, str):
             raise RegistryModelError("external redistribution must be text or null")
 
+        resolution_status: str | None = None
+        terminal: bool | None = None
+        blocker_category: str | None = None
+        resolution = raw.get("resolution")
+        if resolution is not None:
+            resolution_map = _mapping(resolution, field="external.resolution")
+            status = resolution_map.get("review_status")
+            if status not in {"actionable", "terminal"}:
+                raise RegistryModelError(
+                    "external.resolution.review_status must be actionable or terminal"
+                )
+            resolution_status = status
+            terminal_value = resolution_map.get("terminal")
+            if not isinstance(terminal_value, bool):
+                raise RegistryModelError(
+                    "external.resolution.terminal must be boolean"
+                )
+            terminal = terminal_value
+            blocker_value = resolution_map.get("blocker_category")
+            if blocker_value is not None and not isinstance(blocker_value, str):
+                raise RegistryModelError(
+                    "external.resolution.blocker_category must be text or null"
+                )
+            blocker_category = blocker_value
+
+        availability_state: str | None = None
+        replacement_url: str | None = None
+        availability = raw.get("availability")
+        if availability is not None:
+            availability_map = _mapping(
+                availability,
+                field="external.availability",
+            )
+            state = availability_map.get("state")
+            if state not in {
+                "live",
+                "transient-outage",
+                "moved",
+                "permanently-unavailable",
+                "legal-withdrawal",
+            }:
+                raise RegistryModelError(
+                    "external.availability.state has an unsupported value"
+                )
+            availability_state = state
+            replacement_value = availability_map.get("replacement_url")
+            if replacement_value is not None and (
+                not isinstance(replacement_value, str) or not replacement_value
+            ):
+                raise RegistryModelError(
+                    "external.availability.replacement_url must be non-empty text or null"
+                )
+            replacement_url = replacement_value
+
         return cls(
             id=_text(raw, "id", record=record),
             title=_text(raw, "title", record=record),
             publisher=_text(raw, "publisher", record=record),
             source_url=_text(raw, "source_url", record=record),
             redistribution=redistribution,
+            resolution_status=resolution_status,
+            terminal=terminal,
+            blocker_category=blocker_category,
+            availability_state=availability_state,
+            replacement_url=replacement_url,
             _raw=_freeze(raw),
         )
 
