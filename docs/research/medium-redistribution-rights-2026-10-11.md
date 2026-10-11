@@ -123,3 +123,12 @@ Any future reopening requires new authoritative rights evidence for the exact
 dataset bytes. Until then, downstream consumers may use the upstream sources
 subject to their own legal/ethical review, but this registry will not mirror or
 promote the data.
+
+
+## Promotion follow-up
+
+Canonical-promotion scoring is recorded in
+[medium-canonical-promotion-score-2026-10-11.md](medium-canonical-promotion-score-2026-10-11.md).
+
+All three candidates fail the mandatory redistribution gate and therefore remain
+external-only under current evidence.
