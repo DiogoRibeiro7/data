@@ -482,7 +482,7 @@ def find_entry(
 def entry_summary(entry: RegistryEntry) -> dict[str, Any]:
     """Return a stable compact representation for list/search output."""
 
-    return {
+    summary: dict[str, Any] = {
         "layer": entry.layer,
         "id": entry.id,
         "title": entry.title,
@@ -490,6 +490,35 @@ def entry_summary(entry: RegistryEntry) -> dict[str, Any]:
         "domains": entry.domains,
         "path": entry.path,
     }
+    if entry.layer == "external":
+        resolution = entry.metadata.get("resolution")
+        availability = entry.metadata.get("availability")
+        summary["resolution_status"] = (
+            resolution.get("review_status")
+            if isinstance(resolution, dict)
+            else None
+        )
+        summary["terminal"] = (
+            resolution.get("terminal")
+            if isinstance(resolution, dict)
+            else None
+        )
+        summary["blocker_category"] = (
+            resolution.get("blocker_category")
+            if isinstance(resolution, dict)
+            else None
+        )
+        summary["availability_state"] = (
+            availability.get("state")
+            if isinstance(availability, dict)
+            else None
+        )
+        summary["replacement_url"] = (
+            availability.get("replacement_url")
+            if isinstance(availability, dict)
+            else None
+        )
+    return summary
 
 
 def show_payload(entry: RegistryEntry) -> dict[str, Any]:
