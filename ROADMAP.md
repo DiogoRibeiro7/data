@@ -26,7 +26,7 @@ At that point the registry has:
 - public API version **1** and Python **3.12–3.14** support;
 - checksum-verified immutable fetch through the packaged client;
 - static machine-readable distribution **v1**;
-- snapshot manifest **v6** capturing client and distribution identity;
+- snapshot manifest **v8** capturing client, preservation, and release-trust identity;
 - immutable snapshot and compatibility/versioning policies.
 
 Phase 10 is complete. Preservation, citation, provenance, verification, archive/DOI, external-source disappearance, and immutable release-trust contracts are captured by `snapshot-2026.10.10`.
@@ -218,7 +218,7 @@ citation beyond GitHub alone.
 
 ## Phase 11 — External-source evidence resolution and selective promotion
 
-**Status:** active.
+**Status:** release-ready.
 
 **Tracking issue:** #194.
 
@@ -254,12 +254,16 @@ Medium-related:
 
 ### Exit criteria
 
-- [ ] all three actionable external debt items are resolved;
-- [ ] each outcome has structured evidence;
-- [ ] any promotion has explicit redistribution permission;
-- [ ] any promoted dataset has a real registered consumer;
-- [ ] provenance-debt actionable count is zero;
+- [x] all three actionable external debt items are resolved;
+- [x] each outcome has structured evidence;
+- [x] no promotion occurred without explicit redistribution permission;
+- [x] no dataset was promoted without a real registered consumer;
+- [x] provenance-debt actionable count is zero;
 - [ ] an immutable Phase 11 snapshot captures the result.
+
+Phase 11 resolved all three Medium candidates as terminal external-only records.
+Issue #198 was therefore closed as not planned: no candidate passed the
+mandatory redistribution-rights gate.
 
 
 ---
