@@ -143,8 +143,8 @@ def render_markdown(catalog: dict[str, Any]) -> str:
         return "\n".join(lines)
 
     lines.extend([
-        "| Source | Publisher | Storage | Redistribution | Licence / terms | Consumers |",
-        "| --- | --- | --- | --- | --- | --- |",
+        "| Source | Publisher | Storage | Redistribution | Resolution | Licence / terms | Consumers |",
+        "| --- | --- | --- | --- | --- | --- | --- |",
     ])
     for item in sources:
         license_data = item["license"]
@@ -153,11 +153,18 @@ def render_markdown(catalog: dict[str, Any]) -> str:
         else:
             license_text = f"[{license_data['name']}]({license_data['url']})"
         consumers = ", ".join(item["consumers"]) if item["consumers"] else "—"
+        resolution = item.get("resolution")
+        if isinstance(resolution, dict):
+            status = resolution.get("review_status") or "—"
+            category = resolution.get("blocker_category") or "—"
+            resolution_text = f"{status} ({category})"
+        else:
+            resolution_text = "—"
         lines.append(
             f"| [{item['title']}]({item['id']}/README.md) | "
             f"[{item['publisher']}]({item['source_url']}) | "
             f"{item['storage']} | {item['redistribution']} | "
-            f"{license_text} | {consumers} |"
+            f"{resolution_text} | {license_text} | {consumers} |"
         )
     lines.append("")
     return "\n".join(lines)
