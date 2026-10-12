@@ -159,7 +159,7 @@ Then:
 data-registry list
 data-registry search climate
 data-registry show world-bank-greenhouse-gas
-data-registry external medium-crawlfeeds-corpus
+data-registry show medium-crawlfeeds-corpus --layer external
 data-registry debt --status terminal
 data-registry lifecycle online-retail-ii
 ```
