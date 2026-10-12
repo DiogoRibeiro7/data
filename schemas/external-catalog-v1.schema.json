@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DiogoRibeiro7/data/schemas/external-catalog-v1.schema.json",
+  "title": "External source catalog v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "sources"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "publisher",
+          "source_url",
+          "license",
+          "redistribution",
+          "storage",
+          "consumers",
+          "path"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "publisher": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "license": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "name",
+                  "url"
+                ],
+                "properties": {
+                  "name": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "url": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uri"
+                  }
+                }
+              }
+            ]
+          },
+          "redistribution": {
+            "type": "string",
+            "minLength": 1
+          },
+          "storage": {
+            "type": "string",
+            "minLength": 1
+          },
+          "consumers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^external/[^/]+$"
+          },
+          "resolution": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "review_status",
+              "terminal",
+              "blocker_category"
+            ],
+            "properties": {
+              "review_status": {
+                "enum": [
+                  "actionable",
+                  "terminal"
+                ]
+              },
+              "terminal": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "blocker_category": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "availability": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "state",
+              "replacement_url",
+              "last_reviewed"
+            ],
+            "properties": {
+              "state": {
+                "enum": [
+                  "live",
+                  "transient-outage",
+                  "moved",
+                  "permanently-unavailable",
+                  "legal-withdrawal"
+                ]
+              },
+              "replacement_url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              },
+              "last_reviewed": {
+                "type": "string",
+                "format": "date"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
