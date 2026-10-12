@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 import sys
 import unittest
+
+import jsonschema
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -33,6 +35,45 @@ class StaticDistributionTests(unittest.TestCase):
                 outputs[f"{name}.json"],
                 (ROOT / source_path).read_text(encoding="utf-8"),
             )
+
+    def test_external_distribution_matches_catalog_byte_for_byte(self) -> None:
+        catalog = (ROOT / "external" / "catalog.json").read_text(encoding="utf-8")
+        distributed = (
+            ROOT / "distribution" / "v1" / "external.json"
+        ).read_text(encoding="utf-8")
+
+        self.assertEqual(distributed, catalog)
+
+    def test_external_distribution_matches_catalog_schema(self) -> None:
+        distributed = json.loads(
+            (
+                ROOT / "distribution" / "v1" / "external.json"
+            ).read_text(encoding="utf-8")
+        )
+        schema = json.loads(
+            (
+                ROOT / "schemas" / "external-catalog-v1.schema.json"
+            ).read_text(encoding="utf-8")
+        )
+
+        jsonschema.Draft202012Validator(
+            schema,
+            format_checker=jsonschema.FormatChecker(),
+        ).validate(distributed)
+
+    def test_external_index_entry_points_to_catalog_source(self) -> None:
+        index = json.loads(
+            (
+                ROOT / "distribution" / "v1" / "index.json"
+            ).read_text(encoding="utf-8")
+        )
+        external = next(
+            item for item in index["artifacts"] if item["name"] == "external"
+        )
+
+        self.assertEqual(external["path"], "external.json")
+        self.assertEqual(external["source"], "external/catalog.json")
+        self.assertEqual(external["schema_version"], 1)
 
     def test_legacy_catalog_contains_all_legacy_records(self) -> None:
         legacy = json.loads(

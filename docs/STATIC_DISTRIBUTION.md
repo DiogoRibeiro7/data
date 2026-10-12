@@ -38,6 +38,12 @@ and the committed source-of-truth path for each artifact.
 Except for the compact generated legacy catalog, existing machine-readable
 registry artifacts are copied byte-for-byte into the distribution.
 
+For external sources specifically, `distribution/v1/external.json` is a
+byte-for-byte copy of `external/catalog.json`. Its schema is
+`schemas/external-catalog-v1.schema.json`, so resolution and availability
+state published by the catalog must appear identically in the static
+distribution.
+
 ## Determinism and freshness
 
 Generate the committed distribution with:
@@ -63,6 +69,10 @@ index is a discovery/versioning manifest rather than a second checksum contract.
 `v1` is the static distribution contract version, not a mutable dataset
 version. A breaking layout or interpretation change requires a new distribution
 version rather than silently changing the meaning of v1.
+
+Additive optional external-catalog fields that preserve the meaning of existing
+v1 documents remain compatible with distribution v1 and do not require a v2
+path solely because those fields are newly projected.
 
 Package/API, schema, and distribution compatibility rules are defined in
 [Compatibility and versioning policy](COMPATIBILITY.md).
