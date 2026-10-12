@@ -200,3 +200,22 @@ Before publishing:
 - inspect the uploaded manifest and summary;
 - rerun with the same tag/commit and `publish_release=true`;
 - never reuse or move an existing snapshot tag.
+
+
+## Phase 11 resolution snapshot
+
+The Phase 11 closing snapshot should preserve the evidence-backed resolution of
+the final actionable external-source debt queue.
+
+At release readiness:
+
+- provenance-debt actionable count is **0**;
+- all nine remaining debt items are terminal;
+- the three Medium candidate sources remain external-only;
+- no canonical promotion occurred because no candidate passed the explicit
+  redistribution-rights gate;
+- external resolution and availability state are exposed through the typed
+  client and CLI JSON summaries.
+
+Manifest v8 already records normalized provenance-debt item identity and state,
+so no new manifest version is required solely for this Phase 11 snapshot.
