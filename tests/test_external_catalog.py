@@ -6,6 +6,8 @@ import json
 import sys
 import tempfile
 import unittest
+
+import jsonschema
 from pathlib import Path
 
 import yaml
@@ -126,6 +128,50 @@ class ExternalCatalogTests(unittest.TestCase):
                 "last_reviewed": "2026-10-12",
             },
         )
+
+    def test_generated_catalog_matches_public_schema(self) -> None:
+        self.add_source(
+            "terminal-source",
+            resolution={
+                "review_status": "terminal",
+                "terminal": True,
+                "blocker_category": "redistribution-rights",
+            },
+            availability={
+                "state": "moved",
+                "replacement_url": "https://example.test/new",
+                "last_reviewed": "2026-10-12",
+            },
+        )
+        catalog = CATALOG.build_catalog(self.root / "external")
+        schema = json.loads(
+            (
+                Path(__file__).resolve().parents[1]
+                / "schemas"
+                / "external-catalog-v1.schema.json"
+            ).read_text(encoding="utf-8")
+        )
+
+        jsonschema.Draft202012Validator(
+            schema,
+            format_checker=jsonschema.FormatChecker(),
+        ).validate(catalog)
+
+    def test_committed_catalog_matches_public_schema(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        catalog = json.loads(
+            (root / "external" / "catalog.json").read_text(encoding="utf-8")
+        )
+        schema = json.loads(
+            (root / "schemas" / "external-catalog-v1.schema.json").read_text(
+                encoding="utf-8"
+            )
+        )
+
+        jsonschema.Draft202012Validator(
+            schema,
+            format_checker=jsonschema.FormatChecker(),
+        ).validate(catalog)
 
     def test_duplicate_ids_fail(self) -> None:
         self.add_source("one")
