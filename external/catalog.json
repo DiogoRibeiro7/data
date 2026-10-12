@@ -24,7 +24,12 @@
       "redistribution": "unresolved",
       "storage": "authoritative-upstream",
       "consumers": [],
-      "path": "external/dgs-infoclique-mortality"
+      "path": "external/dgs-infoclique-mortality",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
     },
     {
       "id": "fred-economic-data",
@@ -48,7 +53,12 @@
       "redistribution": "unresolved",
       "storage": "authoritative-upstream-pinned-snapshot",
       "consumers": [],
-      "path": "external/ibm-telco-customer-churn"
+      "path": "external/ibm-telco-customer-churn",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "dataset-vs-repository-licence-scope"
+      }
     },
     {
       "id": "jhu-csse-covid19",
@@ -75,7 +85,12 @@
       "consumers": [
         "crop-protection-predictive-science"
       ],
-      "path": "external/maize-bipolaris-disease-progress"
+      "path": "external/maize-bipolaris-disease-progress",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "dataset-vs-repository-licence-scope"
+      }
     },
     {
       "id": "medium-crawlfeeds-corpus",
@@ -88,7 +103,12 @@
       "consumers": [
         "medium-statistical-dynamics"
       ],
-      "path": "external/medium-crawlfeeds-corpus"
+      "path": "external/medium-crawlfeeds-corpus",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
     },
     {
       "id": "medium-fabiochiu-articles",
@@ -101,7 +121,12 @@
       "consumers": [
         "medium-statistical-dynamics"
       ],
-      "path": "external/medium-fabiochiu-articles"
+      "path": "external/medium-fabiochiu-articles",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
     },
     {
       "id": "medium-jansma-historical",
@@ -114,7 +139,12 @@
       "consumers": [
         "medium-statistical-dynamics"
       ],
-      "path": "external/medium-jansma-historical"
+      "path": "external/medium-jansma-historical",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
     },
     {
       "id": "our-world-in-data",
@@ -138,7 +168,12 @@
       "redistribution": "unresolved",
       "storage": "public-secondary-source",
       "consumers": [],
-      "path": "external/pordata-portugal-resident-population"
+      "path": "external/pordata-portugal-resident-population",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
     },
     {
       "id": "r-base-example-datasets",

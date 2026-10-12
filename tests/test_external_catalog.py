@@ -35,6 +35,8 @@ class ExternalCatalogTests(unittest.TestCase):
         storage: str | None = "authoritative-upstream",
         usage: dict[str, object] | None = None,
         consumers: list[str] | None = None,
+        resolution: dict[str, object] | None = None,
+        availability: dict[str, object] | None = None,
     ) -> None:
         source = self.root / "external" / slug
         source.mkdir()
@@ -54,6 +56,10 @@ class ExternalCatalogTests(unittest.TestCase):
             metadata["usage"] = usage
         if consumers is not None:
             metadata["consumers"] = consumers
+        if resolution is not None:
+            metadata["resolution"] = resolution
+        if availability is not None:
+            metadata["availability"] = availability
         (source / "metadata.yaml").write_text(
             yaml.safe_dump(metadata, sort_keys=False),
             encoding="utf-8",
@@ -82,6 +88,44 @@ class ExternalCatalogTests(unittest.TestCase):
         self.assertIsNone(item["license"])
         rendered = CATALOG.render_markdown({"schema_version": 1, "sources": [item]})
         self.assertIn("Unresolved", rendered)
+
+    def test_resolution_state_is_projected(self) -> None:
+        self.add_source(
+            "terminal-source",
+            resolution={
+                "review_status": "terminal",
+                "terminal": True,
+                "blocker_category": "redistribution-rights",
+            },
+        )
+        item = CATALOG.build_catalog(self.root / "external")["sources"][0]
+        self.assertEqual(
+            item["resolution"],
+            {
+                "review_status": "terminal",
+                "terminal": True,
+                "blocker_category": "redistribution-rights",
+            },
+        )
+
+    def test_availability_state_is_projected(self) -> None:
+        self.add_source(
+            "moved-source",
+            availability={
+                "state": "moved",
+                "replacement_url": "https://example.test/new",
+                "last_reviewed": "2026-10-12",
+            },
+        )
+        item = CATALOG.build_catalog(self.root / "external")["sources"][0]
+        self.assertEqual(
+            item["availability"],
+            {
+                "state": "moved",
+                "replacement_url": "https://example.test/new",
+                "last_reviewed": "2026-10-12",
+            },
+        )
 
     def test_duplicate_ids_fail(self) -> None:
         self.add_source("one")
