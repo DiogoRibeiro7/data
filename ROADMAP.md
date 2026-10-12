@@ -9,9 +9,9 @@ the capabilities the repository should grow toward.
 
 ## Current baseline
 
-The current baseline is the immutable Phase 10 release
-`snapshot-2026.10.10` at commit
-`9bcfaebd2fad950a7e62e0a1acfbf2d95e51e614`.
+The current baseline is the immutable Phase 11 release
+`snapshot-2026.10.12` at commit
+`f0545790a246782313ac38bb07918d35670bdfd3`.
 
 At that point the registry has:
 
@@ -29,7 +29,7 @@ At that point the registry has:
 - snapshot manifest **v8** capturing client, preservation, and release-trust identity;
 - immutable snapshot and compatibility/versioning policies.
 
-Phase 10 is complete. Preservation, citation, provenance, verification, archive/DOI, external-source disappearance, and immutable release-trust contracts are captured by `snapshot-2026.10.10`.
+Phase 11 is complete. The final actionable external-source debt was resolved conservatively, all remaining debt is terminal, and the resulting state is captured by `snapshot-2026.10.12`.
 
 ---
 
@@ -218,7 +218,7 @@ citation beyond GitHub alone.
 
 ## Phase 11 — External-source evidence resolution and selective promotion
 
-**Status:** release-ready.
+**Status:** complete.
 
 **Tracking issue:** #194.
 
@@ -259,11 +259,55 @@ Medium-related:
 - [x] no promotion occurred without explicit redistribution permission;
 - [x] no dataset was promoted without a real registered consumer;
 - [x] provenance-debt actionable count is zero;
-- [ ] an immutable Phase 11 snapshot captures the result.
+- [x] an immutable Phase 11 snapshot captures the result (`snapshot-2026.10.12`).
 
 Phase 11 resolved all three Medium candidates as terminal external-only records.
 Issue #198 was therefore closed as not planned: no candidate passed the
 mandatory redistribution-rights gate.
+
+
+---
+
+## Phase 12 — External-state contract convergence
+
+**Status:** active.
+
+**Tracking issue:** #207.
+
+### Goal
+
+Make external-source lifecycle and provenance state consistent across every
+official machine-readable interface.
+
+Phase 11 exposed resolution and availability state through the typed client and
+CLI JSON, but the generated external catalog and static distribution still omit
+the full resolution state. Phase 12 removes that divergence.
+
+### Planned capabilities
+
+- #208 — project resolution state into the generated external catalog;
+- #209 — formalize external catalog schema and validation;
+- #210 — guarantee static-distribution parity for external state;
+- #211 — add external-state filtering to client and CLI;
+- #212 — include external-state transitions in snapshot diffs;
+- #213 — document the unified external-state compatibility contract;
+- #214 — publish the Phase 12 immutable contract-convergence snapshot.
+
+### Principles
+
+- one committed external record should have one semantic state everywhere;
+- generated interfaces must not silently drop meaningful state;
+- additive compatibility is preferred over unnecessary version bumps;
+- ordinary reads and validation remain deterministic and offline.
+
+### Exit criteria
+
+- [ ] raw metadata, external catalog, static distribution, client and CLI agree;
+- [ ] external catalog contract is explicitly validated;
+- [ ] callers can filter/query external state deterministically;
+- [ ] snapshot/diff output captures external-state transitions;
+- [ ] API v1 remains backward compatible unless evidence requires otherwise;
+- [ ] an immutable Phase 12 snapshot captures the converged contract.
 
 
 ---
