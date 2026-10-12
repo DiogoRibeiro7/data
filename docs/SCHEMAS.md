@@ -41,6 +41,34 @@ states plus deprecation dates, replacement relationships, and migration notes.
 
 If a new generally useful metadata field is required, update the schema and documentation rather than adding ad-hoc fields to one dataset.
 
+
+## External catalog schema
+
+The generated machine-readable external catalog is governed by:
+
+`schemas/external-catalog-v1.schema.json`
+
+Catalog schema version **1** defines the stable projection published through
+`external/catalog.json` and, via the static distribution, the external-source
+machine-readable interface.
+
+The contract includes the common source fields plus optional:
+
+- `resolution` with review status, terminal flag, and blocker category;
+- `availability` with state, replacement URL, and review date.
+
+The catalog schema is intentionally separate from
+`schemas/external-metadata-v1.schema.json`: raw external metadata remains the
+source of truth, while the catalog is a normalized generated projection.
+
+Backward-compatible additive changes may remain within catalog schema version 1
+only when existing valid catalog documents keep the same interpretation and new
+fields are optional. Renaming/removing fields, changing meanings, or making an
+optional field required requires a new catalog schema version.
+
+Generated catalog fixtures and the committed production catalog are validated
+against the public schema with Draft 2020-12 and format checking.
+
 ## External metadata
 
 External source records enforce a common discovery core:
