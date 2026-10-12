@@ -2,27 +2,73 @@
 
 [![Data validation](https://github.com/DiogoRibeiro7/data/actions/workflows/data-validation.yml/badge.svg)](https://github.com/DiogoRibeiro7/data/actions/workflows/data-validation.yml)
 
-A curated registry for datasets and data sources used across analysis, research, teaching, and software projects.
+A provenance-first, versioned data registry for reusable datasets and external
+data sources used across research, analysis, teaching, and software projects.
 
 **Documentation:** https://diogoribeiro7.github.io/data/  
+**Current immutable snapshot:** `snapshot-2026.10.12`  
 **Roadmap:** [ROADMAP.md](ROADMAP.md)
 
-The repository separates **canonical datasets**, **external source records**, **consumer relationships**, and **legacy quarantine material** so that provenance, licensing, reproducibility, and reuse remain explicit.
+The registry is deliberately conservative. Data becomes canonical only when
+source identity, redistribution rights, file integrity, metadata, and downstream
+reuse are explicit. Everything else remains discoverable without pretending it
+is safe to mirror or redistribute.
+
+## What this repository provides
+
+- **Canonical datasets** with verified SHA-256 checksums and explicit redistribution rights.
+- **External source records** for authoritative upstream data that should not be mirrored automatically.
+- **Consumer contracts** that pin downstream repositories to an exact registry commit, path, and checksum.
+- **Legacy quarantine** for historical material whose provenance or redistribution status is unresolved.
+- **Typed Python API and CLI** through the `diogo-data-registry` package.
+- **Deterministic machine-readable catalogs and reports** for canonical, external, consumer, lifecycle, provenance-debt, and quality state.
+- **Static distribution v1** for downstream automation.
+- **Immutable snapshot releases** with manifest, summary, provenance, offline verification, and GitHub artifact attestations.
+- **Archival and DOI-ready metadata** for eligible milestone snapshots.
+- **External-source lifecycle state** including actionable/terminal resolution, moved sources, permanent disappearance, and legal withdrawal.
+
+## Current baseline
+
+The current published baseline is:
+
+- snapshot: `snapshot-2026.10.12`
+- commit: `f0545790a246782313ac38bb07918d35670bdfd3`
+- snapshot manifest: **v8**
+- public API: **v1**
+- static distribution: **v1**
+- Python: **3.12–3.14**
+
+At that snapshot the registry contains:
+
+- **4 canonical datasets**;
+- **16 external source records**;
+- **2 legacy quarantine packages**;
+- **4 active canonical consumer relationships** across **3 repositories**;
+- **100% canonical consumer coverage**;
+- **0 actionable provenance/licensing debt items**.
+
+Remaining provenance debt is retained as explicit terminal evidence rather than
+silently reclassified as safe.
 
 ## Repository model
 
 ```text
-datasets/   canonical datasets that satisfy the repository contract
-external/   reusable upstream sources whose bytes are not mirrored here
-consumers/  downstream dependencies on canonical registry files
-legacy/     historical files awaiting or failing canonical promotion
-docs/       policy, metadata, migration, and consumer documentation
-templates/  metadata and consumer-reference templates
-scripts/    validation and deterministic fetch tooling
-tests/      repository-tooling tests
+datasets/       canonical datasets that satisfy the registry contract
+external/       authoritative upstream sources and external-state metadata
+consumers/      downstream dependencies on canonical registry files
+legacy/         historical files preserved in quarantine
+distribution/   versioned static machine-readable registry output
+reports/        deterministic quality, provenance, lifecycle, and changelog state
+schemas/        versioned JSON Schema contracts
+archive/        archive/DOI identifier state
+preservation/   preservation and disappearance policies
+src/            installable Python client
+docs/           policy, API, release, migration, and architecture documentation
+scripts/        deterministic generation, validation, release, and audit tooling
+tests/          repository and package contract tests
 ```
 
-### Canonical datasets
+## Canonical datasets
 
 Canonical datasets live under:
 
@@ -34,82 +80,185 @@ datasets/<dataset-slug>/
 └── derived/        # optional
 ```
 
-A canonical dataset must have verified provenance, explicit redistribution terms, checksums, and complete metadata.
+A canonical dataset must have:
+
+- verified source identity;
+- explicit redistribution permission;
+- immutable file identity and SHA-256 checksums;
+- complete metadata and citation information;
+- documented lineage for derived artifacts;
+- a real reuse case when promoted from an external source.
 
 Browse:
 
-- [human-readable catalog](datasets/CATALOG.md)
-- [machine-readable catalog](datasets/catalog.json)
-- [dataset policy](docs/DATA_POLICY.md)
+- [human-readable canonical catalog](datasets/CATALOG.md)
+- [machine-readable canonical catalog](datasets/catalog.json)
+- [data policy](docs/DATA_POLICY.md)
 - [metadata specification](docs/METADATA.md)
 
-Canonical promotion remains conservative: data is added only when it meets the repository contract.
+Canonical promotion is intentionally difficult. Public availability alone is
+not enough.
 
-### External source records
+## External sources
 
-[`external/`](external/) records authoritative upstream sources that are reusable across projects but should not be mirrored automatically.
+[`external/`](external/) records authoritative upstream sources that are useful
+across projects but should not automatically be copied into this repository.
 
-Typical reasons include provider-specific licensing, large or mutable upstream datasets, or project snapshots that are better kept with the analysis that consumes them.
+External records can carry structured state such as:
+
+- redistribution status;
+- provenance-resolution status;
+- terminal/actionable review state;
+- blocker category;
+- availability state;
+- moved-source replacement URL;
+- disappearance or legal-withdrawal status;
+- known downstream consumers.
 
 Browse:
 
-- [external source catalog](external/CATALOG.md)
+- [human-readable external catalog](external/CATALOG.md)
 - [machine-readable external catalog](external/catalog.json)
 
-### Consumer relationships
+The external catalog is governed by
+[`schemas/external-catalog-v1.schema.json`](schemas/external-catalog-v1.schema.json)
+and is published byte-for-byte through
+[`distribution/v1/external.json`](distribution/v1/external.json).
 
-[`consumers/`](consumers/) records downstream repositories that depend on canonical dataset
-files. Each relationship pins an exact registry commit, canonical path, and SHA-256 and is
-validated against canonical metadata offline.
+## Consumer relationships
 
-See [Consuming canonical datasets](docs/CONSUMERS.md) for the contract and
-[canonical consumer catalog](consumers/CATALOG.md) for current adoption.
+[`consumers/`](consumers/) records downstream repositories that depend on
+canonical dataset files.
 
-### Legacy quarantine
+Each active relationship pins:
 
-[`legacy/`](legacy/) contains historical data preserved for traceability.
+1. the exact registry commit;
+2. the canonical dataset path;
+3. the expected SHA-256;
+4. downstream evidence.
 
-Legacy files are **not canonical**. Their presence does not imply verified provenance, current relevance, or redistribution approval.
+This avoids floating `main` URLs and makes dependency state reproducible.
 
-## Explore the registry locally
+See:
 
-The repository includes an installable CLI for listing, searching, inspecting, and verifying all registry layers:
+- [consumer guide](docs/CONSUMERS.md)
+- [consumer catalog](consumers/CATALOG.md)
+- [consumer contract health](docs/CONSUMER_HEALTH.md)
+
+## Typed client and CLI
+
+Install locally:
 
 ```bash
 python -m pip install -e .
+```
+
+Then:
+
+```bash
 data-registry list
 data-registry search climate
 data-registry show world-bank-greenhouse-gas
-data-registry verify world-bank-greenhouse-gas
+data-registry external medium-crawlfeeds-corpus
+data-registry debt --status terminal
+data-registry lifecycle online-retail-ii
 ```
 
-The historical `python scripts/registry.py ...` command remains as a compatibility wrapper over the same packaged implementation.
+Add `--json` to supported read commands for machine-readable output.
 
-Add `--json` to read commands for machine-readable output.
+The Python API exposes a deterministic offline `RegistryClient`:
 
-See [Registry CLI](docs/CLI.md) for the full command reference, including immutable canonical-data fetching.
+```python
+from pathlib import Path
 
-## Using a canonical dataset
+from data_registry import RegistryClient
+
+registry = RegistryClient(Path("."))
+dataset = registry.canonical("online-retail-ii")
+source = registry.external("medium-crawlfeeds-corpus")
+debt = registry.provenance_debt(status="terminal")
+```
+
+Registry reads are offline. Network access occurs only for an explicit immutable
+canonical fetch.
+
+See:
+
+- [CLI reference](docs/CLI.md)
+- [Python API](docs/PYTHON_API.md)
+- [client architecture](docs/CLIENT_ARCHITECTURE.md)
+- [compatibility policy](docs/COMPATIBILITY.md)
+
+## Using canonical data reproducibly
 
 Consumers should pin:
 
-1. the exact repository commit;
-2. the canonical dataset path;
-3. the expected SHA-256 checksum.
+1. exact 40-character registry commit;
+2. canonical path;
+3. expected SHA-256.
 
-Do not build reproducible workflows around a floating `main` raw URL.
+Do not build reproducible workflows around a floating default-branch raw URL.
 
-The reference fetch helper is:
+The packaged client can fetch and verify canonical files:
 
 ```bash
-python scripts/fetch_dataset.py \
+data-registry fetch <dataset-id> \
+  --file raw/example.csv \
   --commit <40-character-git-sha> \
-  --path datasets/<dataset>/raw/<file> \
-  --sha256 <expected-sha256> \
-  --output data/external/<file>
+  --output data/external/example.csv
 ```
 
-See [Consuming canonical datasets](docs/CONSUMERS.md) for the complete contract.
+Checksum mismatch is fatal.
+
+## Machine-readable distribution
+
+Versioned static registry output lives under:
+
+```text
+distribution/v1/
+```
+
+The public entry point is:
+
+```text
+https://diogoribeiro7.github.io/data/registry/v1/index.json
+```
+
+Most artifacts are copied byte-for-byte from deterministic committed sources.
+The external artifact is required to remain byte-identical to
+`external/catalog.json`.
+
+See [Machine-readable registry distribution](docs/STATIC_DISTRIBUTION.md).
+
+## Provenance, lifecycle, and trust
+
+The registry keeps unresolved questions visible instead of hiding them.
+
+Deterministic reports cover:
+
+- provenance/licensing debt;
+- canonical lifecycle and supersession;
+- consumer migrations;
+- registry quality and coverage;
+- snapshot-to-snapshot changes;
+- preservation eligibility.
+
+Immutable snapshot releases include:
+
+- `snapshot-manifest.json`;
+- `snapshot-summary.md`;
+- `snapshot-provenance.json`;
+- offline verification support;
+- GitHub artifact attestations;
+- archive-ready metadata.
+
+See:
+
+- [provenance resolution](docs/PROVENANCE_RESOLUTION.md)
+- [release policy](docs/RELEASES.md)
+- [release verification and attestations](docs/ATTESTATION.md)
+- [preservation policy](docs/PRESERVATION.md)
+- [archiving and DOI workflow](docs/ARCHIVING.md)
 
 ## Adding or updating data
 
@@ -125,11 +274,12 @@ Every proposed canonical dataset must document at least:
 - SHA-256 checksums;
 - lineage for derived artifacts.
 
-Do not commit private, personal, confidential, regulated, or redistribution-restricted data.
+Do not commit private, personal, confidential, regulated, or
+redistribution-restricted data.
 
 ## Validation
 
-Install the client in editable mode plus the lightweight development dependencies and run:
+Install dependencies and run:
 
 ```bash
 python -m pip install -r requirements-dev.txt
@@ -139,27 +289,34 @@ python scripts/validate_repository.py
 python scripts/generate_external_catalog.py
 python scripts/generate_consumer_catalog.py
 python scripts/generate_provenance_debt.py
+python scripts/generate_static_distribution.py
+mkdocs build --strict
 ```
 
-When canonical metadata changes, regenerate the catalogs first:
+Generated artifacts are freshness-checked in CI.
 
-```bash
-python scripts/validate_repository.py --write-catalog
-```
+## What this repository is not
 
-CI checks metadata consistency, integrity, duplicate content, file-size policy, lineage, catalog freshness, and dataset-documentation links.
+This registry is not:
 
-## Versioning and releases
+- a generic data dump;
+- a personal data lake;
+- a mirror of every public dataset;
+- a mutable "latest data" bucket;
+- a replacement for authoritative upstream providers;
+- a place to store large files merely because Git permits it.
 
-Client/API, schema, static-distribution, and historical snapshot-manifest compatibility are defined in [the compatibility policy](docs/COMPATIBILITY.md).
+The durable rule is:
 
-Dataset snapshots are immutable. Consumers pin commits and checksums; repository releases provide human-readable snapshot milestones.
-
-See [Release and snapshot policy](docs/RELEASES.md).
+> identify reusable data, prove its provenance and redistribution basis, pin
+> immutable bytes when justified, register real consumers, and preserve the
+> resulting state through immutable snapshots.
 
 ## Citation
 
-Use the repository-level [`CITATION.cff`](CITATION.cff) for the registry tooling, and see [Citation guidance](docs/CITATION.md) for snapshot citations and upstream dataset attribution.
+Use repository-level [`CITATION.cff`](CITATION.cff) for registry tooling and
+see [citation guidance](docs/CITATION.md) for snapshot citations and upstream
+dataset attribution.
 
 ## Licensing
 
@@ -173,4 +330,7 @@ See [NOTICE.md](NOTICE.md) before redistributing data.
 
 ## History
 
-The repository originated as a small collection of project data files. In 2026 it was reorganized into a provenance-first dataset registry with explicit canonical, external, and legacy layers.
+The repository began as a small collection of project data files. In 2026 it
+was rebuilt into a typed, provenance-first registry with explicit canonical,
+external, consumer, legacy, lifecycle, preservation, and immutable-release
+contracts.
