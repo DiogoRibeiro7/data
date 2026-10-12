@@ -98,6 +98,12 @@ Public v1 files live under:
 A backward-compatible addition may add a new artifact or optional field while
 preserving the meaning of existing v1 artifacts.
 
+For the external artifact, `distribution/v1/external.json` is required to be
+byte-for-byte identical to `external/catalog.json` and valid against
+`schemas/external-catalog-v1.schema.json`. Optional `resolution` or
+`availability` fields are therefore compatible additions within distribution
+v1 when they preserve existing field meanings.
+
 A breaking path, structure, or interpretation change requires a new
 distribution version such as `v2`. Published v1 URLs must not be silently
 repurposed to mean something incompatible.
