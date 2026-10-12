@@ -76,6 +76,22 @@ def catalog_entry(metadata: dict[str, Any]) -> dict[str, Any]:
         "path": f"external/{metadata['id']}",
     }
 
+    resolution = metadata.get("resolution")
+    if isinstance(resolution, dict):
+        review_status = resolution.get("review_status")
+        terminal = resolution.get("terminal")
+        blocker_category = resolution.get("blocker_category")
+        if isinstance(review_status, str) and review_status:
+            entry["resolution"] = {
+                "review_status": review_status,
+                "terminal": terminal if isinstance(terminal, bool) else None,
+                "blocker_category": (
+                    blocker_category
+                    if isinstance(blocker_category, str) and blocker_category
+                    else None
+                ),
+            }
+
     availability = metadata.get("availability")
     if isinstance(availability, dict):
         state = availability.get("state")
