@@ -34,5 +34,14 @@ page and names file advertise 39,797 instances; downstream work must count the
 CSV itself and report any difference. Source age and URL-derived age must be
 compared without silently forcing agreement.
 
+The actual retrieved CSV has **39,644 rows**, all retained for article-level
+share analysis: no duplicate URLs, missing article IDs, or invalid share counts
+were found. The 153-row difference from the documentation is not an analysis
+exclusion. URL dates span 2013-01-07 through 2014-12-27 (720 observed dates).
+Source ages range from 8 to 731 days; 9,463 rows disagree by 1–5 days with the
+age implied by the documented 2015-01-08 acquisition date and URL path date.
+Both representations are retained without correction. These are local audit
+findings for the pinned hash, not a new claim about the sampling frame.
+
 Only metadata and provenance are recorded here. Raw files, extracts, and analysis
 outputs remain project-local. No canonical dataset promotion is proposed.

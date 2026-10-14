@@ -155,6 +155,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "uci-online-news-popularity",
+      "metadata_path": "external/uci-online-news-popularity/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "unhcr-refugee-statistics",
       "metadata_path": "external/unhcr-refugee-statistics/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -192,8 +198,8 @@
     "canonical_byte_archive_eligible_count": 4,
     "canonical_dataset_count": 4,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 16,
-    "external_source_count": 16,
+    "external_metadata_only_count": 17,
+    "external_source_count": 17,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }
