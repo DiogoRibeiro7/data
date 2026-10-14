@@ -230,6 +230,64 @@ def _lifecycle_diff(base: dict[str, Any], target: dict[str, Any]) -> dict[str, A
     return result
 
 
+def _external_state_diff(
+    base: dict[str, Any],
+    target: dict[str, Any],
+) -> dict[str, Any]:
+    before = base.get("external_state")
+    after = target.get("external_state")
+    if not isinstance(before, dict):
+        before = {}
+    if not isinstance(after, dict):
+        after = {}
+
+    exact_available = isinstance(before.get("sources"), list) and isinstance(
+        after.get("sources"), list
+    )
+    if exact_available:
+        base_items = _index(
+            before.get("sources"),
+            lambda item: str(item.get("id")),
+        )
+        target_items = _index(
+            after.get("sources"),
+            lambda item: str(item.get("id")),
+        )
+        changed: list[dict[str, Any]] = []
+        fields = (
+            "resolution_status",
+            "terminal",
+            "blocker_category",
+            "availability_state",
+            "replacement_url",
+        )
+        for source_id in sorted(base_items.keys() & target_items.keys()):
+            old = base_items[source_id]
+            new = target_items[source_id]
+            transitions = {
+                field: {"before": old.get(field), "after": new.get(field)}
+                for field in fields
+                if old.get(field) != new.get(field)
+            }
+            if transitions:
+                changed.append(
+                    {
+                        "id": source_id,
+                        "transitions": transitions,
+                    }
+                )
+        result = {
+            "added": sorted(target_items.keys() - base_items.keys()),
+            "removed": sorted(base_items.keys() - target_items.keys()),
+            "changed": changed,
+        }
+    else:
+        result = {"added": [], "removed": [], "changed": []}
+
+    result["exact_state_diff_available"] = exact_available
+    return result
+
+
 def _schema_diff(base: dict[str, Any], target: dict[str, Any]) -> dict[str, Any]:
     before = base.get("metadata_schemas")
     after = target.get("metadata_schemas")
@@ -309,6 +367,7 @@ def build_diff(base: dict[str, Any], target: dict[str, Any]) -> dict[str, Any]:
         "consumers": _consumer_diff(base, target),
         "lifecycle": _lifecycle_diff(base, target),
         "provenance_debt": _debt_diff(base, target),
+        "external_state": _external_state_diff(base, target),
         "metadata_schemas": _schema_diff(base, target),
         "registry_client": _client_diff(base, target),
         "static_distribution": _distribution_diff(base, target),
@@ -330,6 +389,13 @@ def _semantic_empty(diff: dict[str, Any]) -> bool:
         for before, after in value["aggregate"].values():
             if before != after:
                 return False
+    external_state = diff["external_state"]
+    if (
+        external_state["added"]
+        or external_state["removed"]
+        or external_state["changed"]
+    ):
+        return False
     lifecycle = diff["lifecycle"]
     if (
         lifecycle["added"]
@@ -393,6 +459,11 @@ def render_markdown(diff: dict[str, Any]) -> str:
     add_ids("Provenance and licensing debt", diff["provenance_debt"])
     lines.append(
         f"- Exact debt-item diff available: **{diff['provenance_debt']['exact_item_diff_available']}**"
+    )
+    lines.append("")
+    add_ids("External source state", diff["external_state"])
+    lines.append(
+        f"- Exact external-state diff available: **{diff['external_state']['exact_state_diff_available']}**"
     )
     lines.extend(["", "## Versions and contracts", ""])
     lines.append(
