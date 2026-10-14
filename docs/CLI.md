@@ -51,6 +51,34 @@ For external records, JSON list/search summaries also expose:
 
 This lets callers distinguish ordinary, actionable, terminal, moved, and tombstoned external records without reparsing raw YAML.
 
+## External-state filters
+
+External records can be filtered by committed resolution and availability state:
+
+```bash
+data-registry list --layer external --resolution-status terminal
+data-registry list --layer external --availability-state moved
+data-registry search medium --layer external --resolution-status terminal
+```
+
+Both filters may be combined. Add `--json` for machine-readable output.
+
+Supported resolution states:
+
+- `actionable`
+- `terminal`
+
+Supported availability states:
+
+- `live`
+- `transient-outage`
+- `moved`
+- `permanently-unavailable`
+- `legal-withdrawal`
+
+External-state filters require `--layer external`; using them with another
+layer fails explicitly.
+
 ## Search
 
 Search covers IDs, titles, publishers, canonical descriptions, and canonical domain tags.
