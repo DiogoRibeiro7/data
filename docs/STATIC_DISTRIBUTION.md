@@ -76,3 +76,6 @@ path solely because those fields are newly projected.
 
 Package/API, schema, and distribution compatibility rules are defined in
 [Compatibility and versioning policy](COMPATIBILITY.md).
+
+The cross-interface external-state projection is defined in
+[External-source state contract](EXTERNAL_STATE.md).
