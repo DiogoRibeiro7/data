@@ -123,6 +123,54 @@ class RegistryClient:
             raise RegistryError(f"{source_id!r} is not external")
         return record
 
+    def external_records(
+        self,
+        *,
+        resolution_status: str | None = None,
+        availability_state: str | None = None,
+    ) -> tuple[ExternalRecord, ...]:
+        """Return external records filtered by committed state."""
+
+        if resolution_status not in {None, "actionable", "terminal"}:
+            raise RegistryError(
+                f"unknown external resolution status {resolution_status!r}"
+            )
+        if availability_state not in {
+            None,
+            "live",
+            "transient-outage",
+            "moved",
+            "permanently-unavailable",
+            "legal-withdrawal",
+        }:
+            raise RegistryError(
+                f"unknown external availability state {availability_state!r}"
+            )
+
+        records = [
+            self._typed_entry(entry)
+            for entry in self._entries()
+            if entry.layer == "external"
+        ]
+        external = [
+            record
+            for record in records
+            if isinstance(record, ExternalRecord)
+        ]
+        if resolution_status is not None:
+            external = [
+                record
+                for record in external
+                if record.resolution_status == resolution_status
+            ]
+        if availability_state is not None:
+            external = [
+                record
+                for record in external
+                if record.availability_state == availability_state
+            ]
+        return tuple(external)
+
     def legacy(self, record_id: str) -> LegacyRecord:
         """Return one legacy quarantine record by exact ID."""
 

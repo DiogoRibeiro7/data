@@ -282,12 +282,44 @@ def build_parser() -> argparse.ArgumentParser:
     list_parser.add_argument(
         "--layer", choices=("all", *LAYER_CHOICES), default="all"
     )
+    list_parser.add_argument(
+        "--resolution-status",
+        choices=("actionable", "terminal"),
+        help="Filter external records by provenance resolution status.",
+    )
+    list_parser.add_argument(
+        "--availability-state",
+        choices=(
+            "live",
+            "transient-outage",
+            "moved",
+            "permanently-unavailable",
+            "legal-withdrawal",
+        ),
+        help="Filter external records by availability state.",
+    )
     _add_common_read_options(list_parser)
 
     search_parser = subparsers.add_parser("search", help="Search registry entries.")
     search_parser.add_argument("text")
     search_parser.add_argument(
         "--layer", choices=("all", *LAYER_CHOICES), default="all"
+    )
+    search_parser.add_argument(
+        "--resolution-status",
+        choices=("actionable", "terminal"),
+        help="Filter external records by provenance resolution status.",
+    )
+    search_parser.add_argument(
+        "--availability-state",
+        choices=(
+            "live",
+            "transient-outage",
+            "moved",
+            "permanently-unavailable",
+            "legal-withdrawal",
+        ),
+        help="Filter external records by availability state.",
     )
     _add_common_read_options(search_parser)
 
@@ -486,7 +518,31 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
 
         if args.command == "list":
+            if (
+                args.resolution_status is not None
+                or args.availability_state is not None
+            ) and args.layer != "external":
+                raise RegistryError(
+                    "external-state filters require --layer external"
+                )
             result = filter_layer(entries, args.layer)
+            if args.layer == "external":
+                if args.resolution_status is not None:
+                    result = [
+                        entry
+                        for entry in result
+                        if isinstance(entry.metadata.get("resolution"), dict)
+                        and entry.metadata["resolution"].get("review_status")
+                        == args.resolution_status
+                    ]
+                if args.availability_state is not None:
+                    result = [
+                        entry
+                        for entry in result
+                        if isinstance(entry.metadata.get("availability"), dict)
+                        and entry.metadata["availability"].get("state")
+                        == args.availability_state
+                    ]
             if args.json:
                 _print_json([entry_summary(entry) for entry in result])
             else:
@@ -494,7 +550,31 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
 
         if args.command == "search":
+            if (
+                args.resolution_status is not None
+                or args.availability_state is not None
+            ) and args.layer != "external":
+                raise RegistryError(
+                    "external-state filters require --layer external"
+                )
             result = search_entries(entries, args.text, layer=args.layer)
+            if args.layer == "external":
+                if args.resolution_status is not None:
+                    result = [
+                        entry
+                        for entry in result
+                        if isinstance(entry.metadata.get("resolution"), dict)
+                        and entry.metadata["resolution"].get("review_status")
+                        == args.resolution_status
+                    ]
+                if args.availability_state is not None:
+                    result = [
+                        entry
+                        for entry in result
+                        if isinstance(entry.metadata.get("availability"), dict)
+                        and entry.metadata["availability"].get("state")
+                        == args.availability_state
+                    ]
             if args.json:
                 _print_json([entry_summary(entry) for entry in result])
             else:

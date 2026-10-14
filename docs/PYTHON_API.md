@@ -46,6 +46,30 @@ source = registry.external("medium-crawlfeeds-corpus")
 legacy = registry.legacy("country-age-sex-2019")
 ```
 
+Filter external sources by committed resolution or availability state:
+
+```python
+terminal_sources = registry.external_records(
+    resolution_status="terminal"
+)
+
+moved_sources = registry.external_records(
+    availability_state="moved"
+)
+
+terminal_moved = registry.external_records(
+    resolution_status="terminal",
+    availability_state="moved",
+)
+```
+
+Supported resolution states are `actionable` and `terminal`.
+Supported availability states are `live`, `transient-outage`, `moved`,
+`permanently-unavailable`, and `legal-withdrawal`.
+
+Invalid filter values raise `RegistryError`. Results are deterministic and
+offline.
+
 Returned values are strict typed models: `CanonicalDataset`, `ExternalRecord`, and `LegacyRecord`.
 
 `ExternalRecord` also exposes optional resolution/availability state without changing API v1:

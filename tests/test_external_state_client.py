@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
+import tempfile
 import unittest
 from pathlib import Path
 
+import yaml
+
 from data_registry import RegistryClient
-from data_registry.core import RegistryEntry, entry_summary
+from data_registry.core import RegistryEntry, RegistryError, entry_summary
 from data_registry.models import ExternalRecord
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -47,6 +50,65 @@ class ExternalStateClientTests(unittest.TestCase):
         self.assertEqual(record.replacement_url, "https://example.test/new")
         self.assertIsNone(record.resolution_status)
         self.assertIsNone(record.terminal)
+
+    def test_external_records_filter_terminal_status(self) -> None:
+        client = RegistryClient(ROOT)
+
+        records = client.external_records(resolution_status="terminal")
+
+        self.assertTrue(records)
+        self.assertTrue(all(item.resolution_status == "terminal" for item in records))
+        self.assertEqual(
+            [item.id for item in records],
+            sorted(item.id for item in records),
+        )
+
+    def test_external_records_filter_availability_state(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "external" / "moved-source"
+            source.mkdir(parents=True)
+            metadata = {
+                "schema_version": 1,
+                "status": "external-reference",
+                "id": "moved-source",
+                "title": "Moved source",
+                "publisher": "Example",
+                "source_url": "https://example.test/old",
+                "storage": "authoritative-upstream",
+                "availability": {
+                    "state": "moved",
+                    "last_reviewed": "2026-10-14",
+                    "replacement_url": "https://example.test/new",
+                    "evidence": ["https://example.test/move-notice"],
+                },
+            }
+            (source / "metadata.yaml").write_text(
+                yaml.safe_dump(metadata, sort_keys=False),
+                encoding="utf-8",
+            )
+
+            records = RegistryClient(root).external_records(
+                availability_state="moved"
+            )
+
+        self.assertEqual([item.id for item in records], ["moved-source"])
+
+    def test_external_records_reject_invalid_filters(self) -> None:
+        client = RegistryClient(ROOT)
+
+        with self.assertRaisesRegex(
+            RegistryError,
+            "unknown external resolution status",
+        ):
+            client.external_records(resolution_status="maybe")
+
+        with self.assertRaisesRegex(
+            RegistryError,
+            "unknown external availability state",
+        ):
+            client.external_records(availability_state="missing")
+
 
     def test_cli_summary_exposes_external_state(self) -> None:
         entry = RegistryEntry(
