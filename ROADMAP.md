@@ -26,7 +26,7 @@ At that point the registry has:
 - public API version **1** and Python **3.12–3.14** support;
 - checksum-verified immutable fetch through the packaged client;
 - static machine-readable distribution **v1**;
-- snapshot manifest **v8** capturing client, preservation, and release-trust identity;
+- published Phase 11 snapshot manifest **v8**; current generator contract **v9** adds exact external-state identity;
 - immutable snapshot and compatibility/versioning policies.
 
 Phase 11 is complete. The final actionable external-source debt was resolved conservatively, all remaining debt is terminal, and the resulting state is captured by `snapshot-2026.10.12`.
@@ -270,7 +270,7 @@ mandatory redistribution-rights gate.
 
 ## Phase 12 — External-state contract convergence
 
-**Status:** active.
+**Status:** release-ready.
 
 **Tracking issue:** #207.
 
@@ -302,11 +302,11 @@ the full resolution state. Phase 12 removes that divergence.
 
 ### Exit criteria
 
-- [ ] raw metadata, external catalog, static distribution, client and CLI agree;
-- [ ] external catalog contract is explicitly validated;
-- [ ] callers can filter/query external state deterministically;
-- [ ] snapshot/diff output captures external-state transitions;
-- [ ] API v1 remains backward compatible unless evidence requires otherwise;
+- [x] raw metadata, external catalog, static distribution, client and CLI agree;
+- [x] external catalog contract is explicitly validated;
+- [x] callers can filter/query external state deterministically;
+- [x] snapshot/diff output captures external-state transitions;
+- [x] API v1 remains backward compatible unless evidence requires otherwise;
 - [ ] an immutable Phase 12 snapshot captures the converged contract.
 
 
