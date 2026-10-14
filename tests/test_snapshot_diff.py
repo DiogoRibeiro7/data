@@ -107,6 +107,29 @@ def manifest(tag: str, commit: str) -> dict[str, object]:
     }
 
 
+def manifest_v9(tag: str, commit: str) -> dict[str, object]:
+    """Return a compact v9 manifest with exact external-state identity."""
+
+    result = manifest(tag, commit)
+    result["manifest_version"] = 9
+    result["external_state"] = {
+        "path": "external/catalog.json",
+        "schema_version": 1,
+        "sha256": "e" * 64,
+        "sources": [
+            {
+                "id": "source-a",
+                "resolution_status": "actionable",
+                "terminal": False,
+                "blocker_category": "redistribution-rights",
+                "availability_state": "live",
+                "replacement_url": None,
+            }
+        ],
+    }
+    return result
+
+
 class SnapshotDiffTests(unittest.TestCase):
     """Exercise deterministic semantic snapshot comparisons."""
 
@@ -169,6 +192,71 @@ class SnapshotDiffTests(unittest.TestCase):
             diff["provenance_debt"]["changed"],
             ["external|source-a"],
         )
+
+    def test_external_resolution_transition_is_exact_in_v9(self) -> None:
+        base = manifest_v9("snapshot-2026.10.14", "a" * 40)
+        target = copy.deepcopy(base)
+        target["tag"] = "snapshot-2026.10.14.2"
+        target["commit"] = "b" * 40
+        source = target["external_state"]["sources"][0]
+        source["resolution_status"] = "terminal"
+        source["terminal"] = True
+
+        diff = DIFF.build_diff(base, target)
+
+        self.assertTrue(diff["external_state"]["exact_state_diff_available"])
+        self.assertFalse(diff["empty"])
+        changed = diff["external_state"]["changed"][0]
+        self.assertEqual(changed["id"], "source-a")
+        self.assertEqual(
+            changed["transitions"]["resolution_status"],
+            {"before": "actionable", "after": "terminal"},
+        )
+        self.assertEqual(
+            changed["transitions"]["terminal"],
+            {"before": False, "after": True},
+        )
+
+    def test_external_availability_transition_is_exact_in_v9(self) -> None:
+        base = manifest_v9("snapshot-2026.10.14", "a" * 40)
+        target = copy.deepcopy(base)
+        target["tag"] = "snapshot-2026.10.14.2"
+        target["commit"] = "b" * 40
+        source = target["external_state"]["sources"][0]
+        source["availability_state"] = "moved"
+        source["replacement_url"] = "https://example.test/new"
+
+        diff = DIFF.build_diff(base, target)
+
+        changed = diff["external_state"]["changed"][0]
+        self.assertEqual(
+            changed["transitions"]["availability_state"],
+            {"before": "live", "after": "moved"},
+        )
+        self.assertEqual(
+            changed["transitions"]["replacement_url"],
+            {"before": None, "after": "https://example.test/new"},
+        )
+
+    def test_identical_v9_external_state_has_no_semantic_change(self) -> None:
+        base = manifest_v9("snapshot-2026.10.14", "a" * 40)
+        target = copy.deepcopy(base)
+
+        diff = DIFF.build_diff(base, target)
+
+        self.assertTrue(diff["external_state"]["exact_state_diff_available"])
+        self.assertEqual(diff["external_state"]["changed"], [])
+        self.assertTrue(diff["empty"])
+
+    def test_pre_v9_external_state_fallback_is_not_exact(self) -> None:
+        base = manifest("snapshot-2026.10.12", "a" * 40)
+        base["manifest_version"] = 8
+        target = manifest_v9("snapshot-2026.10.14", "b" * 40)
+
+        diff = DIFF.build_diff(base, target)
+
+        self.assertFalse(diff["external_state"]["exact_state_diff_available"])
+        self.assertEqual(diff["external_state"]["changed"], [])
 
     def test_lifecycle_and_preferred_replacement_changes_are_classified(self) -> None:
         base = manifest("snapshot-2026.10.09", "a" * 40)

@@ -47,7 +47,7 @@ class CompatibilityPolicyTests(unittest.TestCase):
 
         self.assertEqual(current, CURRENT_SNAPSHOT_MANIFEST_VERSION)
         self.assertTrue(supports_snapshot_manifest(current))
-        self.assertEqual(current, 8)
+        self.assertEqual(current, 9)
 
     def test_historical_snapshot_manifest_versions_remain_supported(self) -> None:
         self.assertEqual(
