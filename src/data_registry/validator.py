@@ -356,7 +356,7 @@ def validate_legacy(root: Path, problems: list[Problem]) -> list[Path]:
                 problems.append(Problem("error", f"{context}: path escapes legacy group"))
                 continue
             rel_candidate = candidate.relative_to(group.resolve())
-            if not str(rel_candidate).startswith("raw/"):
+            if not rel_candidate.as_posix().startswith("raw/"):
                 problems.append(Problem("error", f"{context}: legacy data must live under raw/"))
             if not candidate.is_file():
                 problems.append(Problem("error", f"{context}: referenced file does not exist"))
@@ -534,7 +534,7 @@ def validate_canonical_dataset(
             continue
         relative_candidate = candidate.relative_to(dataset_dir.resolve())
         expected_prefix = f"{role}/" if role in {"raw", "derived"} else None
-        if expected_prefix is not None and not str(relative_candidate).startswith(expected_prefix):
+        if expected_prefix is not None and not relative_candidate.as_posix().startswith(expected_prefix):
             problems.append(
                 Problem("error", f"{context}: role does not match raw/derived directory")
             )

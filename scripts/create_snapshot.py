@@ -1202,9 +1202,9 @@ def write_release_material(
     summary_path = output_dir / "snapshot-summary.md"
     provenance_path = output_dir / "snapshot-provenance.json"
 
-    manifest_path.write_text(manifest_text, encoding="utf-8")
-    summary_path.write_text(summary_text, encoding="utf-8")
-    provenance_path.write_text(provenance_text, encoding="utf-8")
+    manifest_path.write_text(manifest_text, encoding="utf-8", newline="\n")
+    summary_path.write_text(summary_text, encoding="utf-8", newline="\n")
+    provenance_path.write_text(provenance_text, encoding="utf-8", newline="\n")
     return manifest_path, summary_path, provenance_path
 
 
