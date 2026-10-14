@@ -462,7 +462,7 @@ class SnapshotTests(unittest.TestCase):
             tag="snapshot-2026.10.01",
             commit="a" * 40,
         )
-        self.assertEqual(manifest["manifest_version"], 8)
+        self.assertEqual(manifest["manifest_version"], 9)
         self.assertEqual(manifest["commit"], "a" * 40)
         self.assertEqual(manifest["catalogs"]["canonical"]["schema_version"], 1)
         self.assertEqual(manifest["metadata_schemas"]["legacy"]["schema_version"], 0)
@@ -494,6 +494,59 @@ class SnapshotTests(unittest.TestCase):
         self.assertEqual(
             manifest["canonical_lifecycle"]["migration_resolution_coverage"],
             1.0,
+        )
+
+    def test_external_state_is_recorded_in_v9_manifest(self) -> None:
+        catalog = {
+            "schema_version": 1,
+            "sources": [
+                {
+                    "id": "source-a",
+                    "title": "Source A",
+                    "publisher": "Example",
+                    "source_url": "https://example.test/a",
+                    "license": None,
+                    "redistribution": "unresolved",
+                    "storage": "authoritative-upstream",
+                    "consumers": [],
+                    "path": "external/source-a",
+                    "resolution": {
+                        "review_status": "terminal",
+                        "terminal": True,
+                        "blocker_category": "redistribution-rights",
+                    },
+                    "availability": {
+                        "state": "moved",
+                        "replacement_url": "https://example.test/new",
+                        "last_reviewed": "2026-10-14",
+                    },
+                }
+            ],
+        }
+        (self.fixture.root / "external" / "catalog.json").write_text(
+            json.dumps(catalog, indent=2) + "\n",
+            encoding="utf-8",
+        )
+
+        manifest = SNAPSHOT.build_manifest(
+            self.fixture.root,
+            tag="snapshot-2026.10.14",
+            commit="a" * 40,
+        )
+
+        self.assertEqual(manifest["manifest_version"], 9)
+        self.assertEqual(
+            manifest["external_state"]["sources"],
+            [
+                {
+                    "id": "source-a",
+                    "resolution_status": "terminal",
+                    "terminal": True,
+                    "blocker_category": "redistribution-rights",
+                    "availability_state": "moved",
+                    "replacement_url": "https://example.test/new",
+                }
+            ],
         )
 
     def test_consumer_relationships_are_recorded(self) -> None:
