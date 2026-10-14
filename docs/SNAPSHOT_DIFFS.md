@@ -29,6 +29,7 @@ The diff classifies:
 - consumer relationships added/removed/changed;
 - lifecycle changes and preferred replacements;
 - provenance/licensing debt items added/removed/changed;
+- external-source resolution and availability state transitions;
 - metadata schema version/digest changes;
 - snapshot manifest version transitions;
 - registry client/package/API changes;
@@ -47,13 +48,23 @@ Snapshot manifest **v7** adds normalized consumer relationship identities and
 provenance-debt item identities specifically so those two areas can be diffed
 exactly.
 
-Older manifests remain supported. When either side lacks those v7 identity
-lists, the tool:
+Snapshot manifest **v9** adds normalized external-source state so resolution and
+availability transitions can be diffed exactly. The normalized fields are:
 
-- compares the aggregate counts that are available;
-- sets `exact_relationship_diff_available: false` for consumers;
-- sets `exact_item_diff_available: false` for provenance debt;
-- does **not** invent item-level history.
+- resolution status;
+- terminal flag;
+- blocker category;
+- availability state;
+- replacement URL.
+
+Older manifests remain supported. When either side lacks the corresponding
+identity/state lists, the tool:
+
+- compares the aggregate counts that are available for older contracts;
+- sets `exact_relationship_diff_available: false` for consumers when needed;
+- sets `exact_item_diff_available: false` for provenance debt when needed;
+- sets `exact_state_diff_available: false` for external state before v9;
+- does **not** invent item-level or field-level history.
 
 This distinction is intentional: a diff must never claim precision that the
 historical release did not record.
