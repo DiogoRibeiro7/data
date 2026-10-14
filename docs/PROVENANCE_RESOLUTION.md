@@ -3,6 +3,9 @@
 External and legacy records may carry an optional `resolution` block when a
 provenance, snapshot, lineage, or redistribution question remains unresolved.
 
+For the normative cross-interface projection of external resolution and
+availability state, see [External-source state contract](EXTERNAL_STATE.md).
+
 The block is deliberately structured so unresolved debt can be audited,
 measured, and revisited without relying only on README prose.
 

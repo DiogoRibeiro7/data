@@ -82,6 +82,9 @@ Returned values are strict typed models: `CanonicalDataset`, `ExternalRecord`, a
 
 These fields are projections of committed metadata and require no network access.
 
+Their source-of-truth, absence semantics, and compatibility rules are defined in
+[External-source state contract](EXTERNAL_STATE.md).
+
 Ambiguous IDs require an explicit layer. Unknown IDs raise `RegistryError`.
 
 ## Consumer relationships

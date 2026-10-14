@@ -659,7 +659,7 @@ class SnapshotTests(unittest.TestCase):
             commit="a" * 40,
         )
 
-        self.assertEqual(manifest["manifest_version"], 8)
+        self.assertEqual(manifest["manifest_version"], 9)
         preservation = manifest["preservation_trust"]
         self.assertEqual(
             preservation["preservation_eligibility"][
