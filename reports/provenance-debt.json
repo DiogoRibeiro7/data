@@ -1,8 +1,8 @@
 {
-  "age_reference_date": "2026-10-11",
+  "age_reference_date": "2026-10-14",
   "items": [
     {
-      "age_days": 6,
+      "age_days": 9,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "DGS publicly disseminates SICO mortality information, but its current legal notice protects site contents and no dataset-specific redistribution grant covering the historical InfoClique/SICO CSV exports was recovered.",
       "evidence_count": 2,
@@ -18,7 +18,7 @@
       "title": "DGS InfoClique mortality platform"
     },
     {
-      "age_days": 6,
+      "age_days": 9,
       "blocker_category": "dataset-vs-repository-licence-scope",
       "blocker_summary": "The pinned IBM repository is Apache-2.0 licensed as a code pattern, but the README explicitly separates third-party objects and no dataset-specific redistribution licence for Telco-Customer-Churn.csv was established.",
       "evidence_count": 3,
@@ -34,7 +34,7 @@
       "title": "IBM Telco Customer Churn sample"
     },
     {
-      "age_days": 6,
+      "age_days": 9,
       "blocker_category": "dataset-vs-repository-licence-scope",
       "blocker_summary": "The pinned repository has a root MIT licence and explicitly includes maize_bipolaris.csv as data, but the licence text covers software and associated documentation and no authoritative statement was recovered that explicitly applies MIT redistribution rights to the dataset bytes.",
       "evidence_count": 3,
@@ -53,11 +53,11 @@
       "age_days": 0,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "The Hugging Face card declares CC BY-SA 3.0, but the corpus contains scraped third-party Medium article bodies and no authoritative evidence establishes Crawlfeeds' right to relicense all embedded article text. Under the registry's conservative policy, redistribution remains unresolved and the record is terminal external-only.",
-      "evidence_count": 3,
+      "evidence_count": 5,
       "id": "medium-crawlfeeds-corpus",
-      "last_reviewed": "2026-10-11",
+      "last_reviewed": "2026-10-14",
       "layer": "external",
-      "next_action": "Reopen only if authoritative evidence establishes redistribution rights for the exact dataset bytes and an immutable dataset identity is pinned.",
+      "next_action": "Reopen only with authoritative rights evidence covering the pinned bytes. Retain external-only status; independently establish permitted local research use before acquisition.",
       "path": "external/medium-crawlfeeds-corpus/metadata.yaml",
       "redistribution": "unresolved",
       "review_status": "terminal",
@@ -66,7 +66,7 @@
       "title": "Crawlfeeds Medium Articles Corpus"
     },
     {
-      "age_days": 0,
+      "age_days": 3,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "The Hugging Face dataset declares MIT and exposes revision 979af3bcd84565e3f47b9eca752d8ec112824953, but full-text files reproduce third-party Medium article bodies and no evidence establishes the publisher's authority to relicense that content. Redistribution remains unresolved and the record is terminal external-only.",
       "evidence_count": 4,
@@ -82,7 +82,7 @@
       "title": "Fabio Chiu Medium articles corpus (candidate)"
     },
     {
-      "age_days": 0,
+      "age_days": 3,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "The pinned research repository documents collection of roughly 1.4 million Medium stories and says the dataset was published for public use on Kaggle, but the actual dataset is off-repository, the GitHub repository has no LICENSE, and no authoritative dataset-specific redistribution licence for the exact Kaggle object was recovered. The record is terminal external-only.",
       "evidence_count": 4,
@@ -98,7 +98,7 @@
       "title": "Historical Medium article study (Jansma)"
     },
     {
-      "age_days": 6,
+      "age_days": 9,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "INE permits rediffusion of official statistical information with source attribution, but the historical workbook was a PORDATA-generated Excel export and no authoritative term was recovered that clearly permits mirroring that secondary-source artifact.",
       "evidence_count": 3,
@@ -114,7 +114,7 @@
       "title": "Portugal resident population estimates by age group"
     },
     {
-      "age_days": 6,
+      "age_days": 9,
       "blocker_category": "exact-snapshot-identity",
       "blocker_summary": "The retained age/sex files are strongly attributable to UN World Population Prospects 2019, whose publications are CC BY 3.0 IGO, but the exact download/export route and the lineage of the Portugal CSV/XLSX variants cannot be reconstructed sufficiently to claim file-level provenance for these historical artifacts.",
       "evidence_count": 2,
@@ -130,7 +130,7 @@
       "title": "Country age/sex population snapshots (2019)"
     },
     {
-      "age_days": 6,
+      "age_days": 9,
       "blocker_category": "historical-export-route",
       "blocker_summary": "The retained workbook is attributable to the GEP/MTSSS Indicadores COVID-19 monitoring series and dated 27 May 2020, but the exact historical workbook URL, immutable upstream identity and dataset-specific redistribution terms were not recovered.",
       "evidence_count": 2,

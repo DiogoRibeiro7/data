@@ -4,19 +4,26 @@ id: medium-crawlfeeds-corpus
 title: "Crawlfeeds Medium Articles Corpus"
 publisher: "crawlfeeds"
 source_url: "https://huggingface.co/datasets/crawlfeeds/Medium-Articles-Corpus"
+source_commit: "2a06e644bf7cfa468f51bfb5ae3f1680632bc234"
+source_path: "medium_articles_corpus.csv"
+license:
+  name: "CC BY-SA 3.0 (dataset-card assertion; third-party rights unresolved)"
+  url: "https://huggingface.co/datasets/crawlfeeds/Medium-Articles-Corpus/blob/2a06e644bf7cfa468f51bfb5ae3f1680632bc234/README.md"
 redistribution: unresolved
 storage: authoritative-upstream
 consumers:
   - medium-statistical-dynamics
 resolution:
   review_status: terminal
-  last_reviewed: 2026-10-11
+  last_reviewed: 2026-10-14
   blocker_category: redistribution-rights
   blocker_summary: "The Hugging Face card declares CC BY-SA 3.0, but the corpus contains scraped third-party Medium article bodies and no authoritative evidence establishes Crawlfeeds' right to relicense all embedded article text. Under the registry's conservative policy, redistribution remains unresolved and the record is terminal external-only."
   evidence:
+    - "https://huggingface.co/api/datasets/crawlfeeds/Medium-Articles-Corpus/revision/2a06e644bf7cfa468f51bfb5ae3f1680632bc234?blobs=true"
+    - "https://crawlfeeds.com/terms"
     - "https://huggingface.co/datasets/crawlfeeds/Medium-Articles-Corpus"
     - "https://medium.com/policy/medium-terms-of-service-9db0094a1e0f"
     - "https://github.com/DiogoRibeiro7/data/blob/main/docs/research/medium-redistribution-rights-2026-10-11.md"
-  reviewer_note: "The dataset-card CC BY-SA 3.0 declaration does not by itself prove rights over all embedded third-party article bodies. Keep authoritative-upstream only; do not mirror or canonically promote under current evidence."
-  next_action: "Reopen only if authoritative evidence establishes redistribution rights for the exact dataset bytes and an immutable dataset identity is pinned."
+  reviewer_note: "The full revision and CSV path are verified from upstream metadata. Its LFS metadata reports SHA-256 5b12d3ec8e841f9f26d954d50838149007c443a8eb2b093519d61e8d72857ee0 and 146560143 bytes; no corpus bytes were downloaded or locally hashed in this review. Snapshot identity does not resolve collection, research-use, or third-party redistribution questions."
+  next_action: "Reopen only with authoritative rights evidence covering the pinned bytes. Retain external-only status; independently establish permitted local research use before acquisition."
   terminal: true

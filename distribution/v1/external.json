@@ -97,7 +97,10 @@
       "title": "Crawlfeeds Medium Articles Corpus",
       "publisher": "crawlfeeds",
       "source_url": "https://huggingface.co/datasets/crawlfeeds/Medium-Articles-Corpus",
-      "license": null,
+      "license": {
+        "name": "CC BY-SA 3.0 (dataset-card assertion; third-party rights unresolved)",
+        "url": "https://huggingface.co/datasets/crawlfeeds/Medium-Articles-Corpus/blob/2a06e644bf7cfa468f51bfb5ae3f1680632bc234/README.md"
+      },
       "redistribution": "unresolved",
       "storage": "authoritative-upstream",
       "consumers": [
