@@ -69,6 +69,9 @@ identity/state lists, the tool:
 This distinction is intentional: a diff must never claim precision that the
 historical release did not record.
 
+See [External-source state contract](EXTERNAL_STATE.md) for the normalized
+external-state fields and cross-interface compatibility rules.
+
 ## Empty diffs
 
 Two semantically identical manifests produce:
