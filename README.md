@@ -6,7 +6,7 @@ A provenance-first, versioned data registry for reusable datasets and external
 data sources used across research, analysis, teaching, and software projects.
 
 **Documentation:** https://diogoribeiro7.github.io/data/  
-**Current immutable snapshot:** `snapshot-2026.10.12`  
+**Current immutable snapshot:** `snapshot-2026.10.14`  
 **Roadmap:** [ROADMAP.md](ROADMAP.md)
 
 The registry is deliberately conservative. Data becomes canonical only when
@@ -31,9 +31,9 @@ is safe to mirror or redistribute.
 
 The current published baseline is:
 
-- snapshot: `snapshot-2026.10.12`
-- commit: `f0545790a246782313ac38bb07918d35670bdfd3`
-- snapshot manifest: **v8**
+- snapshot: `snapshot-2026.10.14`
+- commit: `f407638aa9795b0a71d3bfe92eaf8b3dd344d7ba`
+- snapshot manifest: **v9**
 - public API: **v1**
 - static distribution: **v1**
 - Python: **3.12–3.14**
@@ -49,6 +49,19 @@ At that snapshot the registry contains:
 
 Remaining provenance debt is retained as explicit terminal evidence rather than
 silently reclassified as safe.
+
+## Project status
+
+The registry is now in **maintenance mode**.
+
+New active development should begin only when there is a concrete trigger, such as:
+
+- a maintained downstream project that needs a new reusable dataset;
+- an upstream source/version change that affects an existing contract;
+- a real integrity, provenance, licensing, compatibility, or preservation gap;
+- a bug or usability problem in the client, CLI, validation, or release tooling.
+
+Do not create new roadmap phases merely to continue development activity.
 
 ## Repository model
 
