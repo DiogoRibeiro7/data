@@ -66,13 +66,13 @@
   "external": {
     "pinned_immutable_identity_sources": 5,
     "redistribution": {
-      "resolved": 9,
+      "resolved": 10,
       "unresolved": 7
     },
-    "source_count": 16,
+    "source_count": 17,
     "source_usage": {
       "consumer_count": 5,
-      "consumer_references": 9,
+      "consumer_references": 10,
       "consumers": [
         "cpd-stress-test",
         "crop-protection-predictive-science",

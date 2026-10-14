@@ -1,0 +1,20 @@
+schema_version: 1
+status: external-reference
+id: uci-online-news-popularity
+title: "UCI Online News Popularity: Mashable statistical features and shares"
+publisher: "UCI Machine Learning Repository; Fernandes, Vinagre, Cortez and Sernadela"
+source_url: "https://archive.ics.uci.edu/dataset/332/online+news+popularity"
+doi: "10.24432/C5NS3V"
+source_path: "OnlineNewsPopularity/OnlineNewsPopularity.csv"
+license:
+  name: "CC BY 4.0"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: allowed
+  attribution_required: true
+  note: "Permission is for UCI's statistical dataset, not linked Mashable article bodies. Local archive retrieved 2026-10-14: 7476401 bytes, SHA-256 dba2ae526f62ccef6f2f8efb53b0268319f4d0d2719bb98d88958cfe31d58a22. CSV: 24311769 bytes, SHA-256 b66d9088632308cc27fa35af847650d174a5a50503987c4e511de94a99d1c218. These are locally calculated hashes, not publisher digests or a Git revision. This is an explicitly approved non-Medium alternative; shares must not be labelled claps. No data bytes are mirrored in this registry."
+consumers:
+  - medium-statistical-dynamics
