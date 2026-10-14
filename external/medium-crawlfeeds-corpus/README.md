@@ -40,3 +40,8 @@ copyright checks. This does not establish rights in every embedded article or
 permission for the original collection. The registry's existing external-only
 decision remains in force. Local research acquisition requires its own documented
 permission review; neither this metadata update nor the licence label clears it.
+
+The [metadata-only reuse follow-up](../../docs/research/medium-metadata-reuse-and-alternative-2026-10-14.md)
+distinguishes provider terms, collection restrictions and conditional research
+exceptions. It retains this blocker and records the user-approved UCI statistical
+alternative. That study produces Mashable share results, not Medium findings.

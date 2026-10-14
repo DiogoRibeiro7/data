@@ -222,6 +222,22 @@
       "path": "external/ucdp-conflict-data"
     },
     {
+      "id": "uci-online-news-popularity",
+      "title": "UCI Online News Popularity: Mashable statistical features and shares",
+      "publisher": "UCI Machine Learning Repository; Fernandes, Vinagre, Cortez and Sernadela",
+      "source_url": "https://archive.ics.uci.edu/dataset/332/online+news+popularity",
+      "license": {
+        "name": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-statistical-dynamics"
+      ],
+      "path": "external/uci-online-news-popularity"
+    },
+    {
       "id": "unhcr-refugee-statistics",
       "title": "UNHCR Refugee Population Statistics",
       "publisher": "UNHCR",

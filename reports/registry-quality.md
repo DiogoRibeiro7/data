@@ -12,14 +12,14 @@ It makes no live network requests.
 
 ## External sources
 
-- External source records: **16**
-- Redistribution resolved / unresolved: **9 / 7**
+- External source records: **17**
+- Redistribution resolved / unresolved: **10 / 7**
 - Sources pinned to an immutable Git commit: **5**
 
 External source usage annotations:
 
 - Referenced consumer repositories: **5**
-- Source usage references: **9**
+- Source usage references: **10**
 
 - `cpd-stress-test`
 - `crop-protection-predictive-science`
