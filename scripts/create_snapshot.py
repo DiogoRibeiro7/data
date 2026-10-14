@@ -244,6 +244,65 @@ def catalog_record(root: Path, relative_path: str) -> dict[str, Any]:
     }
 
 
+def external_state_record(root: Path) -> dict[str, Any]:
+    """Return normalized external-source resolution and availability state."""
+
+    relative_path = "external/catalog.json"
+    path = root / relative_path
+    catalog = load_json(path)
+    sources = catalog.get("sources")
+    if not isinstance(sources, list):
+        raise ValueError(f"{path}: sources must be a list")
+
+    normalized: list[dict[str, Any]] = []
+    for item in sources:
+        if not isinstance(item, dict):
+            raise ValueError(f"{path}: source entries must be objects")
+        source_id = item.get("id")
+        if not isinstance(source_id, str) or not source_id:
+            raise ValueError(f"{path}: source id must be non-empty text")
+        resolution = item.get("resolution")
+        availability = item.get("availability")
+        normalized.append(
+            {
+                "id": source_id,
+                "resolution_status": (
+                    resolution.get("review_status")
+                    if isinstance(resolution, dict)
+                    else None
+                ),
+                "terminal": (
+                    resolution.get("terminal")
+                    if isinstance(resolution, dict)
+                    else None
+                ),
+                "blocker_category": (
+                    resolution.get("blocker_category")
+                    if isinstance(resolution, dict)
+                    else None
+                ),
+                "availability_state": (
+                    availability.get("state")
+                    if isinstance(availability, dict)
+                    else None
+                ),
+                "replacement_url": (
+                    availability.get("replacement_url")
+                    if isinstance(availability, dict)
+                    else None
+                ),
+            }
+        )
+
+    normalized.sort(key=lambda item: item["id"])
+    return {
+        "path": relative_path,
+        "schema_version": catalog.get("schema_version"),
+        "sha256": sha256_file(path),
+        "sources": normalized,
+    }
+
+
 
 def provenance_debt_record(root: Path) -> dict[str, Any]:
     """Return the provenance-debt report digest and summary metrics."""
@@ -750,7 +809,7 @@ def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
         for layer, relative_path in sorted(SCHEMA_FILES.items())
     }
     return {
-        "manifest_version": 8,
+        "manifest_version": 9,
         "repository": REPOSITORY,
         "tag": tag,
         "commit": commit,
@@ -759,6 +818,7 @@ def build_manifest(root: Path, *, tag: str, commit: str) -> dict[str, Any]:
             "consumer": catalog_record(root, "consumers/catalog.json"),
             "external": catalog_record(root, "external/catalog.json"),
         },
+        "external_state": external_state_record(root),
         "registry_client": registry_client_record(root),
         "static_distribution": static_distribution_record(root),
         "preservation_trust": preservation_trust_record(root),
