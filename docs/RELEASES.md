@@ -230,3 +230,27 @@ At release readiness:
 
 Manifest v8 already records normalized provenance-debt item identity and state,
 so no new manifest version is required solely for this Phase 11 snapshot.
+
+
+## Phase 12 contract-convergence snapshot
+
+Phase 12 is release-ready once the implementation and documentation PRs are
+merged and main validation is green.
+
+The closing snapshot must capture:
+
+- external resolution state projected consistently from authoritative metadata;
+- external availability state projected consistently across interfaces;
+- external catalog schema v1 validation;
+- byte-for-byte external catalog/static-distribution parity;
+- deterministic external-state filters in the public API and CLI;
+- snapshot manifest v9 normalized external-state identity;
+- exact v9-to-v9 resolution/availability transition diffs;
+- conservative pre-v9 fallback without invented historical state;
+- the unified external-state compatibility contract.
+
+Phase 12 introduces no breaking public API or static-distribution version
+change: API remains v1 and static distribution remains v1.
+
+The release should use the standard dry-run → inspect → publish workflow with
+one exact tag/commit pair.
