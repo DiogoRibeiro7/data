@@ -9,9 +9,9 @@ the capabilities the repository should grow toward.
 
 ## Current baseline
 
-The current baseline is the immutable Phase 11 release
-`snapshot-2026.10.12` at commit
-`f0545790a246782313ac38bb07918d35670bdfd3`.
+The current baseline is the immutable Phase 12 release
+`snapshot-2026.10.14` at commit
+`f407638aa9795b0a71d3bfe92eaf8b3dd344d7ba`.
 
 At that point the registry has:
 
@@ -29,7 +29,7 @@ At that point the registry has:
 - published Phase 11 snapshot manifest **v8**; current generator contract **v9** adds exact external-state identity;
 - immutable snapshot and compatibility/versioning policies.
 
-Phase 11 is complete. The final actionable external-source debt was resolved conservatively, all remaining debt is terminal, and the resulting state is captured by `snapshot-2026.10.12`.
+Phase 12 is complete. External-source state now has one consistent contract across raw metadata, generated catalogs, static distribution, client/CLI, and immutable snapshot diffs. The resulting state is captured by `snapshot-2026.10.14`.
 
 ---
 
@@ -270,7 +270,7 @@ mandatory redistribution-rights gate.
 
 ## Phase 12 — External-state contract convergence
 
-**Status:** release-ready.
+**Status:** complete.
 
 **Tracking issue:** #207.
 
@@ -307,8 +307,28 @@ the full resolution state. Phase 12 removes that divergence.
 - [x] callers can filter/query external state deterministically;
 - [x] snapshot/diff output captures external-state transitions;
 - [x] API v1 remains backward compatible unless evidence requires otherwise;
-- [ ] an immutable Phase 12 snapshot captures the converged contract.
+- [x] an immutable Phase 12 snapshot captures the converged contract (`snapshot-2026.10.14`).
 
+
+---
+
+## Maintenance mode
+
+**Status:** active.
+
+The planned build-out is complete. There is no Phase 13 by default.
+
+Start a new phase only when repository evidence shows a real need, for example:
+
+- a maintained downstream consumer requires a new canonical dataset;
+- an existing upstream source changes identity, licence, or availability in a way
+  that affects the registry contract;
+- a concrete integrity, provenance, compatibility, preservation, or usability gap
+  is discovered;
+- the current API/distribution/snapshot contracts genuinely need a breaking
+  evolution.
+
+Routine work belongs under continuous maintenance rather than a numbered phase.
 
 ---
 
