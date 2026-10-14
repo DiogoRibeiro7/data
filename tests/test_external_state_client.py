@@ -9,7 +9,7 @@ from pathlib import Path
 import yaml
 
 from data_registry import RegistryClient
-from data_registry.core import RegistryEntry, entry_summary
+from data_registry.core import RegistryEntry, RegistryError, entry_summary
 from data_registry.models import ExternalRecord
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -98,13 +98,13 @@ class ExternalStateClientTests(unittest.TestCase):
         client = RegistryClient(ROOT)
 
         with self.assertRaisesRegex(
-            Exception,
+            RegistryError,
             "unknown external resolution status",
         ):
             client.external_records(resolution_status="maybe")
 
         with self.assertRaisesRegex(
-            Exception,
+            RegistryError,
             "unknown external availability state",
         ):
             client.external_records(availability_state="missing")
