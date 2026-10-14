@@ -76,8 +76,8 @@ Registry snapshot tags, package versions, metadata schema versions, static
 distribution versions, and snapshot manifest versions are deliberately
 independent version domains.
 
-The current snapshot manifest is version 8. Published historical manifests
-versions 1–8 remain recognized and are never rewritten in place.
+The current snapshot manifest contract is version 9. Published historical
+manifests versions 1–9 remain recognized and are never rewritten in place.
 
 ## Metadata schema versioning
 
@@ -138,7 +138,18 @@ The manifest records:
 - archive identifier registry state;
 - deterministic provenance, offline verification, and artifact-attestation capabilities.
 
-Snapshot manifest version 8 adds Phase 10 preservation/trust state: preservation policy and eligibility digests, external-source disappearance policy identity, archive identifier registry state, and release-verification capabilities. Manifest v7 added normalized consumer-relationship and provenance-debt item identities for exact snapshot-to-snapshot diffs. Manifest v6 added packaged registry-client and static-distribution state; manifest v5 added canonical lifecycle and supersession state. Historical releases that used earlier manifest versions remain unchanged.
+Snapshot manifest version 9 adds normalized external-source state for exact
+resolution/availability diffs: resolution status, terminal flag, blocker
+category, availability state, and replacement URL.
+
+Manifest v8 added Phase 10 preservation/trust state: preservation policy and
+eligibility digests, external-source disappearance policy identity, archive
+identifier registry state, and release-verification capabilities. Manifest v7
+added normalized consumer-relationship and provenance-debt item identities for
+exact snapshot-to-snapshot diffs. Manifest v6 added packaged registry-client and
+static-distribution state; manifest v5 added canonical lifecycle and
+supersession state. Historical releases that used earlier manifest versions
+remain unchanged.
 
 No runtime timestamp is included. Given the same repository bytes, tag, and commit, the generated release material is byte-for-byte deterministic.
 
