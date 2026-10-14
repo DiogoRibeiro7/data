@@ -79,6 +79,9 @@ Supported availability states:
 External-state filters require `--layer external`; using them with another
 layer fails explicitly.
 
+See [External-source state contract](EXTERNAL_STATE.md) for the authoritative
+projection and absence semantics.
+
 ## Search
 
 Search covers IDs, titles, publishers, canonical descriptions, and canonical domain tags.
