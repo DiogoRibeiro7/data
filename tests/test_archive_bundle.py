@@ -41,10 +41,12 @@ def write_release_bundle(root: Path) -> Path:
     (release / "snapshot-manifest.json").write_text(
         manifest_text,
         encoding="utf-8",
+        newline="\n",
     )
     (release / "snapshot-summary.md").write_text(
         summary_text,
         encoding="utf-8",
+        newline="\n",
     )
 
     provenance = {

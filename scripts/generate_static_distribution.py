@@ -162,7 +162,7 @@ def run(root: Path, *, write: bool) -> list[str]:
             if existing.name not in expected_names:
                 existing.unlink()
         for filename, text in outputs.items():
-            (distribution / filename).write_text(text, encoding="utf-8")
+            (distribution / filename).write_text(text, encoding="utf-8", newline="\n")
         return []
 
     errors: list[str] = []

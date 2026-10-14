@@ -154,7 +154,7 @@ def run(root: Path, *, write: bool) -> list[str]:
     if write:
         (root / "reports").mkdir(parents=True, exist_ok=True)
         for path, content in outputs:
-            path.write_text(content, encoding="utf-8")
+            path.write_text(content, encoding="utf-8", newline="\n")
         return []
 
     errors: list[str] = []

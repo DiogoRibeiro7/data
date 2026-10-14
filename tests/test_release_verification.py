@@ -29,8 +29,8 @@ def write_bundle(root: Path) -> tuple[str, str]:
     }
     manifest_text = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     summary_text = "# Summary\n"
-    (root / "snapshot-manifest.json").write_text(manifest_text, encoding="utf-8")
-    (root / "snapshot-summary.md").write_text(summary_text, encoding="utf-8")
+    (root / "snapshot-manifest.json").write_text(manifest_text, encoding="utf-8", newline="\n")
+    (root / "snapshot-summary.md").write_text(summary_text, encoding="utf-8", newline="\n")
     provenance = {
         "schema_version": 1,
         "predicate_type": "https://github.com/DiogoRibeiro7/data/attestations/snapshot-provenance/v1",
