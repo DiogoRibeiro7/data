@@ -58,7 +58,7 @@ project and corpus. No exception is used as an automatic authorization here.
 | UCI Online News Popularity | Dataset-specific CC BY 4.0 at authoritative repository; statistics rather than article bodies; shares available, authors absent | Selected for the user-approved alternative |
 
 The selected source is recorded in
-[its external record](../../external/uci-online-news-popularity/README.md).
+[its pinned external record](https://github.com/DiogoRibeiro7/data/blob/01e9be26f0f06c9c7b2b2abf8467cdd2ca59c3f5/external/uci-online-news-popularity/README.md).
 UCI's explicit statistical scope and attribution licence provide a clearer
 basis for local analysis than the unresolved body-containing Medium corpus.
 No linked article pages are collected. This review does not expand that licence
