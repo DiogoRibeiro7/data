@@ -2,7 +2,7 @@ name: Documentation
 
 on:
   pull_request:
-    paths:
+    paths: &documentation_paths
       - "distribution/**"
       - "scripts/generate_static_distribution.py"
       - "docs/**"
@@ -28,26 +28,7 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "distribution/**"
-      - "scripts/generate_static_distribution.py"
-      - "docs/**"
-      - "datasets/CATALOG.md"
-      - "external/CATALOG.md"
-      - "consumers/CATALOG.md"
-      - "legacy/INVENTORY.md"
-      - "CONTRIBUTING.md"
-      - "mkdocs.yml"
-      - "requirements-docs.txt"
-      - "scripts/prepare_docs.py"
-      - "scripts/registry_quality.py"
-      - "reports/registry-quality.md"
-      - "reports/provenance-debt.md"
-      - "reports/preservation-eligibility.md"
-      - "scripts/generate_preservation_eligibility.py"
-      - "preservation/**"
-      - "scripts/generate_provenance_debt.py"
-      - ".github/workflows/docs.yml"
+    paths: *documentation_paths
   workflow_dispatch:
 
 permissions:

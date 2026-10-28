@@ -2,7 +2,7 @@ name: Data validation
 
 on:
   pull_request:
-    paths:
+    paths: &validation_paths
       - "src/data_registry/**"
       - "pyproject.toml"
       - "archive/**"
@@ -56,7 +56,6 @@ on:
       - "reports/registry-quality.json"
       - "reports/registry-quality.md"
       - "reports/canonical-adoption-policy.json"
-      - "reports/canonical-adoption-policy.json"
       - "reports/provenance-debt.json"
       - "reports/provenance-debt.md"
       - "reports/registry-changelog.json"
@@ -82,64 +81,7 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "src/data_registry/**"
-      - "pyproject.toml"
-      - "archive/**"
-      - "scripts/generate_archive_bundle.py"
-      - "tests/test_archive_bundle.py"
-      - "distribution/**"
-      - "scripts/generate_static_distribution.py"
-      - "tests/test_static_distribution.py"
-      - "datasets/**"
-      - "legacy/**"
-      - "external/**"
-      - "consumers/**"
-      - "schemas/**"
-      - "templates/consumer-dataset.yaml"
-      - "scripts/validate_repository.py"
-      - "scripts/fetch_dataset.py"
-      - "scripts/generate_external_catalog.py"
-      - "scripts/generate_consumer_catalog.py"
-      - "scripts/registry.py"
-      - "scripts/create_snapshot.py"
-      - "scripts/check_external_sources.py"
-      - "scripts/check_consumer_contracts.py"
-      - "scripts/registry_quality.py"
-      - "scripts/generate_provenance_debt.py"
-      - "scripts/generate_lifecycle_report.py"
-      - "tests/test_validate_repository.py"
-      - "tests/test_fetch_dataset.py"
-      - "tests/test_external_catalog.py"
-      - "tests/test_consumer_catalog.py"
-      - "tests/test_registry.py"
-      - "tests/test_api.py"
-      - "tests/test_registry_core.py"
-      - "tests/test_snapshot.py"
-      - "tests/test_external_health.py"
-      - "tests/test_consumer_health.py"
-      - "tests/test_citation_metadata.py"
-      - "tests/test_compatibility.py"
-      - "tests/test_registry_quality.py"
-      - "tests/test_provenance_debt.py"
-      - "tests/test_lifecycle_report.py"
-      - "reports/registry-quality.json"
-      - "reports/registry-quality.md"
-      - "reports/provenance-debt.json"
-      - "reports/provenance-debt.md"
-      - "reports/lifecycle.json"
-      - "reports/lifecycle.md"
-      - "docs/QUALITY.md"
-      - "scripts/prepare_docs.py"
-      - "mkdocs.yml"
-      - "requirements-dev.txt"
-      - "CITATION.cff"
-      - "codemeta.json"
-      - "docs/CITATION.md"
-      - ".github/workflows/data-validation.yml"
-      - ".github/workflows/snapshot-release.yml"
-      - ".github/workflows/external-source-health.yml"
-      - ".github/workflows/consumer-contract-health.yml"
+    paths: *validation_paths
 
 permissions:
   contents: read
