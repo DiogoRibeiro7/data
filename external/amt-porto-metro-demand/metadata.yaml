@@ -1,0 +1,42 @@
+schema_version: 1
+status: external-reference
+id: amt-porto-metro-demand
+title: "AMT Metro do Porto demand, service and section flows (2019–2024)"
+publisher: "Autoridade da Mobilidade e dos Transportes (AMT)"
+source_url: "https://observatorio.amt-autoridade.pt/publicacao/metros-evolucao-da-procura-e-da-oferta"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The research consumer manually transcribed public AMT Power BI tables
+    and annual operator-performance reports on 29–30 October 2026. The
+    resulting CSVs are not official raw exports. Monthly line passengers,
+    annual network passengers and consecutive-station section flows have
+    different scopes and must not be equated with station validations. No
+    third-party bytes are copied into this registry.
+consumers:
+  - porto-metro-demand-analysis
+resolution:
+  review_status: actionable
+  last_reviewed: 2026-10-30
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    AMT publishes the dashboards and statutory reports publicly, but the
+    source pages examined do not state dataset-specific terms authorizing
+    republication of the manually transcribed tables as a dataset.
+  evidence:
+    - "https://observatorio.amt-autoridade.pt/publicacao/metros-evolucao-da-procura-e-da-oferta"
+    - "https://observatorio.amt-autoridade.pt/en/publicacao/metro-porto"
+    - "https://www.amt-autoridade.pt/media/5618/2024_relatorio_desempenho_mpsa.pdf"
+  reviewer_note: >-
+    Public access and citation are established; a machine-readable raw
+    export and express reuse terms for the transcribed tables are not.
+    This record is external-only regardless of the downstream local hashes.
+  next_action: >-
+    Check whether AMT publishes applicable data reuse terms or an official
+    downloadable dataset; seek authoritative clarification before proposing
+    any canonical redistribution of the extracted values.
+  terminal: false

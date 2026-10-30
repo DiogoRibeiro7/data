@@ -1,0 +1,35 @@
+schema_version: 1
+status: external-reference
+id: porto-metro-network-validations-2022-2024
+title: "Metro do Porto whole-network validations (2022–2024)"
+publisher: "Metro do Porto, S.A."
+source_url: "https://www.metrodoporto.pt/metrodoporto/uploads/document/file/748/rs_2022_2024.pdf"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The 2022–2024 Sustainability Report section 9.1 gives rounded annual
+    whole-network ticket validations, in millions to one decimal. A project
+    transcription has SHA-256
+    e271266604e742063d2aff89c4f3338b07f011507a609cff54398226e830a865.
+    These are not Line B passengers, individual station validations or exact
+    integer counts. The report and the transcription are not mirrored here.
+consumers:
+  - porto-metro-demand-analysis
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-30
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    The operator's public sustainability report contains the rounded figures,
+    but no explicit permission for redistributing the transcribed series as
+    canonical dataset bytes has been established for this report.
+  evidence:
+    - "https://www.metrodoporto.pt/metrodoporto/uploads/document/file/748/rs_2022_2024.pdf"
+  next_action: >-
+    Maintain metadata-only status unless operator-specific dataset reuse
+    terms covering the figures are established.
+  terminal: true

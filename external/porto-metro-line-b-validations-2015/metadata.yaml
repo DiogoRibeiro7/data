@@ -1,0 +1,38 @@
+schema_version: 1
+status: external-reference
+id: porto-metro-line-b-validations-2015
+title: "Line B station mean monthly card validations in 2015"
+publisher: "Metro do Porto, S.A. (statistics); PÚBLICO (infographic)"
+source_url: "https://static.publico.pt/DOCS/Local/MetroPorto.pdf"
+redistribution: unresolved
+storage: public-secondary-source
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    Public infographic reports a 2015 cross-section for 21 named Line B
+    corridor stations; data are average monthly card validations. A research
+    transcription, not an operator-provided raw export, has local SHA-256
+    03995a28bdae57dfd8a253401674542449d1955016a3439bd1c82fc2637a2df8.
+    No current station-level series is implied. Neither infographic nor
+    transcribed data bytes are mirrored by this registry.
+consumers:
+  - porto-metro-demand-analysis
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-30
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    The infographic attributes the original counts to Metro do Porto and is
+    published by PÚBLICO, but no source-specific licence for republishing
+    its chart or a dataset derived from its transcription has been identified.
+  evidence:
+    - "https://static.publico.pt/DOCS/Local/MetroPorto.pdf"
+  reviewer_note: >-
+    Attribution of the numbers does not automatically transfer rights to
+    PÚBLICO's chart or establish dataset redistribution permission.
+  next_action: >-
+    Retain the metadata-only record unless Metro do Porto or PÚBLICO provides
+    express reuse terms for the exact underlying table or chart.
+  terminal: true
