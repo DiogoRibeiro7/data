@@ -12,19 +12,20 @@ It makes no live network requests.
 
 ## External sources
 
-- External source records: **17**
-- Redistribution resolved / unresolved: **10 / 7**
+- External source records: **20**
+- Redistribution resolved / unresolved: **13 / 7**
 - Sources pinned to an immutable Git commit: **5**
 
 External source usage annotations:
 
-- Referenced consumer repositories: **5**
-- Source usage references: **10**
+- Referenced consumer repositories: **6**
+- Source usage references: **13**
 
 - `cpd-stress-test`
 - `crop-protection-predictive-science`
 - `displacement-risk-lab-dynamodb`
 - `medium-statistical-dynamics`
+- `portugal-housing-generations`
 - `productivity_taxation_inequality_project`
 
 ## Canonical consumer adoption

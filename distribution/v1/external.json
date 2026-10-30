@@ -32,6 +32,38 @@
       }
     },
     {
+      "id": "ecb-portugal-mortgage-borrowing-cost",
+      "title": "ECB Portugal mortgage cost-of-borrowing series (MIR)",
+      "publisher": "European Central Bank / European System of Central Banks",
+      "source_url": "https://data-api.ecb.europa.eu/service/data/MIR/M.PT.B.A2C.AM.R.A.2250.EUR.N?format=csvdata",
+      "license": {
+        "name": "ESCB statistics free re-use policy (attribution required)",
+        "url": "https://www.ecb.europa.eu/stats/ecb_statistics/governance_and_quality_framework/html/usage_policy.en.html"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "portugal-housing-generations"
+      ],
+      "path": "external/ecb-portugal-mortgage-borrowing-cost"
+    },
+    {
+      "id": "eurostat-portugal-housing-indicators",
+      "title": "Eurostat Portugal housing, income, and household indicators",
+      "publisher": "Eurostat (European Commission)",
+      "source_url": "https://ec.europa.eu/eurostat/data/database",
+      "license": {
+        "name": "Eurostat free re-use policy (Commission Decision 2011/833/EU)",
+        "url": "https://ec.europa.eu/eurostat/help/copyright-notice"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "portugal-housing-generations"
+      ],
+      "path": "external/eurostat-portugal-housing-indicators"
+    },
+    {
       "id": "fred-economic-data",
       "title": "FRED economic data",
       "publisher": "Federal Reserve Bank of St. Louis",
@@ -59,6 +91,22 @@
         "terminal": true,
         "blocker_category": "dataset-vs-repository-licence-scope"
       }
+    },
+    {
+      "id": "ine-portugal-housing-statistics",
+      "title": "INE Portugal housing, construction, and household statistics",
+      "publisher": "Instituto Nacional de Estatística, I.P. (Statistics Portugal)",
+      "source_url": "https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_api_v2&xlang=pt",
+      "license": {
+        "name": "CC BY 4.0 (INE statistical information)",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "portugal-housing-generations"
+      ],
+      "path": "external/ine-portugal-housing-statistics"
     },
     {
       "id": "jhu-csse-covid19",

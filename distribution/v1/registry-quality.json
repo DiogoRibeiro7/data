@@ -66,18 +66,19 @@
   "external": {
     "pinned_immutable_identity_sources": 5,
     "redistribution": {
-      "resolved": 10,
+      "resolved": 13,
       "unresolved": 7
     },
-    "source_count": 17,
+    "source_count": 20,
     "source_usage": {
-      "consumer_count": 5,
-      "consumer_references": 10,
+      "consumer_count": 6,
+      "consumer_references": 13,
       "consumers": [
         "cpd-stress-test",
         "crop-protection-predictive-science",
         "displacement-risk-lab-dynamodb",
         "medium-statistical-dynamics",
+        "portugal-housing-generations",
         "productivity_taxation_inequality_project"
       ]
     }
