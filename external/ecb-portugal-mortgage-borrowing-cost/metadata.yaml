@@ -1,0 +1,23 @@
+schema_version: 1
+status: external-reference
+id: ecb-portugal-mortgage-borrowing-cost
+title: "ECB Portugal mortgage cost-of-borrowing series (MIR)"
+publisher: "European Central Bank / European System of Central Banks"
+source_url: "https://data-api.ecb.europa.eu/service/data/MIR/M.PT.B.A2C.AM.R.A.2250.EUR.N?format=csvdata"
+license:
+  name: "ESCB statistics free re-use policy (attribution required)"
+  url: "https://www.ecb.europa.eu/stats/ecb_statistics/governance_and_quality_framework/html/usage_policy.en.html"
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: allowed
+  attribution_required: true
+  note: >-
+    Applies to the unmodified publicly released MIR series
+    M.PT.B.A2C.AM.R.A.2250.EUR.N, not all ECB content. ESCB statistics can
+    be freely reused with quoted source under the official usage policy.
+    Portugal-house-purchase response and checksum are pinned by a downstream
+    research repository; none of its data bytes are mirrored here.
+consumers:
+  - portugal-housing-generations

@@ -1,0 +1,23 @@
+schema_version: 1
+status: external-reference
+id: ine-portugal-housing-statistics
+title: "INE Portugal housing, construction, and household statistics"
+publisher: "Instituto Nacional de Estatística, I.P. (Statistics Portugal)"
+source_url: "https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_api_v2&xlang=pt"
+license:
+  name: "CC BY 4.0 (INE statistical information)"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: allowed
+  attribution_required: true
+  note: >-
+    Applies to directly retrieved INE statistical API responses, with source
+    attribution and disclosure of modifications. It does not license PORDATA's
+    separately produced Excel exports. The portugal-housing-generations v1.0.0
+    research release records 37 dated INE API response containers and their
+    per-file SHA-256 hashes; none is mirrored by this registry.
+consumers:
+  - portugal-housing-generations

@@ -1,0 +1,23 @@
+schema_version: 1
+status: external-reference
+id: eurostat-portugal-housing-indicators
+title: "Eurostat Portugal housing, income, and household indicators"
+publisher: "Eurostat (European Commission)"
+source_url: "https://ec.europa.eu/eurostat/data/database"
+license:
+  name: "Eurostat free re-use policy (Commission Decision 2011/833/EU)"
+  url: "https://ec.europa.eu/eurostat/help/copyright-notice"
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: allowed
+  attribution_required: true
+  note: >-
+    Limited to the Portuguese Eurostat statistical API series recorded in the
+    portugal-housing-generations source inventory. Eurostat allows reuse with
+    attribution and disclosure of changes, subject to stated third-party and
+    non-EU data exceptions. Project-local dated API responses and SHA-256
+    checksums are not reproduced by this registry.
+consumers:
+  - portugal-housing-generations
