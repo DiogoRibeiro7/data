@@ -2,6 +2,24 @@
   "schema_version": 1,
   "sources": [
     {
+      "id": "amt-porto-metro-demand",
+      "title": "AMT Metro do Porto demand, service and section flows (2019–2024)",
+      "publisher": "Autoridade da Mobilidade e dos Transportes (AMT)",
+      "source_url": "https://observatorio.amt-autoridade.pt/publicacao/metros-evolucao-da-procura-e-da-oferta",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "porto-metro-demand-analysis"
+      ],
+      "path": "external/amt-porto-metro-demand",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
       "id": "berkeley-earth-temperature",
       "title": "Berkeley Earth temperature data",
       "publisher": "Berkeley Earth",
@@ -220,6 +238,60 @@
       "storage": "public-secondary-source",
       "consumers": [],
       "path": "external/pordata-portugal-resident-population",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
+      "id": "porto-metro-gtfs-2026-09-07",
+      "title": "Metro do Porto GTFS schedule archive (7 September 2026)",
+      "publisher": "Metro do Porto, S.A. via Porto Municipal Open Data Portal",
+      "source_url": "https://dadosabertos.cm-porto.pt/dataset/horarios-paragens-e-rotas-metro-porto",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "porto-metro-demand-analysis"
+      ],
+      "path": "external/porto-metro-gtfs-2026-09-07",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
+      "id": "porto-metro-line-b-validations-2015",
+      "title": "Line B station mean monthly card validations in 2015",
+      "publisher": "Metro do Porto, S.A. (statistics); PÚBLICO (infographic)",
+      "source_url": "https://static.publico.pt/DOCS/Local/MetroPorto.pdf",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "public-secondary-source",
+      "consumers": [
+        "porto-metro-demand-analysis"
+      ],
+      "path": "external/porto-metro-line-b-validations-2015",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
+      "id": "porto-metro-network-validations-2022-2024",
+      "title": "Metro do Porto whole-network validations (2022–2024)",
+      "publisher": "Metro do Porto, S.A.",
+      "source_url": "https://www.metrodoporto.pt/metrodoporto/uploads/document/file/748/rs_2022_2024.pdf",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "porto-metro-demand-analysis"
+      ],
+      "path": "external/porto-metro-network-validations-2022-2024",
       "resolution": {
         "review_status": "terminal",
         "terminal": true,

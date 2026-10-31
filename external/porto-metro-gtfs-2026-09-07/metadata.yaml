@@ -1,0 +1,40 @@
+schema_version: 1
+status: external-reference
+id: porto-metro-gtfs-2026-09-07
+title: "Metro do Porto GTFS schedule archive (7 September 2026)"
+publisher: "Metro do Porto, S.A. via Porto Municipal Open Data Portal"
+source_url: "https://dadosabertos.cm-porto.pt/dataset/horarios-paragens-e-rotas-metro-porto"
+source_path: "horarios_gtfs_mdp_07_09_2026.zip"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: authoritative-upstream
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The authoritative portal lists a dated GTFS ZIP. Research documentation
+    records ZIP SHA-256 38eef4e6e3b93b36cc92e8ffede8844845dac792721dc7a48d666b89f7b56010.
+    The earlier Porto open-data catalog classified the Metro do Porto GTFS
+    dataset as CC0, but the migrated portal page examined on 30 October 2026
+    did not visibly repeat the applicable licence for this exact resource.
+    Timetables are supply data, not passenger observations.
+consumers:
+  - porto-metro-demand-analysis
+resolution:
+  review_status: actionable
+  last_reviewed: 2026-10-30
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    A historical Porto open-data catalog tagged this dataset CC0, but the
+    current migrated listing did not expose a clearly linked licence for the
+    exact 7 September 2026 ZIP; carryover of the old licence is unverified.
+  evidence:
+    - "https://dadosabertos.cm-porto.pt/dataset/horarios-paragens-e-rotas-metro-porto"
+    - "https://opendata.porto.digital/dataset/?_tags_limit=0&license_id=cc-zero&organization=metro-do-porto&res_format=GTFS&res_format=ZIP&sort=views_recent+desc"
+  reviewer_note: >-
+    The prior portal's CC0 label is evidence for a possible permission, not a
+    substitute for checking the archived ZIP's present release terms.
+  next_action: >-
+    Verify the migrated portal's machine-readable licence metadata or obtain
+    publisher confirmation for the dated ZIP before canonical promotion.
+  terminal: false

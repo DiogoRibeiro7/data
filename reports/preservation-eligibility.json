@@ -71,6 +71,12 @@
   "external": [
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "amt-porto-metro-demand",
+      "metadata_path": "external/amt-porto-metro-demand/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "berkeley-earth-temperature",
       "metadata_path": "external/berkeley-earth-temperature/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -155,6 +161,24 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "porto-metro-gtfs-2026-09-07",
+      "metadata_path": "external/porto-metro-gtfs-2026-09-07/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "porto-metro-line-b-validations-2015",
+      "metadata_path": "external/porto-metro-line-b-validations-2015/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "porto-metro-network-validations-2022-2024",
+      "metadata_path": "external/porto-metro-network-validations-2022-2024/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "r-base-example-datasets",
       "metadata_path": "external/r-base-example-datasets/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -216,8 +240,8 @@
     "canonical_byte_archive_eligible_count": 4,
     "canonical_dataset_count": 4,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 20,
-    "external_source_count": 20,
+    "external_metadata_only_count": 24,
+    "external_source_count": 24,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }
