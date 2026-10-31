@@ -20,6 +20,7 @@ from .compatibility import (
 )
 from .core import RegistryEntry, RegistryError, load_registry
 from .fetch import DatasetReference, fetch_dataset_file
+from .handoff import HandoffManifest, HandoffObject, build_handoff_manifest
 from .release_verification import (
     ReleaseVerificationError,
     ReleaseVerificationResult,
@@ -46,6 +47,8 @@ __all__ = [
     "ConsumerRelationship",
     "ExternalRecord",
     "FetchResult",
+    "HandoffManifest",
+    "HandoffObject",
     "LegacyRecord",
     "LifecycleDataset",
     "ProvenanceDebtItem",
@@ -62,5 +65,6 @@ __all__ = [
     "RegistryEntry",
     "RegistryError",
     "fetch_dataset_file",
+    "build_handoff_manifest",
     "load_registry",
 ]
