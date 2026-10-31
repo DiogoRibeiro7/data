@@ -120,6 +120,22 @@
       }
     },
     {
+      "id": "criteo-uplift-prediction-benchmark",
+      "title": "Criteo Uplift Prediction Dataset, original and v2.1 research distributions",
+      "publisher": "Criteo AI Lab / Criteo Research",
+      "source_url": "https://ailab.criteo.com/criteo-uplift-prediction-dataset/",
+      "license": {
+        "name": "CC BY-NC-SA 4.0 (Criteo Data Terms of Use)",
+        "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+      },
+      "redistribution": "noncommercial-with-attribution",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "causal-uplift-marketing-campaign"
+      ],
+      "path": "external/criteo-uplift-prediction-benchmark"
+    },
+    {
       "id": "dgo-2026-social-security-budget",
       "title": "DGO State Budget 2026 Social Security balance and financial projections",
       "publisher": "Direção-Geral do Orçamento (DGO); Ministério das Finanças",
@@ -231,6 +247,24 @@
         "productivity_taxation_inequality_project"
       ],
       "path": "external/fred-economic-data"
+    },
+    {
+      "id": "hillstrom-minethatdata-email-experiment-2008",
+      "title": "MineThatData 2008 Hillstrom randomized email marketing experiment",
+      "publisher": "Kevin Hillstrom / MineThatData (Kaggle copy uploaded by bofulee)",
+      "source_url": "https://blog.minethatdata.com/2008/03/minethatdata-e-mail-analytics-and-data.html",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-original-and-third-party-mirror",
+      "consumers": [
+        "causal-uplift-marketing-campaign"
+      ],
+      "path": "external/hillstrom-minethatdata-email-experiment-2008",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
     },
     {
       "id": "ibm-telco-customer-churn",

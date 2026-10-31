@@ -66,14 +66,15 @@
   "external": {
     "pinned_immutable_identity_sources": 5,
     "redistribution": {
-      "resolved": 21,
-      "unresolved": 23
+      "resolved": 22,
+      "unresolved": 24
     },
-    "source_count": 44,
+    "source_count": 46,
     "source_usage": {
-      "consumer_count": 10,
-      "consumer_references": 41,
+      "consumer_count": 11,
+      "consumer_references": 43,
       "consumers": [
+        "causal-uplift-marketing-campaign",
         "cpd-stress-test",
         "crop-protection-predictive-science",
         "displacement-risk-lab-dynamodb",
@@ -100,11 +101,11 @@
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 1,
       "historical-export-route": 1,
-      "redistribution-rights": 20
+      "redistribution-rights": 21
     },
     "external": {
       "actionable": 3,
-      "terminal": 20
+      "terminal": 21
     },
     "legacy": {
       "actionable": 0,
@@ -112,7 +113,7 @@
     },
     "oldest_age_days": 26,
     "oldest_review_date": "2026-10-05",
-    "total_count": 25
+    "total_count": 26
   },
   "schema_version": 1,
   "snapshots": {

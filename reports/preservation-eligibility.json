@@ -113,6 +113,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "criteo-uplift-prediction-benchmark",
+      "metadata_path": "external/criteo-uplift-prediction-benchmark/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "dgo-2026-social-security-budget",
       "metadata_path": "external/dgo-2026-social-security-budget/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -151,6 +157,12 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "fred-economic-data",
       "metadata_path": "external/fred-economic-data/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "hillstrom-minethatdata-email-experiment-2008",
+      "metadata_path": "external/hillstrom-minethatdata-email-experiment-2008/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -360,8 +372,8 @@
     "canonical_byte_archive_eligible_count": 4,
     "canonical_dataset_count": 4,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 44,
-    "external_source_count": 44,
+    "external_metadata_only_count": 46,
+    "external_source_count": 46,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }
