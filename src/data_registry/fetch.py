@@ -40,9 +40,21 @@ class DatasetReference:
             raise ValueError("commit must be a full 40-character lowercase Git SHA")
         if not SHA256_RE.fullmatch(self.sha256):
             raise ValueError("sha256 must be 64 lowercase hexadecimal characters")
+        if not isinstance(self.path, str):
+            raise TypeError("path must be a POSIX repository file path string")
         pure_path = PurePosixPath(self.path)
-        if pure_path.is_absolute() or ".." in pure_path.parts or self.path.endswith("/"):
-            raise ValueError("path must be a relative repository file path")
+        # PurePosixPath silently collapses empty and '.' segments. Reject
+        # non-canonical spellings so an immutable reference has one identity.
+        if (
+            not pure_path.parts
+            or pure_path.is_absolute()
+            or ".." in pure_path.parts
+            or str(pure_path) != self.path
+            or "\\" in self.path
+        ):
+            raise ValueError(
+                "path must be a normalized relative POSIX repository file path"
+            )
 
     def url(self, *, base_url: str = DEFAULT_RAW_BASE_URL) -> str:
         """Build an immutable raw-content URL."""

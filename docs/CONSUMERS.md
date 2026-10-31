@@ -14,6 +14,10 @@ Every consumer must pin all four values:
 4. SHA-256 checksum from the dataset metadata.
 
 Do not fetch data from an unpinned `main`, `master`, branch, or floating raw URL.
+The file path must be an exact, normalized, relative POSIX repository path:
+empty paths, `.` or `..` segments, repeated separators, trailing slashes and
+Windows-style backslashes are not accepted by the fetch API. Spaces in file
+names are supported and URL-encoded when fetching.
 
 ## Central consumer registry
 
