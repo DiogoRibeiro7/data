@@ -1,0 +1,40 @@
+schema_version: 1
+status: external-reference
+id: sef-rifa-foreign-residents-2017-2022
+title: "SEF RIFA original foreign-resident nationality and sex tables (2017–2022)"
+publisher: "Serviço de Estrangeiros e Fronteiras (SEF); archived by AIMA/Observatório das Migrações"
+source_url: "https://om.aima.gov.pt/wp-content/uploads/2025/10/Rifa_2022.pdf"
+redistribution: unresolved
+storage: authoritative-upstream-and-official-archive
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The empirical-analysis-r migration study preserves report-specific
+    2017–2022 annual SEF resident-permit stock tables, top-ten nationalities,
+    separately labelled Other totals and nationality-by-sex annexes. The
+    original SEF RIFA reporting vintage differs from later AIMA back-revisions
+    and Eurostat population-by-citizenship estimates. Annex Stock figures
+    are not residence-title Fluxos. Some original SEF links now require
+    archived captures. Research transcriptions remain downstream; no source
+    report or derived CSV is mirrored by this registry.
+consumers:
+  - empirical-analysis-r
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-31
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    SEF annual reports are publicly available through official/archival
+    copies, but an explicit licence authorizing republication of the PDF
+    files or machine-readable annex transcriptions is not established.
+  evidence:
+    - "https://om.aima.gov.pt/index.php/2025/10/30/relatorios-de-imigracao-fronteiras-e-asilo/"
+    - "https://om.aima.gov.pt/wp-content/uploads/2025/10/Rifa_2022.pdf"
+    - "https://sefstat.sef.pt/Docs/Rifa2018.pdf"
+  next_action: >-
+    Preserve distinct original vintages and archival links; reconsider
+    canonical storage only if the responsible publisher confirms data-table
+    redistribution rights for this exact report family.
+  terminal: true

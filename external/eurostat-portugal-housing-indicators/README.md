@@ -35,6 +35,13 @@ project records separate API response hashes and reference periods in its
 research source manifests; these are not claimed to be the same retrievals
 or editions as the `portugal-housing-generations` snapshots.
 
+The `empirical-analysis-r` housing study independently stores quarterly
+house-price index `prc_hpi_q` for Portugal, retrieved on 26 October 2026,
+with JSON-stat source update 1 October 2026 and SHA-256
+`17064c79fecce6c751ccc0f2963f8c2057e1ed9840dc6906d1a52cddf16cfc27`.
+This has distinct quarterly index basis and purchase categories and is not
+interchangeable with annual HPI or municipal sale-price levels.
+
 ## Reuse and registry decision
 
 Eurostat's [copyright and reuse notice](https://ec.europa.eu/eurostat/help/copyright-notice)

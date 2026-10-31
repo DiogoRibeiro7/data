@@ -45,6 +45,13 @@ and `0014697`, census indicators and housing sales-price indicator `0012255`.
 Those responses have their own reference periods, territorial versions and
 SHA-256 checksums; adding this consumer does not claim identical snapshots.
 
+The separate `empirical-analysis-r` housing study also records dated INE
+snapshots, including 2022-methodology sales-price indicator `0012255`
+(NUTS 2024) and resident-population indicator `0012918`. It distinguishes
+older price methodology, missing published cells and municipality codes
+verified against the independent DGT CAOP2025 register. This consumer
+association does not reuse another project's retrieval hashes.
+
 ## Registry decision
 
 **Metadata-only external record.** No INE API bytes are copied into the central

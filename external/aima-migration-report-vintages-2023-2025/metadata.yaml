@@ -1,0 +1,41 @@
+schema_version: 1
+status: external-reference
+id: aima-migration-report-vintages-2023-2025
+title: "AIMA migration and asylum reports, original and revised resident-stock vintages"
+publisher: "Agência para a Integração, Migrações e Asilo, I.P. (AIMA)"
+source_url: "https://aima.gov.pt/pt/a-aima/relatorios-de-migracoes-e-asilo"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    AIMA RMA 2023 original, its published erratum, the August 2025 interim
+    comparison with INE, and RMA 2024/2025 are distinct publication vintages.
+    Later reports incorporate pending regularisation, temporary protection
+    and CPLP categories under broader administrative definitions; their
+    historical restatements are not observed migration flows. The
+    empirical-analysis-r project preserves original totals, revised totals,
+    year-specific nationality categories and the documented 2023 annex
+    discrepancy without silent splicing. No source PDF or derived data file
+    is mirrored here.
+consumers:
+  - empirical-analysis-r
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-31
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    AIMA publishes these administrative statistics and source PDF reports,
+    but source-specific terms authorizing central republication of the
+    reports or transcribed annexes were not established.
+  evidence:
+    - "https://aima.gov.pt/pt/a-aima/relatorios-de-migracoes-e-asilo"
+    - "https://aima.gov.pt/media/pages/documents/4ec85f5ab7-1727367154/errata-rma-2023.pdf"
+    - "https://aima.gov.pt/media/pages/documents/fec4d6a712-1760603125/relatorio-migracoes-e-asilo-2024.pdf"
+  next_action: >-
+    Keep the report originals and revision chain externally referenced
+    unless AIMA publishes applicable reuse terms for the exact documents
+    and their tabulated extracts.
+  terminal: true

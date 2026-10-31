@@ -20,7 +20,11 @@ usage:
     release records 37 dated INE API response containers. The
     social-security-housing-investment research project separately pins INE
     construction cost, rent, census, income and housing-price indicators with
-    dated snapshots and SHA-256 checksums. None is mirrored by this registry.
+    dated snapshots and SHA-256 checksums. The empirical-analysis-r housing
+    study independently pins INE housing-price, construction, income and
+    resident-population indicators in their source-specific vintages. None
+    is mirrored by this registry.
 consumers:
   - portugal-housing-generations
   - social-security-housing-investment
+  - empirical-analysis-r

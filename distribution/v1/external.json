@@ -2,6 +2,24 @@
   "schema_version": 1,
   "sources": [
     {
+      "id": "aima-migration-report-vintages-2023-2025",
+      "title": "AIMA migration and asylum reports, original and revised resident-stock vintages",
+      "publisher": "Agência para a Integração, Migrações e Asilo, I.P. (AIMA)",
+      "source_url": "https://aima.gov.pt/pt/a-aima/relatorios-de-migracoes-e-asilo",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "empirical-analysis-r"
+      ],
+      "path": "external/aima-migration-report-vintages-2023-2025",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
       "id": "amt-porto-metro-demand",
       "title": "AMT Metro do Porto demand, service and section flows (2019–2024)",
       "publisher": "Autoridade da Mobilidade e dos Transportes (AMT)",
@@ -48,6 +66,22 @@
       "storage": "authoritative-upstream",
       "consumers": [],
       "path": "external/berkeley-earth-temperature"
+    },
+    {
+      "id": "bis-portugal-residential-property-indices",
+      "title": "BIS Portugal selected residential property prices, nominal and real quarterly indices",
+      "publisher": "Bank for International Settlements (BIS); source statistics from INE and Confidencial Imobiliário",
+      "source_url": "https://data.bis.org/topics/RPP/BIS%2CWS_SPP%2C1.0/Q.PT.N.628",
+      "license": {
+        "name": "BIS permitted use of statistical data (attribution and conditions)",
+        "url": "https://data.bis.org/help/legal"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "empirical-analysis-r"
+      ],
+      "path": "external/bis-portugal-residential-property-indices"
     },
     {
       "id": "cfp-social-security-execution-2023-2025",
@@ -120,6 +154,22 @@
       }
     },
     {
+      "id": "dgt-caop-2025-municipal-register",
+      "title": "DGT CAOP2025 official municipality codes and associated areas",
+      "publisher": "Direção-Geral do Território (DGT)",
+      "source_url": "https://www.dgterritorio.gov.pt/atividades/cartografia/cartografia-tematica/caop",
+      "license": {
+        "name": "CC BY 4.0 (DGT open geographic data)",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "empirical-analysis-r"
+      ],
+      "path": "external/dgt-caop-2025-municipal-register"
+    },
+    {
       "id": "ecb-portugal-mortgage-borrowing-cost",
       "title": "ECB Portugal mortgage cost-of-borrowing series (MIR)",
       "publisher": "European Central Bank / European System of Central Banks",
@@ -136,6 +186,22 @@
       "path": "external/ecb-portugal-mortgage-borrowing-cost"
     },
     {
+      "id": "eurostat-portugal-citizenship-statistics",
+      "title": "Eurostat Portugal 1 January population by citizenship (migr_pop1ctz)",
+      "publisher": "Eurostat (European Commission)",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/migr_pop1ctz?geo=PT&age=TOTAL&sex=T&unit=NR&sinceTimePeriod=2017",
+      "license": {
+        "name": "Eurostat free re-use policy (Commission Decision 2011/833/EU)",
+        "url": "https://ec.europa.eu/eurostat/help/copyright-notice"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "empirical-analysis-r"
+      ],
+      "path": "external/eurostat-portugal-citizenship-statistics"
+    },
+    {
       "id": "eurostat-portugal-housing-indicators",
       "title": "Eurostat Portugal housing, income, and household indicators",
       "publisher": "Eurostat (European Commission)",
@@ -147,6 +213,7 @@
       "redistribution": "allowed",
       "storage": "authoritative-upstream",
       "consumers": [
+        "empirical-analysis-r",
         "portugal-housing-generations",
         "social-security-housing-investment"
       ],
@@ -301,6 +368,7 @@
       "redistribution": "allowed",
       "storage": "authoritative-upstream",
       "consumers": [
+        "empirical-analysis-r",
         "portugal-housing-generations",
         "social-security-housing-investment"
       ],
@@ -504,6 +572,24 @@
       "storage": "authoritative-upstream",
       "consumers": [],
       "path": "external/r-base-example-datasets"
+    },
+    {
+      "id": "sef-rifa-foreign-residents-2017-2022",
+      "title": "SEF RIFA original foreign-resident nationality and sex tables (2017–2022)",
+      "publisher": "Serviço de Estrangeiros e Fronteiras (SEF); archived by AIMA/Observatório das Migrações",
+      "source_url": "https://om.aima.gov.pt/wp-content/uploads/2025/10/Rifa_2022.pdf",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream-and-official-archive",
+      "consumers": [
+        "empirical-analysis-r"
+      ],
+      "path": "external/sef-rifa-foreign-residents-2017-2022",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
     },
     {
       "id": "turing-change-point-dataset",

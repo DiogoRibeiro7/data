@@ -71,6 +71,12 @@
   "external": [
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "aima-migration-report-vintages-2023-2025",
+      "metadata_path": "external/aima-migration-report-vintages-2023-2025/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "amt-porto-metro-demand",
       "metadata_path": "external/amt-porto-metro-demand/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -85,6 +91,12 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "berkeley-earth-temperature",
       "metadata_path": "external/berkeley-earth-temperature/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "bis-portugal-residential-property-indices",
+      "metadata_path": "external/bis-portugal-residential-property-indices/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -113,8 +125,20 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "dgt-caop-2025-municipal-register",
+      "metadata_path": "external/dgt-caop-2025-municipal-register/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "ecb-portugal-mortgage-borrowing-cost",
       "metadata_path": "external/ecb-portugal-mortgage-borrowing-cost/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "eurostat-portugal-citizenship-statistics",
+      "metadata_path": "external/eurostat-portugal-citizenship-statistics/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -251,6 +275,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "sef-rifa-foreign-residents-2017-2022",
+      "metadata_path": "external/sef-rifa-foreign-residents-2017-2022/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "turing-change-point-dataset",
       "metadata_path": "external/turing-change-point-dataset/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -306,8 +336,8 @@
     "canonical_byte_archive_eligible_count": 4,
     "canonical_dataset_count": 4,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 35,
-    "external_source_count": 35,
+    "external_metadata_only_count": 40,
+    "external_source_count": 40,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }
