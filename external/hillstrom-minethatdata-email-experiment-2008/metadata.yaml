@@ -1,0 +1,45 @@
+schema_version: 1
+status: external-reference
+id: hillstrom-minethatdata-email-experiment-2008
+title: "MineThatData 2008 Hillstrom randomized email marketing experiment"
+publisher: "Kevin Hillstrom / MineThatData (Kaggle copy uploaded by bofulee)"
+source_url: "https://blog.minethatdata.com/2008/03/minethatdata-e-mail-analytics-and-data.html"
+source_path: "Kevin_Hillstrom_MineThatData_E-MailAnalytics_DataMiningChallenge_2008.03.20.csv"
+redistribution: unresolved
+storage: authoritative-original-and-third-party-mirror
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The 2008 MineThatData email challenge describes 64,000 recent customers
+    randomized across Mens E-Mail, Womens E-Mail and No E-Mail arms,
+    followed for two weeks for visit, conversion and spend. The
+    causal-uplift-marketing-campaign project retrieves a Kaggle mirror
+    (bofulee/kevin-hillstrom-minethatdata-e-mailanalytics) and can pool
+    the two creatives or compare each creative against control. The
+    project's sequential customer_id field is locally synthesized and is
+    not a source respondent identifier. Neither the original challenge
+    post nor a third-party mirror establishes clear dataset-owner consent
+    for canonical redistribution. No raw dataset bytes are mirrored.
+consumers:
+  - causal-uplift-marketing-campaign
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-31
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    Kevin Hillstrom publicly invited download and analysis of the 2008
+    competition CSV, but an explicit grant to redistribute its full
+    underlying data from a central public repository was not located.
+    A Kaggle uploader's description or licence cannot independently prove
+    that the original dataset owner granted downstream sublicensing rights.
+  evidence:
+    - "https://blog.minethatdata.com/2008/03/minethatdata-e-mail-analytics-and-data.html"
+    - "https://www.kaggle.com/datasets/bofulee/kevin-hillstrom-minethatdata-e-mailanalytics"
+    - "https://github.com/DiogoRibeiro7/causal-uplift-marketing-campaign/blob/main/docs/DATA_SOURCE.md"
+  next_action: >-
+    Continue upstream-on-demand acquisition in the research project.
+    Revisit canonical preservation only with documented owner permission
+    for the exact source file and a verified SHA-256 snapshot.
+  terminal: true

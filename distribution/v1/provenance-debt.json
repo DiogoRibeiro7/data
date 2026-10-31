@@ -98,6 +98,22 @@
       "title": "DGS InfoClique mortality platform"
     },
     {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "Kevin Hillstrom publicly invited download and analysis of the 2008 competition CSV, but an explicit grant to redistribute its full underlying data from a central public repository was not located. A Kaggle uploader's description or licence cannot independently prove that the original dataset owner granted downstream sublicensing rights.",
+      "evidence_count": 3,
+      "id": "hillstrom-minethatdata-email-experiment-2008",
+      "last_reviewed": "2026-10-31",
+      "layer": "external",
+      "next_action": "Continue upstream-on-demand acquisition in the research project. Revisit canonical preservation only with documented owner permission for the exact source file and a verified SHA-256 snapshot.",
+      "path": "external/hillstrom-minethatdata-email-experiment-2008/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
+      "title": "MineThatData 2008 Hillstrom randomized email marketing experiment"
+    },
+    {
       "age_days": 26,
       "blocker_category": "dataset-vs-repository-licence-scope",
       "blocker_summary": "The pinned IBM repository is Apache-2.0 licensed as a code pattern, but the README explicitly separates third-party objects and no dataset-specific redistribution licence for Telco-Customer-Churn.csv was established.",
@@ -409,13 +425,13 @@
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 1,
       "historical-export-route": 1,
-      "redistribution-rights": 20
+      "redistribution-rights": 21
     },
-    "external_count": 23,
+    "external_count": 24,
     "legacy_count": 2,
-    "structured_count": 25,
-    "terminal_count": 22,
-    "total_debt": 25,
+    "structured_count": 26,
+    "terminal_count": 23,
+    "total_debt": 26,
     "unstructured_count": 0
   }
 }

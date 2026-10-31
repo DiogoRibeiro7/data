@@ -1,0 +1,29 @@
+schema_version: 1
+status: external-reference
+id: criteo-uplift-prediction-benchmark
+title: "Criteo Uplift Prediction Dataset, original and v2.1 research distributions"
+publisher: "Criteo AI Lab / Criteo Research"
+source_url: "https://ailab.criteo.com/criteo-uplift-prediction-dataset/"
+license:
+  name: "CC BY-NC-SA 4.0 (Criteo Data Terms of Use)"
+  url: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+redistribution: noncommercial-with-attribution
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: noncommercial-with-attribution
+  attribution_required: true
+  note: >-
+    Criteo's original 2018 research page describes approximately 25.3
+    million randomized advertising observations; its first-party Hugging
+    Face v2.1 distribution has approximately 13.98 million rows. Treat
+    these as distinct versions, not equal snapshots. Records contain
+    anonymized projected features, treatment, visit, conversion and
+    effective-exposure fields; nonuniform subsampling prevents recovery
+    of the original incrementality level. The causal-uplift-marketing-
+    campaign project offers a direct-url download mode, but the configured
+    URL and any downloaded bytes remain unverified by this registry.
+    The explicit CC BY-NC-SA 4.0 terms exclude commercial redistribution
+    and require ShareAlike for adapted material. No data files are mirrored.
+consumers:
+  - causal-uplift-marketing-campaign
