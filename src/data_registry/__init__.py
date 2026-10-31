@@ -7,6 +7,11 @@ and offline unless an explicit immutable fetch is requested.
 """
 
 from .api import FetchResult, RegistryClient, RegistryRecord
+from .archive_verification import (
+    ArchiveVerificationError,
+    ArchiveVerificationResult,
+    verify_archive_bundle,
+)
 from .compatibility import (
     CURRENT_SNAPSHOT_MANIFEST_VERSION,
     PACKAGE_VERSION,
@@ -44,6 +49,9 @@ __all__ = [
     "supports_metadata_schema",
     "supports_snapshot_manifest",
     "CanonicalDataset",
+    "ArchiveVerificationError",
+    "ArchiveVerificationResult",
+    "verify_archive_bundle",
     "ConsumerRelationship",
     "ExternalRecord",
     "FetchResult",

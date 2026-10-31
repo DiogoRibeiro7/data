@@ -28,6 +28,34 @@ The output contains:
 
 The bundle manifest records SHA-256 and byte size for every included file.
 
+## Verify a downloaded archive offline
+
+After extracting a downloaded archive, verify it before using or republishing
+its contents. The command needs no network access and no Git checkout:
+
+```bash
+data-registry verify-archive \
+  --bundle archive-material \
+  --tag snapshot-YYYY.MM.DD \
+  --commit <40-character-release-commit> \
+  --profile release-metadata \
+  --json
+```
+
+For archives that intentionally include eligible canonical bytes, specify
+`--profile eligible-canonical-bytes`. The verifier checks every declared
+file's SHA-256 and byte size; rejects missing, extra, duplicate, unsafe and
+symlinked file paths; cross-checks archive and release identity; validates the
+embedded release provenance and indexed static distribution; and rechecks
+canonical dataset declarations and redistribution rights for the broader
+profile. A failure exits with status 1.
+
+This establishes **internal consistency**, not publisher authenticity. An
+attacker able to replace both files and their manifest could construct a
+self-consistent forgery. The snapshot workflow separately attests the archive
+manifest; independently verify that publisher attestation and pin the trusted
+release tag/commit before relying on the archive.
+
 ## Archive profiles
 
 ### `release-metadata`
@@ -105,7 +133,7 @@ and commit, and an existing snapshot tag is never moved to match an archive.
 2. run the snapshot workflow in dry-run mode;
 3. inspect and verify the deterministic release material;
 4. generate the archive bundle with the intended profile;
-5. inspect `archive-bundle-manifest.json`;
+5. run `data-registry verify-archive` and inspect `archive-bundle-manifest.json`;
 6. publish the immutable GitHub snapshot;
 7. upload the inspected archive bundle to the preservation service;
 8. after the service assigns an identifier, add it to
