@@ -1,0 +1,36 @@
+schema_version: 1
+status: external-reference
+id: ihru-housing-needs-2018
+title: "IHRU national survey of rehousing needs (2018)"
+publisher: "Instituto da Habitação e da Reabilitação Urbana, I.P. (IHRU)"
+source_url: "https://www.portaldahabitacao.pt/estudos-e-relat%C3%B3rios"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The February 2018 national rehousing-needs report records a historical
+    municipality-level survey, not a current 2026 estimate of households in
+    need. The downstream copy is pinned to the Internet Archive's unmodified
+    April 2018 capture of the then-official PDF after its former URL stopped
+    serving the document. Three published municipality entries are missing,
+    not zero. No PDF or 308-row annex transcription is mirrored here.
+consumers:
+  - social-security-housing-investment
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-31
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    IHRU publicly listed the rehousing-needs report, but the originally
+    pinned PDF now relies on an archival capture and no applicable grant
+    for mirroring the report or municipality-level transcription is verified.
+  evidence:
+    - "https://www.portaldahabitacao.pt/estudos-e-relat%C3%B3rios"
+    - "https://portaldahabitacao.pt/documents/20126/58203/Relatorio_Final_Necessidades_Realojamento.pdf/d67e9ed8-93aa-d65a-eb36-b586389b2295?t=1550355947650"
+  next_action: >-
+    Keep this historical baseline as a linked external source and reassess
+    only if IHRU publishes applicable redistribution terms for the annex.
+  terminal: true

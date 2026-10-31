@@ -1,0 +1,37 @@
+schema_version: 1
+status: external-reference
+id: cfp-social-security-execution-2023-2025
+title: "CFP Social Security execution and FEFSS transfer annexes (2023–2025)"
+publisher: "Conselho das Finanças Públicas (CFP)"
+source_url: "https://www.cfp.pt/pt/publicacoes/sectores-das-administracoes-publicas/evolucao-orcamental-da-seguranca-social-e-da-cga-em-2025"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    Annual CFP source workbooks for 2023, 2024 and 2025 are tracked in
+    social-security-housing-investment/data/sources/cfp_reports.json with
+    individual URLs, dates, worksheets, checksums and control totals.
+    Adjusted annual Social Security balances, transfers to FEFSS, the FEFSS
+    asset stock and investment returns are different accounting quantities.
+    Monthly balances are cumulative year-to-date values, not monthly flows.
+    No XLSX or derived CSV bytes are mirrored by the central registry.
+consumers:
+  - social-security-housing-investment
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-31
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    CFP publicly provides the underlying XLSX annexes, but no source-specific
+    licence authorizing central republication of these workbooks or the
+    normalized extraction has been established.
+  evidence:
+    - "https://www.cfp.pt/pt/publicacoes/sectores-das-administracoes-publicas/evolucao-orcamental-da-seguranca-social-e-da-cga-em-2025"
+    - "https://www.cfp.pt/uploads/publicacoes_ficheiros/cfp-rel-04-2026-ds.xlsx"
+  next_action: >-
+    Keep this as an external reference unless explicit applicable reuse terms
+    are established for the source annexes and their derived tables.
+  terminal: true

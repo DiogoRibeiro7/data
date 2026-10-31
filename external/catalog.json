@@ -34,6 +34,42 @@
       "path": "external/berkeley-earth-temperature"
     },
     {
+      "id": "cfp-social-security-execution-2023-2025",
+      "title": "CFP Social Security execution and FEFSS transfer annexes (2023–2025)",
+      "publisher": "Conselho das Finanças Públicas (CFP)",
+      "source_url": "https://www.cfp.pt/pt/publicacoes/sectores-das-administracoes-publicas/evolucao-orcamental-da-seguranca-social-e-da-cga-em-2025",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "social-security-housing-investment"
+      ],
+      "path": "external/cfp-social-security-execution-2023-2025",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
+      "id": "cge-social-security-accounts-2013-2025",
+      "title": "Conta Geral do Estado annual Social Security execution tables, 2013–2025 editions",
+      "publisher": "Ministério das Finanças — Conta Geral do Estado (CGE)",
+      "source_url": "https://www.eo.gov.pt/politicaorcamental/Paginas/Conta-Geral-do-Estado.aspx",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "social-security-housing-investment"
+      ],
+      "path": "external/cge-social-security-accounts-2013-2025",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
       "id": "dgs-infoclique-mortality",
       "title": "DGS InfoClique mortality platform",
       "publisher": "Direção-Geral da Saúde (DGS)",
@@ -77,7 +113,8 @@
       "redistribution": "allowed",
       "storage": "authoritative-upstream",
       "consumers": [
-        "portugal-housing-generations"
+        "portugal-housing-generations",
+        "social-security-housing-investment"
       ],
       "path": "external/eurostat-portugal-housing-indicators"
     },
@@ -111,6 +148,96 @@
       }
     },
     {
+      "id": "igfcss-fefss-annual-2024",
+      "title": "IGFCSS FEFSS annual accounts, asset values and transfers (2024 report)",
+      "publisher": "Instituto de Gestão de Fundos de Capitalização da Segurança Social, I.P. (IGFCSS)",
+      "source_url": "https://www.seg-social.pt/storage1/files/RC-FEFSS-2024---RAs-VDHtTs2KSjWxovXmLCEDiA.pdf",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "social-security-housing-investment"
+      ],
+      "path": "external/igfcss-fefss-annual-2024",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
+      "id": "igfss-social-security-accounts-2023",
+      "title": "IGFSS Conta da Segurança Social 2023, historical revenue and expenditure",
+      "publisher": "Instituto de Gestão Financeira da Segurança Social, I.P. (IGFSS)",
+      "source_url": "https://sisscontent.seg-social.pt/documents/10152/47469819/Conta+da+Seguran%C3%A7a+Social+de+2023+-+Parte+I/e9c9e8ad-8060-4361-a575-828fe78f1a74",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "social-security-housing-investment"
+      ],
+      "path": "external/igfss-social-security-accounts-2023",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
+      "id": "ihru-housing-accounts-2024",
+      "title": "IHRU 2024 annual accounts and public housing rental operations",
+      "publisher": "Instituto da Habitação e da Reabilitação Urbana, I.P. (IHRU)",
+      "source_url": "https://www.ihru.pt/relatorio-de-contas",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "social-security-housing-investment"
+      ],
+      "path": "external/ihru-housing-accounts-2024",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
+      "id": "ihru-housing-needs-2018",
+      "title": "IHRU national survey of rehousing needs (2018)",
+      "publisher": "Instituto da Habitação e da Reabilitação Urbana, I.P. (IHRU)",
+      "source_url": "https://www.portaldahabitacao.pt/estudos-e-relat%C3%B3rios",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "social-security-housing-investment"
+      ],
+      "path": "external/ihru-housing-needs-2018",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
+      "id": "ihru-primeiro-direito-costs-2020",
+      "title": "IHRU 1.º Direito programme execution and housing cost benchmarks (2020)",
+      "publisher": "Instituto da Habitação e da Reabilitação Urbana, I.P. (IHRU)",
+      "source_url": "https://portaldahabitacao.pt/documents/20126/58203/Relat%C3%B3rio%20Execu%C3%A7%C3%A3o%201.%C2%BA%20Direito/5820bc32-4ac4-63c3-f142-22b2630aab09",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "social-security-housing-investment"
+      ],
+      "path": "external/ihru-primeiro-direito-costs-2020",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
       "id": "ine-portugal-housing-statistics",
       "title": "INE Portugal housing, construction, and household statistics",
       "publisher": "Instituto Nacional de Estatística, I.P. (Statistics Portugal)",
@@ -122,7 +249,8 @@
       "redistribution": "allowed",
       "storage": "authoritative-upstream",
       "consumers": [
-        "portugal-housing-generations"
+        "portugal-housing-generations",
+        "social-security-housing-investment"
       ],
       "path": "external/ine-portugal-housing-statistics"
     },

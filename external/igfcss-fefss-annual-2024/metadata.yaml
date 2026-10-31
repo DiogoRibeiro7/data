@@ -1,0 +1,36 @@
+schema_version: 1
+status: external-reference
+id: igfcss-fefss-annual-2024
+title: "IGFCSS FEFSS annual accounts, asset values and transfers (2024 report)"
+publisher: "Instituto de Gestão de Fundos de Capitalização da Segurança Social, I.P. (IGFCSS)"
+source_url: "https://www.seg-social.pt/storage1/files/RC-FEFSS-2024---RAs-VDHtTs2KSjWxovXmLCEDiA.pdf"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The 2024 FEFSS annual accounts contain assets, cumulative transfers,
+    fund investment results and risk metrics, with 2019–2024 key figures
+    and a historical transfer series. The downstream PDF SHA-256 and
+    verbatim table transcriptions are recorded in
+    igfcss_fefss_reports.json. Fund asset stocks and investment returns are
+    not Social Security budget surpluses or legally available housing funds.
+    No report or extracted dataset is mirrored here.
+consumers:
+  - social-security-housing-investment
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-31
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    The official IGFCSS FEFSS annual report is available as a public PDF;
+    permission to redistribute the report or its transcribed financial
+    tables as canonical registry data has not been established.
+  evidence:
+    - "https://www.seg-social.pt/storage1/files/RC-FEFSS-2024---RAs-VDHtTs2KSjWxovXmLCEDiA.pdf"
+  next_action: >-
+    Keep the exact upstream snapshot identity externally referenced until
+    publisher-specific reuse terms and a canonical consumer need are proven.
+  terminal: true

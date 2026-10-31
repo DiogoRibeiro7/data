@@ -1,0 +1,37 @@
+schema_version: 1
+status: external-reference
+id: cge-social-security-accounts-2013-2025
+title: "Conta Geral do Estado annual Social Security execution tables, 2013–2025 editions"
+publisher: "Ministério das Finanças — Conta Geral do Estado (CGE)"
+source_url: "https://www.eo.gov.pt/politicaorcamental/Paginas/Conta-Geral-do-Estado.aspx"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    Thirteen official CGE editions (2013–2025) contain Social Security
+    execution tables covering 2012–2025. The individual workbook URLs,
+    historical table locations, edition vintages, units, file sizes and
+    SHA-256 values are pinned in the downstream
+    cge_social_security_accounts.json. A prior-year comparison row is a
+    different vintage, not a substitute for the reference year's own-year
+    execution. Neither originals nor normalized extracts are mirrored here.
+consumers:
+  - social-security-housing-investment
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-31
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    Ministry of Finance CGE tables are publicly downloadable, but no
+    source-specific terms authorizing republication of the thirteen Excel
+    workbooks as canonical dataset bytes have been established.
+  evidence:
+    - "https://www.eo.gov.pt/politicaorcamental/Paginas/Conta-Geral-do-Estado.aspx"
+    - "https://www.eo.gov.pt/politicaorcamental/ContaGeraldoEstado/CGE2025_QuadrosGraficos.xlsx"
+  next_action: >-
+    Retain authoritative upstream links and downstream checksum evidence;
+    reconsider promotion only after explicit reuse and pinned snapshot checks.
+  terminal: true

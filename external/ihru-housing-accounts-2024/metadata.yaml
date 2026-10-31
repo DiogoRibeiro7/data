@@ -1,0 +1,36 @@
+schema_version: 1
+status: external-reference
+id: ihru-housing-accounts-2024
+title: "IHRU 2024 annual accounts and public housing rental operations"
+publisher: "Instituto da Habitação e da Reabilitação Urbana, I.P. (IHRU)"
+source_url: "https://www.ihru.pt/relatorio-de-contas"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The IHRU 2024 Report and Accounts provides historical public-housing
+    rental billing, revenue, maintenance, condominium and impairment figures.
+    Its accounting line items have different scopes and cannot be divided to
+    infer a rent collection rate. The research project uses the figures for
+    context, not as direct model calibration inputs. The PDF checksum is
+    recorded in rent_affordability_sources.json and is not mirrored here.
+consumers:
+  - social-security-housing-investment
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-31
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    IHRU publicly publishes its 2024 Report and Accounts, but a specific
+    permission for mirroring the PDF or extracting a canonical financial
+    dataset has not been identified.
+  evidence:
+    - "https://www.ihru.pt/relatorio-de-contas"
+    - "https://www.ihru.pt/documents/20126/35677/RC+2024_v21_PT_signed_merge.pdf/8686c8a3-57ea-643a-08f9-f9871e3183d9?t=1761294470526"
+  next_action: >-
+    Preserve the upstream pointer and project-local checksum; revisit
+    canonical archiving only after explicit rights and accounting-scope checks.
+  terminal: true

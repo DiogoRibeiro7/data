@@ -27,6 +27,14 @@ These are different statistical products, not a single harmonized raw table.
 Any reuse must preserve dataset codes, units, filters, geography, observation
 periods, and provider update dates.
 
+The `social-security-housing-investment` consumer independently snapshots
+Eurostat's housing-cost overburden (`ilc_lvho07c`, `ilc_lvho07_r`), median
+income (`ilc_di03`), annual HICP (`prc_hicp_aind`), annual house-price index
+(`prc_hpi_a`) and ten-year government bond yield (`irt_lt_mcby_a`). The
+project records separate API response hashes and reference periods in its
+research source manifests; these are not claimed to be the same retrievals
+or editions as the `portugal-housing-generations` snapshots.
+
 ## Reuse and registry decision
 
 Eurostat's [copyright and reuse notice](https://ec.europa.eu/eurostat/help/copyright-notice)
