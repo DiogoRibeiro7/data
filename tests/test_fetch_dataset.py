@@ -11,6 +11,7 @@ import threading
 import unittest
 from functools import partial
 from pathlib import Path
+from typing import cast
 
 SCRIPTS_DIR = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.insert(0, str(SCRIPTS_DIR))
@@ -35,6 +36,44 @@ class FetchDatasetTests(unittest.TestCase):
     def test_rejects_path_traversal(self) -> None:
         with self.assertRaises(ValueError):
             DatasetReference("DiogoRibeiro7/data", "a" * 40, "../a.csv", "0" * 64)
+
+    def test_rejects_noncanonical_repository_paths(self) -> None:
+        invalid_paths = (
+            "",
+            ".",
+            "./datasets/example.csv",
+            "datasets//example.csv",
+            "datasets/./example.csv",
+            "datasets/example.csv/",
+            "/datasets/example.csv",
+            "datasets\\example.csv",
+        )
+        for path in invalid_paths:
+            with self.subTest(path=path):
+                with self.assertRaisesRegex(ValueError, "normalized relative POSIX"):
+                    DatasetReference(
+                        "DiogoRibeiro7/data",
+                        "a" * 40,
+                        path,
+                        "0" * 64,
+                    )
+
+    def test_rejects_non_string_repository_path(self) -> None:
+        with self.assertRaisesRegex(TypeError, "POSIX repository file path"):
+            DatasetReference(
+                "DiogoRibeiro7/data", "a" * 40, cast(str, None), "0" * 64
+            )
+
+    def test_accepts_canonical_paths_with_spaces(self) -> None:
+        reference = DatasetReference(
+            "DiogoRibeiro7/data",
+            "a" * 40,
+            "datasets/example/raw/source file.csv",
+            "0" * 64,
+        )
+        self.assertTrue(
+            reference.url().endswith("/datasets/example/raw/source%20file.csv")
+        )
 
     def test_existing_verified_file_avoids_network(self) -> None:
         payload = b"a,b\n1,2\n"
