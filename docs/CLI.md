@@ -31,6 +31,19 @@ The local registry CLI provides a lightweight interface over the repository's th
 
 It runs directly from the repository and does not require a service or database.
 
+## Provider-neutral ingestion plans
+
+Emit a versioned canonical source handoff for a downstream pipeline:
+
+```bash
+data-registry handoff ons-gross-median-weekly-pay \
+  --commit <40-character-git-sha> --verify-local --json
+```
+
+Omit `--verify-local` to plan without local source bytes; in that case the
+consumer must verify every downloaded SHA-256 before ingesting it. The command
+never downloads or uploads any files. See [Ingestion handoff](INGESTION_HANDOFF.md).
+
 ## List entries
 
 ```bash

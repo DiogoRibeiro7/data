@@ -21,6 +21,8 @@ is safe to mirror or redistribute.
 - **Consumer contracts** that pin downstream repositories to an exact registry commit, path, and checksum.
 - **Legacy quarantine** for historical material whose provenance or redistribution status is unresolved.
 - **Typed Python API and CLI** through the `diogo-data-registry` package.
+- **Provider-neutral canonical ingestion plans** with immutable source identities,
+  checksum contracts, and stable object keys for downstream Data Engineering.
 - **Deterministic machine-readable catalogs and reports** for canonical, external, consumer, lifecycle, provenance-debt, and quality state.
 - **Static distribution v1** for downstream automation.
 - **Immutable snapshot releases** with manifest, summary, provenance, offline verification, and GitHub artifact attestations.
@@ -194,6 +196,11 @@ debt = registry.provenance_debt(status="terminal")
 
 Registry reads are offline. Network access occurs only for an explicit immutable
 canonical fetch.
+
+Canonical ingestion handoffs are offline too. The `data-registry handoff`
+command accepts an exact `--commit` and can `--verify-local` before emitting
+a versioned JSON transfer plan for an external pipeline. No storage supplier
+is selected or contacted. See [the handoff contract](docs/INGESTION_HANDOFF.md).
 
 See:
 

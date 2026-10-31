@@ -24,6 +24,7 @@ from .core import (
     supersedes_payload,
 )
 from .fetch import DEFAULT_RAW_BASE_URL, DEFAULT_REPOSITORY
+from .handoff import HandoffManifest, build_handoff_manifest
 from .models import (
     CanonicalDataset,
     ConsumerRelationship,
@@ -114,6 +115,29 @@ class RegistryClient:
         if not isinstance(record, CanonicalDataset):
             raise RegistryError(f"{dataset_id!r} is not canonical")
         return record
+
+    def handoff(
+        self,
+        dataset_id: str,
+        *,
+        commit: str,
+        repository: str = DEFAULT_REPOSITORY,
+        verify_local: bool = False,
+    ) -> HandoffManifest:
+        """Plan a deterministic, storage-neutral canonical ingestion.
+
+        The caller must supply the exact registry checkout commit. The plan
+        contains immutable source URLs, expected SHA-256 values, and stable
+        object keys, but performs no transfer or storage-provider setup.
+        """
+
+        return build_handoff_manifest(
+            self.canonical(dataset_id),
+            root=self.root,
+            commit=commit,
+            repository=repository,
+            verify_local=verify_local,
+        )
 
     def external(self, source_id: str) -> ExternalRecord:
         """Return one external source record by exact ID."""

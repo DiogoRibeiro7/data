@@ -134,6 +134,31 @@ Typed model construction raises `RegistryModelError` when committed data does no
 
 Registry reads are offline by design. Network I/O occurs only through an explicit immutable fetch.
 
+## Provider-neutral canonical ingestion handoff
+
+`RegistryClient.handoff()` returns a frozen `HandoffManifest`. It requires an
+exact registry commit and rejects noncanonical or redistribution-restricted
+records:
+
+```python
+plan = registry.handoff(
+    "ons-gross-median-weekly-pay",
+    commit="<40-character-git-sha>",
+    verify_local=True,
+)
+payload = plan.to_mapping()
+```
+
+The manifest contains one `HandoffObject` per declared source file, including
+an immutable source URL, expected SHA-256, a content-addressed relative storage
+key, and source citation/licensing context. `verify_local=True` reads local
+files and refuses checksum mismatches. Without it the plan is metadata-only;
+the consumer **must** verify downloaded bytes before publishing them.
+
+Generation performs no transfers, has no provider SDK dependency, and never
+creates an application database. See [Ingestion handoff](INGESTION_HANDOFF.md)
+for the versioned schema and downstream execution rules.
+
 ## Checksum-verified canonical fetch
 
 `RegistryClient.fetch()` resolves the repository path and expected SHA-256 from
