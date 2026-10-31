@@ -433,6 +433,24 @@
       "path": "external/lnec-controlled-housing-cost-study-2024"
     },
     {
+      "id": "m5-forecasting-accuracy",
+      "title": "M5 Forecasting Accuracy: Walmart daily item-store sales, prices, and calendar",
+      "publisher": "M5 Competition / University of Nicosia (Walmart retail data)",
+      "source_url": "https://www.kaggle.com/competitions/m5-forecasting-accuracy/data",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "perishable-inventory-decision-lab"
+      ],
+      "path": "external/m5-forecasting-accuracy",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
       "id": "maddison-project-database-2023",
       "title": "Maddison Project Database, version 2023: historical country GDP per capita and population",
       "publisher": "Groningen Growth and Development Centre (GGDC), University of Groningen",

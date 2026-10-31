@@ -1,0 +1,45 @@
+schema_version: 1
+status: external-reference
+id: m5-forecasting-accuracy
+title: "M5 Forecasting Accuracy: Walmart daily item-store sales, prices, and calendar"
+publisher: "M5 Competition / University of Nicosia (Walmart retail data)"
+source_url: "https://www.kaggle.com/competitions/m5-forecasting-accuracy/data"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    Kaggle identifies this competition dataset as subject to competition
+    rules, not a general-purpose redistribution licence. The public-retail
+    adapter in perishable-inventory-decision-lab asks users to accept those
+    terms and separately download calendar.csv, sales_train_validation.csv,
+    and sell_prices.csv. The validation training matrix contains item-store
+    daily sales through d_1913; evaluation sales and submission files must
+    not leak into training. Prices and calendar events are observed source
+    information, while expiry, waste, costs, lead times, shrinkage and other
+    perishable inventory fields are synthetic supplements. No source bytes,
+    credentials or Kaggle downloads are copied to the registry.
+consumers:
+  - perishable-inventory-decision-lab
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-31
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    The official Kaggle data page says "Subject to Competition Rules" and
+    requires users to accept those rules before viewing or downloading
+    files. This is not documented permission for the registry to redistribute
+    the original retail observations. Canonical byte preservation therefore
+    remains out of scope.
+  evidence:
+    - "https://www.kaggle.com/competitions/m5-forecasting-accuracy/data"
+    - "https://www.kaggle.com/competitions/m5-forecasting-accuracy/rules"
+    - "https://github.com/DiogoRibeiro7/perishable-inventory-decision-lab/blob/main/docs/PUBLIC_RETAIL_DATASET_CARD.md"
+    - "https://github.com/DiogoRibeiro7/perishable-inventory-decision-lab/blob/main/src/perishable_lab/data/public_retail.py"
+  next_action: >-
+    Keep acquisition user-initiated and local to the benchmark project.
+    Revisit central redistribution only with an explicit rights grant for
+    these competition files and a verified file-version and checksum record.
+  terminal: true

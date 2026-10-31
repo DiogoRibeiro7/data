@@ -226,6 +226,22 @@
       "title": "IMPIC Portal BASE public housing works contracts and signed documents"
     },
     {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "The official Kaggle data page says \"Subject to Competition Rules\" and requires users to accept those rules before viewing or downloading files. This is not documented permission for the registry to redistribute the original retail observations. Canonical byte preservation therefore remains out of scope.",
+      "evidence_count": 4,
+      "id": "m5-forecasting-accuracy",
+      "last_reviewed": "2026-10-31",
+      "layer": "external",
+      "next_action": "Keep acquisition user-initiated and local to the benchmark project. Revisit central redistribution only with an explicit rights grant for these competition files and a verified file-version and checksum record.",
+      "path": "external/m5-forecasting-accuracy/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
+      "title": "M5 Forecasting Accuracy: Walmart daily item-store sales, prices, and calendar"
+    },
+    {
       "age_days": 26,
       "blocker_category": "dataset-vs-repository-licence-scope",
       "blocker_summary": "The pinned repository has a root MIT licence and explicitly includes maize_bipolaris.csv as data, but the licence text covers software and associated documentation and no authoritative statement was recovered that explicitly applies MIT redistribution rights to the dataset bytes.",
@@ -425,13 +441,13 @@
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 1,
       "historical-export-route": 1,
-      "redistribution-rights": 21
+      "redistribution-rights": 22
     },
-    "external_count": 24,
+    "external_count": 25,
     "legacy_count": 2,
-    "structured_count": 26,
-    "terminal_count": 23,
-    "total_debt": 26,
+    "structured_count": 27,
+    "terminal_count": 24,
+    "total_debt": 27,
     "unstructured_count": 0
   }
 }
