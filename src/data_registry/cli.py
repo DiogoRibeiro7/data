@@ -11,6 +11,7 @@ from typing import Any, Sequence
 import yaml
 
 from . import fetch as FETCH
+from .api import RegistryClient
 from .core import (
     LAYER_CHOICES,
     RegistryEntry,
@@ -342,6 +343,21 @@ def build_parser() -> argparse.ArgumentParser:
     fetch_parser.add_argument("--timeout", type=float, default=60.0)
     fetch_parser.add_argument("--force", action="store_true")
     fetch_parser.add_argument("--json", action="store_true", help="Emit JSON output.")
+
+    handoff_parser = subparsers.add_parser(
+        "handoff", help="Emit a provider-neutral canonical ingestion plan."
+    )
+    handoff_parser.add_argument("id", help="Canonical dataset ID.")
+    handoff_parser.add_argument(
+        "--commit", required=True, help="Exact checkout commit."
+    )
+    handoff_parser.add_argument("--repository", default=FETCH.DEFAULT_REPOSITORY)
+    handoff_parser.add_argument(
+        "--verify-local",
+        action="store_true",
+        help="Verify all local source bytes before emitting the manifest.",
+    )
+    _add_common_read_options(handoff_parser)
 
     consumers_parser = subparsers.add_parser(
         "consumers",
@@ -687,6 +703,24 @@ def main(argv: Sequence[str] | None = None) -> int:
                 print(f"Verified dataset file: {output}")
                 print(f"Commit: {args.commit}")
                 print(f"SHA-256: {checksum}")
+            return 0
+
+        if args.command == "handoff":
+            manifest = RegistryClient(root).handoff(
+                args.id,
+                commit=args.commit,
+                repository=args.repository,
+                verify_local=args.verify_local,
+            )
+            if args.json:
+                _print_json(manifest.to_mapping())
+            else:
+                print(f"Dataset: {manifest.dataset_id}")
+                print(f"Registry: {manifest.repository} @ {manifest.commit}")
+                print(f"Local bytes verified: {manifest.local_bytes_verified}")
+                for item in manifest.objects:
+                    print(f"{item.reference.sha256}  {item.reference.path}")
+                print("Add --json to emit the transfer plan for a downstream pipeline.")
             return 0
 
         raise RegistryError(f"unknown command: {args.command}")

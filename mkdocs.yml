@@ -47,6 +47,7 @@ nav:
       - CLI: CLI.md
       - Python API: PYTHON_API.md
       - Static distribution: STATIC_DISTRIBUTION.md
+      - Ingestion handoff: INGESTION_HANDOFF.md
       - Archival preservation: PRESERVATION.md
       - Archive and DOI metadata: ARCHIVING.md
       - Snapshot diffs: SNAPSHOT_DIFFS.md

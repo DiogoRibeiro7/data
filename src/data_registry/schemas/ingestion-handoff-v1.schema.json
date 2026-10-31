@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://diogoribeiro7.github.io/data/schemas/ingestion-handoff-v1.schema.json",
+  "title": "Provider-neutral canonical ingestion handoff v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["manifest_version", "dataset_id", "title", "lifecycle_status", "registry", "source", "license", "citation", "local_bytes_verified", "objects"],
+  "properties": {
+    "manifest_version": {"const": 1},
+    "dataset_id": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"},
+    "title": {"type": "string", "minLength": 1},
+    "lifecycle_status": {"enum": ["active", "deprecated", "superseded"]},
+    "registry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "commit"],
+      "properties": {
+        "repository": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"},
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["publisher", "url", "snapshot", "retrieved_at"],
+      "properties": {
+        "publisher": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "format": "uri"},
+        "snapshot": {"type": "string", "minLength": 1},
+        "retrieved_at": {"type": "string", "minLength": 1}
+      }
+    },
+    "license": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "url", "redistribution"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "format": "uri"},
+        "redistribution": {"const": "allowed"}
+      }
+    },
+    "citation": {"type": "string", "minLength": 1},
+    "local_bytes_verified": {"type": "boolean"},
+    "objects": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_path", "source_uri", "sha256", "role", "format", "storage_key", "size_bytes"],
+        "properties": {
+          "source_path": {"type": "string", "pattern": "^datasets/[a-z0-9-]+/(raw|derived)/"},
+          "source_uri": {"type": "string", "format": "uri"},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "role": {"enum": ["raw", "derived"]},
+          "format": {"type": "string", "minLength": 1},
+          "storage_key": {"type": "string", "pattern": "^canonical/[a-z0-9-]+/[0-9a-f]{64}/(raw|derived)/"},
+          "size_bytes": {"type": ["integer", "null"], "minimum": 0}
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"local_bytes_verified": {"const": true}}},
+      "then": {"properties": {"objects": {"items": {"properties": {"size_bytes": {"type": "integer"}}}}}}
+    }
+  ]
+}
