@@ -83,6 +83,18 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "cfp-social-security-execution-2023-2025",
+      "metadata_path": "external/cfp-social-security-execution-2023-2025/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "cge-social-security-accounts-2013-2025",
+      "metadata_path": "external/cge-social-security-accounts-2013-2025/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "dgs-infoclique-mortality",
       "metadata_path": "external/dgs-infoclique-mortality/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -109,6 +121,36 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "ibm-telco-customer-churn",
       "metadata_path": "external/ibm-telco-customer-churn/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "igfcss-fefss-annual-2024",
+      "metadata_path": "external/igfcss-fefss-annual-2024/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "igfss-social-security-accounts-2023",
+      "metadata_path": "external/igfss-social-security-accounts-2023/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "ihru-housing-accounts-2024",
+      "metadata_path": "external/ihru-housing-accounts-2024/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "ihru-housing-needs-2018",
+      "metadata_path": "external/ihru-housing-needs-2018/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "ihru-primeiro-direito-costs-2020",
+      "metadata_path": "external/ihru-primeiro-direito-costs-2020/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -240,8 +282,8 @@
     "canonical_byte_archive_eligible_count": 4,
     "canonical_dataset_count": 4,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 24,
-    "external_source_count": 24,
+    "external_metadata_only_count": 31,
+    "external_source_count": 31,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }

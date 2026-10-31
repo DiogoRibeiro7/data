@@ -1,0 +1,35 @@
+schema_version: 1
+status: external-reference
+id: igfss-social-security-accounts-2023
+title: "IGFSS Conta da Segurança Social 2023, historical revenue and expenditure"
+publisher: "Instituto de Gestão Financeira da Segurança Social, I.P. (IGFSS)"
+source_url: "https://sisscontent.seg-social.pt/documents/10152/47469819/Conta+da+Seguran%C3%A7a+Social+de+2023+-+Parte+I/e9c9e8ad-8060-4361-a575-828fe78f1a74"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The 2023 Part I annual accounts report includes 2019–2023 revenue and
+    expenditure histories. Published tables use thousands of euros, not
+    millions of euros. The PDF is pinned by hash in the downstream
+    igfss_css_reports.json manifest; any research extraction is separately
+    derived and is not mirrored here.
+consumers:
+  - social-security-housing-investment
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-31
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    The official Social Security accounts PDF is publicly obtainable, but
+    explicit reuse terms for mirroring the report or transcribed tables as
+    dataset files were not established.
+  evidence:
+    - "https://www.seg-social.pt/ptss/pssd/menu/quem-somos/sobre-nos/orcamento-conta"
+    - "https://sisscontent.seg-social.pt/documents/10152/47469819/Conta+da+Seguran%C3%A7a+Social+de+2023+-+Parte+I/e9c9e8ad-8060-4361-a575-828fe78f1a74"
+  next_action: >-
+    Keep a linked, hashed upstream reference pending applicable official reuse
+    terms and an explicit canonical consumer contract.
+  terminal: true

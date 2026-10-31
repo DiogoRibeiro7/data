@@ -37,6 +37,14 @@ Some series have provisional vintages, territorial classification changes, or
 non-identical statistical definitions. Consumers must retain each indicator's
 metadata rather than treating overlapping date ranges as interchangeable.
 
+The independent `social-security-housing-investment` project also pins INE
+snapshots, separately from the 37 files above. Its source manifests identify
+construction cost **index** `0011748` (base 2021 = 100; not an absolute
+construction cost in €/m²), new-lease rent indicators `0014698`, `0014711`
+and `0014697`, census indicators and housing sales-price indicator `0012255`.
+Those responses have their own reference periods, territorial versions and
+SHA-256 checksums; adding this consumer does not claim identical snapshots.
+
 ## Registry decision
 
 **Metadata-only external record.** No INE API bytes are copied into the central

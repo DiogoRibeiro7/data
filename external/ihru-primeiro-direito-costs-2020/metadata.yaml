@@ -1,0 +1,34 @@
+schema_version: 1
+status: external-reference
+id: ihru-primeiro-direito-costs-2020
+title: "IHRU 1.º Direito programme execution and housing cost benchmarks (2020)"
+publisher: "Instituto da Habitação e da Reabilitação Urbana, I.P. (IHRU)"
+source_url: "https://portaldahabitacao.pt/documents/20126/58203/Relat%C3%B3rio%20Execu%C3%A7%C3%A3o%201.%C2%BA%20Direito/5820bc32-4ac4-63c3-f142-22b2630aab09"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The October 2020 1.º Direito programme report provides historical
+    financing-contract and planned-investment benchmarks by intervention
+    modality. Planned financing per dwelling is not verified actual build
+    cost; the historical average is not a current market quote. The source
+    PDF hash is recorded in housing_cost_sources.json. No bytes are mirrored.
+consumers:
+  - social-security-housing-investment
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-31
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    The official programme execution report is public, but no report-specific
+    permission to republish the PDF or transcribed benchmark tables as a
+    canonical registry dataset has been verified.
+  evidence:
+    - "https://portaldahabitacao.pt/documents/20126/58203/Relat%C3%B3rio%20Execu%C3%A7%C3%A3o%201.%C2%BA%20Direito/5820bc32-4ac4-63c3-f142-22b2630aab09"
+  next_action: >-
+    Retain the provenance record only unless explicit reuse terms and
+    verified current cost comparability justify canonical promotion.
+  terminal: true

@@ -1,8 +1,8 @@
 {
-  "age_reference_date": "2026-10-30",
+  "age_reference_date": "2026-10-31",
   "items": [
     {
-      "age_days": 0,
+      "age_days": 1,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "AMT publishes the dashboards and statutory reports publicly, but the source pages examined do not state dataset-specific terms authorizing republication of the manually transcribed tables as a dataset.",
       "evidence_count": 3,
@@ -18,7 +18,39 @@
       "title": "AMT Metro do Porto demand, service and section flows (2019–2024)"
     },
     {
-      "age_days": 25,
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "CFP publicly provides the underlying XLSX annexes, but no source-specific licence authorizing central republication of these workbooks or the normalized extraction has been established.",
+      "evidence_count": 2,
+      "id": "cfp-social-security-execution-2023-2025",
+      "last_reviewed": "2026-10-31",
+      "layer": "external",
+      "next_action": "Keep this as an external reference unless explicit applicable reuse terms are established for the source annexes and their derived tables.",
+      "path": "external/cfp-social-security-execution-2023-2025/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
+      "title": "CFP Social Security execution and FEFSS transfer annexes (2023–2025)"
+    },
+    {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "Ministry of Finance CGE tables are publicly downloadable, but no source-specific terms authorizing republication of the thirteen Excel workbooks as canonical dataset bytes have been established.",
+      "evidence_count": 2,
+      "id": "cge-social-security-accounts-2013-2025",
+      "last_reviewed": "2026-10-31",
+      "layer": "external",
+      "next_action": "Retain authoritative upstream links and downstream checksum evidence; reconsider promotion only after explicit reuse and pinned snapshot checks.",
+      "path": "external/cge-social-security-accounts-2013-2025/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
+      "title": "Conta Geral do Estado annual Social Security execution tables, 2013–2025 editions"
+    },
+    {
+      "age_days": 26,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "DGS publicly disseminates SICO mortality information, but its current legal notice protects site contents and no dataset-specific redistribution grant covering the historical InfoClique/SICO CSV exports was recovered.",
       "evidence_count": 2,
@@ -34,7 +66,7 @@
       "title": "DGS InfoClique mortality platform"
     },
     {
-      "age_days": 25,
+      "age_days": 26,
       "blocker_category": "dataset-vs-repository-licence-scope",
       "blocker_summary": "The pinned IBM repository is Apache-2.0 licensed as a code pattern, but the README explicitly separates third-party objects and no dataset-specific redistribution licence for Telco-Customer-Churn.csv was established.",
       "evidence_count": 3,
@@ -50,7 +82,87 @@
       "title": "IBM Telco Customer Churn sample"
     },
     {
-      "age_days": 25,
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "The official IGFCSS FEFSS annual report is available as a public PDF; permission to redistribute the report or its transcribed financial tables as canonical registry data has not been established.",
+      "evidence_count": 1,
+      "id": "igfcss-fefss-annual-2024",
+      "last_reviewed": "2026-10-31",
+      "layer": "external",
+      "next_action": "Keep the exact upstream snapshot identity externally referenced until publisher-specific reuse terms and a canonical consumer need are proven.",
+      "path": "external/igfcss-fefss-annual-2024/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
+      "title": "IGFCSS FEFSS annual accounts, asset values and transfers (2024 report)"
+    },
+    {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "The official Social Security accounts PDF is publicly obtainable, but explicit reuse terms for mirroring the report or transcribed tables as dataset files were not established.",
+      "evidence_count": 2,
+      "id": "igfss-social-security-accounts-2023",
+      "last_reviewed": "2026-10-31",
+      "layer": "external",
+      "next_action": "Keep a linked, hashed upstream reference pending applicable official reuse terms and an explicit canonical consumer contract.",
+      "path": "external/igfss-social-security-accounts-2023/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
+      "title": "IGFSS Conta da Segurança Social 2023, historical revenue and expenditure"
+    },
+    {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "IHRU publicly publishes its 2024 Report and Accounts, but a specific permission for mirroring the PDF or extracting a canonical financial dataset has not been identified.",
+      "evidence_count": 2,
+      "id": "ihru-housing-accounts-2024",
+      "last_reviewed": "2026-10-31",
+      "layer": "external",
+      "next_action": "Preserve the upstream pointer and project-local checksum; revisit canonical archiving only after explicit rights and accounting-scope checks.",
+      "path": "external/ihru-housing-accounts-2024/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
+      "title": "IHRU 2024 annual accounts and public housing rental operations"
+    },
+    {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "IHRU publicly listed the rehousing-needs report, but the originally pinned PDF now relies on an archival capture and no applicable grant for mirroring the report or municipality-level transcription is verified.",
+      "evidence_count": 2,
+      "id": "ihru-housing-needs-2018",
+      "last_reviewed": "2026-10-31",
+      "layer": "external",
+      "next_action": "Keep this historical baseline as a linked external source and reassess only if IHRU publishes applicable redistribution terms for the annex.",
+      "path": "external/ihru-housing-needs-2018/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
+      "title": "IHRU national survey of rehousing needs (2018)"
+    },
+    {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "The official programme execution report is public, but no report-specific permission to republish the PDF or transcribed benchmark tables as a canonical registry dataset has been verified.",
+      "evidence_count": 1,
+      "id": "ihru-primeiro-direito-costs-2020",
+      "last_reviewed": "2026-10-31",
+      "layer": "external",
+      "next_action": "Retain the provenance record only unless explicit reuse terms and verified current cost comparability justify canonical promotion.",
+      "path": "external/ihru-primeiro-direito-costs-2020/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
+      "title": "IHRU 1.º Direito programme execution and housing cost benchmarks (2020)"
+    },
+    {
+      "age_days": 26,
       "blocker_category": "dataset-vs-repository-licence-scope",
       "blocker_summary": "The pinned repository has a root MIT licence and explicitly includes maize_bipolaris.csv as data, but the licence text covers software and associated documentation and no authoritative statement was recovered that explicitly applies MIT redistribution rights to the dataset bytes.",
       "evidence_count": 3,
@@ -66,7 +178,7 @@
       "title": "Maize Bipolaris disease-progress data"
     },
     {
-      "age_days": 16,
+      "age_days": 17,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "The Hugging Face card declares CC BY-SA 3.0, but the corpus contains scraped third-party Medium article bodies and no authoritative evidence establishes Crawlfeeds' right to relicense all embedded article text. Under the registry's conservative policy, redistribution remains unresolved and the record is terminal external-only.",
       "evidence_count": 5,
@@ -82,7 +194,7 @@
       "title": "Crawlfeeds Medium Articles Corpus"
     },
     {
-      "age_days": 19,
+      "age_days": 20,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "The Hugging Face dataset declares MIT and exposes revision 979af3bcd84565e3f47b9eca752d8ec112824953, but full-text files reproduce third-party Medium article bodies and no evidence establishes the publisher's authority to relicense that content. Redistribution remains unresolved and the record is terminal external-only.",
       "evidence_count": 4,
@@ -98,7 +210,7 @@
       "title": "Fabio Chiu Medium articles corpus (candidate)"
     },
     {
-      "age_days": 19,
+      "age_days": 20,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "The pinned research repository documents collection of roughly 1.4 million Medium stories and says the dataset was published for public use on Kaggle, but the actual dataset is off-repository, the GitHub repository has no LICENSE, and no authoritative dataset-specific redistribution licence for the exact Kaggle object was recovered. The record is terminal external-only.",
       "evidence_count": 4,
@@ -114,7 +226,7 @@
       "title": "Historical Medium article study (Jansma)"
     },
     {
-      "age_days": 25,
+      "age_days": 26,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "INE permits rediffusion of official statistical information with source attribution, but the historical workbook was a PORDATA-generated Excel export and no authoritative term was recovered that clearly permits mirroring that secondary-source artifact.",
       "evidence_count": 3,
@@ -130,7 +242,7 @@
       "title": "Portugal resident population estimates by age group"
     },
     {
-      "age_days": 0,
+      "age_days": 1,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "A historical Porto open-data catalog tagged this dataset CC0, but the current migrated listing did not expose a clearly linked licence for the exact 7 September 2026 ZIP; carryover of the old licence is unverified.",
       "evidence_count": 2,
@@ -146,7 +258,7 @@
       "title": "Metro do Porto GTFS schedule archive (7 September 2026)"
     },
     {
-      "age_days": 0,
+      "age_days": 1,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "The infographic attributes the original counts to Metro do Porto and is published by PÚBLICO, but no source-specific licence for republishing its chart or a dataset derived from its transcription has been identified.",
       "evidence_count": 1,
@@ -162,7 +274,7 @@
       "title": "Line B station mean monthly card validations in 2015"
     },
     {
-      "age_days": 0,
+      "age_days": 1,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "The operator's public sustainability report contains the rounded figures, but no explicit permission for redistributing the transcribed series as canonical dataset bytes has been established for this report.",
       "evidence_count": 1,
@@ -178,7 +290,7 @@
       "title": "Metro do Porto whole-network validations (2022–2024)"
     },
     {
-      "age_days": 25,
+      "age_days": 26,
       "blocker_category": "exact-snapshot-identity",
       "blocker_summary": "The retained age/sex files are strongly attributable to UN World Population Prospects 2019, whose publications are CC BY 3.0 IGO, but the exact download/export route and the lineage of the Portugal CSV/XLSX variants cannot be reconstructed sufficiently to claim file-level provenance for these historical artifacts.",
       "evidence_count": 2,
@@ -194,7 +306,7 @@
       "title": "Country age/sex population snapshots (2019)"
     },
     {
-      "age_days": 25,
+      "age_days": 26,
       "blocker_category": "historical-export-route",
       "blocker_summary": "The retained workbook is attributable to the GEP/MTSSS Indicadores COVID-19 monitoring series and dated 27 May 2020, but the exact historical workbook URL, immutable upstream identity and dataset-specific redistribution terms were not recovered.",
       "evidence_count": 2,
@@ -217,13 +329,13 @@
       "dataset-vs-repository-licence-scope": 2,
       "exact-snapshot-identity": 1,
       "historical-export-route": 1,
-      "redistribution-rights": 9
+      "redistribution-rights": 16
     },
-    "external_count": 11,
+    "external_count": 18,
     "legacy_count": 2,
-    "structured_count": 13,
-    "terminal_count": 11,
-    "total_debt": 13,
+    "structured_count": 20,
+    "terminal_count": 18,
+    "total_debt": 20,
     "unstructured_count": 0
   }
 }

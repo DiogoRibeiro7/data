@@ -17,7 +17,10 @@ usage:
     Applies to directly retrieved INE statistical API responses, with source
     attribution and disclosure of modifications. It does not license PORDATA's
     separately produced Excel exports. The portugal-housing-generations v1.0.0
-    research release records 37 dated INE API response containers and their
-    per-file SHA-256 hashes; none is mirrored by this registry.
+    release records 37 dated INE API response containers. The
+    social-security-housing-investment research project separately pins INE
+    construction cost, rent, census, income and housing-price indicators with
+    dated snapshots and SHA-256 checksums. None is mirrored by this registry.
 consumers:
   - portugal-housing-generations
+  - social-security-housing-investment
