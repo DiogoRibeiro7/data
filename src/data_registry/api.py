@@ -123,12 +123,15 @@ class RegistryClient:
         commit: str,
         repository: str = DEFAULT_REPOSITORY,
         verify_local: bool = False,
+        verify_checkout: bool = False,
     ) -> HandoffManifest:
         """Plan a deterministic, storage-neutral canonical ingestion.
 
         The caller must supply the exact registry checkout commit. The plan
         contains immutable source URLs, expected SHA-256 values, and stable
         object keys, but performs no transfer or storage-provider setup.
+        Set ``verify_checkout`` with ``verify_local`` to match the declared
+        commit and canonical bytes against the local Git HEAD tree.
         """
 
         return build_handoff_manifest(
@@ -137,6 +140,7 @@ class RegistryClient:
             commit=commit,
             repository=repository,
             verify_local=verify_local,
+            verify_checkout=verify_checkout,
         )
 
     def external(self, source_id: str) -> ExternalRecord:

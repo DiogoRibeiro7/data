@@ -16,12 +16,24 @@ Check out an exact registry commit and create the handoff plan:
 ```bash
 git checkout <exact-40-character-registry-commit>
 data-registry --root . handoff ons-gross-median-weekly-pay \
-  --commit <exact-40-character-registry-commit> --verify-local --json
+  --commit <exact-40-character-registry-commit> \
+  --verify-local --verify-checkout --json
 ```
 
 For an offline *metadata-only* plan, omit `--verify-local`. This permits
 planning from a sparse checkout, but it does **not** assert that source bytes
 were verified. No implicit network requests occur in either mode.
+
+`--verify-local` alone proves local file SHA-256 checksums match the YAML
+declarations; it does **not** prove the declared Git commit is the checkout
+containing those files. Add `--verify-checkout` to require the repository root,
+match `HEAD` to the supplied commit, and confirm that canonical metadata and
+every source file have the exact bytes committed in that Git tree. This option
+requires `--verify-local` and a Git checkout with the necessary local objects.
+It never fetches missing Git objects, invokes a provider, or contacts a service.
+This check proves correspondence with the **local** Git tree; it does not
+establish that the publisher's Git commit or repository is authentic. Verify
+origin separately through a trusted remote or attestation.
 
 The typed Python API exposes the same operation:
 
@@ -34,6 +46,7 @@ plan = registry.handoff(
     "ons-gross-median-weekly-pay",
     commit="<exact-40-character-registry-commit>",
     verify_local=True,
+    verify_checkout=True,
 )
 payload = plan.to_mapping()
 ```
@@ -48,6 +61,9 @@ The manifest includes:
 - a stable relative destination key of the form
   `canonical/<dataset-id>/<sha256>/<raw-or-derived>/<filename>`;
 - an explicit flag showing whether local source bytes were SHA-256 verified.
+- an optional `checkout_identity_verified` flag, true only when the commit,
+  metadata, and source Git blobs were checked. The field is additive to v1;
+  older v1 manifests without it remain valid.
 
 The contract is described by
 [`schemas/ingestion-handoff-v1.schema.json`](https://github.com/DiogoRibeiro7/data/blob/main/schemas/ingestion-handoff-v1.schema.json).
@@ -57,8 +73,9 @@ The schema is also bundled with the Python package.
 
 An ingestion worker can use the plan to implement a storage-neutral workflow:
 
-1. Verify that the checkout metadata matches the exact pinned Git commit. Do
-   not substitute a floating `main` reference.
+1. Verify that the checkout metadata matches the exact pinned Git commit,
+   ideally by requiring `--verify-checkout`. Do not substitute a floating
+   `main` reference.
 2. Retrieve only the declared immutable source paths. Do not fetch external
    catalog records or legacy quarantine packages as though they were canonical.
 3. Stream to temporary local storage and verify **SHA-256 before promotion**.

@@ -358,6 +358,11 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Verify all local source bytes before emitting the manifest.",
     )
+    handoff_parser.add_argument(
+        "--verify-checkout",
+        action="store_true",
+        help="Require --verify-local and match HEAD and source blobs to --commit.",
+    )
     _add_common_read_options(handoff_parser)
 
     consumers_parser = subparsers.add_parser(
@@ -752,6 +757,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 commit=args.commit,
                 repository=args.repository,
                 verify_local=args.verify_local,
+                verify_checkout=args.verify_checkout,
             )
             if args.json:
                 _print_json(manifest.to_mapping())
@@ -759,6 +765,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 print(f"Dataset: {manifest.dataset_id}")
                 print(f"Registry: {manifest.repository} @ {manifest.commit}")
                 print(f"Local bytes verified: {manifest.local_bytes_verified}")
+                print(f"Checkout identity verified: {manifest.checkout_identity_verified}")
                 for item in manifest.objects:
                     print(f"{item.reference.sha256}  {item.reference.path}")
                 print("Add --json to emit the transfer plan for a downstream pipeline.")

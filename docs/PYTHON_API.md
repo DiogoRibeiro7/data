@@ -145,6 +145,7 @@ plan = registry.handoff(
     "ons-gross-median-weekly-pay",
     commit="<40-character-git-sha>",
     verify_local=True,
+    verify_checkout=True,
 )
 payload = plan.to_mapping()
 ```
@@ -152,8 +153,12 @@ payload = plan.to_mapping()
 The manifest contains one `HandoffObject` per declared source file, including
 an immutable source URL, expected SHA-256, a content-addressed relative storage
 key, and source citation/licensing context. `verify_local=True` reads local
-files and refuses checksum mismatches. Without it the plan is metadata-only;
-the consumer **must** verify downloaded bytes before publishing them.
+files and refuses checksum mismatches. `verify_checkout=True` additionally
+requires the exact Git HEAD and byte-identical committed metadata/source blobs,
+without fetching missing Git objects. The manifest records this separately in
+the optional v1 `checkout_identity_verified` field. Without either check, the
+plan is metadata-only; the consumer **must** verify downloaded bytes before
+publishing them.
 
 Generation performs no transfers, has no provider SDK dependency, and never
 creates an application database. See [Ingestion handoff](INGESTION_HANDOFF.md)
