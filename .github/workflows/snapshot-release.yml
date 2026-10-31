@@ -109,10 +109,23 @@ jobs:
             --commit "${{ inputs.commit_sha }}" \
             --profile "${{ inputs.archive_profile }}"
 
+      - name: Verify generated archive material offline
+        run: |
+          data-registry verify-archive \
+            --bundle archive-material \
+            --tag "${{ inputs.snapshot_tag }}" \
+            --commit "${{ inputs.commit_sha }}" \
+            --profile "${{ inputs.archive_profile }}"
+
       - name: Generate GitHub artifact attestations
         uses: actions/attest@v4
         with:
           subject-path: "release-material/*"
+
+      - name: Attest archive bundle manifest
+        uses: actions/attest@v4
+        with:
+          subject-path: "archive-material/archive-bundle-manifest.json"
 
       - name: Upload immutable release material
         uses: actions/upload-artifact@v7

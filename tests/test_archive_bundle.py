@@ -3,15 +3,22 @@
 from __future__ import annotations
 
 import hashlib
+import io
 import json
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
 
 import yaml
 
-from data_registry import ReleaseVerificationError
+from data_registry import (
+    ArchiveVerificationError,
+    ReleaseVerificationError,
+    verify_archive_bundle,
+)
+from data_registry.cli import main as registry_main
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
@@ -321,6 +328,188 @@ class ArchiveBundleTests(unittest.TestCase):
 
     def tearDown(self) -> None:
         self.tempdir.cleanup()
+
+    def _build_verifiable_archive(self, profile: str = "release-metadata") -> Path:
+        """Create an isolated archive ready for offline verification."""
+
+        output = Path(self.tempdir.name) / f"verifiable-{profile}"
+        ARCHIVE.build_bundle(
+            self.root,
+            self.release_dir,
+            output,
+            tag=TAG,
+            commit=COMMIT,
+            profile=profile,
+        )
+        return output
+
+    @staticmethod
+    def _update_record_for_file(archive: Path, relative: str) -> None:
+        """Keep the outer manifest internally consistent after fixture tampering."""
+
+        file_path = archive / "archive-bundle" / relative
+        manifest_path = archive / "archive-bundle-manifest.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        record = next(item for item in manifest["files"] if item["path"] == relative)
+        record["sha256"] = hashlib.sha256(file_path.read_bytes()).hexdigest()
+        record["size"] = file_path.stat().st_size
+        manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+    def test_offline_verifier_accepts_both_archive_profiles(self) -> None:
+        for profile in ("release-metadata", "eligible-canonical-bytes"):
+            with self.subTest(profile=profile):
+                archive = self._build_verifiable_archive(profile)
+                manifest = json.loads(
+                    (archive / "archive-bundle-manifest.json").read_text(encoding="utf-8")
+                )
+
+                result = verify_archive_bundle(
+                    archive,
+                    expected_tag=TAG,
+                    expected_commit=COMMIT,
+                    expected_profile=profile,
+                )
+
+                self.assertEqual(result.file_count, len(manifest["files"]))
+                self.assertGreater(result.total_bytes, 0)
+                self.assertEqual(result.profile, profile)
+                self.assertEqual(len(result.manifest_sha256), 64)
+
+    def test_offline_verifier_rejects_corrupted_declared_bytes(self) -> None:
+        archive = self._build_verifiable_archive()
+        path = archive / "archive-bundle" / "distribution/v1/canonical.json"
+        path.write_text('{"schema_version": 2}\n', encoding="utf-8")
+
+        with self.assertRaisesRegex(ArchiveVerificationError, "SHA-256 mismatch"):
+            verify_archive_bundle(archive)
+
+    def test_offline_verifier_rejects_missing_file(self) -> None:
+        archive = self._build_verifiable_archive()
+        (archive / "archive-bundle" / "CITATION.cff").unlink()
+
+        with self.assertRaisesRegex(ArchiveVerificationError, "missing or unsafe"):
+            verify_archive_bundle(archive)
+
+    def test_offline_verifier_rejects_symlinked_file(self) -> None:
+        archive = self._build_verifiable_archive()
+        declared = archive / "archive-bundle" / "CITATION.cff"
+        original = Path(self.tempdir.name) / "citation-copy.cff"
+        original.write_bytes(declared.read_bytes())
+        declared.unlink()
+        declared.symlink_to(original)
+
+        with self.assertRaisesRegex(ArchiveVerificationError, "missing or unsafe"):
+            verify_archive_bundle(archive)
+
+    def test_offline_verifier_rejects_undeclared_file(self) -> None:
+        archive = self._build_verifiable_archive()
+        (archive / "archive-bundle" / "unexpected.txt").write_text(
+            "not in manifest\n", encoding="utf-8"
+        )
+
+        with self.assertRaisesRegex(ArchiveVerificationError, "undeclared or missing"):
+            verify_archive_bundle(archive)
+
+    def test_offline_verifier_rejects_path_traversal(self) -> None:
+        archive = self._build_verifiable_archive()
+        path = archive / "archive-bundle-manifest.json"
+        manifest = json.loads(path.read_text(encoding="utf-8"))
+        manifest["files"][0]["path"] = "../outside.txt"
+        path.write_text(json.dumps(manifest), encoding="utf-8")
+
+        with self.assertRaisesRegex(ArchiveVerificationError, "invalid archive file path"):
+            verify_archive_bundle(archive)
+
+    def test_offline_verifier_rejects_duplicate_paths(self) -> None:
+        archive = self._build_verifiable_archive()
+        path = archive / "archive-bundle-manifest.json"
+        manifest = json.loads(path.read_text(encoding="utf-8"))
+        manifest["files"].append(manifest["files"][0].copy())
+        path.write_text(json.dumps(manifest), encoding="utf-8")
+
+        with self.assertRaisesRegex(ArchiveVerificationError, "duplicate archive file"):
+            verify_archive_bundle(archive)
+
+    def test_offline_verifier_enforces_requested_identity_and_profile(self) -> None:
+        archive = self._build_verifiable_archive()
+        for overrides, message in (
+            ({"expected_tag": "snapshot-wrong"}, "tag does not match"),
+            ({"expected_commit": "b" * 40}, "commit does not match"),
+            ({"expected_profile": "eligible-canonical-bytes"}, "profile does not match"),
+        ):
+            with self.subTest(overrides=overrides):
+                with self.assertRaisesRegex(ArchiveVerificationError, message):
+                    verify_archive_bundle(archive, **overrides)
+
+    def test_offline_verifier_rechecks_canonical_redistribution_rights(self) -> None:
+        archive = self._build_verifiable_archive("eligible-canonical-bytes")
+        relative = "datasets/eligible/metadata.yaml"
+        metadata_path = archive / "archive-bundle" / relative
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata["license"]["redistribution"] = "restricted"
+        metadata_path.write_text(yaml.safe_dump(metadata), encoding="utf-8")
+        self._update_record_for_file(archive, relative)
+
+        with self.assertRaisesRegex(ArchiveVerificationError, "redistribution is not allowed"):
+            verify_archive_bundle(archive)
+
+    def test_offline_verifier_detects_conflicting_eligibility_rights(self) -> None:
+        archive = self._build_verifiable_archive("eligible-canonical-bytes")
+        relative = "reports/preservation-eligibility.json"
+        eligibility_path = archive / "archive-bundle" / relative
+        report = json.loads(eligibility_path.read_text(encoding="utf-8"))
+        report["canonical"][0]["redistribution"] = "restricted"
+        eligibility_path.write_text(json.dumps(report), encoding="utf-8")
+        self._update_record_for_file(archive, relative)
+
+        with self.assertRaisesRegex(ArchiveVerificationError, "lacks redistribution rights"):
+            verify_archive_bundle(archive)
+
+    def test_offline_verifier_checks_distribution_index_coverage(self) -> None:
+        archive = self._build_verifiable_archive()
+        relative = "distribution/v1/index.json"
+        index_path = archive / "archive-bundle" / relative
+        index = json.loads(index_path.read_text(encoding="utf-8"))
+        index["artifacts"][0]["path"] = "unlisted.json"
+        index_path.write_text(json.dumps(index), encoding="utf-8")
+        self._update_record_for_file(archive, relative)
+
+        with self.assertRaisesRegex(ArchiveVerificationError, "artifacts differ"):
+            verify_archive_bundle(archive)
+
+    def test_verify_archive_cli_runs_without_registry_checkout(self) -> None:
+        archive = self._build_verifiable_archive()
+        buffer = io.StringIO()
+
+        with redirect_stdout(buffer):
+            code = registry_main(
+                [
+                    "--root", str(Path(self.tempdir.name) / "not-a-checkout"),
+                    "verify-archive", "--bundle", str(archive),
+                    "--tag", TAG, "--commit", COMMIT,
+                    "--profile", "release-metadata", "--json",
+                ]
+            )
+
+        self.assertEqual(code, 0)
+        payload = json.loads(buffer.getvalue())
+        self.assertTrue(payload["ok"])
+        self.assertEqual(payload["profile"], "release-metadata")
+        self.assertGreater(payload["file_count"], 0)
+
+    def test_verify_archive_cli_reports_mismatch_and_failure_status(self) -> None:
+        archive = self._build_verifiable_archive()
+        errors = io.StringIO()
+        with redirect_stderr(errors):
+            code = registry_main(
+                [
+                    "verify-archive", "--bundle", str(archive),
+                    "--tag", TAG, "--commit", "b" * 40,
+                ]
+            )
+
+        self.assertEqual(code, 1)
+        self.assertIn("commit does not match", errors.getvalue())
 
     def test_archive_metadata_is_deterministic_and_preserves_licenses(self) -> None:
         first = ARCHIVE.build_archive_metadata(

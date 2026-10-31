@@ -276,6 +276,25 @@ python scripts/registry.py fetch <dataset-id> \
   --json
 ```
 
+## Verify a downloaded archive
+
+The archive verifier works offline and does not require a local registry
+checkout. Pass the extracted `archive-material` directory, expected immutable
+snapshot identity and intended archive profile:
+
+```bash
+data-registry verify-archive \
+  --bundle /path/to/archive-material \
+  --tag snapshot-YYYY.MM.DD \
+  --commit <40-character-release-commit> \
+  --profile eligible-canonical-bytes \
+  --json
+```
+
+It validates the archive file manifest, embedded release, static distribution,
+and dataset-rights policy. Verification is not a substitute for independently
+authenticating the publisher. See [Archive and DOI metadata](ARCHIVING.md).
+
 ## Repository root
 
 By default the CLI resolves the repository root relative to its own location.

@@ -11,6 +11,7 @@ from typing import Any, Sequence
 import yaml
 
 from . import fetch as FETCH
+from .archive_verification import ArchiveVerificationError, verify_archive_bundle
 from .core import (
     LAYER_CHOICES,
     RegistryEntry,
@@ -427,6 +428,20 @@ def build_parser() -> argparse.ArgumentParser:
     verify_release_parser.add_argument("--commit", required=True)
     _add_common_read_options(verify_release_parser)
 
+    verify_archive_parser = subparsers.add_parser(
+        "verify-archive",
+        help="Verify an extracted archive-ready bundle offline.",
+    )
+    verify_archive_parser.add_argument("--bundle", type=Path, required=True)
+    verify_archive_parser.add_argument("--tag", required=True)
+    verify_archive_parser.add_argument("--commit", required=True)
+    verify_archive_parser.add_argument(
+        "--profile",
+        choices=("release-metadata", "eligible-canonical-bytes"),
+        help="Require the expected archive inclusion profile.",
+    )
+    _add_common_read_options(verify_archive_parser)
+
     return parser
 
 
@@ -443,6 +458,54 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     root = args.root.resolve()
     try:
+        # Downloaded release and archive bundles must work outside a Git checkout.
+        if args.command == "verify-release":
+            result = verify_release_bundle(
+                args.bundle,
+                expected_tag=args.tag,
+                expected_commit=args.commit,
+            )
+            payload = {
+                "ok": True,
+                "tag": result.tag,
+                "commit": result.commit,
+                "manifest_version": result.manifest_version,
+                "manifest_sha256": result.manifest_sha256,
+                "summary_sha256": result.summary_sha256,
+            }
+            if args.json:
+                _print_json(payload)
+            else:
+                print(f"OK: {result.tag} @ {result.commit}")
+                print(f"Manifest SHA-256: {result.manifest_sha256}")
+                print(f"Summary SHA-256:  {result.summary_sha256}")
+            return 0
+
+        if args.command == "verify-archive":
+            result = verify_archive_bundle(
+                args.bundle,
+                expected_tag=args.tag,
+                expected_commit=args.commit,
+                expected_profile=args.profile,
+            )
+            payload = {
+                "ok": True,
+                "tag": result.tag,
+                "commit": result.commit,
+                "profile": result.profile,
+                "file_count": result.file_count,
+                "total_bytes": result.total_bytes,
+                "manifest_sha256": result.manifest_sha256,
+            }
+            if args.json:
+                _print_json(payload)
+            else:
+                print(f"OK: {result.tag} @ {result.commit} ({result.profile})")
+                print(f"Verified files:    {result.file_count}")
+                print(f"Verified bytes:    {result.total_bytes}")
+                print(f"Manifest SHA-256: {result.manifest_sha256}")
+            return 0
+
         entries = load_registry(root)
 
         if args.command == "debt":
@@ -493,28 +556,6 @@ def main(argv: Sequence[str] | None = None) -> int:
                 _print_json(payload)
             else:
                 print(render_supersedes(payload))
-            return 0
-
-        if args.command == "verify-release":
-            result = verify_release_bundle(
-                args.bundle,
-                expected_tag=args.tag,
-                expected_commit=args.commit,
-            )
-            payload = {
-                "ok": True,
-                "tag": result.tag,
-                "commit": result.commit,
-                "manifest_version": result.manifest_version,
-                "manifest_sha256": result.manifest_sha256,
-                "summary_sha256": result.summary_sha256,
-            }
-            if args.json:
-                _print_json(payload)
-            else:
-                print(f"OK: {result.tag} @ {result.commit}")
-                print(f"Manifest SHA-256: {result.manifest_sha256}")
-                print(f"Summary SHA-256:  {result.summary_sha256}")
             return 0
 
         if args.command == "list":
@@ -690,7 +731,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
 
         raise RegistryError(f"unknown command: {args.command}")
-    except (RegistryError, ReleaseVerificationError) as exc:
+    except (RegistryError, ReleaseVerificationError, ArchiveVerificationError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
 
