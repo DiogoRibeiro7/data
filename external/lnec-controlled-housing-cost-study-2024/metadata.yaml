@@ -1,0 +1,21 @@
+schema_version: 1
+status: external-reference
+id: lnec-controlled-housing-cost-study-2024
+title: "LNEC 2024 study of controlled-cost housing regulation and cost ceilings"
+publisher: "João Branco Pedro; Laboratório Nacional de Engenharia Civil (LNEC); 5.º CIHEL"
+source_url: "https://repositorio.lnec.pt/handle/123456789/1018255"
+redistribution: prohibited
+storage: authoritative-upstream
+usage:
+  storage: authoritative-upstream
+  redistribution: prohibited
+  attribution_required: true
+  note: >-
+    LNEC's repository describes the 2024 conference paper as supplied by
+    its author with rights reserved to the authors and publisher. The paper
+    explains legally defined ceilings, coefficients and an illustrative
+    calculation; it is not an observed market construction-cost dataset.
+    The downstream PDF hash is pinned in housing_cost_sources.json.
+    Neither the article nor extracted tables are mirrored in this registry.
+consumers:
+  - social-security-housing-investment

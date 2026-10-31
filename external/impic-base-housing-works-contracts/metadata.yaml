@@ -1,0 +1,47 @@
+schema_version: 1
+status: external-reference
+id: impic-base-housing-works-contracts
+title: "IMPIC Portal BASE public housing works contracts and signed documents"
+publisher: "Instituto dos Mercados Públicos, do Imobiliário e da Construção, I.P. (IMPIC); contracting authorities"
+source_url: "https://www.base.gov.pt/Base4/pt/documentacao/formas-de-obter-dados-sobre-os-contratos-publicos/"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The social-security-housing-investment project pins 21 individual Portal
+    BASE contract records as JSON and their associated signed contract PDFs,
+    with source-specific URLs and SHA-256 hashes in
+    data/sources/housing_cost_sources.json. Structured contract information
+    and signed documents are different rights scopes. IMPIC separately
+    publishes a bulk 2012–2026 contracts dataset on dados.gov.pt labelled
+    public domain; this does not automatically license the signed documents
+    or prove that each project-local page snapshot is identical to a bulk
+    release. No upstream or derived bytes are mirrored here.
+consumers:
+  - social-security-housing-investment
+resolution:
+  review_status: actionable
+  last_reviewed: 2026-10-31
+  blocker_category: dataset-vs-repository-licence-scope
+  blocker_summary: >-
+    IMPIC's public-domain label applies to its published bulk contracts
+    dataset, while the research project pins individual Portal BASE detail
+    records and signed contract PDFs. Cross-scope rights and exact data
+    identity have not been established for all downstream files.
+  evidence:
+    - "https://www.base.gov.pt/Base4/pt/documentacao/formas-de-obter-dados-sobre-os-contratos-publicos/"
+    - "https://dados.gov.pt/pt/datasets/contratos-publicos-portal-base-impic-contratos-de-2012-a-2026/"
+    - "https://www.base.gov.pt/Base4/pt/detalhe/?type=contratos&id=10927705"
+  reviewer_note: >-
+    The Portal BASE legal framework allows free structured public-data
+    extraction. This is not a blanket permission to redistribute scans,
+    private fields or contracting-authority PDF attachments.
+  next_action: >-
+    Reconcile selected contract IDs and fields against a dated, hashed IMPIC
+    dados.gov.pt bulk export and its published licence. Review signed PDFs
+    separately; promote only licensed structured fields if a pinned consumer
+    contract and reproducible extraction exist.
+  terminal: false
