@@ -12,14 +12,14 @@ It makes no live network requests.
 
 ## External sources
 
-- External source records: **31**
-- Redistribution resolved / unresolved: **13 / 18**
+- External source records: **35**
+- Redistribution resolved / unresolved: **15 / 20**
 - Sources pinned to an immutable Git commit: **5**
 
 External source usage annotations:
 
 - Referenced consumer repositories: **8**
-- Source usage references: **26**
+- Source usage references: **30**
 
 - `cpd-stress-test`
 - `crop-protection-predictive-science`
@@ -75,18 +75,18 @@ Adoption exemptions:
 
 ## Provenance and licensing debt
 
-- Total debt items: **20**
-- External actionable / terminal: **2 / 16**
+- Total debt items: **22**
+- External actionable / terminal: **3 / 17**
 - Legacy actionable / terminal: **0 / 2**
 - Oldest review date: **2026-10-05**
 - Oldest deterministic debt age (days): **26**
 
 Debt by blocker category:
 
-- `dataset-vs-repository-licence-scope`: **2**
+- `dataset-vs-repository-licence-scope`: **3**
 - `exact-snapshot-identity`: **1**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **16**
+- `redistribution-rights`: **17**
 
 ## Generated catalog freshness
 

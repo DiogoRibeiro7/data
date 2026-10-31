@@ -1,0 +1,36 @@
+schema_version: 1
+status: external-reference
+id: dgo-2026-social-security-budget
+title: "DGO State Budget 2026 Social Security balance and financial projections"
+publisher: "Direção-Geral do Orçamento (DGO); Ministério das Finanças"
+source_url: "https://www.dgo.gov.pt/politicaorcamental/OrcamentodeEstado/OE2026_doc16_Relatorio.pdf"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: authoritative-upstream
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    Quadro 4.17 of the 2026 State Budget report gives an OSS 2026 budgeted
+    global Social Security balance of 6438.5 million euros. This is a
+    forward-looking budget projection, not 2026 realised execution. Its
+    2025 comparison is itself a budget execution forecast, not the observed
+    adjusted 2025 balance of the CFP's 04/2026 report. Neither official
+    reports nor model scenario outputs are copied into this registry.
+consumers:
+  - social-security-housing-investment
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-31
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    DGO publishes the State Budget report and separate open-budget datasets,
+    but licence terms for rehosting this specific report or a standalone
+    transcribed table have not been established.
+  evidence:
+    - "https://www.dgo.gov.pt/politicaorcamental/OrcamentodeEstado/OE2026_doc16_Relatorio.pdf"
+    - "https://www.dgo.gov.pt/politicaorcamental/Paginas/OrcamentosEstado.aspx?Ano=2026&TipoOE=Proposta+de+Or%C3%A7amento+do+Estado"
+  next_action: >-
+    Preserve official source attribution and forecast vintage; reconsider
+    canonical archiving only for a specifically licensed official table.
+  terminal: true

@@ -1,0 +1,26 @@
+schema_version: 1
+status: external-reference
+id: bdp-economic-bulletin-october-2026
+title: "Banco de Portugal October 2026 macroeconomic projections for 2026–2028"
+publisher: "Banco de Portugal"
+source_url: "https://www.bportugal.pt/sites/default/files/documents/2026-10/be_out2026_pt.pdf"
+license:
+  name: "Banco de Portugal website information reuse with source attribution"
+  url: "https://clientebancario.bportugal.pt/pt-pt/avisos-legais"
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: allowed
+  attribution_required: true
+  note: >-
+    Applies to Banco de Portugal's directly published statistical information
+    when faithfully reproduced with source attribution and disclosure of any
+    modifications under its website reuse notice; it is not an assertion
+    about third-party material or rights to mirror every PDF graphic.
+    The October 2026 bulletin gives conditional macro projections for
+    2026–2028, not realised outcomes. The exact PDF hash and issue date are
+    stored in the consumer's investment_comparison_sources.json. No source
+    PDF, spreadsheet or transcribed figures are mirrored by this registry.
+consumers:
+  - social-security-housing-investment

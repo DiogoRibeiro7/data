@@ -66,13 +66,13 @@
   "external": {
     "pinned_immutable_identity_sources": 5,
     "redistribution": {
-      "resolved": 13,
-      "unresolved": 18
+      "resolved": 15,
+      "unresolved": 20
     },
-    "source_count": 31,
+    "source_count": 35,
     "source_usage": {
       "consumer_count": 8,
-      "consumer_references": 26,
+      "consumer_references": 30,
       "consumers": [
         "cpd-stress-test",
         "crop-protection-predictive-science",
@@ -95,14 +95,14 @@
   },
   "provenance_debt": {
     "by_blocker_category": {
-      "dataset-vs-repository-licence-scope": 2,
+      "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 1,
       "historical-export-route": 1,
-      "redistribution-rights": 16
+      "redistribution-rights": 17
     },
     "external": {
-      "actionable": 2,
-      "terminal": 16
+      "actionable": 3,
+      "terminal": 17
     },
     "legacy": {
       "actionable": 0,
@@ -110,7 +110,7 @@
     },
     "oldest_age_days": 26,
     "oldest_review_date": "2026-10-05",
-    "total_count": 20
+    "total_count": 22
   },
   "schema_version": 1,
   "snapshots": {

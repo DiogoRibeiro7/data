@@ -77,6 +77,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "bdp-economic-bulletin-october-2026",
+      "metadata_path": "external/bdp-economic-bulletin-october-2026/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "berkeley-earth-temperature",
       "metadata_path": "external/berkeley-earth-temperature/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -91,6 +97,12 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "cge-social-security-accounts-2013-2025",
       "metadata_path": "external/cge-social-security-accounts-2013-2025/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "dgo-2026-social-security-budget",
+      "metadata_path": "external/dgo-2026-social-security-budget/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -155,6 +167,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "impic-base-housing-works-contracts",
+      "metadata_path": "external/impic-base-housing-works-contracts/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "ine-portugal-housing-statistics",
       "metadata_path": "external/ine-portugal-housing-statistics/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -163,6 +181,12 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "jhu-csse-covid19",
       "metadata_path": "external/jhu-csse-covid19/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "lnec-controlled-housing-cost-study-2024",
+      "metadata_path": "external/lnec-controlled-housing-cost-study-2024/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -282,8 +306,8 @@
     "canonical_byte_archive_eligible_count": 4,
     "canonical_dataset_count": 4,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 31,
-    "external_source_count": 31,
+    "external_metadata_only_count": 35,
+    "external_source_count": 35,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }

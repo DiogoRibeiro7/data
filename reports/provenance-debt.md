@@ -3,21 +3,21 @@
 This file is generated deterministically from committed external and legacy metadata.
 Do not edit it by hand.
 
-- Total debt items: **20**
-- External records: **18**
+- Total debt items: **22**
+- External records: **20**
 - Legacy packages: **2**
-- Structured evidence: **20**
+- Structured evidence: **22**
 - Unstructured debt: **0**
-- Actionable: **2**
-- Terminal: **18**
+- Actionable: **3**
+- Terminal: **19**
 - Age reference date: **2026-10-31**
 
 ## Blocker categories
 
-- `dataset-vs-repository-licence-scope`: **2**
+- `dataset-vs-repository-licence-scope`: **3**
 - `exact-snapshot-identity`: **1**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **16**
+- `redistribution-rights`: **17**
 
 ## Queue
 
@@ -26,6 +26,7 @@ Do not edit it by hand.
 | external | `amt-porto-metro-demand` | actionable | AMT publishes the dashboards and statutory reports publicly, but the source pages examined do not state dataset-specific terms authorizing republication of the manually transcribed tables as a dataset. | 2026-10-30 | 1 | 3 | unresolved | Check whether AMT publishes applicable data reuse terms or an official downloadable dataset; seek authoritative clarification before proposing any canonical redistribution of the extracted values. |
 | external | `cfp-social-security-execution-2023-2025` | terminal | CFP publicly provides the underlying XLSX annexes, but no source-specific licence authorizing central republication of these workbooks or the normalized extraction has been established. | 2026-10-31 | 0 | 2 | unresolved | Keep this as an external reference unless explicit applicable reuse terms are established for the source annexes and their derived tables. |
 | external | `cge-social-security-accounts-2013-2025` | terminal | Ministry of Finance CGE tables are publicly downloadable, but no source-specific terms authorizing republication of the thirteen Excel workbooks as canonical dataset bytes have been established. | 2026-10-31 | 0 | 2 | unresolved | Retain authoritative upstream links and downstream checksum evidence; reconsider promotion only after explicit reuse and pinned snapshot checks. |
+| external | `dgo-2026-social-security-budget` | terminal | DGO publishes the State Budget report and separate open-budget datasets, but licence terms for rehosting this specific report or a standalone transcribed table have not been established. | 2026-10-31 | 0 | 2 | unresolved | Preserve official source attribution and forecast vintage; reconsider canonical archiving only for a specifically licensed official table. |
 | external | `dgs-infoclique-mortality` | terminal | DGS publicly disseminates SICO mortality information, but its current legal notice protects site contents and no dataset-specific redistribution grant covering the historical InfoClique/SICO CSV exports was recovered. | 2026-10-05 | 26 | 2 | unresolved | Reopen only if DGS publishes dataset-specific reuse terms or an authoritative open-data licence covering the historical mortality exports. |
 | external | `ibm-telco-customer-churn` | terminal | The pinned IBM repository is Apache-2.0 licensed as a code pattern, but the README explicitly separates third-party objects and no dataset-specific redistribution licence for Telco-Customer-Churn.csv was established. | 2026-10-05 | 26 | 3 | unresolved | Reopen only if IBM publishes dataset-specific terms or an authoritative licence statement covering Telco-Customer-Churn.csv. |
 | external | `igfcss-fefss-annual-2024` | terminal | The official IGFCSS FEFSS annual report is available as a public PDF; permission to redistribute the report or its transcribed financial tables as canonical registry data has not been established. | 2026-10-31 | 0 | 1 | unresolved | Keep the exact upstream snapshot identity externally referenced until publisher-specific reuse terms and a canonical consumer need are proven. |
@@ -33,6 +34,7 @@ Do not edit it by hand.
 | external | `ihru-housing-accounts-2024` | terminal | IHRU publicly publishes its 2024 Report and Accounts, but a specific permission for mirroring the PDF or extracting a canonical financial dataset has not been identified. | 2026-10-31 | 0 | 2 | unresolved | Preserve the upstream pointer and project-local checksum; revisit canonical archiving only after explicit rights and accounting-scope checks. |
 | external | `ihru-housing-needs-2018` | terminal | IHRU publicly listed the rehousing-needs report, but the originally pinned PDF now relies on an archival capture and no applicable grant for mirroring the report or municipality-level transcription is verified. | 2026-10-31 | 0 | 2 | unresolved | Keep this historical baseline as a linked external source and reassess only if IHRU publishes applicable redistribution terms for the annex. |
 | external | `ihru-primeiro-direito-costs-2020` | terminal | The official programme execution report is public, but no report-specific permission to republish the PDF or transcribed benchmark tables as a canonical registry dataset has been verified. | 2026-10-31 | 0 | 1 | unresolved | Retain the provenance record only unless explicit reuse terms and verified current cost comparability justify canonical promotion. |
+| external | `impic-base-housing-works-contracts` | actionable | IMPIC's public-domain label applies to its published bulk contracts dataset, while the research project pins individual Portal BASE detail records and signed contract PDFs. Cross-scope rights and exact data identity have not been established for all downstream files. | 2026-10-31 | 0 | 3 | unresolved | Reconcile selected contract IDs and fields against a dated, hashed IMPIC dados.gov.pt bulk export and its published licence. Review signed PDFs separately; promote only licensed structured fields if a pinned consumer contract and reproducible extraction exist. |
 | external | `maize-bipolaris-disease-progress` | terminal | The pinned repository has a root MIT licence and explicitly includes maize_bipolaris.csv as data, but the licence text covers software and associated documentation and no authoritative statement was recovered that explicitly applies MIT redistribution rights to the dataset bytes. | 2026-10-05 | 26 | 3 | unresolved | Reopen only if the author or another authoritative source explicitly states that the MIT licence covers maize_bipolaris.csv, or publishes separate dataset reuse terms. |
 | external | `medium-crawlfeeds-corpus` | terminal | The Hugging Face card declares CC BY-SA 3.0, but the corpus contains scraped third-party Medium article bodies and no authoritative evidence establishes Crawlfeeds' right to relicense all embedded article text. Under the registry's conservative policy, redistribution remains unresolved and the record is terminal external-only. | 2026-10-14 | 17 | 5 | unresolved | Reopen only with authoritative rights evidence covering the pinned bytes. Retain external-only status; independently establish permitted local research use before acquisition. |
 | external | `medium-fabiochiu-articles` | terminal | The Hugging Face dataset declares MIT and exposes revision 979af3bcd84565e3f47b9eca752d8ec112824953, but full-text files reproduce third-party Medium article bodies and no evidence establishes the publisher's authority to relicense that content. Redistribution remains unresolved and the record is terminal external-only. | 2026-10-11 | 20 | 4 | unresolved | Reopen only if authoritative evidence establishes redistribution rights for the exact full-text or no-text file(s), assessed separately. |

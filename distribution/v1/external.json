@@ -20,6 +20,22 @@
       }
     },
     {
+      "id": "bdp-economic-bulletin-october-2026",
+      "title": "Banco de Portugal October 2026 macroeconomic projections for 2026–2028",
+      "publisher": "Banco de Portugal",
+      "source_url": "https://www.bportugal.pt/sites/default/files/documents/2026-10/be_out2026_pt.pdf",
+      "license": {
+        "name": "Banco de Portugal website information reuse with source attribution",
+        "url": "https://clientebancario.bportugal.pt/pt-pt/avisos-legais"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "social-security-housing-investment"
+      ],
+      "path": "external/bdp-economic-bulletin-october-2026"
+    },
+    {
       "id": "berkeley-earth-temperature",
       "title": "Berkeley Earth temperature data",
       "publisher": "Berkeley Earth",
@@ -63,6 +79,24 @@
         "social-security-housing-investment"
       ],
       "path": "external/cge-social-security-accounts-2013-2025",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
+      "id": "dgo-2026-social-security-budget",
+      "title": "DGO State Budget 2026 Social Security balance and financial projections",
+      "publisher": "Direção-Geral do Orçamento (DGO); Ministério das Finanças",
+      "source_url": "https://www.dgo.gov.pt/politicaorcamental/OrcamentodeEstado/OE2026_doc16_Relatorio.pdf",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "social-security-housing-investment"
+      ],
+      "path": "external/dgo-2026-social-security-budget",
       "resolution": {
         "review_status": "terminal",
         "terminal": true,
@@ -238,6 +272,24 @@
       }
     },
     {
+      "id": "impic-base-housing-works-contracts",
+      "title": "IMPIC Portal BASE public housing works contracts and signed documents",
+      "publisher": "Instituto dos Mercados Públicos, do Imobiliário e da Construção, I.P. (IMPIC); contracting authorities",
+      "source_url": "https://www.base.gov.pt/Base4/pt/documentacao/formas-de-obter-dados-sobre-os-contratos-publicos/",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "social-security-housing-investment"
+      ],
+      "path": "external/impic-base-housing-works-contracts",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "dataset-vs-repository-licence-scope"
+      }
+    },
+    {
       "id": "ine-portugal-housing-statistics",
       "title": "INE Portugal housing, construction, and household statistics",
       "publisher": "Instituto Nacional de Estatística, I.P. (Statistics Portugal)",
@@ -264,6 +316,19 @@
       "storage": "authoritative-upstream-pinned-historical-snapshot",
       "consumers": [],
       "path": "external/jhu-csse-covid19"
+    },
+    {
+      "id": "lnec-controlled-housing-cost-study-2024",
+      "title": "LNEC 2024 study of controlled-cost housing regulation and cost ceilings",
+      "publisher": "João Branco Pedro; Laboratório Nacional de Engenharia Civil (LNEC); 5.º CIHEL",
+      "source_url": "https://repositorio.lnec.pt/handle/123456789/1018255",
+      "license": null,
+      "redistribution": "prohibited",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "social-security-housing-investment"
+      ],
+      "path": "external/lnec-controlled-housing-cost-study-2024"
     },
     {
       "id": "maize-bipolaris-disease-progress",
