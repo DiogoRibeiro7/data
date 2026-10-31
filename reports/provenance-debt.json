@@ -274,6 +274,22 @@
       "title": "Historical Medium article study (Jansma)"
     },
     {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "The underlying official INE statistics can be attributed and used, but no PORDATA/FFMS terms permitting verbatim redistribution of its complete portal export or repackaged table were established for this source.",
+      "evidence_count": 3,
+      "id": "pordata-ine-portugal-infant-mortality",
+      "last_reviewed": "2026-10-31",
+      "layer": "external",
+      "next_action": "Retain external citation and the limited attributed downstream transcriptions. Obtain explicit table-export reuse terms, or source the same series directly from INE under its applicable redistribution policy before considering canonical promotion.",
+      "path": "external/pordata-ine-portugal-infant-mortality/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
+      "title": "INE/PORDATA Portugal infant mortality rate, annual historical series"
+    },
+    {
       "age_days": 26,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "INE permits rediffusion of official statistical information with source attribution, but the historical workbook was a PORDATA-generated Excel export and no authoritative term was recovered that clearly permits mirroring that secondary-source artifact.",
@@ -393,13 +409,13 @@
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 1,
       "historical-export-route": 1,
-      "redistribution-rights": 19
+      "redistribution-rights": 20
     },
-    "external_count": 22,
+    "external_count": 23,
     "legacy_count": 2,
-    "structured_count": 24,
-    "terminal_count": 21,
-    "total_debt": 24,
+    "structured_count": 25,
+    "terminal_count": 22,
+    "total_debt": 25,
     "unstructured_count": 0
   }
 }

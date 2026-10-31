@@ -1,0 +1,27 @@
+schema_version: 1
+status: external-reference
+id: world-bank-wdi-infant-mortality
+title: "World Bank WDI infant mortality rate (SP.DYN.IMRT.IN), Portugal and comparator countries"
+publisher: "World Bank World Development Indicators (underlying estimates: UN IGME)"
+source_url: "https://data.worldbank.org/indicator/SP.DYN.IMRT.IN?locations=PT"
+license:
+  name: "World Bank WDI indicator CC BY 4.0, subject to data-provider exceptions"
+  url: "https://data.worldbank.org/summary-terms-of-use"
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: allowed
+  attribution_required: true
+  note: >-
+    The World Bank indicator page explicitly specifies CC BY 4.0 for
+    SP.DYN.IMRT.IN, while its general terms retain data-provider exceptions.
+    The indicator is based on modeled UN IGME infant mortality estimates,
+    unlike the registered annual INE/PORDATA series. It can support a
+    predeclared Portugal-versus-European-peer comparison in
+    portugal-living-standards-reassessment, but it is not an independent
+    estimate from a direct UN IGME download and cannot identify cohort
+    survival to military examination age. No pinned data extraction has
+    yet been published by the downstream study; no data bytes are mirrored.
+consumers:
+  - portugal-living-standards-reassessment

@@ -66,13 +66,13 @@
   "external": {
     "pinned_immutable_identity_sources": 5,
     "redistribution": {
-      "resolved": 18,
-      "unresolved": 22
+      "resolved": 21,
+      "unresolved": 23
     },
-    "source_count": 40,
+    "source_count": 44,
     "source_usage": {
-      "consumer_count": 9,
-      "consumer_references": 37,
+      "consumer_count": 10,
+      "consumer_references": 41,
       "consumers": [
         "cpd-stress-test",
         "crop-protection-predictive-science",
@@ -81,6 +81,7 @@
         "medium-statistical-dynamics",
         "porto-metro-demand-analysis",
         "portugal-housing-generations",
+        "portugal-living-standards-reassessment",
         "productivity_taxation_inequality_project",
         "social-security-housing-investment"
       ]
@@ -99,11 +100,11 @@
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 1,
       "historical-export-route": 1,
-      "redistribution-rights": 19
+      "redistribution-rights": 20
     },
     "external": {
       "actionable": 3,
-      "terminal": 19
+      "terminal": 20
     },
     "legacy": {
       "actionable": 0,
@@ -111,7 +112,7 @@
     },
     "oldest_age_days": 26,
     "oldest_review_date": "2026-10-05",
-    "total_count": 24
+    "total_count": 25
   },
   "schema_version": 1,
   "snapshots": {

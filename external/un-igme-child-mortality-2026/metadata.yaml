@@ -1,0 +1,27 @@
+schema_version: 1
+status: external-reference
+id: un-igme-child-mortality-2026
+title: "UN IGME child, infant, neonatal and under-five mortality estimates, 2026 release"
+publisher: "United Nations Inter-agency Group for Child Mortality Estimation (UN IGME); UNICEF Data"
+source_url: "https://childmortality.org/all-cause-mortality/data"
+license:
+  name: "CC BY 3.0 IGO (UNICEF downloadable child mortality dataset)"
+  url: "https://creativecommons.org/licenses/by/3.0/igo/"
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: allowed
+  attribution_required: true
+  note: >-
+    The UNICEF child-mortality dataset download specifies CC BY 3.0 IGO,
+    distinct from the general website content licence. The UN IGME site
+    identifies its latest global data update as 18 March 2026, with
+    under-five, infant, child and neonatal estimates, sex breakdowns and
+    source-data/estimate distinctions. Estimates have uncertainty intervals
+    and model-based revisions. World Bank SP.DYN.IMRT.IN draws from the
+    same estimation programme and must not be treated as an independent
+    confirmation. No source export is yet pinned by the research consumer;
+    this registry stores metadata only.
+consumers:
+  - portugal-living-standards-reassessment

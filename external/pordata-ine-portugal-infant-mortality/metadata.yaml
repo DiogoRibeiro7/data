@@ -1,0 +1,41 @@
+schema_version: 1
+status: external-reference
+id: pordata-ine-portugal-infant-mortality
+title: "INE/PORDATA Portugal infant mortality rate, annual historical series"
+publisher: "Instituto Nacional de Estatística (INE); distributed by PORDATA / Fundação Francisco Manuel dos Santos"
+source_url: "https://www.pordata.pt/en/portugal/infant%2Bmortality%2Brate-528"
+redistribution: unresolved
+storage: public-secondary-source
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    portugal-living-standards-reassessment manually transcribed three
+    INE/PORDATA annual infant mortality landmarks (1960, 1974, 1990) on
+    2026-10-31. The full table spans 1960–2025 in the provider's
+    2026-08-05 publication. The official series marks breaks in 1980 and
+    2021, and 2021–2024 observations were revised in June 2026. The 1980
+    break changes residence inclusion in live births and infant deaths.
+    Registration-based rates are not interchangeable with the UN IGME
+    modeled series. No PORDATA export or transcription is mirrored here.
+consumers:
+  - portugal-living-standards-reassessment
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-10-31
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    The underlying official INE statistics can be attributed and used, but
+    no PORDATA/FFMS terms permitting verbatim redistribution of its complete
+    portal export or repackaged table were established for this source.
+  evidence:
+    - "https://www.pordata.pt/en/portugal/infant%2Bmortality%2Brate-528"
+    - "https://www.pordata.pt/en/Simbology_PopUp.aspx?DatabaseModeId=1"
+    - "https://www.pordata.pt/en/About.aspx"
+  next_action: >-
+    Retain external citation and the limited attributed downstream
+    transcriptions. Obtain explicit table-export reuse terms, or source the
+    same series directly from INE under its applicable redistribution policy
+    before considering canonical promotion.
+  terminal: true

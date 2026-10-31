@@ -399,6 +399,22 @@
       "path": "external/lnec-controlled-housing-cost-study-2024"
     },
     {
+      "id": "maddison-project-database-2023",
+      "title": "Maddison Project Database, version 2023: historical country GDP per capita and population",
+      "publisher": "Groningen Growth and Development Centre (GGDC), University of Groningen",
+      "source_url": "https://www.rug.nl/ggdc/historicaldevelopment/maddison/releases/maddison-project-database-2023",
+      "license": {
+        "name": "CC BY 4.0 (Maddison Project Database 2023)",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "portugal-living-standards-reassessment"
+      ],
+      "path": "external/maddison-project-database-2023"
+    },
+    {
       "id": "maize-bipolaris-disease-progress",
       "title": "Maize Bipolaris disease-progress data",
       "publisher": "Emerson M. Del Ponte / paper-hgam-curves repository",
@@ -488,6 +504,24 @@
         "productivity_taxation_inequality_project"
       ],
       "path": "external/our-world-in-data"
+    },
+    {
+      "id": "pordata-ine-portugal-infant-mortality",
+      "title": "INE/PORDATA Portugal infant mortality rate, annual historical series",
+      "publisher": "Instituto Nacional de Estatística (INE); distributed by PORDATA / Fundação Francisco Manuel dos Santos",
+      "source_url": "https://www.pordata.pt/en/portugal/infant%2Bmortality%2Brate-528",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "public-secondary-source",
+      "consumers": [
+        "portugal-living-standards-reassessment"
+      ],
+      "path": "external/pordata-ine-portugal-infant-mortality",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
     },
     {
       "id": "pordata-portugal-resident-population",
@@ -637,6 +671,22 @@
       "path": "external/uci-online-news-popularity"
     },
     {
+      "id": "un-igme-child-mortality-2026",
+      "title": "UN IGME child, infant, neonatal and under-five mortality estimates, 2026 release",
+      "publisher": "United Nations Inter-agency Group for Child Mortality Estimation (UN IGME); UNICEF Data",
+      "source_url": "https://childmortality.org/all-cause-mortality/data",
+      "license": {
+        "name": "CC BY 3.0 IGO (UNICEF downloadable child mortality dataset)",
+        "url": "https://creativecommons.org/licenses/by/3.0/igo/"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "portugal-living-standards-reassessment"
+      ],
+      "path": "external/un-igme-child-mortality-2026"
+    },
+    {
       "id": "unhcr-refugee-statistics",
       "title": "UNHCR Refugee Population Statistics",
       "publisher": "UNHCR",
@@ -665,6 +715,22 @@
       "storage": "authoritative-upstream-via-world-bank-wdi",
       "consumers": [],
       "path": "external/world-bank-greenhouse-gas"
+    },
+    {
+      "id": "world-bank-wdi-infant-mortality",
+      "title": "World Bank WDI infant mortality rate (SP.DYN.IMRT.IN), Portugal and comparator countries",
+      "publisher": "World Bank World Development Indicators (underlying estimates: UN IGME)",
+      "source_url": "https://data.worldbank.org/indicator/SP.DYN.IMRT.IN?locations=PT",
+      "license": {
+        "name": "World Bank WDI indicator CC BY 4.0, subject to data-provider exceptions",
+        "url": "https://data.worldbank.org/summary-terms-of-use"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "portugal-living-standards-reassessment"
+      ],
+      "path": "external/world-bank-wdi-infant-mortality"
     }
   ]
 }

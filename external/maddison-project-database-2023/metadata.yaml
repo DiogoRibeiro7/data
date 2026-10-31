@@ -1,0 +1,28 @@
+schema_version: 1
+status: external-reference
+id: maddison-project-database-2023
+title: "Maddison Project Database, version 2023: historical country GDP per capita and population"
+publisher: "Groningen Growth and Development Centre (GGDC), University of Groningen"
+source_url: "https://www.rug.nl/ggdc/historicaldevelopment/maddison/releases/maddison-project-database-2023"
+license:
+  name: "CC BY 4.0 (Maddison Project Database 2023)"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: allowed
+  attribution_required: true
+  note: >-
+    The 2023 database covers 169 countries through 2022 and has a
+    release-specific CC BY 4.0 grant. GGDC additionally requires citing
+    all underlying original source papers whenever plotting data or using
+    fewer than 12 countries in a subset. The original reference list is
+    in the database's source sheet; cite Bolt and van Zanden (2024) as
+    directed. Historical per-capita levels, growth series, price
+    benchmarks, coverage and reconstructed observations must not be
+    silently mixed between MPD versions. The planned European comparison
+    in portugal-living-standards-reassessment has not yet pinned a data
+    file or specified its country cohort. No bytes are mirrored here.
+consumers:
+  - portugal-living-standards-reassessment
