@@ -3,13 +3,13 @@
 This file is generated deterministically from committed external and legacy metadata.
 Do not edit it by hand.
 
-- Total debt items: **26**
-- External records: **24**
+- Total debt items: **27**
+- External records: **25**
 - Legacy packages: **2**
-- Structured evidence: **26**
+- Structured evidence: **27**
 - Unstructured debt: **0**
 - Actionable: **3**
-- Terminal: **23**
+- Terminal: **24**
 - Age reference date: **2026-10-31**
 
 ## Blocker categories
@@ -17,7 +17,7 @@ Do not edit it by hand.
 - `dataset-vs-repository-licence-scope`: **3**
 - `exact-snapshot-identity`: **1**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **21**
+- `redistribution-rights`: **22**
 
 ## Queue
 
@@ -37,6 +37,7 @@ Do not edit it by hand.
 | external | `ihru-housing-needs-2018` | terminal | IHRU publicly listed the rehousing-needs report, but the originally pinned PDF now relies on an archival capture and no applicable grant for mirroring the report or municipality-level transcription is verified. | 2026-10-31 | 0 | 2 | unresolved | Keep this historical baseline as a linked external source and reassess only if IHRU publishes applicable redistribution terms for the annex. |
 | external | `ihru-primeiro-direito-costs-2020` | terminal | The official programme execution report is public, but no report-specific permission to republish the PDF or transcribed benchmark tables as a canonical registry dataset has been verified. | 2026-10-31 | 0 | 1 | unresolved | Retain the provenance record only unless explicit reuse terms and verified current cost comparability justify canonical promotion. |
 | external | `impic-base-housing-works-contracts` | actionable | IMPIC's public-domain label applies to its published bulk contracts dataset, while the research project pins individual Portal BASE detail records and signed contract PDFs. Cross-scope rights and exact data identity have not been established for all downstream files. | 2026-10-31 | 0 | 3 | unresolved | Reconcile selected contract IDs and fields against a dated, hashed IMPIC dados.gov.pt bulk export and its published licence. Review signed PDFs separately; promote only licensed structured fields if a pinned consumer contract and reproducible extraction exist. |
+| external | `m5-forecasting-accuracy` | terminal | The official Kaggle data page says "Subject to Competition Rules" and requires users to accept those rules before viewing or downloading files. This is not documented permission for the registry to redistribute the original retail observations. Canonical byte preservation therefore remains out of scope. | 2026-10-31 | 0 | 4 | unresolved | Keep acquisition user-initiated and local to the benchmark project. Revisit central redistribution only with an explicit rights grant for these competition files and a verified file-version and checksum record. |
 | external | `maize-bipolaris-disease-progress` | terminal | The pinned repository has a root MIT licence and explicitly includes maize_bipolaris.csv as data, but the licence text covers software and associated documentation and no authoritative statement was recovered that explicitly applies MIT redistribution rights to the dataset bytes. | 2026-10-05 | 26 | 3 | unresolved | Reopen only if the author or another authoritative source explicitly states that the MIT licence covers maize_bipolaris.csv, or publishes separate dataset reuse terms. |
 | external | `medium-crawlfeeds-corpus` | terminal | The Hugging Face card declares CC BY-SA 3.0, but the corpus contains scraped third-party Medium article bodies and no authoritative evidence establishes Crawlfeeds' right to relicense all embedded article text. Under the registry's conservative policy, redistribution remains unresolved and the record is terminal external-only. | 2026-10-14 | 17 | 5 | unresolved | Reopen only with authoritative rights evidence covering the pinned bytes. Retain external-only status; independently establish permitted local research use before acquisition. |
 | external | `medium-fabiochiu-articles` | terminal | The Hugging Face dataset declares MIT and exposes revision 979af3bcd84565e3f47b9eca752d8ec112824953, but full-text files reproduce third-party Medium article bodies and no evidence establishes the publisher's authority to relicense that content. Redistribution remains unresolved and the record is terminal external-only. | 2026-10-11 | 20 | 4 | unresolved | Reopen only if authoritative evidence establishes redistribution rights for the exact full-text or no-text file(s), assessed separately. |

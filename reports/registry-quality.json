@@ -67,12 +67,12 @@
     "pinned_immutable_identity_sources": 5,
     "redistribution": {
       "resolved": 22,
-      "unresolved": 24
+      "unresolved": 25
     },
-    "source_count": 46,
+    "source_count": 47,
     "source_usage": {
-      "consumer_count": 11,
-      "consumer_references": 43,
+      "consumer_count": 12,
+      "consumer_references": 44,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -80,6 +80,7 @@
         "displacement-risk-lab-dynamodb",
         "empirical-analysis-r",
         "medium-statistical-dynamics",
+        "perishable-inventory-decision-lab",
         "porto-metro-demand-analysis",
         "portugal-housing-generations",
         "portugal-living-standards-reassessment",
@@ -101,11 +102,11 @@
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 1,
       "historical-export-route": 1,
-      "redistribution-rights": 21
+      "redistribution-rights": 22
     },
     "external": {
       "actionable": 3,
-      "terminal": 21
+      "terminal": 22
     },
     "legacy": {
       "actionable": 0,
@@ -113,7 +114,7 @@
     },
     "oldest_age_days": 26,
     "oldest_review_date": "2026-10-05",
-    "total_count": 26
+    "total_count": 27
   },
   "schema_version": 1,
   "snapshots": {
