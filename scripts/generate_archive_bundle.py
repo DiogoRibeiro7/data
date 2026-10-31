@@ -8,7 +8,7 @@ import hashlib
 import json
 import shutil
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 import yaml
@@ -54,14 +54,22 @@ def copy_file(
     destination: Path,
     *,
     bundle_root: Path,
+    expected_sha256: str | None = None,
 ) -> dict[str, Any]:
     """Copy one file and return its deterministic bundle-relative record."""
 
     destination.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(source, destination)
+    checksum = sha256_file(destination)
+    if expected_sha256 is not None and checksum != expected_sha256:
+        destination.unlink(missing_ok=True)
+        raise ValueError(
+            f"{source}: archived bytes have SHA-256 mismatch: "
+            f"expected {expected_sha256}, got {checksum}"
+        )
     return {
         "path": destination.relative_to(bundle_root).as_posix(),
-        "sha256": sha256_file(destination),
+        "sha256": checksum,
         "size": destination.stat().st_size,
     }
 
@@ -156,14 +164,27 @@ def _canonical_archive_records(
             raise ValueError("canonical eligibility id must be non-empty text")
         if not isinstance(metadata_path, str) or not metadata_path:
             raise ValueError("canonical eligibility metadata_path must be non-empty text")
+        if metadata_path != f"datasets/{dataset_id}/metadata.yaml":
+            raise ValueError(f"{metadata_path}: noncanonical dataset metadata path")
 
         metadata = load_yaml(root / metadata_path)
+        if metadata.get("id") != dataset_id:
+            raise ValueError(f"{metadata_path}: dataset id does not match eligibility")
         license_data = metadata.get("license")
         citation = metadata.get("citation")
         if not isinstance(license_data, dict):
             raise ValueError(f"{metadata_path}: license must be a mapping")
         if citation is not None and not isinstance(citation, dict):
             raise ValueError(f"{metadata_path}: citation must be a mapping or null")
+        redistribution = license_data.get("redistribution")
+        expected_eligibility = (
+            "eligible" if redistribution == "allowed" else "metadata-only"
+        )
+        if item.get("byte_archive_eligibility") != expected_eligibility:
+            raise ValueError(
+                f"{metadata_path}: preservation eligibility conflicts with "
+                f"license.redistribution={redistribution!r}"
+            )
 
         records.append(
             {
@@ -187,6 +208,133 @@ def _canonical_archive_records(
         )
     records.sort(key=lambda item: item["id"])
     return records
+
+
+def _canonical_archive_sources(
+    root: Path,
+    dataset_id: str,
+) -> list[tuple[Path, str | None]]:
+    """Select only declared dataset bytes and safe metadata companions."""
+
+    dataset_root = root / "datasets" / dataset_id
+    if dataset_root.resolve() != root.resolve() / "datasets" / dataset_id:
+        raise ValueError(f"{dataset_root}: dataset directory is a symlink")
+    metadata_path = dataset_root / "metadata.yaml"
+    metadata = load_yaml(metadata_path)
+    if metadata.get("id") != dataset_id:
+        raise ValueError(f"{metadata_path}: dataset id does not match directory")
+    license_data = metadata.get("license")
+    if (
+        not isinstance(license_data, dict)
+        or license_data.get("redistribution") != "allowed"
+    ):
+        raise ValueError(f"{metadata_path}: dataset bytes are not redistribution-eligible")
+
+    declared = metadata.get("files")
+    if not isinstance(declared, list) or not declared:
+        raise ValueError(f"{metadata_path}: no declared dataset files")
+
+    sources: list[tuple[Path, str | None]] = [(metadata_path, None)]
+    readme = dataset_root / "README.md"
+    if readme.is_file():
+        sources.append((readme, None))
+
+    seen: set[str] = set()
+    for item in declared:
+        if not isinstance(item, dict):
+            raise ValueError(f"{metadata_path}: declared file must be a mapping")
+        relative = item.get("path")
+        checksum = item.get("sha256")
+        if not isinstance(relative, str):
+            raise ValueError(f"{metadata_path}: declared path must be text")
+        pure_path = PurePosixPath(relative)
+        if (
+            len(pure_path.parts) < 2
+            or pure_path.parts[0] not in {"raw", "derived"}
+            or ".." in pure_path.parts
+            or "\\" in relative
+            or pure_path.as_posix() != relative
+        ):
+            raise ValueError(
+                f"{metadata_path}: noncanonical dataset file path {relative!r}"
+            )
+        if relative in seen:
+            raise ValueError(f"{metadata_path}: duplicate declared file {relative!r}")
+        seen.add(relative)
+        if not isinstance(checksum, str) or len(checksum) != 64:
+            raise ValueError(f"{metadata_path}: missing SHA-256 for {relative!r}")
+        source = dataset_root.joinpath(*pure_path.parts)
+        if not source.resolve().is_relative_to(dataset_root.resolve()):
+            raise ValueError(
+                f"{metadata_path}: declared path escapes dataset root: {relative!r}"
+            )
+        if not source.is_file():
+            raise ValueError(f"{metadata_path}: declared file does not exist: {relative!r}")
+        sources.append((source, checksum))
+
+    # Check companions as well: a README or metadata symlink must not
+    # cause an archive to read files outside the canonical dataset directory.
+    for source, _checksum in sources:
+        if not source.resolve().is_relative_to(dataset_root.resolve()):
+            raise ValueError(f"{source}: archive source escapes dataset directory")
+    return sources
+
+
+def _distribution_archive_sources(root: Path, release_dir: Path) -> list[Path]:
+    """Select only artifacts declared by the snapshot's distribution index."""
+
+    snapshot = load_json(release_dir / "snapshot-manifest.json")
+    distribution = snapshot.get("static_distribution")
+    version = (
+        distribution.get("distribution_version")
+        if isinstance(distribution, dict)
+        else None
+    )
+    if not isinstance(version, int) or isinstance(version, bool) or version < 1:
+        raise ValueError("snapshot manifest has no valid static distribution version")
+
+    version_root = root / "distribution" / f"v{version}"
+    if version_root.resolve() != root.resolve() / "distribution" / f"v{version}":
+        raise ValueError(f"{version_root}: distribution directory is a symlink")
+    index_path = version_root / "index.json"
+    if not index_path.resolve().is_relative_to(version_root.resolve()):
+        raise ValueError(f"{index_path}: index escapes distribution directory")
+    index = load_json(index_path)
+    if (
+        index.get("distribution_version") != version
+        or index.get("repository") != REPOSITORY
+    ):
+        raise ValueError(f"{index_path}: distribution identity mismatch")
+    artifacts = index.get("artifacts")
+    if not isinstance(artifacts, list):
+        raise ValueError(f"{index_path}: artifacts must be a list")
+
+    sources = [index_path]
+    seen = {"index.json"}
+    for item in artifacts:
+        if not isinstance(item, dict):
+            raise ValueError(f"{index_path}: artifact must be a mapping")
+        relative = item.get("path")
+        if (
+            not isinstance(relative, str)
+            or relative in seen
+            or relative in {"", ".", ".."}
+            or "/" in relative
+            or "\\" in relative
+        ):
+            raise ValueError(
+                f"{index_path}: invalid distribution artifact path {relative!r}"
+            )
+        seen.add(relative)
+        source = version_root / relative
+        if not source.is_file() or not source.resolve().is_relative_to(
+            version_root.resolve()
+        ):
+            raise ValueError(
+                f"{index_path}: unsafe or missing distribution artifact {relative!r}"
+            )
+        sources.append(source)
+    return sources
 
 
 def _validate_schema(root: Path, relative_schema: str, payload: dict[str, Any]) -> None:
@@ -351,8 +499,7 @@ def build_bundle(
             )
         )
 
-    distribution = root / "distribution"
-    for source in sorted(path for path in distribution.rglob("*") if path.is_file()):
+    for source in _distribution_archive_sources(root, release_dir):
         relative = source.relative_to(root)
         records.append(
             copy_file(source, bundle_dir / relative, bundle_root=bundle_dir)
@@ -370,13 +517,15 @@ def build_bundle(
             and item.get("byte_archive_eligibility") == "eligible"
         }
         for dataset_id in sorted(eligible_ids):
-            dataset_root = root / "datasets" / dataset_id
-            for source in sorted(
-                path for path in dataset_root.rglob("*") if path.is_file()
-            ):
+            for source, checksum in _canonical_archive_sources(root, dataset_id):
                 relative = source.relative_to(root)
                 records.append(
-                    copy_file(source, bundle_dir / relative, bundle_root=bundle_dir)
+                    copy_file(
+                        source,
+                        bundle_dir / relative,
+                        bundle_root=bundle_dir,
+                        expected_sha256=checksum,
+                    )
                 )
 
     records.sort(key=lambda item: item["path"])

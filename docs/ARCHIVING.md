@@ -45,7 +45,14 @@ It contains **no canonical, external, or legacy dataset bytes**.
 ### `eligible-canonical-bytes`
 
 This explicitly broader profile additionally includes only canonical datasets
-whose committed preservation eligibility is `eligible`.
+whose committed preservation eligibility is `eligible`. Before copying bytes,
+the generator independently checks each dataset's redistribution terms against
+the eligibility report. It copies only files listed under `files` in canonical
+metadata, verifying each SHA-256 against the archived copy. The dataset's
+`metadata.yaml` and, when present, `README.md` accompany the declared files.
+Unregistered exports, temporary downloads and other stray files are excluded.
+The static distribution is likewise copied from the versioned index named in
+the snapshot manifest; unlisted local files are not packaged.
 
 External-source and legacy-quarantine bytes are never included merely because
 they exist in repository history.
