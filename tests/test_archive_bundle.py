@@ -171,6 +171,14 @@ class ArchiveBundleTests(unittest.TestCase):
                     "text": "Eligible dataset.",
                     "url": "https://example.test/eligible",
                 },
+                "files": [
+                    {
+                        "path": "raw/data.csv",
+                        "role": "raw",
+                        "format": "csv",
+                        "sha256": hashlib.sha256(b"x\n1\n").hexdigest(),
+                    }
+                ],
             },
             "metadata-only": {
                 "schema_version": 1,
@@ -182,11 +190,23 @@ class ArchiveBundleTests(unittest.TestCase):
                     "redistribution": "restricted",
                 },
                 "citation": None,
+                "files": [
+                    {
+                        "path": "raw/secret.csv",
+                        "role": "raw",
+                        "format": "csv",
+                        "sha256": hashlib.sha256(b"x\n2\n").hexdigest(),
+                    }
+                ],
             },
         }
         for dataset_id, metadata in dataset_metadata.items():
             (self.root / "datasets" / dataset_id / "metadata.yaml").write_text(
                 yaml.safe_dump(metadata, sort_keys=False),
+                encoding="utf-8",
+            )
+            (self.root / "datasets" / dataset_id / "README.md").write_text(
+                f"# {dataset_id}\n",
                 encoding="utf-8",
             )
 
@@ -270,13 +290,23 @@ class ArchiveBundleTests(unittest.TestCase):
                 {
                     "distribution_version": 1,
                     "repository": "DiogoRibeiro7/data",
-                    "artifacts": [],
+                    "artifacts": [
+                        {
+                            "name": "canonical",
+                            "path": "canonical.json",
+                            "schema_version": 1,
+                            "source": "datasets/catalog.json",
+                        }
+                    ],
                 },
                 indent=2,
                 sort_keys=True,
             )
             + "\n",
             encoding="utf-8",
+        )
+        (self.root / "distribution" / "v1" / "canonical.json").write_text(
+            '{"schema_version": 1}\n', encoding="utf-8"
         )
 
         for name in (
@@ -335,6 +365,8 @@ class ArchiveBundleTests(unittest.TestCase):
         self.assertFalse(any(path.startswith("datasets/") for path in paths))
         self.assertIn("release/snapshot-provenance.json", paths)
         self.assertIn("archive/archive-metadata.json", paths)
+        self.assertIn("distribution/v1/index.json", paths)
+        self.assertIn("distribution/v1/canonical.json", paths)
 
     def test_canonical_byte_profile_includes_only_eligible_dataset(self) -> None:
         _, manifest_path = ARCHIVE.build_bundle(
@@ -349,9 +381,149 @@ class ArchiveBundleTests(unittest.TestCase):
         paths = {item["path"] for item in manifest["files"]}
 
         self.assertTrue(any(path.startswith("datasets/eligible/") for path in paths))
+        self.assertIn("datasets/eligible/raw/data.csv", paths)
+        self.assertIn("datasets/eligible/metadata.yaml", paths)
+        self.assertIn("datasets/eligible/README.md", paths)
         self.assertFalse(
             any(path.startswith("datasets/metadata-only/") for path in paths)
         )
+
+    def test_unlisted_files_are_not_copied_into_byte_archive(self) -> None:
+        stray = self.root / "datasets" / "eligible" / "raw" / ".partial-export.tmp"
+        stray.write_bytes(b"not registered for redistribution\n")
+
+        _, manifest_path = ARCHIVE.build_bundle(
+            self.root,
+            self.release_dir,
+            self.output_dir,
+            tag=TAG,
+            commit=COMMIT,
+            profile="eligible-canonical-bytes",
+        )
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        paths = {item["path"] for item in manifest["files"]}
+
+        self.assertNotIn("datasets/eligible/raw/.partial-export.tmp", paths)
+        self.assertFalse(
+            (
+                self.output_dir
+                / "archive-bundle"
+                / "datasets"
+                / "eligible"
+                / "raw"
+                / ".partial-export.tmp"
+            ).exists()
+        )
+
+    def test_unlisted_distribution_files_are_not_archived(self) -> None:
+        (self.root / "distribution" / "v1" / ".untracked.json").write_text(
+            '{"private": true}\n', encoding="utf-8"
+        )
+
+        _, manifest_path = ARCHIVE.build_bundle(
+            self.root,
+            self.release_dir,
+            self.output_dir,
+            tag=TAG,
+            commit=COMMIT,
+            profile="release-metadata",
+        )
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        paths = {item["path"] for item in manifest["files"]}
+
+        self.assertIn("distribution/v1/canonical.json", paths)
+        self.assertNotIn("distribution/v1/.untracked.json", paths)
+
+    def test_distribution_index_cannot_reference_parent_directory(self) -> None:
+        index_path = self.root / "distribution" / "v1" / "index.json"
+        index = json.loads(index_path.read_text(encoding="utf-8"))
+        index["artifacts"][0]["path"] = "../private.json"
+        index_path.write_text(json.dumps(index), encoding="utf-8")
+
+        with self.assertRaisesRegex(ValueError, "invalid distribution artifact path"):
+            ARCHIVE.build_bundle(
+                self.root,
+                self.release_dir,
+                self.output_dir,
+                tag=TAG,
+                commit=COMMIT,
+                profile="release-metadata",
+            )
+
+    def test_false_eligibility_cannot_override_restricted_license(self) -> None:
+        report_path = self.root / "reports" / "preservation-eligibility.json"
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        restricted = next(
+            item for item in report["canonical"] if item["id"] == "metadata-only"
+        )
+        restricted["byte_archive_eligibility"] = "eligible"
+        report_path.write_text(json.dumps(report), encoding="utf-8")
+
+        with self.assertRaisesRegex(ValueError, "eligibility conflicts with"):
+            ARCHIVE.build_bundle(
+                self.root,
+                self.release_dir,
+                self.output_dir,
+                tag=TAG,
+                commit=COMMIT,
+                profile="eligible-canonical-bytes",
+            )
+
+    def test_declared_file_checksum_is_reverified_before_archiving(self) -> None:
+        source = self.root / "datasets" / "eligible" / "raw" / "data.csv"
+        source.write_text("tampered source\n", encoding="utf-8")
+
+        with self.assertRaisesRegex(ValueError, "archived bytes have SHA-256 mismatch"):
+            ARCHIVE.build_bundle(
+                self.root,
+                self.release_dir,
+                self.output_dir,
+                tag=TAG,
+                commit=COMMIT,
+                profile="eligible-canonical-bytes",
+            )
+
+    def test_declared_file_path_cannot_escape_dataset(self) -> None:
+        metadata_path = self.root / "datasets" / "eligible" / "metadata.yaml"
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata["files"][0]["path"] = "../metadata-only/raw/secret.csv"
+        metadata_path.write_text(
+            yaml.safe_dump(metadata, sort_keys=False), encoding="utf-8"
+        )
+
+        with self.assertRaisesRegex(ValueError, "noncanonical dataset file path"):
+            ARCHIVE.build_bundle(
+                self.root,
+                self.release_dir,
+                self.output_dir,
+                tag=TAG,
+                commit=COMMIT,
+                profile="eligible-canonical-bytes",
+            )
+
+    def test_declared_symlink_cannot_read_outside_dataset(self) -> None:
+        outside = Path(self.tempdir.name) / "private.csv"
+        outside.write_text("not in the dataset\n", encoding="utf-8")
+        source = self.root / "datasets" / "eligible" / "raw" / "data.csv"
+        source.unlink()
+        source.symlink_to(outside)
+
+        metadata_path = self.root / "datasets" / "eligible" / "metadata.yaml"
+        metadata = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+        metadata["files"][0]["sha256"] = hashlib.sha256(outside.read_bytes()).hexdigest()
+        metadata_path.write_text(
+            yaml.safe_dump(metadata, sort_keys=False), encoding="utf-8"
+        )
+
+        with self.assertRaisesRegex(ValueError, "escapes dataset root"):
+            ARCHIVE.build_bundle(
+                self.root,
+                self.release_dir,
+                self.output_dir,
+                tag=TAG,
+                commit=COMMIT,
+                profile="eligible-canonical-bytes",
+            )
 
     def test_bundle_output_is_byte_deterministic_across_directories(self) -> None:
         with tempfile.TemporaryDirectory() as first, tempfile.TemporaryDirectory() as second:
