@@ -3,13 +3,13 @@
 This file is generated deterministically from committed external and legacy metadata.
 Do not edit it by hand.
 
-- Total debt items: **22**
-- External records: **20**
+- Total debt items: **24**
+- External records: **22**
 - Legacy packages: **2**
-- Structured evidence: **22**
+- Structured evidence: **24**
 - Unstructured debt: **0**
 - Actionable: **3**
-- Terminal: **19**
+- Terminal: **21**
 - Age reference date: **2026-10-31**
 
 ## Blocker categories
@@ -17,12 +17,13 @@ Do not edit it by hand.
 - `dataset-vs-repository-licence-scope`: **3**
 - `exact-snapshot-identity`: **1**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **17**
+- `redistribution-rights`: **19**
 
 ## Queue
 
 | Layer | ID | Review status | Blocker | Last reviewed | Age (days) | Evidence | Redistribution | Next action |
 | --- | --- | --- | --- | --- | ---: | ---: | --- | --- |
+| external | `aima-migration-report-vintages-2023-2025` | terminal | AIMA publishes these administrative statistics and source PDF reports, but source-specific terms authorizing central republication of the reports or transcribed annexes were not established. | 2026-10-31 | 0 | 3 | unresolved | Keep the report originals and revision chain externally referenced unless AIMA publishes applicable reuse terms for the exact documents and their tabulated extracts. |
 | external | `amt-porto-metro-demand` | actionable | AMT publishes the dashboards and statutory reports publicly, but the source pages examined do not state dataset-specific terms authorizing republication of the manually transcribed tables as a dataset. | 2026-10-30 | 1 | 3 | unresolved | Check whether AMT publishes applicable data reuse terms or an official downloadable dataset; seek authoritative clarification before proposing any canonical redistribution of the extracted values. |
 | external | `cfp-social-security-execution-2023-2025` | terminal | CFP publicly provides the underlying XLSX annexes, but no source-specific licence authorizing central republication of these workbooks or the normalized extraction has been established. | 2026-10-31 | 0 | 2 | unresolved | Keep this as an external reference unless explicit applicable reuse terms are established for the source annexes and their derived tables. |
 | external | `cge-social-security-accounts-2013-2025` | terminal | Ministry of Finance CGE tables are publicly downloadable, but no source-specific terms authorizing republication of the thirteen Excel workbooks as canonical dataset bytes have been established. | 2026-10-31 | 0 | 2 | unresolved | Retain authoritative upstream links and downstream checksum evidence; reconsider promotion only after explicit reuse and pinned snapshot checks. |
@@ -43,6 +44,7 @@ Do not edit it by hand.
 | external | `porto-metro-gtfs-2026-09-07` | actionable | A historical Porto open-data catalog tagged this dataset CC0, but the current migrated listing did not expose a clearly linked licence for the exact 7 September 2026 ZIP; carryover of the old licence is unverified. | 2026-10-30 | 1 | 2 | unresolved | Verify the migrated portal's machine-readable licence metadata or obtain publisher confirmation for the dated ZIP before canonical promotion. |
 | external | `porto-metro-line-b-validations-2015` | terminal | The infographic attributes the original counts to Metro do Porto and is published by PÚBLICO, but no source-specific licence for republishing its chart or a dataset derived from its transcription has been identified. | 2026-10-30 | 1 | 1 | unresolved | Retain the metadata-only record unless Metro do Porto or PÚBLICO provides express reuse terms for the exact underlying table or chart. |
 | external | `porto-metro-network-validations-2022-2024` | terminal | The operator's public sustainability report contains the rounded figures, but no explicit permission for redistributing the transcribed series as canonical dataset bytes has been established for this report. | 2026-10-30 | 1 | 1 | unresolved | Maintain metadata-only status unless operator-specific dataset reuse terms covering the figures are established. |
+| external | `sef-rifa-foreign-residents-2017-2022` | terminal | SEF annual reports are publicly available through official/archival copies, but an explicit licence authorizing republication of the PDF files or machine-readable annex transcriptions is not established. | 2026-10-31 | 0 | 3 | unresolved | Preserve distinct original vintages and archival links; reconsider canonical storage only if the responsible publisher confirms data-table redistribution rights for this exact report family. |
 | legacy | `country-age-sex-2019` | terminal | The retained age/sex files are strongly attributable to UN World Population Prospects 2019, whose publications are CC BY 3.0 IGO, but the exact download/export route and the lineage of the Portugal CSV/XLSX variants cannot be reconstructed sufficiently to claim file-level provenance for these historical artifacts. | 2026-10-05 | 26 | 2 | unknown | Reopen only if the original authoritative UN export identity can be tied to the retained files and the Portugal workbook/CSV lineage can be resolved. |
 | legacy | `portugal-covid19` | terminal | The retained workbook is attributable to the GEP/MTSSS Indicadores COVID-19 monitoring series and dated 27 May 2020, but the exact historical workbook URL, immutable upstream identity and dataset-specific redistribution terms were not recovered. | 2026-10-05 | 26 | 2 | unknown | Reopen only if GEP/MTSSS exposes the exact 27 May 2020 workbook with stable identity and explicit redistribution terms. |
 

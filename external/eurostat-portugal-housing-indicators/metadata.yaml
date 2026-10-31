@@ -15,11 +15,12 @@ usage:
   attribution_required: true
   note: >-
     Limited to the Portuguese Eurostat statistical API series recorded in the
-    portugal-housing-generations and social-security-housing-investment source
-    inventories. Eurostat allows reuse with attribution and disclosure of
-    changes, subject to stated third-party and non-EU data exceptions.
-    Project-local dated API responses and SHA-256 checksums are not
-    reproduced by this registry.
+    source inventories of portugal-housing-generations,
+    social-security-housing-investment and empirical-analysis-r. Eurostat allows
+    reuse with attribution and disclosure of changes, subject to stated
+    third-party and non-EU data exceptions. Project-local dated API
+    responses and SHA-256 checksums are not reproduced by this registry.
 consumers:
   - portugal-housing-generations
   - social-security-housing-investment
+  - empirical-analysis-r

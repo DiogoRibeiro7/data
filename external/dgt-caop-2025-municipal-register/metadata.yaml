@@ -1,0 +1,25 @@
+schema_version: 1
+status: external-reference
+id: dgt-caop-2025-municipal-register
+title: "DGT CAOP2025 official municipality codes and associated areas"
+publisher: "Direção-Geral do Território (DGT)"
+source_url: "https://www.dgterritorio.gov.pt/atividades/cartografia/cartografia-tematica/caop"
+source_path: "Areas_Freg_Mun_Dist_Pais_CAOP2025.zip"
+license:
+  name: "CC BY 4.0 (DGT open geographic data)"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: allowed
+  attribution_required: true
+  note: >-
+    DGT's open geographic data are published under CC BY 4.0 with attribution.
+    The CAOP2025 areas archive and extracted 308-municipality CSV are pinned
+    by their distinct SHA-256 hashes in the empirical-analysis-r housing
+    data contract. CAOP2025 was approved in January 2026, and its 2025
+    administrative-code register is not a historical boundary panel or
+    identical to INE's NUTS 2024 codes. No archive or CSV bytes are mirrored.
+consumers:
+  - empirical-analysis-r

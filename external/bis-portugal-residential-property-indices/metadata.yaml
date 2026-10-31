@@ -1,0 +1,27 @@
+schema_version: 1
+status: external-reference
+id: bis-portugal-residential-property-indices
+title: "BIS Portugal selected residential property prices, nominal and real quarterly indices"
+publisher: "Bank for International Settlements (BIS); source statistics from INE and Confidencial Imobiliário"
+source_url: "https://data.bis.org/topics/RPP/BIS%2CWS_SPP%2C1.0/Q.PT.N.628"
+license:
+  name: "BIS permitted use of statistical data (attribution and conditions)"
+  url: "https://data.bis.org/help/legal"
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: allowed
+  attribution_required: true
+  note: >-
+    Applies only to BIS Data Portal statistics Q.PT.N.628 and Q.PT.R.628
+    under its permitted-use conditions, including citation, no implied
+    endorsement and no additional charge for statistics in commercial
+    products. The empirical-analysis-r housing study pins two original
+    SDMX CSV snapshots and their SHA-256 values. The pre-2008 Portugal
+    segment is based on advertised prices, while the post-2008 segment is
+    transaction-based. Nominal and CPI-deflated real indices are not direct
+    EUR per square metre costs or interchangeable with INE municipal medians.
+    No data bytes are mirrored here.
+consumers:
+  - empirical-analysis-r

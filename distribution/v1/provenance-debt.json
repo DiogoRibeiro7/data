@@ -2,6 +2,22 @@
   "age_reference_date": "2026-10-31",
   "items": [
     {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "AIMA publishes these administrative statistics and source PDF reports, but source-specific terms authorizing central republication of the reports or transcribed annexes were not established.",
+      "evidence_count": 3,
+      "id": "aima-migration-report-vintages-2023-2025",
+      "last_reviewed": "2026-10-31",
+      "layer": "external",
+      "next_action": "Keep the report originals and revision chain externally referenced unless AIMA publishes applicable reuse terms for the exact documents and their tabulated extracts.",
+      "path": "external/aima-migration-report-vintages-2023-2025/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
+      "title": "AIMA migration and asylum reports, original and revised resident-stock vintages"
+    },
+    {
       "age_days": 1,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "AMT publishes the dashboards and statutory reports publicly, but the source pages examined do not state dataset-specific terms authorizing republication of the manually transcribed tables as a dataset.",
@@ -322,6 +338,22 @@
       "title": "Metro do Porto whole-network validations (2022–2024)"
     },
     {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "SEF annual reports are publicly available through official/archival copies, but an explicit licence authorizing republication of the PDF files or machine-readable annex transcriptions is not established.",
+      "evidence_count": 3,
+      "id": "sef-rifa-foreign-residents-2017-2022",
+      "last_reviewed": "2026-10-31",
+      "layer": "external",
+      "next_action": "Preserve distinct original vintages and archival links; reconsider canonical storage only if the responsible publisher confirms data-table redistribution rights for this exact report family.",
+      "path": "external/sef-rifa-foreign-residents-2017-2022/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
+      "title": "SEF RIFA original foreign-resident nationality and sex tables (2017–2022)"
+    },
+    {
       "age_days": 26,
       "blocker_category": "exact-snapshot-identity",
       "blocker_summary": "The retained age/sex files are strongly attributable to UN World Population Prospects 2019, whose publications are CC BY 3.0 IGO, but the exact download/export route and the lineage of the Portugal CSV/XLSX variants cannot be reconstructed sufficiently to claim file-level provenance for these historical artifacts.",
@@ -361,13 +393,13 @@
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 1,
       "historical-export-route": 1,
-      "redistribution-rights": 17
+      "redistribution-rights": 19
     },
-    "external_count": 20,
+    "external_count": 22,
     "legacy_count": 2,
-    "structured_count": 22,
-    "terminal_count": 19,
-    "total_debt": 22,
+    "structured_count": 24,
+    "terminal_count": 21,
+    "total_debt": 24,
     "unstructured_count": 0
   }
 }
