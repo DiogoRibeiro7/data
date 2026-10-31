@@ -3,13 +3,13 @@
 This file is generated deterministically from committed external and legacy metadata.
 Do not edit it by hand.
 
-- Total debt items: **25**
-- External records: **23**
+- Total debt items: **26**
+- External records: **24**
 - Legacy packages: **2**
-- Structured evidence: **25**
+- Structured evidence: **26**
 - Unstructured debt: **0**
 - Actionable: **3**
-- Terminal: **22**
+- Terminal: **23**
 - Age reference date: **2026-10-31**
 
 ## Blocker categories
@@ -17,7 +17,7 @@ Do not edit it by hand.
 - `dataset-vs-repository-licence-scope`: **3**
 - `exact-snapshot-identity`: **1**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **20**
+- `redistribution-rights`: **21**
 
 ## Queue
 
@@ -29,6 +29,7 @@ Do not edit it by hand.
 | external | `cge-social-security-accounts-2013-2025` | terminal | Ministry of Finance CGE tables are publicly downloadable, but no source-specific terms authorizing republication of the thirteen Excel workbooks as canonical dataset bytes have been established. | 2026-10-31 | 0 | 2 | unresolved | Retain authoritative upstream links and downstream checksum evidence; reconsider promotion only after explicit reuse and pinned snapshot checks. |
 | external | `dgo-2026-social-security-budget` | terminal | DGO publishes the State Budget report and separate open-budget datasets, but licence terms for rehosting this specific report or a standalone transcribed table have not been established. | 2026-10-31 | 0 | 2 | unresolved | Preserve official source attribution and forecast vintage; reconsider canonical archiving only for a specifically licensed official table. |
 | external | `dgs-infoclique-mortality` | terminal | DGS publicly disseminates SICO mortality information, but its current legal notice protects site contents and no dataset-specific redistribution grant covering the historical InfoClique/SICO CSV exports was recovered. | 2026-10-05 | 26 | 2 | unresolved | Reopen only if DGS publishes dataset-specific reuse terms or an authoritative open-data licence covering the historical mortality exports. |
+| external | `hillstrom-minethatdata-email-experiment-2008` | terminal | Kevin Hillstrom publicly invited download and analysis of the 2008 competition CSV, but an explicit grant to redistribute its full underlying data from a central public repository was not located. A Kaggle uploader's description or licence cannot independently prove that the original dataset owner granted downstream sublicensing rights. | 2026-10-31 | 0 | 3 | unresolved | Continue upstream-on-demand acquisition in the research project. Revisit canonical preservation only with documented owner permission for the exact source file and a verified SHA-256 snapshot. |
 | external | `ibm-telco-customer-churn` | terminal | The pinned IBM repository is Apache-2.0 licensed as a code pattern, but the README explicitly separates third-party objects and no dataset-specific redistribution licence for Telco-Customer-Churn.csv was established. | 2026-10-05 | 26 | 3 | unresolved | Reopen only if IBM publishes dataset-specific terms or an authoritative licence statement covering Telco-Customer-Churn.csv. |
 | external | `igfcss-fefss-annual-2024` | terminal | The official IGFCSS FEFSS annual report is available as a public PDF; permission to redistribute the report or its transcribed financial tables as canonical registry data has not been established. | 2026-10-31 | 0 | 1 | unresolved | Keep the exact upstream snapshot identity externally referenced until publisher-specific reuse terms and a canonical consumer need are proven. |
 | external | `igfss-social-security-accounts-2023` | terminal | The official Social Security accounts PDF is publicly obtainable, but explicit reuse terms for mirroring the report or transcribed tables as dataset files were not established. | 2026-10-31 | 0 | 2 | unresolved | Keep a linked, hashed upstream reference pending applicable official reuse terms and an explicit canonical consumer contract. |
