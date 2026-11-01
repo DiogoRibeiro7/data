@@ -164,6 +164,29 @@ Generation performs no transfers, has no provider SDK dependency, and never
 creates an application database. See [Ingestion handoff](INGESTION_HANDOFF.md)
 for the versioned schema and downstream execution rules.
 
+Consumers can verify received files independently of a registry checkout or
+storage provider with `verify_handoff_manifest`:
+
+```python
+from pathlib import Path
+from data_registry import verify_handoff_manifest
+
+verified = verify_handoff_manifest(
+    Path("handoff.json"),
+    Path("/path/to/received-objects"),
+    expected_commit="<trusted-40-character-git-sha>",
+    expected_repository="DiogoRibeiro7/data",
+    expected_dataset_id="ons-gross-median-weekly-pay",
+)
+print(verified.verified_objects, verified.total_bytes, verified.manifest_sha256)
+```
+
+The verifier checks the serialized v1 contract, immutable file references,
+safe storage keys, byte counts, and SHA-256 checksums without a network call.
+The expected commit must come from an independent trusted source. A successful
+result proves local consistency, not publisher authenticity or completion of
+an external ingestion job.
+
 ## Checksum-verified canonical fetch
 
 `RegistryClient.fetch()` resolves the repository path and expected SHA-256 from

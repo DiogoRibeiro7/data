@@ -48,6 +48,20 @@ never downloads or uploads any files. See [Ingestion handoff](INGESTION_HANDOFF.
 `--verify-checkout` requires a local Git checkout whose HEAD, canonical
 metadata, and source blobs match the declared immutable commit.
 
+Verify downloaded files against a serialized plan in any local directory:
+
+```bash
+data-registry verify-handoff \
+  --manifest handoff.json --storage-root /path/to/received-objects \
+  --commit <trusted-40-character-git-sha> \
+  --repository DiogoRibeiro7/data --dataset-id ons-gross-median-weekly-pay --json
+```
+
+This command works offline, checks declared SHA-256 hashes and optional byte
+sizes, and rejects unsafe storage paths or mismatched immutable source
+references. The required commit must be trusted independently of the plan;
+this does not establish the publisher's identity.
+
 ## List entries
 
 ```bash
