@@ -380,6 +380,14 @@ def build_parser() -> argparse.ArgumentParser:
     verify_handoff_parser.add_argument(
         "--dataset-id", help="Expected canonical dataset identifier."
     )
+    verify_handoff_parser.add_argument(
+        "--trusted-checkout",
+        type=Path,
+        help=(
+            "Anchor all source declarations to a local Git checkout at --commit "
+            "(no network access)."
+        ),
+    )
     _add_common_read_options(verify_handoff_parser)
 
     consumers_parser = subparsers.add_parser(
@@ -504,6 +512,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 expected_commit=args.commit,
                 expected_repository=args.repository,
                 expected_dataset_id=args.dataset_id,
+                trusted_checkout=args.trusted_checkout,
             )
             payload = {
                 "ok": True,
@@ -513,6 +522,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 "verified_objects": result.verified_objects,
                 "total_bytes": result.total_bytes,
                 "manifest_sha256": result.manifest_sha256,
+                "trusted_checkout_verified": result.trusted_checkout_verified,
             }
             if args.json:
                 _print_json(payload)
@@ -521,6 +531,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 print(f"Verified objects: {result.verified_objects}")
                 print(f"Verified bytes:   {result.total_bytes}")
                 print(f"Manifest SHA-256: {result.manifest_sha256}")
+                print(f"Trusted checkout: {result.trusted_checkout_verified}")
             return 0
 
         if args.command == "verify-release":

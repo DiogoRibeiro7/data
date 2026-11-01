@@ -187,6 +187,13 @@ The expected commit must come from an independent trusted source. A successful
 result proves local consistency, not publisher authenticity or completion of
 an external ingestion job.
 
+Pass `trusted_checkout=Path("/path/to/pinned-registry-checkout")` to anchor
+the plan to locally committed metadata and source files. In that mode,
+`expected_repository` is required, the checkout `HEAD` must equal
+`expected_commit`, and all source declarations must match the committed
+canonical record. The result exposes `trusted_checkout_verified`; absent the
+optional checkout, it remains `False`. No network or provider SDK is used.
+
 ## Checksum-verified canonical fetch
 
 `RegistryClient.fetch()` resolves the repository path and expected SHA-256 from

@@ -16,6 +16,8 @@ from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker, SchemaError, ValidationError
 
+from .api import RegistryClient
+from .core import RegistryError
 from .fetch import DatasetReference
 
 COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
@@ -36,18 +38,86 @@ class HandoffVerificationResult:
     verified_objects: int
     total_bytes: int
     manifest_sha256: str
+    trusted_checkout_verified: bool = False
 
 
-def _load_json(path: Path) -> dict[str, Any]:
-    """Load a manifest JSON object with a verification-specific failure."""
+def _load_json(path: Path) -> tuple[dict[str, Any], str]:
+    """Parse and fingerprint the same serialized manifest bytes exactly once."""
 
     try:
-        value = json.loads(path.read_text(encoding="utf-8"))
+        raw = path.read_bytes()
+        value = json.loads(raw.decode("utf-8"))
     except (OSError, UnicodeError, json.JSONDecodeError) as exc:
         raise HandoffVerificationError(f"cannot read handoff manifest: {exc}") from exc
     if not isinstance(value, dict):
         raise HandoffVerificationError("handoff manifest must be a JSON object")
-    return value
+    return value, hashlib.sha256(raw).hexdigest()
+
+
+def _verify_trusted_checkout(
+    payload: dict[str, Any],
+    *,
+    checkout: Path,
+    dataset_id: str,
+    repository: str,
+    commit: str,
+) -> None:
+    """Anchor all declared provenance and objects to a local committed Git tree.
+
+    The existing handoff builder verifies that checkout HEAD and every source
+    blob, including metadata.yaml, match ``commit`` without fetching objects.
+    Regenerating its contract prevents a self-consistent but forged handoff
+    from adding, omitting, or replacing source declarations.
+    """
+
+    try:
+        canonical = RegistryClient(checkout).handoff(
+            dataset_id,
+            commit=commit,
+            repository=repository,
+            verify_local=True,
+            verify_checkout=True,
+        ).to_mapping()
+    except (RegistryError, OSError, ValueError) as exc:
+        raise HandoffVerificationError(
+            f"trusted checkout could not verify pinned source: {exc}"
+        ) from exc
+
+    # The source's own verification flags are not provenance, and metadata-only
+    # handoffs legitimately omit size values. All other fields must agree.
+    provenance_fields = (
+        "manifest_version",
+        "dataset_id",
+        "title",
+        "lifecycle_status",
+        "registry",
+        "source",
+        "license",
+        "citation",
+    )
+    for field in provenance_fields:
+        if payload[field] != canonical[field]:
+            raise HandoffVerificationError(
+                f"trusted checkout disagrees with handoff field: {field}"
+            )
+
+    declared = {item["source_path"]: item for item in payload["objects"]}
+    committed = {item["source_path"]: item for item in canonical["objects"]}
+    if len(declared) != len(payload["objects"]) or declared.keys() != committed.keys():
+        raise HandoffVerificationError(
+            "trusted checkout disagrees with handoff source file set"
+        )
+    for source_path, item in declared.items():
+        expected = committed[source_path]
+        for field in ("source_uri", "sha256", "role", "format", "storage_key"):
+            if item[field] != expected[field]:
+                raise HandoffVerificationError(
+                    f"trusted checkout disagrees with {source_path}: {field}"
+                )
+        if item["size_bytes"] is not None and item["size_bytes"] != expected["size_bytes"]:
+            raise HandoffVerificationError(
+                f"trusted checkout disagrees with {source_path}: size_bytes"
+            )
 
 
 def _sha256_file(path: Path) -> str:
@@ -86,12 +156,15 @@ def verify_handoff_manifest(
     expected_commit: str,
     expected_repository: str | None = None,
     expected_dataset_id: str | None = None,
+    trusted_checkout: Path | str | None = None,
 ) -> HandoffVerificationResult:
     """Verify received objects under their manifest storage keys, offline.
 
     The caller must provide a trusted expected commit. Passing this check
-    proves local byte integrity and internal reference consistency, not that
-    the manifest or publisher is independently authentic.
+    proves local byte integrity and internal reference consistency. When
+    ``trusted_checkout`` is given, the manifest is additionally matched
+    against the pinned Git tree and all checked-out canonical source bytes.
+    The caller still must establish the Git repository/commit origin.
 
     Unrelated objects under ``storage_root`` are intentionally ignored: a
     consumer may store multiple datasets and immutable vintages together.
@@ -101,7 +174,7 @@ def verify_handoff_manifest(
         raise HandoffVerificationError("expected commit must be a full lowercase SHA")
 
     manifest_path = Path(manifest)
-    payload = _load_json(manifest_path)
+    payload, manifest_sha256 = _load_json(manifest_path)
     try:
         schema = json.loads(
             resources.files("data_registry")
@@ -122,6 +195,21 @@ def verify_handoff_manifest(
     if expected_dataset_id is not None and dataset_id != expected_dataset_id:
         raise HandoffVerificationError("handoff dataset does not match expected dataset")
 
+    if trusted_checkout is not None:
+        if expected_repository is None:
+            raise HandoffVerificationError(
+                "trusted checkout requires an independently expected repository"
+            )
+        if not isinstance(trusted_checkout, (str, Path)):
+            raise HandoffVerificationError("trusted checkout must be a local directory path")
+        _verify_trusted_checkout(
+            payload,
+            checkout=Path(trusted_checkout),
+            dataset_id=dataset_id,
+            repository=repository,
+            commit=commit,
+        )
+
     root = Path(storage_root).resolve()
     if not root.is_dir():
         raise HandoffVerificationError("received object storage root is missing")
@@ -139,7 +227,9 @@ def verify_handoff_manifest(
         source = _safe_relative_path(source_path, label="source path")
         key = _safe_relative_path(storage_key, label="storage key")
         if source.parts[:2] != ("datasets", dataset_id) or source.parts[2] != role:
-            raise HandoffVerificationError(f"{source_path}: invalid canonical source identity")
+            raise HandoffVerificationError(
+                f"{source_path}: invalid canonical source identity"
+            )
 
         expected_key = f"canonical/{dataset_id}/{sha256}/" + "/".join(source.parts[2:])
         if key.as_posix() != expected_key:
@@ -180,7 +270,8 @@ def verify_handoff_manifest(
         commit=commit,
         verified_objects=len(objects),
         total_bytes=total_bytes,
-        manifest_sha256=_sha256_file(manifest_path),
+        manifest_sha256=manifest_sha256,
+        trusted_checkout_verified=trusted_checkout is not None,
     )
 
 

@@ -62,6 +62,14 @@ sizes, and rejects unsafe storage paths or mismatched immutable source
 references. The required commit must be trusted independently of the plan;
 this does not establish the publisher's identity.
 
+For independent confirmation that the serialized plan actually describes
+files committed at the pinned Git revision, add
+`--trusted-checkout /path/to/pinned-registry-checkout`. This stronger offline
+check requires `--repository` and verifies local `HEAD`, committed metadata,
+every source Git blob, and the manifest's complete file/provenance contract.
+JSON output includes `trusted_checkout_verified`; a trusted repository origin
+must still be established separately.
+
 ## List entries
 
 ```bash
