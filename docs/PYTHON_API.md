@@ -179,6 +179,7 @@ verified = verify_handoff_manifest(
     expected_dataset_id="ons-gross-median-weekly-pay",
 )
 print(verified.verified_objects, verified.total_bytes, verified.manifest_sha256)
+evidence = verified.to_mapping()  # Stable verification v1 JSON structure.
 ```
 
 The verifier checks the serialized v1 contract, immutable file references,
@@ -193,6 +194,11 @@ the plan to locally committed metadata and source files. In that mode,
 `expected_commit`, and all source declarations must match the committed
 canonical record. The result exposes `trusted_checkout_verified`; absent the
 optional checkout, it remains `False`. No network or provider SDK is used.
+The immutable `files` tuple contains `HandoffVerifiedFile` records for each
+verified object. `to_mapping()` exposes sorted, portable per-file checksum and
+byte evidence, validated by the bundled
+`schemas/handoff-verification-result-v1.schema.json`. It is a local integrity
+record, not confirmation of downstream ingestion or a signed attestation.
 
 ## Checksum-verified canonical fetch
 

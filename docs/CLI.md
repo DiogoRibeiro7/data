@@ -69,6 +69,10 @@ check requires `--repository` and verifies local `HEAD`, committed metadata,
 every source Git blob, and the manifest's complete file/provenance contract.
 JSON output includes `trusted_checkout_verified`; a trusted repository origin
 must still be established separately.
+The same JSON response includes `verification_version: 1` and sorted per-file
+evidence (`source_path`, `storage_key`, `sha256`, `size_bytes`). A consumer can
+retain this output in its own audit storage. See the
+[verification-result v1 schema](https://github.com/DiogoRibeiro7/data/blob/main/schemas/handoff-verification-result-v1.schema.json).
 
 ## List entries
 

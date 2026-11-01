@@ -514,16 +514,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 expected_dataset_id=args.dataset_id,
                 trusted_checkout=args.trusted_checkout,
             )
-            payload = {
-                "ok": True,
-                "dataset_id": result.dataset_id,
-                "repository": result.repository,
-                "commit": result.commit,
-                "verified_objects": result.verified_objects,
-                "total_bytes": result.total_bytes,
-                "manifest_sha256": result.manifest_sha256,
-                "trusted_checkout_verified": result.trusted_checkout_verified,
-            }
+            payload = result.to_mapping()
             if args.json:
                 _print_json(payload)
             else:

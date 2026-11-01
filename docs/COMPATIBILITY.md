@@ -85,6 +85,18 @@ them.
 Schema versioning is independent of package, static-distribution, and snapshot
 manifest versions.
 
+## Handoff verification evidence
+
+The provider-neutral handoff plan remains version 1. The separate local
+verification result uses `verification_version: 1` and the JSON contract in
+`schemas/handoff-verification-result-v1.schema.json`. Its `files` array records
+verified source paths, storage keys, checksums, and byte counts in canonical
+order. It is not a downstream ingestion receipt or publisher attestation.
+
+Compatible v1 extensions may add optional fields without changing existing
+field meanings. Removing fields, changing their meaning, or changing the
+verified-file structure incompatibly requires a new verification version.
+
 ## Static machine-readable distribution
 
 The current static distribution contract is:

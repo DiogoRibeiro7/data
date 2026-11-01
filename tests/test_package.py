@@ -39,6 +39,7 @@ class PackageMetadataTests(unittest.TestCase):
             "external-metadata-v1.schema.json",
             "legacy-metadata-v0.schema.json",
             "ingestion-handoff-v1.schema.json",
+            "handoff-verification-result-v1.schema.json",
         }
 
         self.assertEqual(

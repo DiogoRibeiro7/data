@@ -29,6 +29,26 @@ class HandoffVerificationError(RuntimeError):
 
 
 @dataclass(frozen=True, slots=True)
+class HandoffVerifiedFile:
+    """Portable evidence for one locally verified canonical file."""
+
+    source_path: str
+    storage_key: str
+    sha256: str
+    size_bytes: int
+
+    def to_mapping(self) -> dict[str, str | int]:
+        """Emit the checked bytes and identity without local absolute paths."""
+
+        return {
+            "source_path": self.source_path,
+            "storage_key": self.storage_key,
+            "sha256": self.sha256,
+            "size_bytes": self.size_bytes,
+        }
+
+
+@dataclass(frozen=True, slots=True)
 class HandoffVerificationResult:
     """Summary of verified bytes associated with one immutable handoff."""
 
@@ -39,6 +59,35 @@ class HandoffVerificationResult:
     total_bytes: int
     manifest_sha256: str
     trusted_checkout_verified: bool = False
+    files: tuple[HandoffVerifiedFile, ...] = ()
+
+    def to_mapping(self) -> dict[str, Any]:
+        """Emit the stable v1 evidence contract for downstream audit logs.
+
+        This report attests only to a local verification run, not to ingestion,
+        remote storage promotion, publisher origin, or a signed execution event.
+        """
+
+        if (
+            not self.files
+            or len(self.files) != self.verified_objects
+            or sum(item.size_bytes for item in self.files) != self.total_bytes
+        ):
+            raise HandoffVerificationError(
+                "verification evidence must contain every verified file and byte"
+            )
+        return {
+            "verification_version": 1,
+            "ok": True,
+            "dataset_id": self.dataset_id,
+            "repository": self.repository,
+            "commit": self.commit,
+            "verified_objects": self.verified_objects,
+            "total_bytes": self.total_bytes,
+            "manifest_sha256": self.manifest_sha256,
+            "trusted_checkout_verified": self.trusted_checkout_verified,
+            "files": [item.to_mapping() for item in self.files],
+        }
 
 
 def _load_json(path: Path) -> tuple[dict[str, Any], str]:
@@ -217,6 +266,7 @@ def verify_handoff_manifest(
     source_paths: set[str] = set()
     storage_keys: set[str] = set()
     total_bytes = 0
+    verified_files: list[HandoffVerifiedFile] = []
     objects = payload["objects"]
     for item in objects:
         source_path = item["source_path"]
@@ -263,6 +313,14 @@ def verify_handoff_manifest(
         if _sha256_file(destination) != sha256:
             raise HandoffVerificationError(f"{storage_key}: received object SHA-256 mismatch")
         total_bytes += actual_bytes
+        verified_files.append(
+            HandoffVerifiedFile(
+                source_path=source_path,
+                storage_key=storage_key,
+                sha256=sha256,
+                size_bytes=actual_bytes,
+            )
+        )
 
     return HandoffVerificationResult(
         dataset_id=dataset_id,
@@ -272,11 +330,13 @@ def verify_handoff_manifest(
         total_bytes=total_bytes,
         manifest_sha256=manifest_sha256,
         trusted_checkout_verified=trusted_checkout is not None,
+        files=tuple(sorted(verified_files, key=lambda item: item.source_path)),
     )
 
 
 __all__ = [
     "HandoffVerificationError",
     "HandoffVerificationResult",
+    "HandoffVerifiedFile",
     "verify_handoff_manifest",
 ]
