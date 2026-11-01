@@ -13,6 +13,7 @@ import yaml
 from . import fetch as FETCH
 from .api import RegistryClient
 from .archive_verification import ArchiveVerificationError, verify_archive_bundle
+from .handoff_verification import HandoffVerificationError, verify_handoff_manifest
 from .core import (
     LAYER_CHOICES,
     RegistryEntry,
@@ -365,6 +366,22 @@ def build_parser() -> argparse.ArgumentParser:
     )
     _add_common_read_options(handoff_parser)
 
+    verify_handoff_parser = subparsers.add_parser(
+        "verify-handoff", help="Verify received canonical handoff files offline."
+    )
+    verify_handoff_parser.add_argument("--manifest", type=Path, required=True)
+    verify_handoff_parser.add_argument("--storage-root", type=Path, required=True)
+    verify_handoff_parser.add_argument(
+        "--commit", required=True, help="Trusted full 40-character source commit."
+    )
+    verify_handoff_parser.add_argument(
+        "--repository", help="Expected source registry owner/repository."
+    )
+    verify_handoff_parser.add_argument(
+        "--dataset-id", help="Expected canonical dataset identifier."
+    )
+    _add_common_read_options(verify_handoff_parser)
+
     consumers_parser = subparsers.add_parser(
         "consumers",
         help="List registered canonical consumers.",
@@ -479,7 +496,33 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     root = args.root.resolve()
     try:
-        # Downloaded release and archive bundles must work outside a Git checkout.
+        # All offline verifiers must work outside a registry Git checkout.
+        if args.command == "verify-handoff":
+            result = verify_handoff_manifest(
+                args.manifest,
+                args.storage_root,
+                expected_commit=args.commit,
+                expected_repository=args.repository,
+                expected_dataset_id=args.dataset_id,
+            )
+            payload = {
+                "ok": True,
+                "dataset_id": result.dataset_id,
+                "repository": result.repository,
+                "commit": result.commit,
+                "verified_objects": result.verified_objects,
+                "total_bytes": result.total_bytes,
+                "manifest_sha256": result.manifest_sha256,
+            }
+            if args.json:
+                _print_json(payload)
+            else:
+                print(f"OK: {result.dataset_id} @ {result.commit}")
+                print(f"Verified objects: {result.verified_objects}")
+                print(f"Verified bytes:   {result.total_bytes}")
+                print(f"Manifest SHA-256: {result.manifest_sha256}")
+            return 0
+
         if args.command == "verify-release":
             result = verify_release_bundle(
                 args.bundle,
@@ -772,7 +815,12 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
 
         raise RegistryError(f"unknown command: {args.command}")
-    except (RegistryError, ReleaseVerificationError, ArchiveVerificationError) as exc:
+    except (
+        RegistryError,
+        ReleaseVerificationError,
+        ArchiveVerificationError,
+        HandoffVerificationError,
+    ) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
 

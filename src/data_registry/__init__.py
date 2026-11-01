@@ -26,6 +26,11 @@ from .compatibility import (
 from .core import RegistryEntry, RegistryError, load_registry
 from .fetch import DatasetReference, fetch_dataset_file
 from .handoff import HandoffManifest, HandoffObject, build_handoff_manifest
+from .handoff_verification import (
+    HandoffVerificationError,
+    HandoffVerificationResult,
+    verify_handoff_manifest,
+)
 from .release_verification import (
     ReleaseVerificationError,
     ReleaseVerificationResult,
@@ -57,6 +62,9 @@ __all__ = [
     "FetchResult",
     "HandoffManifest",
     "HandoffObject",
+    "HandoffVerificationError",
+    "HandoffVerificationResult",
+    "verify_handoff_manifest",
     "LegacyRecord",
     "LifecycleDataset",
     "ProvenanceDebtItem",

@@ -69,6 +69,52 @@ The contract is described by
 [`schemas/ingestion-handoff-v1.schema.json`](https://github.com/DiogoRibeiro7/data/blob/main/schemas/ingestion-handoff-v1.schema.json).
 The schema is also bundled with the Python package.
 
+## Verify received objects offline
+
+After a consumer downloads the objects and places each file at its declared
+relative `storage_key`, verify the received bytes without a provider account or
+registry checkout:
+
+```bash
+data-registry verify-handoff \
+  --manifest handoff.json \
+  --storage-root /path/to/received-objects \
+  --commit <trusted-40-character-registry-commit> \
+  --repository DiogoRibeiro7/data \
+  --dataset-id ons-gross-median-weekly-pay \
+  --json
+```
+
+Supply `--commit` from a **trusted source independent of the JSON manifest**;
+the manifest must not be allowed to authenticate itself. The repository and
+dataset identity checks are optional but recommended. This command validates
+the bundled v1 schema, immutable source URLs, source-to-storage-key mappings,
+unique file declarations, safe local paths, SHA-256 checksums, and any declared
+byte sizes. It returns verified object count, total bytes, and the manifest's
+SHA-256. It reads only local files and never contacts a provider or network
+service; unrelated files in the storage root are left untouched.
+
+The corresponding typed Python API is also independent of a Git checkout:
+
+```python
+from pathlib import Path
+from data_registry import verify_handoff_manifest
+
+receipt = verify_handoff_manifest(
+    Path("handoff.json"),
+    Path("/path/to/received-objects"),
+    expected_commit="<trusted-40-character-registry-commit>",
+    expected_repository="DiogoRibeiro7/data",
+    expected_dataset_id="ons-gross-median-weekly-pay",
+)
+print(receipt.verified_objects, receipt.total_bytes)
+```
+
+This is an **offline integrity-verification result**, not a signed attestation
+of publisher origin or a record of completed warehouse ingestion. Source
+authenticity and any durable execution record remain the consumer's
+responsibility.
+
 ## Consumer-side execution contract
 
 An ingestion worker can use the plan to implement a storage-neutral workflow:
@@ -82,6 +128,7 @@ An ingestion worker can use the plan to implement a storage-neutral workflow:
    A metadata-only plan is never proof of byte integrity.
 4. Publish to the selected destination using the deterministic `storage_key`.
    The provider adapter is responsible for atomic/idempotent promotion.
+   Run `verify-handoff` on locally received objects before promoting them.
 5. Persist an execution record outside this repository containing the handoff
    version, source commit/path/checksum, destination URI, run identifier, and
    verification outcome.

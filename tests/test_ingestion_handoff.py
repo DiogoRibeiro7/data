@@ -16,7 +16,12 @@ from unittest.mock import patch
 import jsonschema
 import yaml
 
-from data_registry import RegistryClient, RegistryError
+from data_registry import (
+    HandoffVerificationError,
+    RegistryClient,
+    RegistryError,
+    verify_handoff_manifest,
+)
 from data_registry.cli import main
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -330,6 +335,163 @@ class IngestionHandoffTests(unittest.TestCase):
         )
         jsonschema.validate(result, schema)
         self.assertTrue(result["checkout_identity_verified"])
+
+    def received_handoff(
+        self, *, verify_local: bool = False
+    ) -> tuple[dict[str, object], Path, Path]:
+        """Create a consumer storage fixture from the source-side plan."""
+
+        payload = self.client.handoff(
+            "test-dataset", commit=COMMIT, verify_local=verify_local
+        ).to_mapping()
+        storage_root = self.root / "received"
+        storage_root.mkdir()
+        for obj in payload["objects"]:
+            source = self.root / obj["source_path"]
+            target = storage_root / obj["storage_key"]
+            target.parent.mkdir(parents=True)
+            target.write_bytes(source.read_bytes())
+        manifest = self.root / "handoff.json"
+        self.write_handoff(manifest, payload)
+        return payload, manifest, storage_root
+
+    @staticmethod
+    def write_handoff(path: Path, payload: dict[str, object]) -> None:
+        """Persist an altered or unaltered manifest for a consumer."""
+
+        path.write_text(json.dumps(payload, sort_keys=True), encoding="utf-8")
+
+    def test_offline_verifier_accepts_metadata_only_handoff(self) -> None:
+        _, manifest, storage_root = self.received_handoff()
+        with patch(
+            "urllib.request.urlopen",
+            side_effect=AssertionError("unexpected network access"),
+        ):
+            result = verify_handoff_manifest(
+                manifest, storage_root,
+                expected_commit=COMMIT,
+                expected_repository="DiogoRibeiro7/data",
+                expected_dataset_id="test-dataset",
+            )
+        self.assertEqual(result.verified_objects, 2)
+        self.assertEqual(result.total_bytes, len(self.raw_bytes) + len(self.derived_bytes))
+        self.assertEqual(result.manifest_sha256, hashlib.sha256(manifest.read_bytes()).hexdigest())
+
+    def test_offline_verifier_accepts_preverified_sizes_and_extra_files(self) -> None:
+        _, manifest, storage_root = self.received_handoff(verify_local=True)
+        (storage_root / "unrelated.txt").write_text("other dataset", encoding="utf-8")
+        result = verify_handoff_manifest(manifest, storage_root, expected_commit=COMMIT)
+        self.assertEqual(result.verified_objects, 2)
+
+    def test_offline_verifier_requires_independent_commit(self) -> None:
+        _, manifest, storage_root = self.received_handoff()
+        for commit in ("main", "a" * 40):
+            with self.subTest(commit=commit), self.assertRaises(HandoffVerificationError):
+                verify_handoff_manifest(manifest, storage_root, expected_commit=commit)
+
+    def test_offline_verifier_checks_optional_identities(self) -> None:
+        _, manifest, storage_root = self.received_handoff()
+        for options in (
+            {"expected_repository": "other/repository"},
+            {"expected_dataset_id": "another-dataset"},
+        ):
+            with self.subTest(options=options), self.assertRaises(HandoffVerificationError):
+                verify_handoff_manifest(manifest, storage_root, expected_commit=COMMIT, **options)
+
+    def test_offline_verifier_rejects_missing_and_changed_files(self) -> None:
+        payload, manifest, storage_root = self.received_handoff(verify_local=True)
+        target = storage_root / payload["objects"][0]["storage_key"]
+        original = target.read_bytes()
+        target.write_bytes(original.replace(b"2024,2", b"2024,8"))
+        with self.assertRaisesRegex(HandoffVerificationError, "SHA-256 mismatch"):
+            verify_handoff_manifest(manifest, storage_root, expected_commit=COMMIT)
+        target.write_bytes(original[:-1])
+        with self.assertRaisesRegex(HandoffVerificationError, "byte size mismatch"):
+            verify_handoff_manifest(manifest, storage_root, expected_commit=COMMIT)
+        target.unlink()
+        with self.assertRaisesRegex(HandoffVerificationError, "missing or unsafe"):
+            verify_handoff_manifest(manifest, storage_root, expected_commit=COMMIT)
+
+    def test_offline_verifier_rejects_symlinked_object(self) -> None:
+        payload, manifest, storage_root = self.received_handoff()
+        target = storage_root / payload["objects"][0]["storage_key"]
+        alternate = self.root / "object-copy.csv"
+        alternate.write_bytes(target.read_bytes())
+        target.unlink()
+        target.symlink_to(alternate)
+        with self.assertRaisesRegex(HandoffVerificationError, "missing or unsafe"):
+            verify_handoff_manifest(manifest, storage_root, expected_commit=COMMIT)
+
+    def test_offline_verifier_rejects_traversal_and_wrong_key(self) -> None:
+        payload, manifest, storage_root = self.received_handoff()
+        original = payload["objects"][0]["storage_key"]
+        for invalid in ("canonical/test-dataset/../escape.csv", "canonical/test-dataset/not-a-hash/raw/input.csv"):
+            payload["objects"][0]["storage_key"] = invalid
+            self.write_handoff(manifest, payload)
+            with self.subTest(invalid=invalid), self.assertRaises(HandoffVerificationError):
+                verify_handoff_manifest(manifest, storage_root, expected_commit=COMMIT)
+        payload["objects"][0]["storage_key"] = original
+
+    def test_offline_verifier_rejects_wrong_dataset_source_path(self) -> None:
+        payload, manifest, storage_root = self.received_handoff()
+        payload["objects"][0]["source_path"] = (
+            "datasets/other-dataset/derived/summary.csv"
+        )
+        self.write_handoff(manifest, payload)
+        with self.assertRaisesRegex(HandoffVerificationError, "source identity"):
+            verify_handoff_manifest(manifest, storage_root, expected_commit=COMMIT)
+
+    def test_offline_verifier_rejects_symlinked_storage_directory(self) -> None:
+        payload, manifest, storage_root = self.received_handoff()
+        key = payload["objects"][0]["storage_key"]
+        target = storage_root / key
+        outside = self.root / "alternate-storage"
+        outside.mkdir()
+        (outside / target.name).write_bytes(target.read_bytes())
+        target.unlink()
+        target.parent.rmdir()
+        target.parent.symlink_to(outside, target_is_directory=True)
+        with self.assertRaisesRegex(HandoffVerificationError, "missing or unsafe"):
+            verify_handoff_manifest(manifest, storage_root, expected_commit=COMMIT)
+
+    def test_offline_verifier_rejects_wrong_source_uri_and_duplicate(self) -> None:
+        payload, manifest, storage_root = self.received_handoff()
+        original = payload["objects"][0]["source_uri"]
+        payload["objects"][0]["source_uri"] = "https://example.org/mutable.csv"
+        self.write_handoff(manifest, payload)
+        with self.assertRaisesRegex(HandoffVerificationError, "source URI mismatch"):
+            verify_handoff_manifest(manifest, storage_root, expected_commit=COMMIT)
+        payload["objects"][0]["source_uri"] = original
+        payload["objects"].append(dict(payload["objects"][0]))
+        self.write_handoff(manifest, payload)
+        with self.assertRaisesRegex(HandoffVerificationError, "duplicate"):
+            verify_handoff_manifest(manifest, storage_root, expected_commit=COMMIT)
+
+    def test_offline_verifier_rejects_invalid_schema_and_bad_json(self) -> None:
+        payload, manifest, storage_root = self.received_handoff()
+        payload["manifest_version"] = 2
+        self.write_handoff(manifest, payload)
+        with self.assertRaisesRegex(HandoffVerificationError, "schema"):
+            verify_handoff_manifest(manifest, storage_root, expected_commit=COMMIT)
+        manifest.write_text("{not valid json", encoding="utf-8")
+        with self.assertRaisesRegex(HandoffVerificationError, "cannot read"):
+            verify_handoff_manifest(manifest, storage_root, expected_commit=COMMIT)
+
+    def test_offline_verifier_cli_runs_outside_git_checkout(self) -> None:
+        _, manifest, storage_root = self.received_handoff()
+        output = io.StringIO()
+        with redirect_stdout(output):
+            exit_code = main([
+                "--root", str(self.root / "nonexistent-registry"), "verify-handoff",
+                "--manifest", str(manifest), "--storage-root", str(storage_root),
+                "--commit", COMMIT, "--repository", "DiogoRibeiro7/data",
+                "--dataset-id", "test-dataset", "--json",
+            ])
+        self.assertEqual(exit_code, 0)
+        result = json.loads(output.getvalue())
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["verified_objects"], 2)
+        self.assertEqual(result["commit"], COMMIT)
 
 
 if __name__ == "__main__":
