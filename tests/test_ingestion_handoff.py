@@ -19,6 +19,7 @@ import yaml
 import data_registry.handoff_verification as handoff_verification
 from data_registry import (
     HandoffVerificationError,
+    HandoffVerificationResult,
     RegistryClient,
     RegistryError,
     verify_handoff_manifest,
@@ -378,6 +379,88 @@ class IngestionHandoffTests(unittest.TestCase):
         self.assertEqual(result.total_bytes, len(self.raw_bytes) + len(self.derived_bytes))
         self.assertEqual(result.manifest_sha256, hashlib.sha256(manifest.read_bytes()).hexdigest())
 
+    def test_verification_evidence_has_portable_per_file_checksums(self) -> None:
+        payload, manifest, storage_root = self.received_handoff()
+        result = verify_handoff_manifest(manifest, storage_root, expected_commit=COMMIT)
+        evidence = result.to_mapping()
+
+        self.assertEqual(evidence["verification_version"], 1)
+        self.assertTrue(evidence["ok"])
+        self.assertEqual(evidence["verified_objects"], len(payload["objects"]))
+        self.assertEqual(
+            sum(item["size_bytes"] for item in evidence["files"]),
+            evidence["total_bytes"],
+        )
+        self.assertEqual(
+            [item["source_path"] for item in evidence["files"]],
+            sorted(item["source_path"] for item in payload["objects"]),
+        )
+        for item in evidence["files"]:
+            self.assertEqual(
+                item["sha256"],
+                next(
+                    source["sha256"] for source in payload["objects"]
+                    if source["source_path"] == item["source_path"]
+                ),
+            )
+            self.assertFalse(item["storage_key"].startswith("/"))
+            self.assertNotIn(str(self.root), json.dumps(item))
+
+        schema_path = ROOT / "schemas" / "handoff-verification-result-v1.schema.json"
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        packaged = resources.files("data_registry").joinpath(
+            "schemas/handoff-verification-result-v1.schema.json"
+        )
+        self.assertEqual(schema, json.loads(packaged.read_text(encoding="utf-8")))
+        jsonschema.validate(evidence, schema)
+
+    def test_evidence_file_order_is_canonical_across_manifest_reordering(self) -> None:
+        payload, manifest, storage_root = self.received_handoff()
+        original = verify_handoff_manifest(
+            manifest, storage_root, expected_commit=COMMIT
+        ).to_mapping()
+        payload["objects"].reverse()
+        self.write_handoff(manifest, payload)
+        reordered = verify_handoff_manifest(
+            manifest, storage_root, expected_commit=COMMIT
+        ).to_mapping()
+        self.assertEqual(original["files"], reordered["files"])
+        self.assertNotEqual(original["manifest_sha256"], reordered["manifest_sha256"])
+
+    def test_verification_evidence_schema_rejects_invalid_records(self) -> None:
+        _, manifest, storage_root = self.received_handoff()
+        evidence = verify_handoff_manifest(
+            manifest, storage_root, expected_commit=COMMIT
+        ).to_mapping()
+        schema = json.loads(
+            (ROOT / "schemas" / "handoff-verification-result-v1.schema.json")
+            .read_text(encoding="utf-8")
+        )
+        for change in ("bad-sha", "negative-size", "unknown-field"):
+            altered = json.loads(json.dumps(evidence))
+            if change == "bad-sha":
+                altered["files"][0]["sha256"] = "not-a-sha"
+            elif change == "negative-size":
+                altered["files"][0]["size_bytes"] = -1
+            else:
+                altered["files"][0]["unexpected"] = True
+            with self.subTest(change=change), self.assertRaises(
+                jsonschema.ValidationError
+            ):
+                jsonschema.validate(altered, schema)
+
+    def test_incomplete_manual_result_cannot_claim_verified_file_evidence(self) -> None:
+        result = HandoffVerificationResult(
+            dataset_id="test-dataset",
+            repository="DiogoRibeiro7/data",
+            commit=COMMIT,
+            verified_objects=2,
+            total_bytes=10,
+            manifest_sha256="a" * 64,
+        )
+        with self.assertRaisesRegex(HandoffVerificationError, "every verified file"):
+            result.to_mapping()
+
     def test_offline_verifier_accepts_preverified_sizes_and_extra_files(self) -> None:
         _, manifest, storage_root = self.received_handoff(verify_local=True)
         (storage_root / "unrelated.txt").write_text("other dataset", encoding="utf-8")
@@ -494,6 +577,8 @@ class IngestionHandoffTests(unittest.TestCase):
         self.assertEqual(result["verified_objects"], 2)
         self.assertEqual(result["commit"], COMMIT)
         self.assertFalse(result["trusted_checkout_verified"])
+        self.assertEqual(result["verification_version"], 1)
+        self.assertEqual(len(result["files"]), 2)
 
     def test_trusted_checkout_accepts_metadata_only_plan(self) -> None:
         head = self.create_committed_checkout()

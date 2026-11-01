@@ -90,9 +90,20 @@ the manifest must not be allowed to authenticate itself. The repository and
 dataset identity checks are optional but recommended. This command validates
 the bundled v1 schema, immutable source URLs, source-to-storage-key mappings,
 unique file declarations, safe local paths, SHA-256 checksums, and any declared
-byte sizes. It returns verified object count, total bytes, and the manifest's
-SHA-256. It reads only local files and never contacts a provider or network
-service; unrelated files in the storage root are left untouched.
+byte sizes. It returns verified object count, total bytes, the manifest's
+SHA-256, and per-file verification evidence. It reads only local files and
+never contacts a provider or network service; unrelated files in the storage
+root are left untouched.
+
+`--json` emits a versioned `verification_version: 1` result with the source
+repository and commit, manifest digest, checkout trust flag, and a `files`
+array. Each file entry records the canonical source path, relative storage key,
+verified SHA-256, and **actual bytes read**. The array is sorted by source
+path, independent of the original handoff object order, and contains no
+consumer-local absolute paths. The contract is defined by
+[`schemas/handoff-verification-result-v1.schema.json`](https://github.com/DiogoRibeiro7/data/blob/main/schemas/handoff-verification-result-v1.schema.json)
+and bundled with the package. Consumers can archive this JSON alongside their
+own run ID, destination URI, timing, and promotion status outside the registry.
 
 The corresponding typed Python API is also independent of a Git checkout:
 
@@ -108,6 +119,7 @@ receipt = verify_handoff_manifest(
     expected_dataset_id="ons-gross-median-weekly-pay",
 )
 print(receipt.verified_objects, receipt.total_bytes)
+evidence = receipt.to_mapping()  # Versioned, JSON-compatible per-file evidence.
 ```
 
 This is an **offline integrity-verification result**, not a signed attestation
@@ -172,6 +184,8 @@ Handoff manifests are plans, **not ingestion receipts**. They never create
 tables, download datasets, upload objects, or claim that a storage provider is
 configured. They do not authorize redistribution beyond the recorded licence
 terms; downstream users remain responsible for attribution and permissible use.
+Likewise, a verification report records local file-integrity checks only; it
+does not establish that a downstream storage operation succeeded.
 
 ## What stays undecided
 

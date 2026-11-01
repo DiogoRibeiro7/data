@@ -29,6 +29,7 @@ from .handoff import HandoffManifest, HandoffObject, build_handoff_manifest
 from .handoff_verification import (
     HandoffVerificationError,
     HandoffVerificationResult,
+    HandoffVerifiedFile,
     verify_handoff_manifest,
 )
 from .release_verification import (
@@ -64,6 +65,7 @@ __all__ = [
     "HandoffObject",
     "HandoffVerificationError",
     "HandoffVerificationResult",
+    "HandoffVerifiedFile",
     "verify_handoff_manifest",
     "LegacyRecord",
     "LifecycleDataset",

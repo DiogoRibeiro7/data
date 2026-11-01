@@ -11,6 +11,8 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 
 ### Added
 
+- Versioned `verify-handoff --json` evidence with per-file SHA-256 checksums,
+  observed byte counts, and a packaged verification-result v1 JSON schema.
 - Deterministic `snapshot-provenance.json` release metadata binding snapshot identity, release-asset digests, producer workflow/generator identity, and client/distribution interface versions.
 - Deterministic snapshot-to-snapshot diff tooling;
 - snapshot manifest v7 consumer-relationship and provenance-debt identities for exact release diffs;
