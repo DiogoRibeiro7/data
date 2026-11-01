@@ -199,8 +199,10 @@ canonical fetch.
 
 Canonical ingestion handoffs are offline too. The `data-registry handoff`
 command accepts an exact `--commit` and can `--verify-local` before emitting
-a versioned JSON transfer plan for an external pipeline. No storage supplier
-is selected or contacted. See [the handoff contract](docs/INGESTION_HANDOFF.md).
+a versioned JSON transfer plan for an external pipeline. Add
+`--verify-checkout` to confirm that HEAD and the relevant committed files match
+that commit. No storage supplier is selected or contacted. See
+[the handoff contract](docs/INGESTION_HANDOFF.md).
 
 See:
 

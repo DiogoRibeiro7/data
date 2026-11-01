@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+import subprocess
 import tempfile
 import unittest
 from contextlib import redirect_stdout
@@ -83,6 +84,34 @@ class IngestionHandoffTests(unittest.TestCase):
             yaml.safe_dump(self.metadata, sort_keys=False), encoding="utf-8"
         )
 
+    def create_committed_checkout(self) -> str:
+        """Commit the fixture in an isolated Git repository and return HEAD."""
+
+        subprocess.run(["git", "init", "-q", str(self.root)], check=True)
+        subprocess.run(
+            [
+                "git", "-C", str(self.root), "add", "--",
+                "datasets/test-dataset/metadata.yaml",
+                "datasets/test-dataset/raw/input.csv",
+                "datasets/test-dataset/derived/summary.csv",
+            ],
+            check=True,
+        )
+        subprocess.run(
+            [
+                "git", "-C", str(self.root),
+                "-c", "user.name=Fixture Author",
+                "-c", "user.email=fixture@example.test",
+                "-c", "commit.gpgsign=false",
+                "commit", "-qm", "Synthetic canonical fixture",
+            ],
+            check=True,
+        )
+        return subprocess.check_output(
+            ["git", "-C", str(self.root), "rev-parse", "HEAD"],
+            text=True,
+        ).strip()
+
     def test_manifest_is_stable_and_has_full_provenance(self) -> None:
         first = self.client.handoff("test-dataset", commit=COMMIT).to_mapping()
         second = self.client.handoff("test-dataset", commit=COMMIT).to_mapping()
@@ -96,6 +125,7 @@ class IngestionHandoffTests(unittest.TestCase):
         self.assertEqual(first["source"]["snapshot"], "2024 release")
         self.assertEqual(first["license"]["redistribution"], "allowed")
         self.assertFalse(first["local_bytes_verified"])
+        self.assertFalse(first["checkout_identity_verified"])
         self.assertEqual(
             [item["source_path"] for item in first["objects"]],
             [
@@ -117,6 +147,7 @@ class IngestionHandoffTests(unittest.TestCase):
         ).to_mapping()
 
         self.assertTrue(result["local_bytes_verified"])
+        self.assertFalse(result["checkout_identity_verified"])
         self.assertEqual(
             {item["size_bytes"] for item in result["objects"]},
             {len(self.raw_bytes), len(self.derived_bytes)},
@@ -166,6 +197,70 @@ class IngestionHandoffTests(unittest.TestCase):
         with self.assertRaisesRegex(RegistryError, "40-character"):
             self.client.handoff("test-dataset", commit="main")
 
+    def test_checkout_verification_requires_local_byte_verification(self) -> None:
+        with self.assertRaisesRegex(RegistryError, "requires verify_local"):
+            self.client.handoff("test-dataset", commit=COMMIT, verify_checkout=True)
+
+    def test_checkout_verification_rejects_non_git_directory(self) -> None:
+        with self.assertRaisesRegex(RegistryError, "Git checkout verification failed"):
+            self.client.handoff(
+                "test-dataset", commit=COMMIT,
+                verify_local=True, verify_checkout=True,
+            )
+
+    def test_checkout_verification_accepts_committed_fixture(self) -> None:
+        head = self.create_committed_checkout()
+        payload = self.client.handoff(
+            "test-dataset", commit=head,
+            verify_local=True, verify_checkout=True,
+        ).to_mapping()
+
+        self.assertTrue(payload["checkout_identity_verified"])
+        self.assertTrue(payload["local_bytes_verified"])
+        self.assertEqual(payload["registry"]["commit"], head)
+
+    def test_checkout_verification_rejects_wrong_commit(self) -> None:
+        head = self.create_committed_checkout()
+        wrong = "b" * 40 if head != "b" * 40 else "c" * 40
+
+        with self.assertRaisesRegex(RegistryError, "checkout identity mismatch"):
+            self.client.handoff(
+                "test-dataset", commit=wrong,
+                verify_local=True, verify_checkout=True,
+            )
+
+    def test_checkout_verification_rejects_dirty_metadata(self) -> None:
+        head = self.create_committed_checkout()
+        self.metadata["title"] = "Locally changed title"
+        self.write_metadata()
+
+        with self.assertRaisesRegex(RegistryError, "metadata.yaml"):
+            self.client.handoff(
+                "test-dataset", commit=head,
+                verify_local=True, verify_checkout=True,
+            )
+
+    def test_checkout_verification_rejects_mismatched_git_blob(self) -> None:
+        # Metadata declares the original checksum, but HEAD contains other bytes.
+        source = self.root / "datasets/test-dataset/raw/input.csv"
+        source.write_bytes(b"committed-but-unexpected\n")
+        head = self.create_committed_checkout()
+        source.write_bytes(self.raw_bytes)
+
+        # The metadata checksum passes, yet HEAD contains different bytes.
+        with self.assertRaisesRegex(RegistryError, "raw/input.csv"):
+            self.client.handoff(
+                "test-dataset", commit=head,
+                verify_local=True, verify_checkout=True,
+            )
+
+    def test_checkout_verification_type_check(self) -> None:
+        with self.assertRaisesRegex(TypeError, "verify_checkout must be bool"):
+            self.client.handoff(  # type: ignore[arg-type]
+                "test-dataset", commit=COMMIT,
+                verify_local=True, verify_checkout="yes",
+            )
+
     def test_noncanonical_dataset_is_not_eligible(self) -> None:
         with self.assertRaisesRegex(RegistryError, "unknown registry id"):
             self.client.handoff("not-a-canonical-dataset", commit=COMMIT)
@@ -197,6 +292,44 @@ class IngestionHandoffTests(unittest.TestCase):
             "schemas/ingestion-handoff-v1.schema.json"
         )
         self.assertEqual(schema, json.loads(packaged.read_text(encoding="utf-8")))
+
+    def test_checkout_schema_field_is_optional_for_existing_v1_consumers(self) -> None:
+        """The additive proof flag must not invalidate existing v1 manifests."""
+
+        payload = self.client.handoff("test-dataset", commit=COMMIT).to_mapping()
+        schema = json.loads(
+            (ROOT / "schemas/ingestion-handoff-v1.schema.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        del payload["checkout_identity_verified"]
+        jsonschema.validate(payload, schema)
+
+        payload["checkout_identity_verified"] = True
+        with self.assertRaises(jsonschema.ValidationError):
+            jsonschema.validate(payload, schema)
+
+    def test_cli_reports_verified_checkout_identity(self) -> None:
+        head = self.create_committed_checkout()
+        output = io.StringIO()
+        with redirect_stdout(output):
+            exit_code = main(
+                [
+                    "--root", str(self.root), "handoff", "test-dataset",
+                    "--commit", head, "--verify-local", "--verify-checkout",
+                    "--json",
+                ]
+            )
+
+        self.assertEqual(exit_code, 0)
+        result = json.loads(output.getvalue())
+        schema = json.loads(
+            (ROOT / "schemas/ingestion-handoff-v1.schema.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        jsonschema.validate(result, schema)
+        self.assertTrue(result["checkout_identity_verified"])
 
 
 if __name__ == "__main__":

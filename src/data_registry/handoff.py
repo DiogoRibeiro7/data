@@ -7,7 +7,9 @@ credentials, and mutable analytical state belong to downstream consumers.
 
 from __future__ import annotations
 
+import os
 import re
+import subprocess
 from dataclasses import dataclass
 from datetime import date, datetime
 from pathlib import Path
@@ -62,6 +64,7 @@ class HandoffManifest:
     citation_text: str
     objects: tuple[HandoffObject, ...]
     local_bytes_verified: bool
+    checkout_identity_verified: bool = False
 
     def to_mapping(self) -> dict[str, Any]:
         """Return a JSON-compatible versioned manifest for downstream ETL."""
@@ -85,6 +88,7 @@ class HandoffManifest:
             },
             "citation": self.citation_text,
             "local_bytes_verified": self.local_bytes_verified,
+            "checkout_identity_verified": self.checkout_identity_verified,
             "objects": [item.to_mapping() for item in self.objects],
         }
 
@@ -98,6 +102,73 @@ def _required_text(mapping: dict[str, Any], key: str, *, section: str) -> str:
     return value
 
 
+def _git_output(root: Path, *arguments: str) -> str:
+    """Run a read-only local Git identity query without shell access."""
+
+    try:
+        # In a partial clone, never download missing Git objects implicitly.
+        environment = os.environ.copy()
+        environment.update(
+            {
+                "GIT_NO_LAZY_FETCH": "1",
+                "GIT_TERMINAL_PROMPT": "0",
+                "GIT_OPTIONAL_LOCKS": "0",
+            }
+        )
+        result = subprocess.run(
+            ["git", "-C", str(root), *arguments],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=15,
+            check=False,
+            env=environment,
+        )
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        raise RegistryError(f"Git checkout verification unavailable: {exc}") from exc
+    if result.returncode != 0:
+        detail = result.stderr.strip() or f"exit status {result.returncode}"
+        raise RegistryError(f"Git checkout verification failed: {detail}")
+    return result.stdout.strip()
+
+
+def _verify_checkout_identity(
+    root: Path,
+    *,
+    dataset_id: str,
+    commit: str,
+    source_paths: tuple[str, ...],
+) -> None:
+    """Confirm HEAD and all handoff files match committed Git blobs.
+
+    The check neither downloads Git objects nor runs hooks. It compares raw
+    working-tree bytes with the pinned HEAD tree, independent of the index.
+    """
+
+    top_level = Path(_git_output(root, "rev-parse", "--show-toplevel")).resolve()
+    if top_level != root:
+        raise RegistryError("checkout verification requires the repository root")
+    head = _git_output(root, "rev-parse", "--verify", "HEAD^{commit}")
+    if head != commit:
+        raise RegistryError(
+            f"checkout identity mismatch: supplied {commit}, HEAD is {head}"
+        )
+
+    metadata_path = f"datasets/{dataset_id}/metadata.yaml"
+    for relative in (metadata_path, *source_paths):
+        committed_blob = _git_output(root, "rev-parse", "--verify", f"HEAD:{relative}")
+        local_blob = _git_output(
+            root,
+            "hash-object",
+            "--no-filters",
+            "--",
+            str(root / relative),
+        )
+        if committed_blob != local_blob:
+            raise RegistryError(f"checkout file differs from HEAD: {relative}")
+
+
 def build_handoff_manifest(
     dataset: CanonicalDataset,
     *,
@@ -105,12 +176,15 @@ def build_handoff_manifest(
     commit: str,
     repository: str = DEFAULT_REPOSITORY,
     verify_local: bool = False,
+    verify_checkout: bool = False,
 ) -> HandoffManifest:
     """Plan canonical ingestion using only approved, SHA-pinned registry files.
 
     If ``verify_local`` is enabled, source files are read and checked against
     their declared SHA-256 values. Otherwise this is a metadata-only plan: the
     downstream ingestion worker MUST verify downloaded bytes before publishing.
+    ``verify_checkout`` additionally requires local verification and proves
+    that HEAD and the relevant committed file bytes match the supplied SHA.
     This method never downloads, uploads, or writes any data.
     """
 
@@ -120,6 +194,10 @@ def build_handoff_manifest(
         raise TypeError("root must be pathlib.Path")
     if not isinstance(verify_local, bool):
         raise TypeError("verify_local must be bool")
+    if not isinstance(verify_checkout, bool):
+        raise TypeError("verify_checkout must be bool")
+    if verify_checkout and not verify_local:
+        raise RegistryError("verify_checkout requires verify_local=True")
     if not DATASET_ID_RE.fullmatch(dataset.id):
         raise RegistryError("dataset id must be a normalized lowercase slug")
     if dataset.redistribution != "allowed":
@@ -214,6 +292,13 @@ def build_handoff_manifest(
         )
 
     objects.sort(key=lambda item: item.reference.path)
+    if verify_checkout:
+        _verify_checkout_identity(
+            resolved_root,
+            dataset_id=dataset.id,
+            commit=commit,
+            source_paths=tuple(item.reference.path for item in objects),
+        )
     return HandoffManifest(
         dataset_id=dataset.id,
         title=dataset.title,
@@ -229,4 +314,5 @@ def build_handoff_manifest(
         citation_text=citation_text,
         objects=tuple(objects),
         local_bytes_verified=verify_local,
+        checkout_identity_verified=verify_checkout,
     )
