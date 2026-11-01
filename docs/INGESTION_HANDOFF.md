@@ -105,6 +105,12 @@ consumer-local absolute paths. The contract is defined by
 and bundled with the package. Consumers can archive this JSON alongside their
 own run ID, destination URI, timing, and promotion status outside the registry.
 
+The byte count and checksum are calculated from the same streaming read. The
+verifier also checks file identity and rejects observed size, modification,
+or path-replacement changes during that read.
+Consumers must still protect verified files from modification or replacement
+**after** verification and before promotion.
+
 The corresponding typed Python API is also independent of a Git checkout:
 
 ```python
