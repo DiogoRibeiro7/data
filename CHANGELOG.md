@@ -23,6 +23,12 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 - Explicit compatibility, deprecation, schema, distribution, and historical
   snapshot policy.
 
+### Fixed
+
+- Handoff verification counts bytes from the same stream used for SHA-256 and
+  rejects files that change or are replaced during reading; verification
+  evidence no longer relies on a separate pre-hash file-size measurement.
+
 ## 0.1.0 - current repository package version
 
 ### Added
