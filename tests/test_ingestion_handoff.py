@@ -16,6 +16,7 @@ from unittest.mock import patch
 import jsonschema
 import yaml
 
+import data_registry.handoff_verification as handoff_verification
 from data_registry import (
     HandoffVerificationError,
     RegistryClient,
@@ -337,12 +338,12 @@ class IngestionHandoffTests(unittest.TestCase):
         self.assertTrue(result["checkout_identity_verified"])
 
     def received_handoff(
-        self, *, verify_local: bool = False
+        self, *, verify_local: bool = False, commit: str = COMMIT
     ) -> tuple[dict[str, object], Path, Path]:
         """Create a consumer storage fixture from the source-side plan."""
 
         payload = self.client.handoff(
-            "test-dataset", commit=COMMIT, verify_local=verify_local
+            "test-dataset", commit=commit, verify_local=verify_local
         ).to_mapping()
         storage_root = self.root / "received"
         storage_root.mkdir()
@@ -492,6 +493,183 @@ class IngestionHandoffTests(unittest.TestCase):
         self.assertTrue(result["ok"])
         self.assertEqual(result["verified_objects"], 2)
         self.assertEqual(result["commit"], COMMIT)
+        self.assertFalse(result["trusted_checkout_verified"])
+
+    def test_trusted_checkout_accepts_metadata_only_plan(self) -> None:
+        head = self.create_committed_checkout()
+        _, manifest, storage_root = self.received_handoff(commit=head)
+        with patch(
+            "urllib.request.urlopen",
+            side_effect=AssertionError("unexpected network access"),
+        ):
+            result = verify_handoff_manifest(
+                manifest,
+                storage_root,
+                expected_commit=head,
+                expected_repository="DiogoRibeiro7/data",
+                trusted_checkout=self.root,
+            )
+        self.assertTrue(result.trusted_checkout_verified)
+        self.assertEqual(result.verified_objects, 2)
+
+    def test_trusted_checkout_requires_independent_repository_identity(self) -> None:
+        head = self.create_committed_checkout()
+        _, manifest, storage_root = self.received_handoff(commit=head)
+        with self.assertRaisesRegex(HandoffVerificationError, "expected repository"):
+            verify_handoff_manifest(
+                manifest, storage_root,
+                expected_commit=head, trusted_checkout=self.root,
+            )
+
+    def test_trusted_checkout_accepts_checked_and_legacy_v1_plans(self) -> None:
+        head = self.create_committed_checkout()
+        payload, manifest, storage_root = self.received_handoff(
+            commit=head, verify_local=True
+        )
+        payload.pop("checkout_identity_verified")  # Older v1 plans lack this flag.
+        self.write_handoff(manifest, payload)
+        result = verify_handoff_manifest(
+            manifest, storage_root, expected_commit=head,
+            expected_repository="DiogoRibeiro7/data", trusted_checkout=self.root,
+        )
+        self.assertTrue(result.trusted_checkout_verified)
+
+    def test_trusted_checkout_rejects_self_consistent_forged_object(self) -> None:
+        """The commit string alone cannot authenticate an invented checksum."""
+
+        head = self.create_committed_checkout()
+        payload, manifest, storage_root = self.received_handoff(commit=head)
+        obj = payload["objects"][0]
+        forged = b"plausible but not committed\n"
+        forged_sha = hashlib.sha256(forged).hexdigest()
+        obj["sha256"] = forged_sha
+        obj["storage_key"] = f"canonical/test-dataset/{forged_sha}/derived/summary.csv"
+        path = storage_root / obj["storage_key"]
+        path.parent.mkdir(parents=True)
+        path.write_bytes(forged)
+        self.write_handoff(manifest, payload)
+
+        # The original verifier proves only internal consistency.
+        verify_handoff_manifest(manifest, storage_root, expected_commit=head)
+        with self.assertRaisesRegex(HandoffVerificationError, "trusted checkout disagrees"):
+            verify_handoff_manifest(
+                manifest, storage_root,
+                expected_commit=head, expected_repository="DiogoRibeiro7/data",
+                trusted_checkout=self.root,
+            )
+
+    def test_trusted_checkout_rejects_incomplete_source_list(self) -> None:
+        head = self.create_committed_checkout()
+        payload, manifest, storage_root = self.received_handoff(commit=head)
+        payload["objects"].pop()
+        self.write_handoff(manifest, payload)
+        verify_handoff_manifest(manifest, storage_root, expected_commit=head)
+        with self.assertRaisesRegex(HandoffVerificationError, "source file set"):
+            verify_handoff_manifest(
+                manifest, storage_root,
+                expected_commit=head, expected_repository="DiogoRibeiro7/data",
+                trusted_checkout=self.root,
+            )
+
+    def test_trusted_checkout_rejects_changed_provenance_fields(self) -> None:
+        head = self.create_committed_checkout()
+        payload, manifest, storage_root = self.received_handoff(commit=head)
+        for field in ("title", "citation", "source", "license"):
+            altered = json.loads(json.dumps(payload))
+            if isinstance(altered[field], dict):
+                first = "publisher" if field == "source" else "name"
+                altered[field][first] = "Forged provenance"
+            else:
+                altered[field] = "Forged provenance"
+            self.write_handoff(manifest, altered)
+            with self.subTest(field=field), self.assertRaisesRegex(
+                HandoffVerificationError, f"handoff field: {field}"
+            ):
+                verify_handoff_manifest(
+                    manifest, storage_root,
+                    expected_commit=head, expected_repository="DiogoRibeiro7/data",
+                    trusted_checkout=self.root,
+                )
+
+    def test_trusted_checkout_rejects_nonrepository(self) -> None:
+        head = self.create_committed_checkout()
+        _, manifest, storage_root = self.received_handoff(commit=head)
+        with self.assertRaisesRegex(HandoffVerificationError, "trusted checkout could not"):
+            verify_handoff_manifest(
+                manifest, storage_root,
+                expected_commit=head, expected_repository="DiogoRibeiro7/data",
+                trusted_checkout=self.root / "not-a-repository",
+            )
+
+    def test_trusted_checkout_rejects_wrong_head(self) -> None:
+        head = self.create_committed_checkout()
+        _, manifest, storage_root = self.received_handoff(commit=head)
+        subprocess.run(
+            [
+                "git", "-C", str(self.root),
+                "-c", "user.name=Fixture Author",
+                "-c", "user.email=fixture@example.test",
+                "-c", "commit.gpgsign=false",
+                "commit", "--allow-empty", "-qm", "Later unrelated commit",
+            ],
+            check=True,
+        )
+        with self.assertRaisesRegex(HandoffVerificationError, "checkout identity mismatch"):
+            verify_handoff_manifest(
+                manifest, storage_root,
+                expected_commit=head, expected_repository="DiogoRibeiro7/data",
+                trusted_checkout=self.root,
+            )
+
+    def test_trusted_checkout_rejects_dirty_metadata(self) -> None:
+        head = self.create_committed_checkout()
+        _, manifest, storage_root = self.received_handoff(commit=head)
+        self.metadata["title"] = "Dirty working tree"
+        self.write_metadata()
+        with self.assertRaisesRegex(HandoffVerificationError, "metadata.yaml"):
+            verify_handoff_manifest(
+                manifest, storage_root,
+                expected_commit=head, expected_repository="DiogoRibeiro7/data",
+                trusted_checkout=self.root,
+            )
+
+    def test_trusted_checkout_cli_reports_provenance_verification(self) -> None:
+        head = self.create_committed_checkout()
+        _, manifest, storage_root = self.received_handoff(commit=head)
+        output = io.StringIO()
+        with redirect_stdout(output):
+            code = main([
+                "--root", str(self.root / "not-used"), "verify-handoff",
+                "--manifest", str(manifest), "--storage-root", str(storage_root),
+                "--commit", head, "--repository", "DiogoRibeiro7/data",
+                "--trusted-checkout", str(self.root), "--json",
+            ])
+        self.assertEqual(code, 0)
+        self.assertTrue(json.loads(output.getvalue())["trusted_checkout_verified"])
+
+    def test_manifest_fingerprint_uses_exact_parsed_bytes(self) -> None:
+        """A changing manifest cannot re-label an earlier verification result."""
+
+        _, manifest, storage_root = self.received_handoff()
+        original_sha = hashlib.sha256(manifest.read_bytes()).hexdigest()
+        original_hasher = handoff_verification._sha256_file
+        calls = 0
+
+        def mutate_manifest_on_first_object(path: Path) -> str:
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                manifest.write_text('"changed"', encoding="utf-8")
+            return original_hasher(path)
+
+        with patch(
+            "data_registry.handoff_verification._sha256_file",
+            side_effect=mutate_manifest_on_first_object,
+        ):
+            result = verify_handoff_manifest(
+                manifest, storage_root, expected_commit=COMMIT
+            )
+        self.assertEqual(result.manifest_sha256, original_sha)
 
 
 if __name__ == "__main__":

@@ -115,6 +115,38 @@ of publisher origin or a record of completed warehouse ingestion. Source
 authenticity and any durable execution record remain the consumer's
 responsibility.
 
+### Anchor the handoff to a trusted Git checkout
+
+With the basic command, a manifest containing altered but internally
+consistent object hashes could still pass: an expected commit **string** does
+not prove those hashes belong to the commit. Where a complete trusted local
+checkout is available, add `--trusted-checkout`:
+
+```bash
+data-registry verify-handoff \
+  --manifest handoff.json \
+  --storage-root /path/to/received-objects \
+  --commit <trusted-40-character-registry-commit> \
+  --repository DiogoRibeiro7/data \
+  --trusted-checkout /path/to/pinned-registry-checkout \
+  --json
+```
+
+This stronger mode requires an independently specified `--repository`.
+It regenerates the complete canonical plan from the checkout, confirms that
+its `HEAD`, metadata, and **every source file** match the pinned Git tree,
+and compares all provenance fields, hashes, formats, keys, and the complete
+source file set. Metadata-only and older v1 handoff plans remain valid.
+The result reports `trusted_checkout_verified: true` only after these checks
+and the received-byte checks pass.
+
+The checkout must contain the required Git objects and canonical source
+files. The command does not fetch missing Git objects or access the network.
+Even this mode does not authenticate a Git remote's owner, signed release, or
+the original publisher: the caller must independently trust the repository
+and commit it supplies. Without `--trusted-checkout`, the result explicitly
+reports `trusted_checkout_verified: false`.
+
 ## Consumer-side execution contract
 
 An ingestion worker can use the plan to implement a storage-neutral workflow:
