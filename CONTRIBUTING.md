@@ -149,6 +149,12 @@ python -m unittest discover -s tests -v
 python scripts/validate_repository.py
 ```
 
+The Data validation workflow runs for changes under `tests/`, `scripts/`,
+`src/data_registry/`, and registry data/contract directories. New tests and
+scripts are covered automatically. The package-smoke matrix builds an installed
+wheel on Python 3.12–3.14 and exercises the offline handoff verifier, including
+its packaged JSON schema.
+
 ## Pull request checklist
 
 - [ ] Provenance is documented.
