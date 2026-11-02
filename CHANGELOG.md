@@ -25,6 +25,9 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 
 ### Fixed
 
+- Archive bundle generation and offline verification now measure byte counts
+  from the same stable SHA-256 read, detecting observed file changes or
+  replacements instead of trusting a separate size stat.
 - Verified-local handoff manifest generation now shares the verifier's stable
   file fingerprint routine, preventing mismatched SHA-256/size declarations
   when a source file changes or is replaced during verification.
