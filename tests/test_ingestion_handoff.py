@@ -5,12 +5,14 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+import os
 import subprocess
 import tempfile
 import unittest
 from contextlib import redirect_stdout
 from importlib import resources
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 import jsonschema
@@ -414,6 +416,64 @@ class IngestionHandoffTests(unittest.TestCase):
         self.assertEqual(schema, json.loads(packaged.read_text(encoding="utf-8")))
         jsonschema.validate(evidence, schema)
 
+    def test_streamed_file_fingerprint_counts_exact_hashed_bytes(self) -> None:
+        data = b"x" * (1024 * 1024 + 17)
+        path = self.root / "large-received-object.bin"
+        path.write_bytes(data)
+
+        digest, size_bytes = handoff_verification._fingerprint_file(path)
+
+        self.assertEqual(digest, hashlib.sha256(data).hexdigest())
+        self.assertEqual(size_bytes, len(data))
+
+    def test_streamed_fingerprint_rejects_concurrent_size_or_metadata_change(self) -> None:
+        path = self.root / "received-object.bin"
+        path.write_bytes(self.raw_bytes)
+        observed = len(self.raw_bytes)
+        before = SimpleNamespace(st_size=observed, st_mtime_ns=1, st_ctime_ns=1)
+
+        for kind in ("resized", "same-size-rewrite"):
+            after = SimpleNamespace(
+                st_size=observed + 1 if kind == "resized" else observed,
+                st_mtime_ns=2 if kind == "same-size-rewrite" else 1,
+                st_ctime_ns=2 if kind == "same-size-rewrite" else 1,
+            )
+            with self.subTest(kind=kind), patch(
+                "data_registry.handoff_verification.os.fstat",
+                side_effect=(before, after),
+            ):
+                with self.assertRaisesRegex(
+                    HandoffVerificationError, "changed during verification"
+                ):
+                    handoff_verification._fingerprint_file(path)
+
+    def test_streamed_fingerprint_rejects_replaced_file_during_read(self) -> None:
+        """A valid hash must not describe a different inode now at the path."""
+
+        path = self.root / "received-object.bin"
+        replacement = self.root / "replacement.bin"
+        path.write_bytes(self.raw_bytes)
+        replacement.write_bytes(self.raw_bytes)
+        original_fstat = os.fstat
+        calls = 0
+
+        def replace_after_read(fd: int) -> os.stat_result:
+            nonlocal calls
+            result = original_fstat(fd)
+            calls += 1
+            if calls == 2:
+                replacement.replace(path)
+            return result
+
+        with patch(
+            "data_registry.handoff_verification.os.fstat",
+            side_effect=replace_after_read,
+        ):
+            with self.assertRaisesRegex(
+                HandoffVerificationError, "changed during verification"
+            ):
+                handoff_verification._fingerprint_file(path)
+
     def test_evidence_file_order_is_canonical_across_manifest_reordering(self) -> None:
         payload, manifest, storage_root = self.received_handoff()
         original = verify_handoff_manifest(
@@ -737,10 +797,10 @@ class IngestionHandoffTests(unittest.TestCase):
 
         _, manifest, storage_root = self.received_handoff()
         original_sha = hashlib.sha256(manifest.read_bytes()).hexdigest()
-        original_hasher = handoff_verification._sha256_file
+        original_hasher = handoff_verification._fingerprint_file
         calls = 0
 
-        def mutate_manifest_on_first_object(path: Path) -> str:
+        def mutate_manifest_on_first_object(path: Path) -> tuple[str, int]:
             nonlocal calls
             calls += 1
             if calls == 1:
@@ -748,7 +808,7 @@ class IngestionHandoffTests(unittest.TestCase):
             return original_hasher(path)
 
         with patch(
-            "data_registry.handoff_verification._sha256_file",
+            "data_registry.handoff_verification._fingerprint_file",
             side_effect=mutate_manifest_on_first_object,
         ):
             result = verify_handoff_manifest(

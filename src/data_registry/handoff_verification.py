@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 from dataclasses import dataclass
 from importlib import resources
@@ -169,17 +170,39 @@ def _verify_trusted_checkout(
             )
 
 
-def _sha256_file(path: Path) -> str:
-    """Hash an object incrementally so large datasets need not fit in RAM."""
+def _fingerprint_file(path: Path) -> tuple[str, int]:
+    """Hash and count the same byte stream, rejecting concurrent file changes."""
 
     digest = hashlib.sha256()
+    bytes_read = 0
     try:
         with path.open("rb") as handle:
+            before = os.fstat(handle.fileno())
             for chunk in iter(lambda: handle.read(1024 * 1024), b""):
                 digest.update(chunk)
+                bytes_read += len(chunk)
+            after = os.fstat(handle.fileno())
+        current = path.stat(follow_symlinks=False)
     except OSError as exc:
         raise HandoffVerificationError(f"cannot read {path}: {exc}") from exc
-    return digest.hexdigest()
+
+    # A pre-hash stat is not evidence of how many bytes were actually hashed.
+    # Detect a concurrent resize, rewrite, or replacement of the verified path.
+    if (
+        before.st_size != bytes_read
+        or after.st_size != bytes_read
+        or before.st_mtime_ns != after.st_mtime_ns
+        or before.st_ctime_ns != after.st_ctime_ns
+        or current.st_dev != after.st_dev
+        or current.st_ino != after.st_ino
+        or current.st_size != bytes_read
+        or current.st_mtime_ns != after.st_mtime_ns
+        or current.st_ctime_ns != after.st_ctime_ns
+    ):
+        raise HandoffVerificationError(
+            f"{path}: received object changed during verification"
+        )
+    return digest.hexdigest(), bytes_read
 
 
 def _safe_relative_path(value: str, *, label: str) -> PurePosixPath:
@@ -306,11 +329,11 @@ def verify_handoff_manifest(
         if not destination.is_file() or destination.resolve() != destination:
             raise HandoffVerificationError(f"{storage_key}: received object missing or unsafe")
 
-        actual_bytes = destination.stat().st_size
+        actual_sha256, actual_bytes = _fingerprint_file(destination)
         declared_bytes = item["size_bytes"]
         if declared_bytes is not None and actual_bytes != declared_bytes:
             raise HandoffVerificationError(f"{storage_key}: received object byte size mismatch")
-        if _sha256_file(destination) != sha256:
+        if actual_sha256 != sha256:
             raise HandoffVerificationError(f"{storage_key}: received object SHA-256 mismatch")
         total_bytes += actual_bytes
         verified_files.append(
