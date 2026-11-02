@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Any, Final
 
 from .core import RegistryError
-from .fetch import DEFAULT_REPOSITORY, DatasetReference, sha256_file
+from .fetch import DEFAULT_REPOSITORY, DatasetReference, fingerprint_file
 from .models import CanonicalDataset
 
 DATASET_ID_RE: Final[re.Pattern[str]] = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
@@ -272,11 +272,16 @@ def build_handoff_manifest(
                 raise RegistryError(
                     f"canonical source file missing or unsafe: {repository_path}"
                 )
-            if sha256_file(local_path) != reference.sha256:
+            try:
+                actual_sha256, size_bytes = fingerprint_file(local_path)
+            except OSError as exc:
+                raise RegistryError(
+                    f"canonical source changed or became unreadable: {repository_path}: {exc}"
+                ) from exc
+            if actual_sha256 != reference.sha256:
                 raise RegistryError(
                     f"canonical source checksum mismatch: {repository_path}"
                 )
-            size_bytes = local_path.stat().st_size
 
         # The key is an object-store-neutral, immutable relative path. It is
         # never treated as permission to upload without a consumer-side check.

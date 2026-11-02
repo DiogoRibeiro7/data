@@ -69,6 +69,43 @@ class DatasetReference:
         )
 
 
+def fingerprint_file(path: Path) -> tuple[str, int]:
+    """Hash and measure one stable byte stream, checking for file replacement.
+
+    The returned byte count describes exactly the content fed to SHA-256.
+    Raises ``OSError`` if the file changes while being read, or cannot be read.
+    Callers must still prevent modification after this check.
+    """
+
+    if not isinstance(path, Path):
+        raise TypeError("path must be pathlib.Path")
+    digest = hashlib.sha256()
+    bytes_read = 0
+    with path.open("rb") as handle:
+        before = os.fstat(handle.fileno())
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+            bytes_read += len(block)
+        after = os.fstat(handle.fileno())
+    current = path.stat(follow_symlinks=False)
+
+    # Compare the opened inode with the path after reading. The SHA and size
+    # must describe the same stable bytes rather than two separate observations.
+    if (
+        before.st_size != bytes_read
+        or after.st_size != bytes_read
+        or before.st_mtime_ns != after.st_mtime_ns
+        or before.st_ctime_ns != after.st_ctime_ns
+        or current.st_dev != after.st_dev
+        or current.st_ino != after.st_ino
+        or current.st_size != bytes_read
+        or current.st_mtime_ns != after.st_mtime_ns
+        or current.st_ctime_ns != after.st_ctime_ns
+    ):
+        raise OSError(f"{path}: file changed during verification")
+    return digest.hexdigest(), bytes_read
+
+
 def sha256_file(path: Path) -> str:
     """Return the SHA-256 digest for a local file."""
 

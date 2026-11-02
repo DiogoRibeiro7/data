@@ -152,8 +152,9 @@ payload = plan.to_mapping()
 
 The manifest contains one `HandoffObject` per declared source file, including
 an immutable source URL, expected SHA-256, a content-addressed relative storage
-key, and source citation/licensing context. `verify_local=True` reads local
-files and refuses checksum mismatches. `verify_checkout=True` additionally
+key, and source citation/licensing context. `verify_local=True` measures SHA-256
+and byte count from one local read and rejects files that change or are
+replaced during verification. `verify_checkout=True` additionally
 requires the exact Git HEAD and byte-identical committed metadata/source blobs,
 without fetching missing Git objects. The manifest records this separately in
 the optional v1 `checkout_identity_verified` field. Without either check, the

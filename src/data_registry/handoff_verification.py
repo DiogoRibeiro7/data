@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
 import re
 from dataclasses import dataclass
 from importlib import resources
@@ -19,7 +18,7 @@ from jsonschema import Draft202012Validator, FormatChecker, SchemaError, Validat
 
 from .api import RegistryClient
 from .core import RegistryError
-from .fetch import DatasetReference
+from .fetch import DatasetReference, fingerprint_file
 
 COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 SCHEMA_RESOURCE = "schemas/ingestion-handoff-v1.schema.json"
@@ -171,38 +170,12 @@ def _verify_trusted_checkout(
 
 
 def _fingerprint_file(path: Path) -> tuple[str, int]:
-    """Hash and count the same byte stream, rejecting concurrent file changes."""
+    """Adapt the shared stable fingerprint to handoff-specific errors."""
 
-    digest = hashlib.sha256()
-    bytes_read = 0
     try:
-        with path.open("rb") as handle:
-            before = os.fstat(handle.fileno())
-            for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-                digest.update(chunk)
-                bytes_read += len(chunk)
-            after = os.fstat(handle.fileno())
-        current = path.stat(follow_symlinks=False)
+        return fingerprint_file(path)
     except OSError as exc:
-        raise HandoffVerificationError(f"cannot read {path}: {exc}") from exc
-
-    # A pre-hash stat is not evidence of how many bytes were actually hashed.
-    # Detect a concurrent resize, rewrite, or replacement of the verified path.
-    if (
-        before.st_size != bytes_read
-        or after.st_size != bytes_read
-        or before.st_mtime_ns != after.st_mtime_ns
-        or before.st_ctime_ns != after.st_ctime_ns
-        or current.st_dev != after.st_dev
-        or current.st_ino != after.st_ino
-        or current.st_size != bytes_read
-        or current.st_mtime_ns != after.st_mtime_ns
-        or current.st_ctime_ns != after.st_ctime_ns
-    ):
-        raise HandoffVerificationError(
-            f"{path}: received object changed during verification"
-        )
-    return digest.hexdigest(), bytes_read
+        raise HandoffVerificationError(f"cannot verify {path}: {exc}") from exc
 
 
 def _safe_relative_path(value: str, *, label: str) -> PurePosixPath:

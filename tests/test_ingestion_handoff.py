@@ -162,6 +162,27 @@ class IngestionHandoffTests(unittest.TestCase):
             {len(self.raw_bytes), len(self.derived_bytes)},
         )
 
+    def test_verify_local_rejects_source_replaced_during_hashing(self) -> None:
+        """A verified manifest must not describe bytes at a replaced path."""
+
+        source = self.root / "datasets/test-dataset/raw/input.csv"
+        replacement = self.root / "replacement.csv"
+        replacement.write_bytes(self.raw_bytes)
+        original_fstat = os.fstat
+        calls = 0
+
+        def replace_after_read(fd: int) -> os.stat_result:
+            nonlocal calls
+            result = original_fstat(fd)
+            calls += 1
+            if calls == 2:
+                replacement.replace(source)
+            return result
+
+        with patch("data_registry.fetch.os.fstat", side_effect=replace_after_read):
+            with self.assertRaisesRegex(RegistryError, "changed during verification"):
+                self.client.handoff("test-dataset", commit=COMMIT, verify_local=True)
+
     def test_checksum_mismatch_fails_before_manifest_is_emitted(self) -> None:
         (self.root / "datasets/test-dataset/raw/input.csv").write_bytes(b"changed")
         with self.assertRaisesRegex(RegistryError, "checksum mismatch"):
@@ -439,7 +460,7 @@ class IngestionHandoffTests(unittest.TestCase):
                 st_ctime_ns=2 if kind == "same-size-rewrite" else 1,
             )
             with self.subTest(kind=kind), patch(
-                "data_registry.handoff_verification.os.fstat",
+                "data_registry.fetch.os.fstat",
                 side_effect=(before, after),
             ):
                 with self.assertRaisesRegex(
@@ -466,7 +487,7 @@ class IngestionHandoffTests(unittest.TestCase):
             return result
 
         with patch(
-            "data_registry.handoff_verification.os.fstat",
+            "data_registry.fetch.os.fstat",
             side_effect=replace_after_read,
         ):
             with self.assertRaisesRegex(

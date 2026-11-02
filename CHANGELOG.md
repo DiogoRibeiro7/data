@@ -25,6 +25,9 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 
 ### Fixed
 
+- Verified-local handoff manifest generation now shares the verifier's stable
+  file fingerprint routine, preventing mismatched SHA-256/size declarations
+  when a source file changes or is replaced during verification.
 - Handoff verification counts bytes from the same stream used for SHA-256 and
   rejects files that change or are replaced during reading; verification
   evidence no longer relies on a separate pre-hash file-size measurement.
