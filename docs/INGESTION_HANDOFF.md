@@ -65,6 +65,11 @@ The manifest includes:
   metadata, and source Git blobs were checked. The field is additive to v1;
   older v1 manifests without it remain valid.
 
+With `--verify-local`, each source checksum and reported byte count come from
+the same streaming read. The builder rejects observed changes or replacements
+during that read, just like the received-object verifier. This proves the
+observed bytes at verification time, not their continued immutability afterward.
+
 The contract is described by
 [`schemas/ingestion-handoff-v1.schema.json`](https://github.com/DiogoRibeiro7/data/blob/main/schemas/ingestion-handoff-v1.schema.json).
 The schema is also bundled with the Python package.
