@@ -20,6 +20,7 @@ from data_registry import (
     ReleaseVerificationError,
     verify_archive_bundle,
 )
+from data_registry import archive_verification as VERIFICATION
 from data_registry.cli import main as registry_main
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -376,6 +377,35 @@ class ArchiveBundleTests(unittest.TestCase):
                 self.assertGreater(result.total_bytes, 0)
                 self.assertEqual(result.profile, profile)
                 self.assertEqual(len(result.manifest_sha256), 64)
+
+    def test_reported_manifest_digest_identifies_parsed_bytes(self) -> None:
+        """Audit evidence remains tied to the archive manifest that was checked."""
+
+        archive = self._build_verifiable_archive()
+        manifest_path = archive / "archive-bundle-manifest.json"
+        original = manifest_path.read_bytes()
+        fingerprint = VERIFICATION.fingerprint_file
+        changed = False
+
+        def mutate_after_manifest_parse(path: Path) -> tuple[str, int]:
+            nonlocal changed
+            # The first included file is read after the outer manifest.
+            if not changed:
+                manifest_path.write_text("{}\n", encoding="utf-8")
+                changed = True
+            return fingerprint(path)
+
+        with patch.object(
+            VERIFICATION, "fingerprint_file", side_effect=mutate_after_manifest_parse
+        ):
+            result = verify_archive_bundle(archive)
+
+        self.assertTrue(changed)
+        self.assertEqual(result.manifest_sha256, hashlib.sha256(original).hexdigest())
+        self.assertNotEqual(
+            result.manifest_sha256,
+            hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+        )
 
     def test_offline_verifier_rejects_replaced_file_during_hashing(self) -> None:
         archive = self._build_verifiable_archive()

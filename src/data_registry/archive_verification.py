@@ -75,6 +75,19 @@ def _json(path: Path) -> dict[str, Any]:
     return value
 
 
+def _json_with_digest(path: Path) -> tuple[dict[str, Any], str]:
+    """Parse an archive manifest and hash precisely the bytes just parsed."""
+
+    try:
+        content = path.read_bytes()
+        manifest = json.loads(content.decode("utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise ArchiveVerificationError(f"cannot read JSON {path}: {exc}") from exc
+    if not isinstance(manifest, dict):
+        raise ArchiveVerificationError(f"{path}: JSON root must be an object")
+    return manifest, hashlib.sha256(content).hexdigest()
+
+
 def _relative_file_path(value: Any) -> PurePosixPath:
     """Require an exact, safe POSIX file path from the archive manifest."""
 
@@ -215,7 +228,7 @@ def verify_archive_bundle(
 
     root = Path(archive).resolve()
     manifest_path = root / "archive-bundle-manifest.json"
-    manifest = _json(manifest_path)
+    manifest, manifest_sha = _json_with_digest(manifest_path)
     if manifest.get("schema_version") != 1 or manifest.get("repository") != REPOSITORY:
         raise ArchiveVerificationError("invalid archive manifest version or repository")
 
@@ -348,7 +361,7 @@ def verify_archive_bundle(
         profile=profile,
         file_count=len(digests),
         total_bytes=total_bytes,
-        manifest_sha256=_sha256_file(manifest_path),
+        manifest_sha256=manifest_sha,
     )
 
 

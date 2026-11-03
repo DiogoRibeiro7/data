@@ -9,8 +9,10 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from data_registry import cli as CLI
+from data_registry import release_verification as RELEASE
 from data_registry.release_verification import (
     ReleaseVerificationError,
     verify_release_bundle,
@@ -74,6 +76,33 @@ class ReleaseVerificationTests(unittest.TestCase):
         self.assertEqual(result.tag, tag)
         self.assertEqual(result.commit, commit)
         self.assertEqual(result.manifest_version, 7)
+
+    def test_reported_manifest_digest_identifies_parsed_bytes(self) -> None:
+        """Later changes to a manifest cannot change the checked digest."""
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_bundle(root)
+            manifest_path = root / "snapshot-manifest.json"
+            original = manifest_path.read_bytes()
+            read_json = RELEASE._json
+
+            def replace_after_manifest_parse(path: Path) -> dict[str, object]:
+                # Provenance is read after the manifest has been parsed.
+                if path.name == "snapshot-provenance.json":
+                    manifest_path.write_text("{}\n", encoding="utf-8")
+                return read_json(path)
+
+            with patch.object(RELEASE, "_json", side_effect=replace_after_manifest_parse):
+                result = verify_release_bundle(root)
+
+            self.assertEqual(
+                result.manifest_sha256, hashlib.sha256(original).hexdigest()
+            )
+            self.assertNotEqual(
+                result.manifest_sha256,
+                hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+            )
 
     def test_cli_verify_release_returns_machine_readable_success(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
