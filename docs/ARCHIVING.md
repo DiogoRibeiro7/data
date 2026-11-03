@@ -27,6 +27,9 @@ The output contains:
 - `archive-bundle/` with the exact files eligible for that profile.
 
 The bundle manifest records SHA-256 and byte size for every included file.
+Both values are calculated from the same streamed read of each copied file.
+If the copied file changes or is replaced during verification, generation
+fails rather than publishing inconsistent metadata.
 
 ## Verify a downloaded archive offline
 
@@ -49,6 +52,9 @@ symlinked file paths; cross-checks archive and release identity; validates the
 embedded release provenance and indexed static distribution; and rechecks
 canonical dataset declarations and redistribution rights for the broader
 profile. A failure exits with status 1.
+Declared sizes and SHA-256 checksums are checked against the same byte stream;
+the verifier also detects observed changes or replacements of a file during
+reading. Verified archives must remain immutable after this check.
 
 This establishes **internal consistency**, not publisher authenticity. An
 attacker able to replace both files and their manifest could construct a

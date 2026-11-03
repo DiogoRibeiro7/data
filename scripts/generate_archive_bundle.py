@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import shutil
 import sys
@@ -15,20 +14,11 @@ import yaml
 import jsonschema
 
 from data_registry import verify_release_bundle
+from data_registry.fetch import fingerprint_file
 
 REPOSITORY = "DiogoRibeiro7/data"
 ARCHIVE_SCHEMA_VERSION = 1
 SUPPORTED_PROFILES = {"release-metadata", "eligible-canonical-bytes"}
-
-
-def sha256_file(path: Path) -> str:
-    """Return a file SHA-256 digest."""
-
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -60,7 +50,11 @@ def copy_file(
 
     destination.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(source, destination)
-    checksum = sha256_file(destination)
+    try:
+        checksum, size = fingerprint_file(destination)
+    except OSError as exc:
+        destination.unlink(missing_ok=True)
+        raise ValueError(f"{source}: copied archive file changed: {exc}") from exc
     if expected_sha256 is not None and checksum != expected_sha256:
         destination.unlink(missing_ok=True)
         raise ValueError(
@@ -70,7 +64,7 @@ def copy_file(
     return {
         "path": destination.relative_to(bundle_root).as_posix(),
         "sha256": checksum,
-        "size": destination.stat().st_size,
+        "size": size,
     }
 
 

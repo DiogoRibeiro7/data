@@ -5,11 +5,13 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+import os
 import sys
 import tempfile
 import unittest
 from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
+from unittest.mock import patch
 
 import yaml
 
@@ -374,6 +376,56 @@ class ArchiveBundleTests(unittest.TestCase):
                 self.assertGreater(result.total_bytes, 0)
                 self.assertEqual(result.profile, profile)
                 self.assertEqual(len(result.manifest_sha256), 64)
+
+    def test_offline_verifier_rejects_replaced_file_during_hashing(self) -> None:
+        archive = self._build_verifiable_archive()
+        manifest = json.loads(
+            (archive / "archive-bundle-manifest.json").read_text(encoding="utf-8")
+        )
+        declared = archive / "archive-bundle" / manifest["files"][0]["path"]
+        replacement = Path(self.tempdir.name) / "same-bytes-replacement"
+        replacement.write_bytes(declared.read_bytes())
+
+        original_fstat = os.fstat
+        calls = 0
+
+        def replace_after_read(fd: int) -> os.stat_result:
+            nonlocal calls
+            result = original_fstat(fd)
+            calls += 1
+            if calls == 2:
+                replacement.replace(declared)
+            return result
+
+        with patch("data_registry.fetch.os.fstat", side_effect=replace_after_read):
+            with self.assertRaisesRegex(
+                ArchiveVerificationError, "changed during verification"
+            ):
+                verify_archive_bundle(archive)
+
+    def test_generator_rejects_replaced_copy_before_recording_manifest(self) -> None:
+        source = self.root / "CITATION.cff"
+        destination = self.output_dir / "copied.cff"
+        replacement = Path(self.tempdir.name) / "copy-replacement.cff"
+        replacement.write_bytes(source.read_bytes())
+
+        original_fstat = os.fstat
+        calls = 0
+
+        def replace_after_read(fd: int) -> os.stat_result:
+            nonlocal calls
+            result = original_fstat(fd)
+            calls += 1
+            if calls == 2:
+                replacement.replace(destination)
+            return result
+
+        with patch("data_registry.fetch.os.fstat", side_effect=replace_after_read):
+            with self.assertRaisesRegex(ValueError, "changed during verification"):
+                ARCHIVE.copy_file(
+                    source, destination, bundle_root=self.output_dir
+                )
+        self.assertFalse(destination.exists())
 
     def test_offline_verifier_rejects_corrupted_declared_bytes(self) -> None:
         archive = self._build_verifiable_archive()

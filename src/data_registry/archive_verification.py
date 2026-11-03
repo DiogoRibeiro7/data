@@ -11,6 +11,7 @@ from typing import Any
 
 import yaml
 
+from .fetch import fingerprint_file
 from .release_verification import ReleaseVerificationError, verify_release_bundle
 
 REPOSITORY = "DiogoRibeiro7/data"
@@ -262,12 +263,18 @@ def verify_archive_bundle(
         source = bundle.joinpath(*relative.parts)
         if not source.is_file() or source.resolve() != bundle.joinpath(*relative.parts):
             raise ArchiveVerificationError(f"{name}: archive file missing or unsafe")
-        if source.stat().st_size != size:
+        try:
+            actual_digest, actual_size = fingerprint_file(source)
+        except OSError as exc:
+            raise ArchiveVerificationError(
+                f"{name}: archive file changed or became unreadable: {exc}"
+            ) from exc
+        if actual_size != size:
             raise ArchiveVerificationError(f"{name}: archive file size mismatch")
-        if _sha256_file(source) != digest:
+        if actual_digest != digest:
             raise ArchiveVerificationError(f"{name}: archive file SHA-256 mismatch")
         digests[name] = digest
-        total_bytes += size
+        total_bytes += actual_size
 
     actual: set[str] = set()
     for path in bundle.rglob("*"):
