@@ -55,6 +55,8 @@ profile. A failure exits with status 1.
 Declared sizes and SHA-256 checksums are checked against the same byte stream;
 the verifier also detects observed changes or replacements of a file during
 reading. Verified archives must remain immutable after this check.
+The returned `manifest_sha256` fingerprints the exact outer manifest bytes
+parsed for this verification, even if the manifest file is later modified.
 
 This establishes **internal consistency**, not publisher authenticity. An
 attacker able to replace both files and their manifest could construct a

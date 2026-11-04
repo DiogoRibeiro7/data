@@ -118,6 +118,10 @@ The output directory contains:
 - `snapshot-provenance.json` — deterministic provenance binding the release
   identity, artifact digests, producer files, and interface versions.
 
+Offline release verification returns a `manifest_sha256` calculated from the
+same bytes used to parse `snapshot-manifest.json`, binding the reported digest
+to the manifest actually checked.
+
 The manifest records:
 
 - repository name;

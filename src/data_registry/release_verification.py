@@ -48,6 +48,19 @@ def _json(path: Path) -> dict[str, Any]:
     return raw
 
 
+def _json_with_digest(path: Path) -> tuple[dict[str, Any], str]:
+    """Parse and fingerprint the exact same manifest bytes in one read."""
+
+    try:
+        content = path.read_bytes()
+        manifest = json.loads(content.decode("utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise ReleaseVerificationError(f"{path}: cannot read JSON: {exc}") from exc
+    if not isinstance(manifest, dict):
+        raise ReleaseVerificationError(f"{path}: JSON root must be an object")
+    return manifest, hashlib.sha256(content).hexdigest()
+
+
 def verify_release_bundle(
     bundle: Path | str,
     *,
@@ -65,7 +78,7 @@ def verify_release_bundle(
         if not path.is_file():
             raise ReleaseVerificationError(f"missing release asset: {path.name}")
 
-    manifest = _json(manifest_path)
+    manifest, manifest_sha = _json_with_digest(manifest_path)
     provenance = _json(provenance_path)
 
     if provenance.get("schema_version") != 1:
@@ -86,7 +99,6 @@ def verify_release_bundle(
     if not isinstance(manifest_artifact, dict) or not isinstance(summary_artifact, dict):
         raise ReleaseVerificationError("provenance artifact records are malformed")
 
-    manifest_sha = _sha256(manifest_path)
     summary_sha = _sha256(summary_path)
     if manifest_artifact.get("path") != "snapshot-manifest.json":
         raise ReleaseVerificationError("unexpected manifest artifact path")

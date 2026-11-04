@@ -25,6 +25,8 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 
 ### Fixed
 
+- Offline release and archive verifiers now hash the exact manifest bytes they
+  parse, so reported audit digests cannot silently refer to a later file revision.
 - Archive bundle generation and offline verification now measure byte counts
   from the same stable SHA-256 read, detecting observed file changes or
   replacements instead of trusting a separate size stat.
