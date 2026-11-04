@@ -62,6 +62,34 @@ def write_bundle(root: Path) -> tuple[str, str]:
     return tag, commit
 
 
+def rewrite_release_versions(
+    root: Path,
+    *,
+    manifest_version: object = 7,
+    distribution_version: object = 1,
+) -> None:
+    """Keep a deliberately unsupported release internally self-consistent."""
+
+    manifest_path = root / "snapshot-manifest.json"
+    provenance_path = root / "snapshot-provenance.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    provenance = json.loads(provenance_path.read_text(encoding="utf-8"))
+    manifest["manifest_version"] = manifest_version
+    manifest["static_distribution"]["distribution_version"] = distribution_version
+    provenance["interfaces"]["snapshot_manifest_version"] = manifest_version
+    provenance["interfaces"]["static_distribution_version"] = distribution_version
+
+    content = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
+    manifest_path.write_text(content, encoding="utf-8")
+    provenance["artifacts"]["manifest"]["sha256"] = hashlib.sha256(
+        content.encode("utf-8")
+    ).hexdigest()
+    provenance_path.write_text(
+        json.dumps(provenance, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
 class ReleaseVerificationTests(unittest.TestCase):
     def test_valid_bundle_verifies_offline(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -76,6 +104,60 @@ class ReleaseVerificationTests(unittest.TestCase):
         self.assertEqual(result.tag, tag)
         self.assertEqual(result.commit, commit)
         self.assertEqual(result.manifest_version, 7)
+
+    def test_rejects_unknown_and_non_integer_manifest_versions(self) -> None:
+        for version, message in (
+            (10, "unsupported snapshot manifest version"),
+            (True, "manifest version must be an integer"),
+            (9.0, "manifest version must be an integer"),
+        ):
+            with self.subTest(version=version):
+                with tempfile.TemporaryDirectory() as directory:
+                    root = Path(directory)
+                    write_bundle(root)
+                    rewrite_release_versions(root, manifest_version=version)
+                    with self.assertRaisesRegex(ReleaseVerificationError, message):
+                        verify_release_bundle(root)
+
+    def test_rejects_boolean_provenance_interface_version(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_bundle(root)
+            rewrite_release_versions(root, manifest_version=1)
+            path = root / "snapshot-provenance.json"
+            provenance = json.loads(path.read_text(encoding="utf-8"))
+            provenance["interfaces"]["snapshot_manifest_version"] = True
+            path.write_text(json.dumps(provenance), encoding="utf-8")
+            with self.assertRaisesRegex(
+                ReleaseVerificationError, "provenance/manifest version mismatch"
+            ):
+                verify_release_bundle(root)
+
+    def test_rejects_unsupported_distribution_version(self) -> None:
+        for version in (2, True):
+            with self.subTest(version=version):
+                with tempfile.TemporaryDirectory() as directory:
+                    root = Path(directory)
+                    write_bundle(root)
+                    rewrite_release_versions(root, distribution_version=version)
+                    with self.assertRaisesRegex(
+                        ReleaseVerificationError,
+                        "unsupported static distribution version",
+                    ):
+                        verify_release_bundle(root)
+
+    def test_rejects_boolean_provenance_schema_version(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_bundle(root)
+            path = root / "snapshot-provenance.json"
+            provenance = json.loads(path.read_text(encoding="utf-8"))
+            provenance["schema_version"] = True
+            path.write_text(json.dumps(provenance), encoding="utf-8")
+            with self.assertRaisesRegex(
+                ReleaseVerificationError, "unsupported provenance schema version"
+            ):
+                verify_release_bundle(root)
 
     def test_reported_manifest_digest_identifies_parsed_bytes(self) -> None:
         """Later changes to a manifest cannot change the checked digest."""

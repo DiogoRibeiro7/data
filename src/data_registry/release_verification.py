@@ -9,6 +9,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from .compatibility import STATIC_DISTRIBUTION_VERSION, supports_snapshot_manifest
+
 COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 EXPECTED_PREDICATE = (
     "https://github.com/DiogoRibeiro7/data/attestations/snapshot-provenance/v1"
@@ -81,7 +83,10 @@ def verify_release_bundle(
     manifest, manifest_sha = _json_with_digest(manifest_path)
     provenance = _json(provenance_path)
 
-    if provenance.get("schema_version") != 1:
+    if (
+        type(provenance.get("schema_version")) is not int
+        or provenance["schema_version"] != 1
+    ):
         raise ReleaseVerificationError("unsupported provenance schema version")
     if provenance.get("predicate_type") != EXPECTED_PREDICATE:
         raise ReleaseVerificationError("unexpected provenance predicate type")
@@ -136,9 +141,16 @@ def verify_release_bundle(
             )
 
     manifest_version = manifest.get("manifest_version")
-    if not isinstance(manifest_version, int):
-        raise ReleaseVerificationError("manifest version is missing")
-    if interfaces.get("snapshot_manifest_version") != manifest_version:
+    if type(manifest_version) is not int:
+        raise ReleaseVerificationError("manifest version must be an integer")
+    if not supports_snapshot_manifest(manifest_version):
+        raise ReleaseVerificationError(
+            f"unsupported snapshot manifest version: {manifest_version}"
+        )
+    if (
+        type(interfaces.get("snapshot_manifest_version")) is not int
+        or interfaces["snapshot_manifest_version"] != manifest_version
+    ):
         raise ReleaseVerificationError("provenance/manifest version mismatch")
 
     if manifest.get("repository") != provenance.get("repository"):
@@ -147,9 +159,17 @@ def verify_release_bundle(
     static_distribution = manifest.get("static_distribution")
     if not isinstance(static_distribution, dict):
         raise ReleaseVerificationError("manifest static distribution is missing")
+    distribution_version = static_distribution.get("distribution_version")
     if (
-        static_distribution.get("distribution_version")
-        != interfaces.get("static_distribution_version")
+        type(distribution_version) is not int
+        or distribution_version != STATIC_DISTRIBUTION_VERSION
+    ):
+        raise ReleaseVerificationError(
+            f"unsupported static distribution version: {distribution_version!r}"
+        )
+    if (
+        type(interfaces.get("static_distribution_version")) is not int
+        or interfaces["static_distribution_version"] != distribution_version
     ):
         raise ReleaseVerificationError(
             "provenance/static-distribution version mismatch"

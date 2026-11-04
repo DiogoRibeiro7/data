@@ -25,6 +25,9 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 
 ### Fixed
 
+- Offline release and archive verification now reject unsupported manifest and
+  distribution versions, including Boolean values that compare equal to an
+  integer in Python. Metadata-schema compatibility helpers use exact integers.
 - Offline release and archive verifiers now hash the exact manifest bytes they
   parse, so reported audit digests cannot silently refer to a later file revision.
 - Archive bundle generation and offline verification now measure byte counts

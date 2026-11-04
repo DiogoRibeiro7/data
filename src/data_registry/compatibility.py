@@ -21,13 +21,16 @@ PRE_1_DEPRECATION_MIN_MINOR_RELEASES: Final[int] = 1
 def supports_snapshot_manifest(version: int) -> bool:
     """Return whether the client policy supports one snapshot manifest version."""
 
-    return version in SUPPORTED_SNAPSHOT_MANIFEST_VERSIONS
+    # JSON booleans are distinct from version integers, despite bool <: int.
+    return type(version) is int and version in SUPPORTED_SNAPSHOT_MANIFEST_VERSIONS
 
 
 def supports_metadata_schema(layer: str, version: int) -> bool:
     """Return whether the client policy supports one metadata schema version."""
 
-    return version in SUPPORTED_METADATA_SCHEMA_VERSIONS.get(layer, ())
+    return type(version) is int and version in SUPPORTED_METADATA_SCHEMA_VERSIONS.get(
+        layer, ()
+    )
 
 
 __all__ = [

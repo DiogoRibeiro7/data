@@ -378,6 +378,47 @@ class ArchiveBundleTests(unittest.TestCase):
                 self.assertEqual(result.profile, profile)
                 self.assertEqual(len(result.manifest_sha256), 64)
 
+    def test_rejects_boolean_archive_manifest_version(self) -> None:
+        archive = self._build_verifiable_archive()
+        path = archive / "archive-bundle-manifest.json"
+        manifest = json.loads(path.read_text(encoding="utf-8"))
+        manifest["schema_version"] = True
+        path.write_text(json.dumps(manifest), encoding="utf-8")
+
+        with self.assertRaisesRegex(
+            ArchiveVerificationError, "invalid archive manifest version"
+        ):
+            verify_archive_bundle(archive)
+
+    def test_rejects_boolean_archive_metadata_version(self) -> None:
+        archive = self._build_verifiable_archive()
+        metadata_path = (
+            archive / "archive-bundle" / "archive" / "archive-metadata.json"
+        )
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        metadata["schema_version"] = True
+        metadata_path.write_text(json.dumps(metadata), encoding="utf-8")
+        (archive / "archive-metadata.json").write_bytes(metadata_path.read_bytes())
+        self._update_record_for_file(archive, "archive/archive-metadata.json")
+
+        with self.assertRaisesRegex(
+            ArchiveVerificationError, "unsupported archive metadata version"
+        ):
+            verify_archive_bundle(archive)
+
+    def test_rejects_boolean_distribution_index_version(self) -> None:
+        archive = self._build_verifiable_archive()
+        index_path = archive / "archive-bundle" / "distribution" / "v1" / "index.json"
+        index = json.loads(index_path.read_text(encoding="utf-8"))
+        index["distribution_version"] = True
+        index_path.write_text(json.dumps(index), encoding="utf-8")
+        self._update_record_for_file(archive, "distribution/v1/index.json")
+
+        with self.assertRaisesRegex(
+            ArchiveVerificationError, "distribution index version mismatch"
+        ):
+            verify_archive_bundle(archive)
+
     def test_reported_manifest_digest_identifies_parsed_bytes(self) -> None:
         """Audit evidence remains tied to the archive manifest that was checked."""
 

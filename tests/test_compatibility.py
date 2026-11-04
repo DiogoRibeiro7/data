@@ -54,6 +54,8 @@ class CompatibilityPolicyTests(unittest.TestCase):
             SUPPORTED_SNAPSHOT_MANIFEST_VERSIONS,
             (1, 2, 3, 4, 5, 6, 7, 8, 9),
         )
+        self.assertFalse(supports_snapshot_manifest(10))
+        self.assertFalse(supports_snapshot_manifest(True))
 
     def test_package_metadata_matches_initial_semver_line(self) -> None:
         data = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
@@ -76,6 +78,8 @@ class CompatibilityPolicyTests(unittest.TestCase):
         self.assertTrue(supports_metadata_schema("canonical", 1))
         self.assertFalse(supports_metadata_schema("canonical", 2))
         self.assertFalse(supports_metadata_schema("unknown", 1))
+        self.assertFalse(supports_metadata_schema("canonical", True))
+        self.assertFalse(supports_metadata_schema("legacy", False))
 
     def test_pre_one_deprecation_window_is_one_minor_release(self) -> None:
         self.assertEqual(PRE_1_DEPRECATION_MIN_MINOR_RELEASES, 1)
