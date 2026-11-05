@@ -371,6 +371,35 @@ def verify_archive_bundle(
     if actual_distribution != indexed_paths:
         raise ArchiveVerificationError("distribution artifacts differ from index")
 
+    for item in artifacts:
+        # The index is a schema/version contract as well as a file inventory.
+        # File checksums alone cannot detect a self-consistent but mislabeled
+        # distribution artifact in a downloaded archive.
+        filename = item["path"]
+        name = item.get("name")
+        version_declared = item.get("schema_version")
+        source = item.get("source")
+        if not filename.endswith(".json") or name != filename[:-5]:
+            raise ArchiveVerificationError(
+                f"{filename}: distribution artifact name/path mismatch"
+            )
+        if type(version_declared) is not int or version_declared < 1:
+            raise ArchiveVerificationError(
+                f"{filename}: invalid declared distribution schema version"
+            )
+        if not isinstance(source, str) or not source:
+            raise ArchiveVerificationError(
+                f"{filename}: missing distribution source declaration"
+            )
+        artifact = _json(bundle / f"distribution/v{version}/{filename}")
+        if (
+            type(artifact.get("schema_version")) is not int
+            or artifact["schema_version"] != version_declared
+        ):
+            raise ArchiveVerificationError(
+                f"{filename}: distribution artifact schema version mismatch"
+            )
+
     _verify_canonical_datasets(bundle, digests, profile)
 
     return ArchiveVerificationResult(

@@ -295,7 +295,8 @@ def _distribution_archive_sources(root: Path, release_dir: Path) -> list[Path]:
         raise ValueError(f"{index_path}: index escapes distribution directory")
     index = load_json(index_path)
     if (
-        index.get("distribution_version") != version
+        type(index.get("distribution_version")) is not int
+        or index["distribution_version"] != version
         or index.get("repository") != REPOSITORY
     ):
         raise ValueError(f"{index_path}: distribution identity mismatch")
@@ -327,6 +328,22 @@ def _distribution_archive_sources(root: Path, release_dir: Path) -> list[Path]:
             raise ValueError(
                 f"{index_path}: unsafe or missing distribution artifact {relative!r}"
             )
+        # The indexed schema and logical name must describe the JSON that
+        # will actually be archived, including when building without CI.
+        if not relative.endswith(".json") or item.get("name") != relative[:-5]:
+            raise ValueError(f"{index_path}: distribution artifact name/path mismatch")
+        schema_version = item.get("schema_version")
+        if type(schema_version) is not int or schema_version < 1:
+            raise ValueError(f"{index_path}: invalid distribution schema version")
+        source_label = item.get("source")
+        if not isinstance(source_label, str) or not source_label:
+            raise ValueError(f"{index_path}: missing distribution source declaration")
+        artifact = load_json(source)
+        if (
+            type(artifact.get("schema_version")) is not int
+            or artifact["schema_version"] != schema_version
+        ):
+            raise ValueError(f"{source}: distribution artifact schema version mismatch")
         sources.append(source)
     return sources
 
