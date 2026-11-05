@@ -77,6 +77,10 @@ def verify_release_bundle(
     provenance_path = root / "snapshot-provenance.json"
 
     for path in (manifest_path, summary_path, provenance_path):
+        # Following an asset symlink would make a purportedly standalone bundle
+        # depend on mutable bytes outside its extracted directory.
+        if path.is_symlink():
+            raise ReleaseVerificationError(f"symlinked release asset: {path.name}")
         if not path.is_file():
             raise ReleaseVerificationError(f"missing release asset: {path.name}")
 

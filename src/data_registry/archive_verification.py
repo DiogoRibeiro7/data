@@ -228,6 +228,8 @@ def verify_archive_bundle(
 
     root = Path(archive).resolve()
     manifest_path = root / "archive-bundle-manifest.json"
+    if manifest_path.is_symlink():
+        raise ArchiveVerificationError("symlinked archive bundle manifest")
     manifest, manifest_sha = _json_with_digest(manifest_path)
     if (
         type(manifest.get("schema_version")) is not int
@@ -309,6 +311,8 @@ def verify_archive_bundle(
         )
 
     outer_metadata = root / "archive-metadata.json"
+    if outer_metadata.is_symlink():
+        raise ArchiveVerificationError("symlinked standalone archive metadata")
     if _sha256_file(outer_metadata) != digests["archive/archive-metadata.json"]:
         raise ArchiveVerificationError("standalone archive metadata does not match bundle")
     metadata = _json(bundle / "archive" / "archive-metadata.json")

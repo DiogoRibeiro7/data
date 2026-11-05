@@ -25,6 +25,9 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 
 ### Fixed
 
+- Offline release/archive verification now rejects symlinked top-level assets,
+  so a downloaded bundle cannot silently borrow its manifest, summary,
+  provenance, or standalone archive metadata from outside the bundle.
 - Offline release and archive verification now reject unsupported manifest and
   distribution versions, including Boolean values that compare equal to an
   integer in Python. Metadata-schema compatibility helpers use exact integers.

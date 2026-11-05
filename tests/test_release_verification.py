@@ -105,6 +105,31 @@ class ReleaseVerificationTests(unittest.TestCase):
         self.assertEqual(result.commit, commit)
         self.assertEqual(result.manifest_version, 7)
 
+    def test_symlinked_release_assets_outside_bundle_are_rejected(self) -> None:
+        """Offline verification must use assets contained in the bundle."""
+
+        for name in (
+            "snapshot-manifest.json",
+            "snapshot-summary.md",
+            "snapshot-provenance.json",
+        ):
+            with self.subTest(asset=name):
+                with tempfile.TemporaryDirectory() as directory:
+                    base = Path(directory)
+                    bundle = base / "release"
+                    bundle.mkdir()
+                    write_bundle(bundle)
+
+                    asset = bundle / name
+                    external = base / name
+                    asset.replace(external)
+                    asset.symlink_to(external)
+
+                    with self.assertRaisesRegex(
+                        ReleaseVerificationError, "symlink"
+                    ):
+                        verify_release_bundle(bundle)
+
     def test_rejects_unknown_and_non_integer_manifest_versions(self) -> None:
         for version, message in (
             (10, "unsupported snapshot manifest version"),

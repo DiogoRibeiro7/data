@@ -121,6 +121,9 @@ The output directory contains:
 Offline release verification returns a `manifest_sha256` calculated from the
 same bytes used to parse `snapshot-manifest.json`, binding the reported digest
 to the manifest actually checked.
+The manifest, summary, and provenance must be regular files inside the release
+directory. Verification rejects symlinks to prevent a downloaded bundle from
+depending on files outside that directory.
 
 The manifest records:
 

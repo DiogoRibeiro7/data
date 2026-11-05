@@ -52,6 +52,9 @@ symlinked file paths; cross-checks archive and release identity; validates the
 embedded release provenance and indexed static distribution; and rechecks
 canonical dataset declarations and redistribution rights for the broader
 profile. A failure exits with status 1.
+The outer `archive-bundle-manifest.json` and `archive-metadata.json` must also
+be ordinary files rather than symlinks, keeping the extracted archive
+self-contained.
 Declared sizes and SHA-256 checksums are checked against the same byte stream;
 the verifier also detects observed changes or replacements of a file during
 reading. Verified archives must remain immutable after this check.
