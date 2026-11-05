@@ -25,6 +25,9 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 
 ### Fixed
 
+- Repository hygiene validation now splits NUL-delimited Git index paths
+  correctly, detecting tracked forbidden cache and temporary files while
+  continuing to ignore untracked runtime artifacts.
 - Offline release/archive verification now rejects symlinked top-level assets,
   so a downloaded bundle cannot silently borrow its manifest, summary,
   provenance, or standalone archive metadata from outside the bundle.

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -993,6 +994,64 @@ class ValidatorTests(unittest.TestCase):
             encoding="utf-8",
         )
         self.assertTrue(any("broken relative link" in msg for msg in self.errors()))
+
+
+class GitIndexInventoryTests(unittest.TestCase):
+    """Ensure repository hygiene scans real Git-tracked file paths."""
+
+    def test_tracked_files_are_split_on_nul_and_untracked_are_ignored(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            subprocess.run(["git", "init", "-q", str(root)], check=True)
+            nested = root / "folder" / "name with spaces.txt"
+            nested.parent.mkdir()
+            nested.write_text("tracked\n", encoding="utf-8")
+            (root / "ordinary.csv").write_text("x\n", encoding="utf-8")
+            (root / "untracked.tmp").write_text("ignored\n", encoding="utf-8")
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(root),
+                    "add",
+                    "--",
+                    "folder/name with spaces.txt",
+                    "ordinary.csv",
+                ],
+                check=True,
+            )
+
+            paths = {
+                path.relative_to(root).as_posix()
+                for path in VALIDATOR.repository_files(root)
+            }
+            self.assertEqual(paths, {"folder/name with spaces.txt", "ordinary.csv"})
+
+    def test_tracked_forbidden_file_names_are_rejected_in_git_checkout(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            subprocess.run(["git", "init", "-q", str(root)], check=True)
+            forbidden = ("src/module.pyc", "notes/unfinished.tmp", ".DS_Store")
+            for relative in forbidden:
+                generated = root / relative
+                generated.parent.mkdir(parents=True, exist_ok=True)
+                generated.write_bytes(b"generated")
+            subprocess.run(
+                ["git", "-C", str(root), "add", "--", *forbidden],
+                check=True,
+            )
+
+            problems: list[VALIDATOR.Problem] = []
+            VALIDATOR.validate_forbidden_files(root, problems)
+            flagged = {
+                relative
+                for relative in forbidden
+                if any(
+                    relative in problem.message and problem.severity == "error"
+                    for problem in problems
+                )
+            }
+            self.assertEqual(flagged, set(forbidden))
 
 
 if __name__ == "__main__":
