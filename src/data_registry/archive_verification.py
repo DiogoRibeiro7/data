@@ -229,7 +229,11 @@ def verify_archive_bundle(
     root = Path(archive).resolve()
     manifest_path = root / "archive-bundle-manifest.json"
     manifest, manifest_sha = _json_with_digest(manifest_path)
-    if manifest.get("schema_version") != 1 or manifest.get("repository") != REPOSITORY:
+    if (
+        type(manifest.get("schema_version")) is not int
+        or manifest["schema_version"] != 1
+        or manifest.get("repository") != REPOSITORY
+    ):
         raise ArchiveVerificationError("invalid archive manifest version or repository")
 
     snapshot = manifest.get("snapshot")
@@ -309,6 +313,11 @@ def verify_archive_bundle(
         raise ArchiveVerificationError("standalone archive metadata does not match bundle")
     metadata = _json(bundle / "archive" / "archive-metadata.json")
     if (
+        type(metadata.get("schema_version")) is not int
+        or metadata["schema_version"] != 1
+    ):
+        raise ArchiveVerificationError("unsupported archive metadata version")
+    if (
         metadata.get("repository") != REPOSITORY
         or metadata.get("archive_profile") != profile
         or not isinstance(metadata.get("snapshot"), dict)
@@ -333,8 +342,13 @@ def verify_archive_bundle(
     if index_name not in digests:
         raise ArchiveVerificationError("snapshot distribution index is missing")
     index = _json(bundle / index_name)
-    if index.get("repository") != REPOSITORY or index.get("distribution_version") != version:
+    if index.get("repository") != REPOSITORY:
         raise ArchiveVerificationError("distribution index identity mismatch")
+    if (
+        type(index.get("distribution_version")) is not int
+        or index["distribution_version"] != version
+    ):
+        raise ArchiveVerificationError("distribution index version mismatch")
     artifacts = index.get("artifacts")
     if not isinstance(artifacts, list):
         raise ArchiveVerificationError("distribution index artifacts are malformed")

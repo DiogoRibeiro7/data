@@ -81,6 +81,8 @@ removed, or record structure changes incompatibly.
 
 Readers must reject unsupported schema versions rather than silently coercing
 them.
+Version identifiers must be JSON integers; Booleans and numeric strings are
+not accepted as version numbers.
 
 Schema versioning is independent of package, static-distribution, and snapshot
 manifest versions.
@@ -149,6 +151,9 @@ old release into the current manifest shape.
 When reading historical manifests, tooling should branch explicitly on
 `manifest_version`. Unknown future versions must be rejected unless support
 has been added deliberately.
+Offline release verification enforces the supported manifest-version set and
+the currently supported static-distribution version, even when a release's
+manifest and provenance agree with each other.
 
 A new snapshot manifest version is required when the manifest contract changes
 in a way that cannot be represented as a backward-compatible additive field.
