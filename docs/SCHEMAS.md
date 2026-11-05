@@ -29,6 +29,10 @@ The Python validator retains semantic checks that cannot be represented cleanly 
 - consumer IDs/filenames match their directory relationship identity;
 - canonical consumer dataset/path/checksum values agree with canonical metadata.
 
+Repository hygiene checks inspect Git-tracked paths when run in a checkout,
+including file names containing spaces. Tracked cache, backup, and temporary
+files are rejected; untracked local runtime artifacts are ignored.
+
 ## Canonical metadata
 
 Canonical metadata is intentionally strict. Unknown top-level fields are rejected.

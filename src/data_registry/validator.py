@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -227,8 +228,8 @@ def repository_files(root: Path) -> list[Path]:
             pass
         else:
             return [
-                root / item.decode("utf-8")
-                for item in result.stdout.split(b"\\0")
+                root / os.fsdecode(item)
+                for item in result.stdout.split(b"\0")
                 if item
             ]
 
