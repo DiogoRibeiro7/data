@@ -378,6 +378,30 @@ class ArchiveBundleTests(unittest.TestCase):
                 self.assertEqual(result.profile, profile)
                 self.assertEqual(len(result.manifest_sha256), 64)
 
+    def test_rejects_symlinked_outer_archive_manifest(self) -> None:
+        """The parsed archive manifest must be inside the extracted archive."""
+
+        archive = self._build_verifiable_archive()
+        manifest_path = archive / "archive-bundle-manifest.json"
+        external = Path(self.tempdir.name) / "external-archive-bundle-manifest.json"
+        manifest_path.replace(external)
+        manifest_path.symlink_to(external)
+
+        with self.assertRaisesRegex(ArchiveVerificationError, "symlink"):
+            verify_archive_bundle(archive)
+
+    def test_rejects_symlinked_standalone_archive_metadata(self) -> None:
+        """A verified archive cannot borrow standalone metadata externally."""
+
+        archive = self._build_verifiable_archive()
+        metadata_path = archive / "archive-metadata.json"
+        external = Path(self.tempdir.name) / "external-archive-metadata.json"
+        metadata_path.replace(external)
+        metadata_path.symlink_to(external)
+
+        with self.assertRaisesRegex(ArchiveVerificationError, "symlink"):
+            verify_archive_bundle(archive)
+
     def test_rejects_boolean_archive_manifest_version(self) -> None:
         archive = self._build_verifiable_archive()
         path = archive / "archive-bundle-manifest.json"
