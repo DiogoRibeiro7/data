@@ -1,0 +1,48 @@
+schema_version: 1
+status: external-reference
+id: gpp-sima-orange-wholesale-quotations
+title: "Portuguese SIMA orange quotations from wholesale markets (2025–2026)"
+publisher: "Gabinete de Planeamento, Políticas e Administração Geral (GPP), Portugal"
+source_url: "https://regsima.gpp.pt/regsima/consulta/mercados?tm=11"
+license:
+  name: "GPP legal notice (partial reproduction with attribution; full-export scope unclear)"
+  url: "https://www.gpp.pt/index.php/avisos-legais/avisos-legais"
+redistribution: unresolved
+storage: authoritative-upstream-and-pinned-project-snapshot
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The official SIMA wholesale consultation exports market quotations.
+    ds-projects-portfolio retains a gzip-compressed raw export for its R-based
+    orange-storage analysis, documenting a 2025-01-01 to 2026-10-31 query,
+    3,412 rows, and an original-file SHA-256. The GPP legal notice allows
+    reproduction of part of its public information subject to attribution,
+    lawful acquisition and protection restrictions; it does not explicitly
+    grant republication of the complete SIMA export. No source CSV bytes are
+    copied into this central registry.
+consumers:
+  - ds-projects-portfolio
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-11-06
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    GPP permits partial reproduction of public information under conditions,
+    but its published legal notice does not explicitly establish permission
+    to mirror an entire SIMA wholesale-market CSV export in this registry.
+  evidence:
+    - "https://www.gpp.pt/index.php/avisos-legais/avisos-legais"
+    - "https://www.gpp.pt/index.php/sima/sima-2018"
+    - "https://www.gpp.pt/images/Agricultura/SIMA/SIMA_Manual.pdf"
+    - "https://github.com/DiogoRibeiro7/ds-projects-portfolio/blob/4eab39afadd0548d4e58b1762994a955c7760d9e/projects/orange_storage_decision/MARKET_PRICES.md"
+  reviewer_note: >-
+    The consumer documents the selection, original CSV checksum and project
+    archive. Its checksum is a consumer-reported digest, not an independently
+    verified GPP export identity or proof of central redistribution rights.
+  next_action: >-
+    Continue linking to GPP and the consumer's pinned snapshot. Revisit
+    central mirroring only if GPP publishes explicit reuse terms covering
+    complete SIMA CSV exports or grants the necessary permission.
+  terminal: true
