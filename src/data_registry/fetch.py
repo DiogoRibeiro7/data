@@ -137,7 +137,15 @@ def fetch_dataset_file(
     if not isinstance(force, bool):
         raise TypeError("force must be bool")
 
-    if output.is_file() and sha256_file(output) == reference.sha256:
+    # A symlink is not an owned, immutable local copy. Following an existing
+    # link can silently reuse external bytes, while a dangling link is
+    # otherwise treated as an absent file and overwritten without --force.
+    if output.is_symlink():
+        if not force:
+            raise FileExistsError(
+                f"{output} is a symbolic link; use --force to replace the link"
+            )
+    elif output.is_file() and sha256_file(output) == reference.sha256:
         return output
     if output.exists() and not force:
         raise FileExistsError(

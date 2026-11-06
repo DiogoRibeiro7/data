@@ -25,6 +25,9 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 
 ### Fixed
 
+- Canonical fetch now treats existing output symlinks, including dangling
+  links, as occupied paths requiring explicit `--force`. Forced downloads
+  replace the link atomically without modifying its target.
 - Archive generation and offline verification now check indexed distribution
   artifact names and declared schema versions against the packaged JSON, so
   mislabeled or schema-inconsistent artifacts cannot pass bundle checks.

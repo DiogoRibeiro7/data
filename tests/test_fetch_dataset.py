@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import http.server
+import io
 import socketserver
 import sys
 import tempfile
@@ -12,6 +13,7 @@ import unittest
 from functools import partial
 from pathlib import Path
 from typing import cast
+from unittest.mock import patch
 
 SCRIPTS_DIR = Path(__file__).resolve().parents[1] / "scripts"
 sys.path.insert(0, str(SCRIPTS_DIR))
@@ -86,6 +88,117 @@ class FetchDatasetTests(unittest.TestCase):
             )
             result = fetch_dataset_file(ref, output, base_url="http://127.0.0.1:1")
             self.assertEqual(result.read_bytes(), payload)
+
+    def test_existing_verified_symlink_requires_force(self) -> None:
+        """A checksum-matching link must not stand in for a downloaded file."""
+
+        payload = b"a,b\n1,2\n"
+        reference = DatasetReference(
+            "owner/repo", "a" * 40, "datasets/x/raw/a.csv",
+            hashlib.sha256(payload).hexdigest(),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "target.csv"
+            target.write_bytes(payload)
+            output = Path(directory) / "output.csv"
+            output.symlink_to(target)
+
+            with self.assertRaisesRegex(FileExistsError, "symbolic link"):
+                fetch_dataset_file(
+                    reference, output, base_url="http://127.0.0.1:1"
+                )
+            self.assertTrue(output.is_symlink())
+            self.assertEqual(target.read_bytes(), payload)
+
+    def test_dangling_symlink_requires_force(self) -> None:
+        """Even a broken link is an existing destination entry."""
+
+        reference = DatasetReference(
+            "owner/repo", "a" * 40, "datasets/x/raw/a.csv", "0" * 64,
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "output.csv"
+            output.symlink_to(Path(directory) / "missing.csv")
+            self.assertFalse(output.exists())
+
+            with self.assertRaisesRegex(FileExistsError, "symbolic link"):
+                fetch_dataset_file(
+                    reference, output, base_url="http://127.0.0.1:1"
+                )
+            self.assertTrue(output.is_symlink())
+
+    def test_force_replaces_symlink_without_touching_target(self) -> None:
+        """Explicit replacement swaps the link itself, not the external file."""
+
+        payload = b"a,b\n1,2\n"
+        reference = DatasetReference(
+            "owner/repo", "a" * 40, "datasets/x/raw/a.csv",
+            hashlib.sha256(payload).hexdigest(),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "external.csv"
+            target.write_bytes(payload)
+            output = Path(directory) / "output.csv"
+            output.symlink_to(target)
+
+            with patch(
+                "data_registry.fetch.urllib.request.urlopen",
+                return_value=io.BytesIO(payload),
+            ) as download:
+                result = fetch_dataset_file(reference, output, force=True)
+
+            download.assert_called_once()
+            self.assertEqual(result, output)
+            self.assertFalse(output.is_symlink())
+            self.assertEqual(output.read_bytes(), payload)
+            self.assertEqual(target.read_bytes(), payload)
+
+    def test_force_replaces_dangling_symlink(self) -> None:
+        """--force recovers a broken cache link without creating its target."""
+
+        payload = b"a,b\n1,2\n"
+        reference = DatasetReference(
+            "owner/repo", "a" * 40, "datasets/x/raw/a.csv",
+            hashlib.sha256(payload).hexdigest(),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "missing.csv"
+            output = Path(directory) / "output.csv"
+            output.symlink_to(target)
+
+            with patch(
+                "data_registry.fetch.urllib.request.urlopen",
+                return_value=io.BytesIO(payload),
+            ):
+                fetch_dataset_file(reference, output, force=True)
+
+            self.assertFalse(output.is_symlink())
+            self.assertEqual(output.read_bytes(), payload)
+            self.assertFalse(target.exists())
+
+    def test_failed_forced_fetch_preserves_existing_symlink(self) -> None:
+        """A failed checksum check must leave both link and target intact."""
+
+        payload = b"a,b\n1,2\n"
+        reference = DatasetReference(
+            "owner/repo", "a" * 40, "datasets/x/raw/a.csv",
+            hashlib.sha256(payload).hexdigest(),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "external.csv"
+            target.write_bytes(payload)
+            output = Path(directory) / "output.csv"
+            output.symlink_to(target)
+
+            with patch(
+                "data_registry.fetch.urllib.request.urlopen",
+                return_value=io.BytesIO(b"wrong bytes\n"),
+            ):
+                with self.assertRaisesRegex(RuntimeError, "checksum mismatch"):
+                    fetch_dataset_file(reference, output, force=True)
+
+            self.assertTrue(output.is_symlink())
+            self.assertEqual(target.read_bytes(), payload)
 
     def test_download_verifies_checksum(self) -> None:
         payload = b"x,y\n3,4\n"
