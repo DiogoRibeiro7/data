@@ -249,6 +249,27 @@
       "path": "external/fred-economic-data"
     },
     {
+      "id": "gpp-sima-orange-wholesale-quotations",
+      "title": "Portuguese SIMA orange quotations from wholesale markets (2025–2026)",
+      "publisher": "Gabinete de Planeamento, Políticas e Administração Geral (GPP), Portugal",
+      "source_url": "https://regsima.gpp.pt/regsima/consulta/mercados?tm=11",
+      "license": {
+        "name": "GPP legal notice (partial reproduction with attribution; full-export scope unclear)",
+        "url": "https://www.gpp.pt/index.php/avisos-legais/avisos-legais"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream-and-pinned-project-snapshot",
+      "consumers": [
+        "ds-projects-portfolio"
+      ],
+      "path": "external/gpp-sima-orange-wholesale-quotations",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
       "id": "hillstrom-minethatdata-email-experiment-2008",
       "title": "MineThatData 2008 Hillstrom randomized email marketing experiment",
       "publisher": "Kevin Hillstrom / MineThatData (Kaggle copy uploaded by bofulee)",

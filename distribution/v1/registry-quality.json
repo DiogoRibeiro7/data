@@ -67,17 +67,18 @@
     "pinned_immutable_identity_sources": 5,
     "redistribution": {
       "resolved": 22,
-      "unresolved": 25
+      "unresolved": 26
     },
-    "source_count": 47,
+    "source_count": 48,
     "source_usage": {
-      "consumer_count": 12,
-      "consumer_references": 44,
+      "consumer_count": 13,
+      "consumer_references": 45,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
         "crop-protection-predictive-science",
         "displacement-risk-lab-dynamodb",
+        "ds-projects-portfolio",
         "empirical-analysis-r",
         "medium-statistical-dynamics",
         "perishable-inventory-decision-lab",
@@ -102,19 +103,19 @@
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 1,
       "historical-export-route": 1,
-      "redistribution-rights": 22
+      "redistribution-rights": 23
     },
     "external": {
       "actionable": 3,
-      "terminal": 22
+      "terminal": 23
     },
     "legacy": {
       "actionable": 0,
       "terminal": 2
     },
-    "oldest_age_days": 26,
+    "oldest_age_days": 32,
     "oldest_review_date": "2026-10-05",
-    "total_count": 27
+    "total_count": 28
   },
   "schema_version": 1,
   "snapshots": {
