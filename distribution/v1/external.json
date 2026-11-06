@@ -566,6 +566,27 @@
       }
     },
     {
+      "id": "oecd-analytical-house-price-indicators",
+      "title": "OECD analytical house-price, rent and affordability indicators",
+      "publisher": "Organisation for Economic Co-operation and Development (OECD)",
+      "source_url": "https://www.oecd.org/en/data/indicators/housing-prices.html",
+      "license": {
+        "name": "OECD Data Terms & Conditions (third-party rights may restrict individual series)",
+        "url": "https://www.oecd.org/en/about/terms-conditions.html"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "wealth_rentier_dynamics"
+      ],
+      "path": "external/oecd-analytical-house-price-indicators",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
       "id": "our-world-in-data",
       "title": "Our World in Data / Grapher datasets",
       "publisher": "Global Change Data Lab / Our World in Data",
@@ -804,6 +825,24 @@
         "portugal-living-standards-reassessment"
       ],
       "path": "external/world-bank-wdi-infant-mortality"
+    },
+    {
+      "id": "world-inequality-database-wealth-shares",
+      "title": "WID.world distribution of net personal wealth by percentile",
+      "publisher": "World Inequality Lab / World Inequality Database (WID.world)",
+      "source_url": "https://wid.world/data/",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "wealth_rentier_dynamics"
+      ],
+      "path": "external/world-inequality-database-wealth-shares",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
     }
   ]
 }

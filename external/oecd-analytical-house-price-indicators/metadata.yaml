@@ -1,0 +1,49 @@
+schema_version: 1
+status: external-reference
+id: oecd-analytical-house-price-indicators
+title: "OECD analytical house-price, rent and affordability indicators"
+publisher: "Organisation for Economic Co-operation and Development (OECD)"
+source_url: "https://www.oecd.org/en/data/indicators/housing-prices.html"
+license:
+  name: "OECD Data Terms & Conditions (third-party rights may restrict individual series)"
+  url: "https://www.oecd.org/en/about/terms-conditions.html"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    wealth_rentier_dynamics downloads OECD analytical house-price SDMX-CSV
+    per country using dataflow OECD.ECO.MPD,DSD_AN_HOUSE_PRICES@DF_HOUSE_PRICES,
+    1.0, annual frequency from 1990. It uses nominal/real house prices, rent
+    indices, price-to-income and price-to-rent measures. OECD generally permits
+    reuse of its own statistical data with credit, but warns that specific
+    series may contain third-party data with additional restrictions. The
+    exact country-measure source metadata and archived response checksums have
+    not been examined for this consumer. No bytes are mirrored.
+consumers:
+  - wealth_rentier_dynamics
+resolution:
+  review_status: actionable
+  last_reviewed: 2026-11-06
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    OECD's general terms allow data redistribution with attribution unless
+    additional source-specific or third-party restrictions apply. The exact
+    analytical house-price country and measure metadata for this consumer
+    have not yet been audited for such restrictions.
+  evidence:
+    - "https://www.oecd.org/en/about/terms-conditions.html"
+    - "https://www.oecd.org/en/data/insights/data-explainers/2024/07/Residential-Property-Price-Indices-and-related-housing-indicators-Frequently-Asked-Questions.html"
+    - "https://github.com/DiogoRibeiro7/wealth_rentier_dynamics/blob/f3e6e3a5b035b65d883ddd70f082f1fb6b34bc0a/src/wealth_dynamics/data_sources.py"
+  reviewer_note: >-
+    OECD's country-level national property-price inputs may include national
+    statistical-office and Eurostat series; an OECD download URL alone does
+    not prove the ownership of each underlying observation.
+  next_action: >-
+    Inspect the OECD Data Explorer source metadata for PRT, ESP, FRA, ITA,
+    IRL and NLD and each selected measure. Confirm third-party permissions,
+    then pin an exact dated SDMX export and SHA-256 before considering a
+    canonical registry snapshot.
+  terminal: false

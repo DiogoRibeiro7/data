@@ -67,12 +67,12 @@
     "pinned_immutable_identity_sources": 5,
     "redistribution": {
       "resolved": 22,
-      "unresolved": 26
+      "unresolved": 28
     },
-    "source_count": 48,
+    "source_count": 50,
     "source_usage": {
-      "consumer_count": 13,
-      "consumer_references": 45,
+      "consumer_count": 14,
+      "consumer_references": 47,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -86,7 +86,8 @@
         "portugal-housing-generations",
         "portugal-living-standards-reassessment",
         "productivity_taxation_inequality_project",
-        "social-security-housing-investment"
+        "social-security-housing-investment",
+        "wealth_rentier_dynamics"
       ]
     }
   },
@@ -103,11 +104,11 @@
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 1,
       "historical-export-route": 1,
-      "redistribution-rights": 23
+      "redistribution-rights": 25
     },
     "external": {
-      "actionable": 3,
-      "terminal": 23
+      "actionable": 4,
+      "terminal": 24
     },
     "legacy": {
       "actionable": 0,
@@ -115,7 +116,7 @@
     },
     "oldest_age_days": 32,
     "oldest_review_date": "2026-10-05",
-    "total_count": 28
+    "total_count": 30
   },
   "schema_version": 1,
   "snapshots": {

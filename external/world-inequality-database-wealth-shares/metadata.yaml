@@ -1,0 +1,44 @@
+schema_version: 1
+status: external-reference
+id: world-inequality-database-wealth-shares
+title: "WID.world distribution of net personal wealth by percentile"
+publisher: "World Inequality Lab / World Inequality Database (WID.world)"
+source_url: "https://wid.world/data/"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The wealth_rentier_dynamics project implements an optional local ZIP loader
+    for the WID full-database download. It reads WID_data_<CC>.csv country
+    members and variable shwealj992 at p99p100, p90p100 and p0p50. Its
+    country-year top-1% wealth-share outcome is missing unless the user
+    supplies a WID archive. No such ZIP or a publisher-pinned revision is
+    stored in the registry; publicly accessible downloads do not, by
+    themselves, establish full-archive redistribution permission.
+consumers:
+  - wealth_rentier_dynamics
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-11-06
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    WID.world advertises open access and documents bulk downloads, but the
+    official data and documentation pages reviewed do not explicitly state
+    terms permitting a separate repository to mirror its entire database ZIP.
+  evidence:
+    - "https://wid.world/data/"
+    - "https://wid.world/codes-dictionary/"
+    - "https://wid.world/methodology/"
+    - "https://github.com/DiogoRibeiro7/wealth_rentier_dynamics/blob/f3e6e3a5b035b65d883ddd70f082f1fb6b34bc0a/data/README.md"
+  reviewer_note: >-
+    The source URL is an interactive download page, not an immutable archive
+    URL. The consumer loader is implemented and unit-tested, but possession
+    of a real ZIP and its checksum has not been independently verified.
+  next_action: >-
+    Keep source downloads consumer-local. Reopen only if WID.world provides
+    explicit full-database redistribution terms or a suitable licence;
+    before any canonical promotion, identify a dated revision and checksum.
+  terminal: true

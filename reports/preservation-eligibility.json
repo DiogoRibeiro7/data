@@ -269,6 +269,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "oecd-analytical-house-price-indicators",
+      "metadata_path": "external/oecd-analytical-house-price-indicators/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "our-world-in-data",
       "metadata_path": "external/our-world-in-data/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -356,6 +362,12 @@
       "id": "world-bank-wdi-infant-mortality",
       "metadata_path": "external/world-bank-wdi-infant-mortality/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "world-inequality-database-wealth-shares",
+      "metadata_path": "external/world-inequality-database-wealth-shares/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
     }
   ],
   "legacy": [
@@ -384,8 +396,8 @@
     "canonical_byte_archive_eligible_count": 4,
     "canonical_dataset_count": 4,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 48,
-    "external_source_count": 48,
+    "external_metadata_only_count": 50,
+    "external_source_count": 50,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }

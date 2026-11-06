@@ -322,6 +322,22 @@
       "title": "Historical Medium article study (Jansma)"
     },
     {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "OECD's general terms allow data redistribution with attribution unless additional source-specific or third-party restrictions apply. The exact analytical house-price country and measure metadata for this consumer have not yet been audited for such restrictions.",
+      "evidence_count": 3,
+      "id": "oecd-analytical-house-price-indicators",
+      "last_reviewed": "2026-11-06",
+      "layer": "external",
+      "next_action": "Inspect the OECD Data Explorer source metadata for PRT, ESP, FRA, ITA, IRL and NLD and each selected measure. Confirm third-party permissions, then pin an exact dated SDMX export and SHA-256 before considering a canonical registry snapshot.",
+      "path": "external/oecd-analytical-house-price-indicators/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "actionable",
+      "structured_evidence": true,
+      "terminal": false,
+      "title": "OECD analytical house-price, rent and affordability indicators"
+    },
+    {
       "age_days": 6,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "The underlying official INE statistics can be attributed and used, but no PORDATA/FFMS terms permitting verbatim redistribution of its complete portal export or repackaged table were established for this source.",
@@ -418,6 +434,22 @@
       "title": "SEF RIFA original foreign-resident nationality and sex tables (2017–2022)"
     },
     {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "WID.world advertises open access and documents bulk downloads, but the official data and documentation pages reviewed do not explicitly state terms permitting a separate repository to mirror its entire database ZIP.",
+      "evidence_count": 4,
+      "id": "world-inequality-database-wealth-shares",
+      "last_reviewed": "2026-11-06",
+      "layer": "external",
+      "next_action": "Keep source downloads consumer-local. Reopen only if WID.world provides explicit full-database redistribution terms or a suitable licence; before any canonical promotion, identify a dated revision and checksum.",
+      "path": "external/world-inequality-database-wealth-shares/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
+      "title": "WID.world distribution of net personal wealth by percentile"
+    },
+    {
       "age_days": 32,
       "blocker_category": "exact-snapshot-identity",
       "blocker_summary": "The retained age/sex files are strongly attributable to UN World Population Prospects 2019, whose publications are CC BY 3.0 IGO, but the exact download/export route and the lineage of the Portugal CSV/XLSX variants cannot be reconstructed sufficiently to claim file-level provenance for these historical artifacts.",
@@ -452,18 +484,18 @@
   ],
   "schema_version": 1,
   "summary": {
-    "actionable_count": 3,
+    "actionable_count": 4,
     "by_blocker_category": {
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 1,
       "historical-export-route": 1,
-      "redistribution-rights": 23
+      "redistribution-rights": 25
     },
-    "external_count": 26,
+    "external_count": 28,
     "legacy_count": 2,
-    "structured_count": 28,
-    "terminal_count": 25,
-    "total_debt": 28,
+    "structured_count": 30,
+    "terminal_count": 26,
+    "total_debt": 30,
     "unstructured_count": 0
   }
 }
