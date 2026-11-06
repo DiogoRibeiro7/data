@@ -99,6 +99,22 @@
     },
     {
       "age_days": 0,
+      "blocker_category": "exact-snapshot-identity",
+      "blocker_summary": "No raw response files, SHA-256 checksums or extraction timestamps have been pinned for these cross-country Eurostat consumer requests. Eurostat's API publishes current datasets, not immutable historical API versions.",
+      "evidence_count": 6,
+      "id": "eurostat-multicountry-housing-tax-covariates",
+      "last_reviewed": "2026-11-06",
+      "layer": "external",
+      "next_action": "Capture the exact query, geography, dataset code and DOI, response timestamp, Eurostat update metadata, data/structure dimensions, raw JSON SHA-256, and transformation revision for each selected series before considering a canonical registry snapshot.",
+      "path": "external/eurostat-multicountry-housing-tax-covariates/metadata.yaml",
+      "redistribution": "allowed",
+      "review_status": "actionable",
+      "structured_evidence": true,
+      "terminal": false,
+      "title": "Eurostat cross-country housing-cost, tenure and tax-account covariates"
+    },
+    {
+      "age_days": 0,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "GPP permits partial reproduction of public information under conditions, but its published legal notice does not explicitly establish permission to mirror an entire SIMA wholesale-market CSV export in this registry.",
       "evidence_count": 4,
@@ -338,6 +354,22 @@
       "title": "OECD analytical house-price, rent and affordability indicators"
     },
     {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "The OECD general reuse policy is permissive, but the exact average-wage series source metadata and any third-party ownership declarations for the six consumer countries have not been independently checked.",
+      "evidence_count": 3,
+      "id": "oecd-average-annual-wages",
+      "last_reviewed": "2026-11-06",
+      "layer": "external",
+      "next_action": "Verify per-series source ownership in OECD Data Explorer, then retain a dated SDMX-CSV response for each country with exact URL, response SHA-256, observed PPP reference year, and transformation revision before proposing any canonical snapshot.",
+      "path": "external/oecd-average-annual-wages/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "actionable",
+      "structured_evidence": true,
+      "terminal": false,
+      "title": "OECD real average annual wages (full-time equivalent, PPP adjusted)"
+    },
+    {
       "age_days": 6,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "The underlying official INE statistics can be attributed and used, but no PORDATA/FFMS terms permitting verbatim redistribution of its complete portal export or repackaged table were established for this source.",
@@ -484,18 +516,18 @@
   ],
   "schema_version": 1,
   "summary": {
-    "actionable_count": 4,
+    "actionable_count": 6,
     "by_blocker_category": {
       "dataset-vs-repository-licence-scope": 3,
-      "exact-snapshot-identity": 1,
+      "exact-snapshot-identity": 2,
       "historical-export-route": 1,
-      "redistribution-rights": 25
+      "redistribution-rights": 26
     },
-    "external_count": 28,
+    "external_count": 30,
     "legacy_count": 2,
-    "structured_count": 30,
+    "structured_count": 32,
     "terminal_count": 26,
-    "total_debt": 30,
+    "total_debt": 32,
     "unstructured_count": 0
   }
 }
