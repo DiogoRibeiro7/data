@@ -307,7 +307,9 @@ The operation requires:
 
 It will not fetch from a branch such as `main`.
 
-Use `--force` only when intentionally replacing a mismatched existing destination.
+Use `--force` only when intentionally replacing a mismatched existing destination
+or an existing symbolic link (including a dangling link). The link itself is
+replaced; its target is never modified.
 
 JSON output is also available:
 

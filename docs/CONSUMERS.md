@@ -87,6 +87,9 @@ python scripts/fetch_dataset.py \
 ```
 
 The helper refuses branch names and short SHAs, verifies SHA-256 before accepting a download, writes atomically, reuses an already verified local copy without network access, and refuses to overwrite a mismatched file unless `--force` is explicit.
+An existing symbolic-link destination is not reused as a verified local copy,
+even when its target has the expected checksum. Use `--force` to download and
+atomically replace the link itself; the linked target remains untouched.
 
 ## Offline and CI policy
 

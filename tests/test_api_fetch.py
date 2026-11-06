@@ -173,6 +173,26 @@ class RegistryClientFetchTests(unittest.TestCase):
             self.assertEqual(result.output, output)
             self.assertEqual(result.output.read_bytes(), self.payload)
 
+    def test_fetch_rejects_symlinked_cache_via_client_api(self) -> None:
+        """RegistryClient preserves the helper's explicit force boundary."""
+
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "external.csv"
+            target.write_bytes(self.payload)
+            output = Path(directory) / "example.csv"
+            output.symlink_to(target)
+
+            with self.assertRaisesRegex(RegistryError, "symbolic link"):
+                self.client.fetch(
+                    "example",
+                    "raw/example.csv",
+                    commit="b" * 40,
+                    output=output,
+                    repository="owner/repo",
+                    base_url="http://127.0.0.1:1",
+                )
+            self.assertTrue(output.is_symlink())
+
 
 if __name__ == "__main__":
     unittest.main()
