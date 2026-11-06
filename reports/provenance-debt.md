@@ -3,13 +3,13 @@
 This file is generated deterministically from committed external and legacy metadata.
 Do not edit it by hand.
 
-- Total debt items: **28**
-- External records: **26**
+- Total debt items: **30**
+- External records: **28**
 - Legacy packages: **2**
-- Structured evidence: **28**
+- Structured evidence: **30**
 - Unstructured debt: **0**
-- Actionable: **3**
-- Terminal: **25**
+- Actionable: **4**
+- Terminal: **26**
 - Age reference date: **2026-11-06**
 
 ## Blocker categories
@@ -17,7 +17,7 @@ Do not edit it by hand.
 - `dataset-vs-repository-licence-scope`: **3**
 - `exact-snapshot-identity`: **1**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **23**
+- `redistribution-rights`: **25**
 
 ## Queue
 
@@ -43,12 +43,14 @@ Do not edit it by hand.
 | external | `medium-crawlfeeds-corpus` | terminal | The Hugging Face card declares CC BY-SA 3.0, but the corpus contains scraped third-party Medium article bodies and no authoritative evidence establishes Crawlfeeds' right to relicense all embedded article text. Under the registry's conservative policy, redistribution remains unresolved and the record is terminal external-only. | 2026-10-14 | 23 | 5 | unresolved | Reopen only with authoritative rights evidence covering the pinned bytes. Retain external-only status; independently establish permitted local research use before acquisition. |
 | external | `medium-fabiochiu-articles` | terminal | The Hugging Face dataset declares MIT and exposes revision 979af3bcd84565e3f47b9eca752d8ec112824953, but full-text files reproduce third-party Medium article bodies and no evidence establishes the publisher's authority to relicense that content. Redistribution remains unresolved and the record is terminal external-only. | 2026-10-11 | 26 | 4 | unresolved | Reopen only if authoritative evidence establishes redistribution rights for the exact full-text or no-text file(s), assessed separately. |
 | external | `medium-jansma-historical` | terminal | The pinned research repository documents collection of roughly 1.4 million Medium stories and says the dataset was published for public use on Kaggle, but the actual dataset is off-repository, the GitHub repository has no LICENSE, and no authoritative dataset-specific redistribution licence for the exact Kaggle object was recovered. The record is terminal external-only. | 2026-10-11 | 26 | 4 | unresolved | Reopen only if the exact Kaggle object/version and authoritative dataset-specific redistribution terms are recovered. |
+| external | `oecd-analytical-house-price-indicators` | actionable | OECD's general terms allow data redistribution with attribution unless additional source-specific or third-party restrictions apply. The exact analytical house-price country and measure metadata for this consumer have not yet been audited for such restrictions. | 2026-11-06 | 0 | 3 | unresolved | Inspect the OECD Data Explorer source metadata for PRT, ESP, FRA, ITA, IRL and NLD and each selected measure. Confirm third-party permissions, then pin an exact dated SDMX export and SHA-256 before considering a canonical registry snapshot. |
 | external | `pordata-ine-portugal-infant-mortality` | terminal | The underlying official INE statistics can be attributed and used, but no PORDATA/FFMS terms permitting verbatim redistribution of its complete portal export or repackaged table were established for this source. | 2026-10-31 | 6 | 3 | unresolved | Retain external citation and the limited attributed downstream transcriptions. Obtain explicit table-export reuse terms, or source the same series directly from INE under its applicable redistribution policy before considering canonical promotion. |
 | external | `pordata-portugal-resident-population` | terminal | INE permits rediffusion of official statistical information with source attribution, but the historical workbook was a PORDATA-generated Excel export and no authoritative term was recovered that clearly permits mirroring that secondary-source artifact. | 2026-10-05 | 32 | 3 | unresolved | Reopen only if PORDATA or FFMS publishes terms explicitly authorizing redistribution of exported table files, or if the registry replaces the artifact with a directly sourced INE representation under INE reuse terms. |
 | external | `porto-metro-gtfs-2026-09-07` | actionable | A historical Porto open-data catalog tagged this dataset CC0, but the current migrated listing did not expose a clearly linked licence for the exact 7 September 2026 ZIP; carryover of the old licence is unverified. | 2026-10-30 | 7 | 2 | unresolved | Verify the migrated portal's machine-readable licence metadata or obtain publisher confirmation for the dated ZIP before canonical promotion. |
 | external | `porto-metro-line-b-validations-2015` | terminal | The infographic attributes the original counts to Metro do Porto and is published by PÚBLICO, but no source-specific licence for republishing its chart or a dataset derived from its transcription has been identified. | 2026-10-30 | 7 | 1 | unresolved | Retain the metadata-only record unless Metro do Porto or PÚBLICO provides express reuse terms for the exact underlying table or chart. |
 | external | `porto-metro-network-validations-2022-2024` | terminal | The operator's public sustainability report contains the rounded figures, but no explicit permission for redistributing the transcribed series as canonical dataset bytes has been established for this report. | 2026-10-30 | 7 | 1 | unresolved | Maintain metadata-only status unless operator-specific dataset reuse terms covering the figures are established. |
 | external | `sef-rifa-foreign-residents-2017-2022` | terminal | SEF annual reports are publicly available through official/archival copies, but an explicit licence authorizing republication of the PDF files or machine-readable annex transcriptions is not established. | 2026-10-31 | 6 | 3 | unresolved | Preserve distinct original vintages and archival links; reconsider canonical storage only if the responsible publisher confirms data-table redistribution rights for this exact report family. |
+| external | `world-inequality-database-wealth-shares` | terminal | WID.world advertises open access and documents bulk downloads, but the official data and documentation pages reviewed do not explicitly state terms permitting a separate repository to mirror its entire database ZIP. | 2026-11-06 | 0 | 4 | unresolved | Keep source downloads consumer-local. Reopen only if WID.world provides explicit full-database redistribution terms or a suitable licence; before any canonical promotion, identify a dated revision and checksum. |
 | legacy | `country-age-sex-2019` | terminal | The retained age/sex files are strongly attributable to UN World Population Prospects 2019, whose publications are CC BY 3.0 IGO, but the exact download/export route and the lineage of the Portugal CSV/XLSX variants cannot be reconstructed sufficiently to claim file-level provenance for these historical artifacts. | 2026-10-05 | 32 | 2 | unknown | Reopen only if the original authoritative UN export identity can be tied to the retained files and the Portugal workbook/CSV lineage can be resolved. |
 | legacy | `portugal-covid19` | terminal | The retained workbook is attributable to the GEP/MTSSS Indicadores COVID-19 monitoring series and dated 27 May 2020, but the exact historical workbook URL, immutable upstream identity and dataset-specific redistribution terms were not recovered. | 2026-10-05 | 32 | 2 | unknown | Reopen only if GEP/MTSSS exposes the exact 27 May 2020 workbook with stable identity and explicit redistribution terms. |
 
