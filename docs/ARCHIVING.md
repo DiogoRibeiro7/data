@@ -52,6 +52,8 @@ symlinked file paths; cross-checks archive and release identity; validates the
 embedded release provenance and indexed static distribution; and rechecks
 canonical dataset declarations and redistribution rights for the broader
 profile. A failure exits with status 1.
+Indexed distribution artifact names and declared schema versions must match
+their packaged JSON contents, even when the outer file digests are consistent.
 The outer `archive-bundle-manifest.json` and `archive-metadata.json` must also
 be ordinary files rather than symlinks, keeping the extracted archive
 self-contained.

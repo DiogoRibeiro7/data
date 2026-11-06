@@ -25,6 +25,9 @@ Semantic Versioning as defined in `docs/COMPATIBILITY.md`.
 
 ### Fixed
 
+- Archive generation and offline verification now check indexed distribution
+  artifact names and declared schema versions against the packaged JSON, so
+  mislabeled or schema-inconsistent artifacts cannot pass bundle checks.
 - Repository hygiene validation now splits NUL-delimited Git index paths
   correctly, detecting tracked forbidden cache and temporary files while
   continuing to ignore untracked runtime artifacts.

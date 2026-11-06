@@ -624,6 +624,51 @@ class ArchiveBundleTests(unittest.TestCase):
         with self.assertRaisesRegex(ArchiveVerificationError, "artifacts differ"):
             verify_archive_bundle(archive)
 
+    def test_offline_verifier_rejects_distribution_schema_drift(self) -> None:
+        """A rewritten artifact must not pass by updating only the outer digest."""
+
+        archive = self._build_verifiable_archive()
+        relative = "distribution/v1/canonical.json"
+        (archive / "archive-bundle" / relative).write_text(
+            '{"schema_version": 2}\n', encoding="utf-8"
+        )
+        self._update_record_for_file(archive, relative)
+
+        with self.assertRaisesRegex(
+            ArchiveVerificationError, "distribution artifact schema version mismatch"
+        ):
+            verify_archive_bundle(archive)
+
+    def test_offline_verifier_rejects_mislabeled_distribution_index(self) -> None:
+        """A valid file list is insufficient if the index lies about its entries."""
+
+        archive = self._build_verifiable_archive()
+        relative = "distribution/v1/index.json"
+        index_path = archive / "archive-bundle" / relative
+        index = json.loads(index_path.read_text(encoding="utf-8"))
+        index["artifacts"][0]["name"] = "other"
+        index_path.write_text(json.dumps(index), encoding="utf-8")
+        self._update_record_for_file(archive, relative)
+
+        with self.assertRaisesRegex(ArchiveVerificationError, "name/path mismatch"):
+            verify_archive_bundle(archive)
+
+    def test_offline_verifier_rejects_boolean_artifact_schema_version(self) -> None:
+        """Boolean schema declarations must never alias integer version 1."""
+
+        archive = self._build_verifiable_archive()
+        relative = "distribution/v1/index.json"
+        index_path = archive / "archive-bundle" / relative
+        index = json.loads(index_path.read_text(encoding="utf-8"))
+        index["artifacts"][0]["schema_version"] = True
+        index_path.write_text(json.dumps(index), encoding="utf-8")
+        self._update_record_for_file(archive, relative)
+
+        with self.assertRaisesRegex(
+            ArchiveVerificationError, "invalid declared distribution schema version"
+        ):
+            verify_archive_bundle(archive)
+
     def test_verify_archive_cli_runs_without_registry_checkout(self) -> None:
         archive = self._build_verifiable_archive()
         buffer = io.StringIO()
@@ -785,6 +830,33 @@ class ArchiveBundleTests(unittest.TestCase):
                 commit=COMMIT,
                 profile="release-metadata",
             )
+
+    def test_archive_generator_rejects_distribution_schema_drift(self) -> None:
+        """Do not package an index that misstates its artifact schema versions."""
+
+        (self.root / "distribution/v1/canonical.json").write_text(
+            '{"schema_version": 2}\n', encoding="utf-8"
+        )
+        with self.assertRaisesRegex(ValueError, "distribution artifact schema version mismatch"):
+            self._build_verifiable_archive()
+
+    def test_archive_generator_rejects_mislabeled_distribution_index(self) -> None:
+        index_path = self.root / "distribution/v1/index.json"
+        index = json.loads(index_path.read_text(encoding="utf-8"))
+        index["artifacts"][0]["name"] = "other"
+        index_path.write_text(json.dumps(index), encoding="utf-8")
+
+        with self.assertRaisesRegex(ValueError, "distribution artifact name/path mismatch"):
+            self._build_verifiable_archive()
+
+    def test_archive_generator_rejects_boolean_distribution_index_version(self) -> None:
+        index_path = self.root / "distribution/v1/index.json"
+        index = json.loads(index_path.read_text(encoding="utf-8"))
+        index["distribution_version"] = True
+        index_path.write_text(json.dumps(index), encoding="utf-8")
+
+        with self.assertRaisesRegex(ValueError, "distribution identity mismatch"):
+            self._build_verifiable_archive()
 
     def test_false_eligibility_cannot_override_restricted_license(self) -> None:
         report_path = self.root / "reports" / "preservation-eligibility.json"
