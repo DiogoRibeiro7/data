@@ -1,0 +1,56 @@
+schema_version: 1
+status: external-reference
+id: ecb-distributional-wealth-accounts
+title: "ECB Distributional Wealth Accounts (quarterly household net wealth)"
+publisher: "European Central Bank / European System of Central Banks"
+source_url: "https://data.ecb.europa.eu/data/datasets/DWA"
+license:
+  name: "ESCB statistics free re-use policy (unmodified data, source citation)"
+  url: "https://www.ecb.europa.eu/stats/ecb_statistics/governance_and_quality_framework/html/usage_policy.en.html"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    wealth_rentier_dynamics contains an ECB DWA downloader using a wildcard
+    dataflow request and an annual-data normalizer. Official DWA net-wealth
+    shares are quarterly experimental ESCB statistics, with published top-5%,
+    top-10% and bottom-50% series. No official top-1% DWA series or consumer
+    extraction has been established by this audit. Raw, unchanged ESCB
+    statistics may be reused with attribution under the ESCB policy, but that
+    policy restricts modifications and third-party data; the consumer's
+    derived/renamed country-year panel has no separately confirmed
+    redistribution clearance. No observations are mirrored here.
+consumers:
+  - wealth_rentier_dynamics
+resolution:
+  review_status: actionable
+  last_reviewed: 2026-11-07
+  blocker_category: authoritative-source-identity
+  blocker_summary: >-
+    The consumer downloads DWA/* without selecting a country, statistic,
+    frequency or series-key identity. Its normalizer expects numeric years
+    and semantic series aliases that do not match the quarterly DWA SDMX
+    period/series-key contract. The declared top-1% outcome is not substantiated
+    by the DWA indicators checked here; no dated response hash exists.
+  evidence:
+    - "https://data.ecb.europa.eu/data/datasets/DWA"
+    - "https://data.ecb.europa.eu/data/datasets/DWA/DWA.Q.PT.S14._Z._Z.NWA.T5.PT.S.N"
+    - "https://data.ecb.europa.eu/data/datasets/DWA/DWA.Q.PT.S14._Z._Z.NWA.T10.PT.S.N"
+    - "https://data.ecb.europa.eu/help/api/data"
+    - "https://www.ecb.europa.eu/stats/ecb_statistics/governance_and_quality_framework/html/usage_policy.en.html"
+    - "https://github.com/DiogoRibeiro7/wealth_rentier_dynamics/blob/f3e6e3a5b035b65d883ddd70f082f1fb6b34bc0a/src/wealth_dynamics/data_sources.py"
+  reviewer_note: >-
+    The ECB publishes quarterly top-5%, top-10% and bottom-50% net-wealth
+    shares, not the documented top-1% measure. It derives the experimental
+    distributional accounts from sector accounts and household surveys, and
+    later releases can revise estimates. Use WID separately for top-1% data.
+  next_action: >-
+    In the consumer, select and test exact DWA series keys by geography and
+    group, decode quarterly TIME_PERIOD correctly, preserve ECB units and
+    observation flags, and define a documented annual aggregation if needed.
+    Pin full query URLs, API access dates, release vintages and SHA-256 for
+    raw responses. Check permissions before redistributing transformed values.
+  terminal: false
