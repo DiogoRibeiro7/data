@@ -839,6 +839,22 @@
       "path": "external/unhcr-refugee-statistics"
     },
     {
+      "id": "upct-orange-postharvest-coatings-2025",
+      "title": "Original orange firmness, weight-loss and inoculated decay data for carnauba wax coatings",
+      "publisher": "Lorena Martínez-Zamora et al.; Universidad Politécnica de Cartagena, Spain",
+      "source_url": "https://zenodo.org/records/16423047",
+      "license": {
+        "name": "Creative Commons Attribution 4.0 International (declared in source README)",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "permitted-with-attribution",
+      "storage": "authoritative-upstream-and-pinned-project-snapshot",
+      "consumers": [
+        "ds-projects-portfolio"
+      ],
+      "path": "external/upct-orange-postharvest-coatings-2025"
+    },
+    {
       "id": "world-bank-greenhouse-gas",
       "title": "Climate Watch total greenhouse gas emissions (World Bank WDI EN.ATM.GHGT.KT.CE)",
       "publisher": "World Resources Institute / Climate Watch",

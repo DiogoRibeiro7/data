@@ -1,0 +1,30 @@
+schema_version: 1
+status: external-reference
+id: upct-orange-postharvest-coatings-2025
+title: "Original orange firmness, weight-loss and inoculated decay data for carnauba wax coatings"
+publisher: "Lorena Martínez-Zamora et al.; Universidad Politécnica de Cartagena, Spain"
+source_url: "https://zenodo.org/records/16423047"
+doi: "10.3390/foods14152616"
+license:
+  name: "Creative Commons Attribution 4.0 International (declared in source README)"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+redistribution: permitted-with-attribution
+storage: authoritative-upstream-and-pinned-project-snapshot
+usage:
+  storage: project-local
+  redistribution: permitted-with-attribution
+  attribution_required: true
+  note: >-
+    The consumer vendors the unchanged upstream README.txt, Quality Data.csv
+    and in vivo data.csv, verifies their deposited MD5 digests, and uses
+    strictly the orange partitions. This central source registry stores
+    metadata and digests only; it does not duplicate source CSV bytes.
+    Original MD5 / independently verified SHA-256 digests:
+    Quality Data.csv = 70edda22637ac7c9eddc3afe83b5ac52 /
+    d88e99ae3298d4470097c5cda7e893914ac0854965aceac9bfa6747ef821a471;
+    in vivo data.csv = 38d991b12f99f0cbac2a01ba07b3d16b /
+    4f9b78edbacd4961e2bebf6b1fd2eca9b0cd4b337b62c11407cd67b0a90bd492;
+    README.txt = c1068954440a7fffb1d858690bcb0194 /
+    ba20b5e3c38c7ed10ef41bad712a51be82ca6eae0d3c491b92f28b25ecac10ed.
+consumers:
+  - ds-projects-portfolio
