@@ -1,0 +1,48 @@
+schema_version: 1
+status: external-reference
+id: oecd-average-annual-wages
+title: "OECD real average annual wages (full-time equivalent, PPP adjusted)"
+publisher: "Organisation for Economic Co-operation and Development (OECD)"
+source_url: "https://www.oecd.org/en/data/indicators/average-annual-wages.html"
+license:
+  name: "OECD Data Terms & Conditions (verify any third-party or series-specific rights)"
+  url: "https://www.oecd.org/en/about/terms-conditions.html"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    wealth_rentier_dynamics downloads OECD annual real average wages per
+    full-time-equivalent dependent employee for PRT, ESP, FRA, ITA, IRL and NLD
+    from dataflow OECD.ELS.SAE,DSD_EARNINGS@AV_AN_WAGE,1.0. Its SDMX key
+    selects WG, USD_PPP and constant-price base Q from 1990 and derives
+    year-on-year wage_growth. This is a mean wage measure, not median income,
+    disposable income or wages of every household. OECD permits broad use of
+    its own data with attribution but requires verification of third-party or
+    source-specific restrictions. No observations are mirrored here.
+consumers:
+  - wealth_rentier_dynamics
+resolution:
+  review_status: actionable
+  last_reviewed: 2026-11-06
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    The OECD general reuse policy is permissive, but the exact average-wage
+    series source metadata and any third-party ownership declarations for the
+    six consumer countries have not been independently checked.
+  evidence:
+    - "https://www.oecd.org/en/about/terms-conditions.html"
+    - "https://www.oecd.org/en/data/indicators/average-annual-wages.html"
+    - "https://github.com/DiogoRibeiro7/wealth_rentier_dynamics/blob/f3e6e3a5b035b65d883ddd70f082f1fb6b34bc0a/src/wealth_dynamics/data_sources.py"
+  reviewer_note: >-
+    Real USD-PPP wage levels can be rebased or revised by OECD releases;
+    a stable SDMX dataflow version does not identify an immutable observation
+    vintage. Confirm the selected unit's PPP base year at extraction time.
+  next_action: >-
+    Verify per-series source ownership in OECD Data Explorer, then retain
+    a dated SDMX-CSV response for each country with exact URL, response
+    SHA-256, observed PPP reference year, and transformation revision before
+    proposing any canonical snapshot.
+  terminal: false
