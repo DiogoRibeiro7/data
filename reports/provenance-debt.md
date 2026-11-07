@@ -3,21 +3,21 @@
 This file is generated deterministically from committed external and legacy metadata.
 Do not edit it by hand.
 
-- Total debt items: **30**
-- External records: **28**
+- Total debt items: **32**
+- External records: **30**
 - Legacy packages: **2**
-- Structured evidence: **30**
+- Structured evidence: **32**
 - Unstructured debt: **0**
-- Actionable: **4**
+- Actionable: **6**
 - Terminal: **26**
 - Age reference date: **2026-11-06**
 
 ## Blocker categories
 
 - `dataset-vs-repository-licence-scope`: **3**
-- `exact-snapshot-identity`: **1**
+- `exact-snapshot-identity`: **2**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **25**
+- `redistribution-rights`: **26**
 
 ## Queue
 
@@ -29,6 +29,7 @@ Do not edit it by hand.
 | external | `cge-social-security-accounts-2013-2025` | terminal | Ministry of Finance CGE tables are publicly downloadable, but no source-specific terms authorizing republication of the thirteen Excel workbooks as canonical dataset bytes have been established. | 2026-10-31 | 6 | 2 | unresolved | Retain authoritative upstream links and downstream checksum evidence; reconsider promotion only after explicit reuse and pinned snapshot checks. |
 | external | `dgo-2026-social-security-budget` | terminal | DGO publishes the State Budget report and separate open-budget datasets, but licence terms for rehosting this specific report or a standalone transcribed table have not been established. | 2026-10-31 | 6 | 2 | unresolved | Preserve official source attribution and forecast vintage; reconsider canonical archiving only for a specifically licensed official table. |
 | external | `dgs-infoclique-mortality` | terminal | DGS publicly disseminates SICO mortality information, but its current legal notice protects site contents and no dataset-specific redistribution grant covering the historical InfoClique/SICO CSV exports was recovered. | 2026-10-05 | 32 | 2 | unresolved | Reopen only if DGS publishes dataset-specific reuse terms or an authoritative open-data licence covering the historical mortality exports. |
+| external | `eurostat-multicountry-housing-tax-covariates` | actionable | No raw response files, SHA-256 checksums or extraction timestamps have been pinned for these cross-country Eurostat consumer requests. Eurostat's API publishes current datasets, not immutable historical API versions. | 2026-11-06 | 0 | 6 | allowed | Capture the exact query, geography, dataset code and DOI, response timestamp, Eurostat update metadata, data/structure dimensions, raw JSON SHA-256, and transformation revision for each selected series before considering a canonical registry snapshot. |
 | external | `gpp-sima-orange-wholesale-quotations` | terminal | GPP permits partial reproduction of public information under conditions, but its published legal notice does not explicitly establish permission to mirror an entire SIMA wholesale-market CSV export in this registry. | 2026-11-06 | 0 | 4 | unresolved | Continue linking to GPP and the consumer's pinned snapshot. Revisit central mirroring only if GPP publishes explicit reuse terms covering complete SIMA CSV exports or grants the necessary permission. |
 | external | `hillstrom-minethatdata-email-experiment-2008` | terminal | Kevin Hillstrom publicly invited download and analysis of the 2008 competition CSV, but an explicit grant to redistribute its full underlying data from a central public repository was not located. A Kaggle uploader's description or licence cannot independently prove that the original dataset owner granted downstream sublicensing rights. | 2026-10-31 | 6 | 3 | unresolved | Continue upstream-on-demand acquisition in the research project. Revisit canonical preservation only with documented owner permission for the exact source file and a verified SHA-256 snapshot. |
 | external | `ibm-telco-customer-churn` | terminal | The pinned IBM repository is Apache-2.0 licensed as a code pattern, but the README explicitly separates third-party objects and no dataset-specific redistribution licence for Telco-Customer-Churn.csv was established. | 2026-10-05 | 32 | 3 | unresolved | Reopen only if IBM publishes dataset-specific terms or an authoritative licence statement covering Telco-Customer-Churn.csv. |
@@ -44,6 +45,7 @@ Do not edit it by hand.
 | external | `medium-fabiochiu-articles` | terminal | The Hugging Face dataset declares MIT and exposes revision 979af3bcd84565e3f47b9eca752d8ec112824953, but full-text files reproduce third-party Medium article bodies and no evidence establishes the publisher's authority to relicense that content. Redistribution remains unresolved and the record is terminal external-only. | 2026-10-11 | 26 | 4 | unresolved | Reopen only if authoritative evidence establishes redistribution rights for the exact full-text or no-text file(s), assessed separately. |
 | external | `medium-jansma-historical` | terminal | The pinned research repository documents collection of roughly 1.4 million Medium stories and says the dataset was published for public use on Kaggle, but the actual dataset is off-repository, the GitHub repository has no LICENSE, and no authoritative dataset-specific redistribution licence for the exact Kaggle object was recovered. The record is terminal external-only. | 2026-10-11 | 26 | 4 | unresolved | Reopen only if the exact Kaggle object/version and authoritative dataset-specific redistribution terms are recovered. |
 | external | `oecd-analytical-house-price-indicators` | actionable | OECD's general terms allow data redistribution with attribution unless additional source-specific or third-party restrictions apply. The exact analytical house-price country and measure metadata for this consumer have not yet been audited for such restrictions. | 2026-11-06 | 0 | 3 | unresolved | Inspect the OECD Data Explorer source metadata for PRT, ESP, FRA, ITA, IRL and NLD and each selected measure. Confirm third-party permissions, then pin an exact dated SDMX export and SHA-256 before considering a canonical registry snapshot. |
+| external | `oecd-average-annual-wages` | actionable | The OECD general reuse policy is permissive, but the exact average-wage series source metadata and any third-party ownership declarations for the six consumer countries have not been independently checked. | 2026-11-06 | 0 | 3 | unresolved | Verify per-series source ownership in OECD Data Explorer, then retain a dated SDMX-CSV response for each country with exact URL, response SHA-256, observed PPP reference year, and transformation revision before proposing any canonical snapshot. |
 | external | `pordata-ine-portugal-infant-mortality` | terminal | The underlying official INE statistics can be attributed and used, but no PORDATA/FFMS terms permitting verbatim redistribution of its complete portal export or repackaged table were established for this source. | 2026-10-31 | 6 | 3 | unresolved | Retain external citation and the limited attributed downstream transcriptions. Obtain explicit table-export reuse terms, or source the same series directly from INE under its applicable redistribution policy before considering canonical promotion. |
 | external | `pordata-portugal-resident-population` | terminal | INE permits rediffusion of official statistical information with source attribution, but the historical workbook was a PORDATA-generated Excel export and no authoritative term was recovered that clearly permits mirroring that secondary-source artifact. | 2026-10-05 | 32 | 3 | unresolved | Reopen only if PORDATA or FFMS publishes terms explicitly authorizing redistribution of exported table files, or if the registry replaces the artifact with a directly sourced INE representation under INE reuse terms. |
 | external | `porto-metro-gtfs-2026-09-07` | actionable | A historical Porto open-data catalog tagged this dataset CC0, but the current migrated listing did not expose a clearly linked licence for the exact 7 September 2026 ZIP; carryover of the old licence is unverified. | 2026-10-30 | 7 | 2 | unresolved | Verify the migrated portal's machine-readable licence metadata or obtain publisher confirmation for the dated ZIP before canonical promotion. |

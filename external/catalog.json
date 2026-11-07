@@ -202,6 +202,27 @@
       "path": "external/ecb-portugal-mortgage-borrowing-cost"
     },
     {
+      "id": "eurostat-multicountry-housing-tax-covariates",
+      "title": "Eurostat cross-country housing-cost, tenure and tax-account covariates",
+      "publisher": "Eurostat (European Commission)",
+      "source_url": "https://ec.europa.eu/eurostat/data/database",
+      "license": {
+        "name": "Eurostat free re-use policy (Commission Decision 2011/833/EU)",
+        "url": "https://ec.europa.eu/eurostat/help/copyright-notice"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "wealth_rentier_dynamics"
+      ],
+      "path": "external/eurostat-multicountry-housing-tax-covariates",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "exact-snapshot-identity"
+      }
+    },
+    {
       "id": "eurostat-portugal-citizenship-statistics",
       "title": "Eurostat Portugal 1 January population by citizenship (migr_pop1ctz)",
       "publisher": "Eurostat (European Commission)",
@@ -580,6 +601,27 @@
         "wealth_rentier_dynamics"
       ],
       "path": "external/oecd-analytical-house-price-indicators",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
+      "id": "oecd-average-annual-wages",
+      "title": "OECD real average annual wages (full-time equivalent, PPP adjusted)",
+      "publisher": "Organisation for Economic Co-operation and Development (OECD)",
+      "source_url": "https://www.oecd.org/en/data/indicators/average-annual-wages.html",
+      "license": {
+        "name": "OECD Data Terms & Conditions (verify any third-party or series-specific rights)",
+        "url": "https://www.oecd.org/en/about/terms-conditions.html"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "wealth_rentier_dynamics"
+      ],
+      "path": "external/oecd-average-annual-wages",
       "resolution": {
         "review_status": "actionable",
         "terminal": false,
