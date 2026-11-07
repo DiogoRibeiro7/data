@@ -1,0 +1,43 @@
+schema_version: 1
+status: external-reference
+id: upct-orange-postharvest-coatings-2025
+title: "Original orange firmness, weight-loss and inoculated decay data for carnauba wax coatings"
+publisher: "Lorena Martínez-Zamora et al.; Universidad Politécnica de Cartagena, Spain"
+source_url: "https://zenodo.org/records/16423047"
+publication_doi: "10.3390/foods14152616"
+license:
+  name: "Creative Commons Attribution 4.0 International (declared in source README)"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+redistribution: permitted-with-attribution
+storage: authoritative-upstream-and-pinned-project-snapshot
+usage:
+  storage: project-local
+  redistribution: permitted-with-attribution
+  attribution_required: true
+  note: >-
+    The consumer vendors the unchanged upstream README.txt, Quality Data.csv
+    and in vivo data.csv, verifies their deposited MD5 digests, and uses
+    strictly the orange partitions. This central source registry stores
+    metadata and digests only; it does not duplicate source CSV bytes.
+files:
+  - name: "Quality Data.csv"
+    original_md5: "70edda22637ac7c9eddc3afe83b5ac52"
+    verified_sha256: "d88e99ae3298d4470097c5cda7e893914ac0854965aceac9bfa6747ef821a471"
+    url: "https://zenodo.org/records/16423047/files/Quality%20Data.csv?download=1"
+    orange_measurements: "200 firmness; 60 weight-loss, separate parallel panels"
+  - name: "in vivo data.csv"
+    original_md5: "38d991b12f99f0cbac2a01ba07b3d16b"
+    verified_sha256: "4f9b78edbacd4961e2bebf6b1fd2eca9b0cd4b337b62c11407cd67b0a90bd492"
+    url: "https://zenodo.org/records/16423047/files/in%20vivo%20data.csv?download=1"
+    orange_measurements: "15 experiment boxes, 20 oranges each; days 5/7/10"
+  - name: "README.txt"
+    original_md5: "c1068954440a7fffb1d858690bcb0194"
+    verified_sha256: "ba20b5e3c38c7ed10ef41bad712a51be82ca6eae0d3c491b92f28b25ecac10ed"
+    url: "https://zenodo.org/records/16423047/files/README.txt?download=1"
+consumers:
+  - ds-projects-portfolio
+limitations:
+  - "No unique fruit identifiers or validated cross-endpoint pairing"
+  - "Inoculated experimental decay is not commercial natural spoilage"
+  - "No prices or storage-profitability measures in the dataset"
+  - "Unrelated lemon and in-vitro records excluded from this consumer's scope"
