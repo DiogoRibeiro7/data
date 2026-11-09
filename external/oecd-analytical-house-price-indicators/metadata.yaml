@@ -17,33 +17,43 @@ usage:
     wealth_rentier_dynamics downloads OECD analytical house-price SDMX-CSV
     per country using dataflow OECD.ECO.MPD,DSD_AN_HOUSE_PRICES@DF_HOUSE_PRICES,
     1.0, annual frequency from 1990. It uses nominal/real house prices, rent
-    indices, price-to-income and price-to-rent measures. OECD generally permits
-    reuse of its own statistical data with credit, but warns that specific
-    series may contain third-party data with additional restrictions. The
-    exact country-measure source metadata and archived response checksums have
-    not been examined for this consumer. No bytes are mirrored.
+    indices, price-to-income and price-to-rent measures. These are indices,
+    not rent/price levels or the fraction of income spent on housing; the
+    OECD's analytical ratios use a 2015 reference year. OECD annual analytical
+    figures are yearly averages, not year-end observations. The consumer
+    leaves the measure/unit selector open and pivots first values without
+    enforcing a unique year/measure/unit identity. OECD generally permits
+    reuse of its own data with attribution, but series-specific third-party
+    rights and exact response identity are unverified. No bytes are mirrored.
 consumers:
   - wealth_rentier_dynamics
 resolution:
   review_status: actionable
-  last_reviewed: 2026-11-06
+  last_reviewed: 2026-11-09
   blocker_category: redistribution-rights
   blocker_summary: >-
-    OECD's general terms allow data redistribution with attribution unless
-    additional source-specific or third-party restrictions apply. The exact
-    analytical house-price country and measure metadata for this consumer
-    have not yet been audited for such restrictions.
+    OECD's general terms allow data reuse with attribution unless additional
+    source-specific or third-party restrictions apply. Country-measure source
+    ownership is not verified for this consumer. Its open SDMX measure/unit
+    selector and first-value pivot also need an exact-series, uniqueness and
+    unit check before a response can support empirical results.
   evidence:
     - "https://www.oecd.org/en/about/terms-conditions.html"
+    - "https://www.oecd.org/en/data/indicators/housing-prices.html"
     - "https://www.oecd.org/en/data/insights/data-explainers/2024/07/Residential-Property-Price-Indices-and-related-housing-indicators-Frequently-Asked-Questions.html"
+    - "https://data-explorer.oecd.org/vis?df%5Bag%5D=OECD.ECO.MPD&df%5Bds%5D=dsDisseminateFinalDMZ&df%5Bid%5D=DSD_AN_HOUSE_PRICES%40DF_HOUSE_PRICES&df%5Bvs%5D=1.0&fc=Topic&pg=0&snb=106&tm=housing"
     - "https://github.com/DiogoRibeiro7/wealth_rentier_dynamics/blob/f3e6e3a5b035b65d883ddd70f082f1fb6b34bc0a/src/wealth_dynamics/data_sources.py"
   reviewer_note: >-
     OECD's country-level national property-price inputs may include national
     statistical-office and Eurostat series; an OECD download URL alone does
-    not prove the ownership of each underlying observation.
+    not prove the ownership of each underlying observation. Its FAQ confirms
+    that the annual analytical data are annual averages. The linked consumer
+    contract audit records unverified parser and dimensionality assumptions.
   next_action: >-
-    Inspect the OECD Data Explorer source metadata for PRT, ESP, FRA, ITA,
-    IRL and NLD and each selected measure. Confirm third-party permissions,
-    then pin an exact dated SDMX export and SHA-256 before considering a
-    canonical registry snapshot.
+    In the consumer, select and validate exact country, annual-frequency,
+    measure, unit and seasonal-adjustment dimensions; reject duplicate
+    observations per country/year/measure. Inspect OECD Data Explorer source
+    metadata for PRT, ESP, FRA, ITA, IRL and NLD and each selected measure;
+    confirm third-party permissions. Pin exact query, dated SDMX response,
+    raw SHA-256 and transformation revision before canonical consideration.
   terminal: false
