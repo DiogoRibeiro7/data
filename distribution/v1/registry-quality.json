@@ -67,12 +67,12 @@
     "pinned_immutable_identity_sources": 5,
     "redistribution": {
       "resolved": 24,
-      "unresolved": 29
+      "unresolved": 30
     },
-    "source_count": 53,
+    "source_count": 54,
     "source_usage": {
       "consumer_count": 14,
-      "consumer_references": 50,
+      "consumer_references": 51,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -101,22 +101,23 @@
   },
   "provenance_debt": {
     "by_blocker_category": {
+      "authoritative-source-identity": 1,
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 2,
       "historical-export-route": 1,
       "redistribution-rights": 26
     },
     "external": {
-      "actionable": 6,
+      "actionable": 7,
       "terminal": 24
     },
     "legacy": {
       "actionable": 0,
       "terminal": 2
     },
-    "oldest_age_days": 32,
+    "oldest_age_days": 33,
     "oldest_review_date": "2026-10-05",
-    "total_count": 32
+    "total_count": 33
   },
   "schema_version": 1,
   "snapshots": {

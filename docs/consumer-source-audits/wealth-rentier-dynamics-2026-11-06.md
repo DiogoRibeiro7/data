@@ -16,7 +16,7 @@ distinguishes live API covariates, local-file inputs and synthetic fixtures.
 | OECD analytical house prices | Price-to-income/rent ratios and housing indices | Live SDMX downloader; no pinned retrieved CSV evidenced | [OECD external reference](https://github.com/DiogoRibeiro7/data/tree/main/external/oecd-analytical-house-price-indicators); per-series rights audit pending |
 | OECD annual wages | Real average-wage growth from a separate OECD SDMX dataflow | Downloader implemented; no pinned retrieved CSV evidenced | [OECD annual-wages contract](https://github.com/DiogoRibeiro7/data/tree/main/external/oecd-average-annual-wages); reuse check and vintage pending |
 | Eurostat `ilc_lvho07b`, `ilc_lvps15`, `gov_10a_taxag` | Housing stress, ownership by citizenship/age, tax proxies | Public API downloaders; multi-country analysis | [Cross-country Eurostat source contract](https://github.com/DiogoRibeiro7/data/tree/main/external/eurostat-multicountry-housing-tax-covariates); no snapshots. The [Portugal-only record](https://github.com/DiogoRibeiro7/data/tree/main/external/eurostat-portugal-housing-indicators) covers different responses |
-| ECB DWA | Distributional wealth and liabilities | Downloader implemented; exact SDMX query and return coverage need validation | Separate candidate; no source bytes or frozen vintage recorded here |
+| ECB DWA | Quarterly experimental distributional wealth and liabilities | Broad downloader exists but does not handle quarterly periods and official SDMX series keys | [ECB DWA external source](https://github.com/DiogoRibeiro7/data/tree/main/external/ecb-distributional-wealth-accounts) and [2026-11-07 compatibility audit](wealth-rentier-dynamics-ecb-dwa-2026-11-07.md); extraction blocked, no response pinned |
 | Banco de Portugal ISFF / HFCS | Household ownership transitions | Access-controlled microdata, explicitly local-file only | No central mirroring; access and confidentiality requirements govern use |
 | Synthetic panels | Tests and offline model demonstrations | Present in project under `data/sample/` | Project-specific fixtures; do not enter canonical registry |
 
@@ -41,9 +41,10 @@ study when that outcome is missing.
 3. **Remaining covariates**: audit OECD wages and the Eurostat/ECB series
    separately by dataflow, geography, units, request and observation vintage.
    The wage and three Eurostat statistical-product contracts are now recorded;
-   none yet has a pinned response. The ECB DWA query/coverage still requires
-   an independent audit. A source family name alone is insufficient to
-   establish reproducibility.
+   none yet has a pinned response. The [2026-11-07 ECB DWA audit](wealth-rentier-dynamics-ecb-dwa-2026-11-07.md)
+   now identifies the quarterly-period and series-key incompatibility that
+   must be corrected in the consumer before a real extraction. A source
+   family name alone is insufficient to establish reproducibility.
 4. **No synthetic promotion**: keep model simulations, placeholder panels,
    confidential household files and derived research outputs in their
    appropriate projects rather than the public data registry.
@@ -63,7 +64,14 @@ and wealth and **must not be described as an observed capital-tax rate**.
 These interpretation limits are part of the source contract, independent of
 data acquisition status.
 
-This audit now records four official source contracts (two OECD and one WID
-source, plus the grouped Eurostat request family) with explicit boundaries.
+The ECB DWA provides quarterly top-5%, top-10% and bottom-50% net-wealth
+shares. The published [DWA overview](https://data.ecb.europa.eu/sites/default/files/2024-01/DWA%20Overview%20note_0.pdf)
+does not substantiate the top-1% wealth-share outcome expected by the model.
+Do not silently replace that outcome with a different percentile. The
+[supplemental review](wealth-rentier-dynamics-ecb-dwa-2026-11-07.md)
+documents the incompatible downloader and outstanding acquisition gates.
+
+This audit now tracks five official source contracts (ECB DWA, two OECD,
+one WID, and the grouped Eurostat request family) with explicit boundaries.
 It does **not** claim to have downloaded, checksum-verified or redistributed
 new upstream data, or validated a full empirical wealth model.

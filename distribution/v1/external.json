@@ -186,6 +186,27 @@
       "path": "external/dgt-caop-2025-municipal-register"
     },
     {
+      "id": "ecb-distributional-wealth-accounts",
+      "title": "ECB Distributional Wealth Accounts (quarterly household net wealth)",
+      "publisher": "European Central Bank / European System of Central Banks",
+      "source_url": "https://data.ecb.europa.eu/data/datasets/DWA",
+      "license": {
+        "name": "ESCB statistics free re-use policy (unmodified data, source citation)",
+        "url": "https://www.ecb.europa.eu/stats/ecb_statistics/governance_and_quality_framework/html/usage_policy.en.html"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "wealth_rentier_dynamics"
+      ],
+      "path": "external/ecb-distributional-wealth-accounts",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "authoritative-source-identity"
+      }
+    },
+    {
       "id": "ecb-portugal-mortgage-borrowing-cost",
       "title": "ECB Portugal mortgage cost-of-borrowing series (MIR)",
       "publisher": "European Central Bank / European System of Central Banks",
