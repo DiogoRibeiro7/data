@@ -33,6 +33,33 @@ price base `Q`. The consumer saves raw responses as
 Its normalized output is a country-year covariate. It is **not** an independent
 measure of the distribution of wealth or of capital income.
 
+### Consumer extraction and growth-rate safeguards
+
+The official [OECD indicator definition](https://www.oecd.org/en/data/indicators/average-annual-wages.html)
+uses a national-accounts-based wage bill divided by full-time-equivalent
+dependent employment. The [OECD Data Explorer](https://data-explorer.oecd.org/vis?df%5Bag%5D=OECD.ELS.SAE&df%5Bds%5D=dsDisseminateFinalDMZ&df%5Bid%5D=DSD_EARNINGS%40AV_AN_WAGE&df%5Bvs%5D=1.0&dq=..USD_PPP....&pd=2023%2C&pg=0&snb=26&tm=average+annual+wage&to%5BTIME_PERIOD%5D=false&vw=tb)
+identifies the constant-price observations as PPP-converted 2025 US dollars
+in the currently displayed release. This is not a median, an actual nominal
+salary in euros or an employee's take-home pay.
+
+The pinned downstream `normalize_oecd_average_wages()` implementation:
+
+1. Extracts year and value but does not verify the actual returned country,
+   indicator, unit, price-base or remaining SDMX dimensions.
+2. Calls `drop_duplicates(subset=[year])`, keeping the first row for a year
+   even if other series dimensions or values disagree. This is a potential
+   ambiguity, not evidence that a particular live response contains duplicates.
+3. Uses `pct_change()` between consecutive *observed rows*. If 2020 is absent,
+   the change from 2019 to 2021 would be labelled `wage_growth` even though it
+   covers two years, not a year-on-year interval.
+
+Before consuming real results, select the intended series explicitly, reject
+conflicting duplicates, preserve unit/PPP metadata and observation flags,
+and calculate annual growth only when the previous calendar year is present.
+Keep missing years as missing; do not interpolate silently. The
+[2026-11-09 consumer audit](../../docs/consumer-source-audits/wealth-rentier-dynamics-oecd-wages-2026-11-09.md)
+sets out offline test cases and reproducibility requirements.
+
 ## Source revisions and permissions
 
 The OECD currently [describes the indicator](https://www.oecd.org/en/data/indicators/average-annual-wages.html)
