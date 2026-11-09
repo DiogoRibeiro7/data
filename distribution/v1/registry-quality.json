@@ -66,13 +66,13 @@
   "external": {
     "pinned_immutable_identity_sources": 5,
     "redistribution": {
-      "resolved": 23,
+      "resolved": 24,
       "unresolved": 30
     },
-    "source_count": 53,
+    "source_count": 54,
     "source_usage": {
       "consumer_count": 14,
-      "consumer_references": 50,
+      "consumer_references": 51,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
