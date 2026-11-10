@@ -14,7 +14,7 @@ distinguishes live API covariates, local-file inputs and synthetic fixtures.
 | --- | --- | --- | --- |
 | WID.world wealth shares | Top-1%, top-10% and bottom-50% net-wealth shares | Optional local bulk-ZIP loader; no pinned real archive evidenced | [WID external reference](https://github.com/DiogoRibeiro7/data/tree/main/external/world-inequality-database-wealth-shares); reuse unresolved |
 | OECD analytical house prices | Price-to-income/rent indices and house/rent price indices | Annual SDMX downloader; unrestricted unit/measure dimensions and first-value pivot need checking; no pinned retrieved CSV | [OECD external reference](https://github.com/DiogoRibeiro7/data/tree/main/external/oecd-analytical-house-price-indicators) and [2026-11-09 source-contract audit](wealth-rentier-dynamics-oecd-housing-2026-11-09.md); ownership and retrieval pending |
-| OECD annual wages | Real average-wage growth from a separate OECD SDMX dataflow | Downloader implemented; no pinned retrieved CSV evidenced | [OECD annual-wages contract](https://github.com/DiogoRibeiro7/data/tree/main/external/oecd-average-annual-wages); reuse check and vintage pending |
+| OECD annual wages | Real average-wage growth from a separate OECD SDMX dataflow | Downloader implemented; silently deduplicates years and can mistake a multi-year gap for year-on-year growth; no pinned retrieved CSV | [OECD annual-wages contract](https://github.com/DiogoRibeiro7/data/tree/main/external/oecd-average-annual-wages) and [2026-11-09 source audit](wealth-rentier-dynamics-oecd-wages-2026-11-09.md); ownership and retrieval pending |
 | Eurostat `ilc_lvho07b`, `ilc_lvps15`, `gov_10a_taxag` | Housing stress, ownership by citizenship/age, tax proxies | Public API downloaders; multi-country analysis | [Cross-country Eurostat source contract](https://github.com/DiogoRibeiro7/data/tree/main/external/eurostat-multicountry-housing-tax-covariates); no snapshots. The [Portugal-only record](https://github.com/DiogoRibeiro7/data/tree/main/external/eurostat-portugal-housing-indicators) covers different responses |
 | ECB DWA | Quarterly experimental distributional wealth and liabilities | Broad downloader exists but does not handle quarterly periods and official SDMX series keys | [ECB DWA external source](https://github.com/DiogoRibeiro7/data/tree/main/external/ecb-distributional-wealth-accounts) and [2026-11-07 compatibility audit](wealth-rentier-dynamics-ecb-dwa-2026-11-07.md); extraction blocked, no response pinned |
 | Banco de Portugal ISFF / HFCS | Household ownership transitions | Access-controlled microdata, explicitly local-file only | No central mirroring; access and confidentiality requirements govern use |
@@ -40,10 +40,12 @@ study when that outcome is missing.
    also identifies an open unit/measure selector and first-value pivot in the
    consumer, which must be constrained and tested before using annual data.
    Only then consider canonical mirroring of a dated, hashed export.
-3. **Remaining covariates**: audit OECD wages and the Eurostat/ECB series
-   separately by dataflow, geography, units, request and observation vintage.
-   The wage and three Eurostat statistical-product contracts are now recorded;
-   none yet has a pinned response. The [2026-11-07 ECB DWA audit](wealth-rentier-dynamics-ecb-dwa-2026-11-07.md)
+3. **Remaining covariates**: audit Eurostat and ECB series separately by
+   dataflow, geography, units, request and observation vintage. The OECD wage
+   [2026-11-09 audit](wealth-rentier-dynamics-oecd-wages-2026-11-09.md)
+   identifies the missing-year growth calculation and first-row deduplication
+   risks; the three Eurostat products likewise lack pinned responses. The
+   [2026-11-07 ECB DWA audit](wealth-rentier-dynamics-ecb-dwa-2026-11-07.md)
    now identifies the quarterly-period and series-key incompatibility that
    must be corrected in the consumer before a real extraction. A source
    family name alone is insufficient to establish reproducibility.
@@ -57,6 +59,10 @@ The official [OECD wage indicator](https://www.oecd.org/en/data/indicators/avera
 is a *mean* wage per full-time-equivalent employee, not a median or a measure
 of income inequality. It is currently expressed in constant 2025 US dollars
 at purchasing-power parity, which can be rebased in future releases.
+The consumer must calculate year-on-year wage growth only across consecutive
+calendar years; `pct_change()` after removing missing years does not enforce
+that requirement. The [OECD wage audit](wealth-rentier-dynamics-oecd-wages-2026-11-09.md)
+records the downstream tests needed before empirical acquisition.
 
 The OECD price-to-income and price-to-rent covariates are **2015-base indices**,
 not percentages of housing expenditure relative to household income. Annual

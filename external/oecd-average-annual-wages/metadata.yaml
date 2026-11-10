@@ -17,32 +17,40 @@ usage:
     wealth_rentier_dynamics downloads OECD annual real average wages per
     full-time-equivalent dependent employee for PRT, ESP, FRA, ITA, IRL and NLD
     from dataflow OECD.ELS.SAE,DSD_EARNINGS@AV_AN_WAGE,1.0. Its SDMX key
-    selects WG, USD_PPP and constant-price base Q from 1990 and derives
-    year-on-year wage_growth. This is a mean wage measure, not median income,
-    disposable income or wages of every household. OECD permits broad use of
-    its own data with attribution but requires verification of third-party or
-    source-specific restrictions. No observations are mirrored here.
+    selects WG, USD_PPP and constant-price base Q from 1990, then derives
+    a wage_growth column by pct_change. This is a mean wage measure, not median
+    earnings or a household-income distribution. The consumer does not check
+    that the returned series dimensions are unique, silently keeps the first
+    value per year, and treats growth across gaps as one-year growth. OECD's
+    currently published comparison uses constant 2025 US dollars at private-
+    consumption PPPs; later rebasing/revision remains possible. Source-specific
+    third-party rights have not been verified; no observations are mirrored.
 consumers:
   - wealth_rentier_dynamics
 resolution:
   review_status: actionable
-  last_reviewed: 2026-11-06
+  last_reviewed: 2026-11-09
   blocker_category: redistribution-rights
   blocker_summary: >-
-    The OECD general reuse policy is permissive, but the exact average-wage
-    series source metadata and any third-party ownership declarations for the
-    six consumer countries have not been independently checked.
+    The OECD general reuse policy is permissive, but country-series third-
+    party ownership remains unchecked. The consumer also discards duplicate
+    year rows without validating remaining SDMX dimensions or unique source
+    identity, and its nominally year-on-year growth can span missing years.
   evidence:
     - "https://www.oecd.org/en/about/terms-conditions.html"
     - "https://www.oecd.org/en/data/indicators/average-annual-wages.html"
-    - "https://github.com/DiogoRibeiro7/wealth_rentier_dynamics/blob/f3e6e3a5b035b65d883ddd70f082f1fb6b34bc0a/src/wealth_dynamics/data_sources.py"
+    - "https://data-explorer.oecd.org/vis?df%5Bag%5D=OECD.ELS.SAE&df%5Bds%5D=dsDisseminateFinalDMZ&df%5Bid%5D=DSD_EARNINGS%40AV_AN_WAGE&df%5Bvs%5D=1.0&dq=..USD_PPP....&pd=2023%2C&pg=0&snb=26&tm=average+annual+wage&to%5BTIME_PERIOD%5D=false&vw=tb"
+    - "https://github.com/DiogoRibeiro7/wealth_rentier_dynamics/blob/bf0e75b91f68911e306627f257baf52893f0e91c/src/wealth_dynamics/data_sources.py"
   reviewer_note: >-
     Real USD-PPP wage levels can be rebased or revised by OECD releases;
-    a stable SDMX dataflow version does not identify an immutable observation
-    vintage. Confirm the selected unit's PPP base year at extraction time.
+    dataflow version 1.0 is not an immutable observation vintage. Confirm
+    the selected PPP base year, dimension codes and status flags at retrieval.
+    A separate consumer-source audit documents the required parser fixes.
   next_action: >-
-    Verify per-series source ownership in OECD Data Explorer, then retain
-    a dated SDMX-CSV response for each country with exact URL, response
-    SHA-256, observed PPP reference year, and transformation revision before
-    proposing any canonical snapshot.
+    In the consumer, validate exact REF_AREA, WG, USD_PPP, price base Q and
+    other returned SDMX dimensions; reject conflicting duplicate year rows;
+    compute wage_growth only for consecutive years and report gaps. Verify
+    source ownership in OECD Data Explorer for all six areas; preserve the
+    response URL, access timestamp, byte SHA-256, PPP reference year and
+    transformation revision before proposing a canonical snapshot.
   terminal: false
