@@ -59,3 +59,41 @@ registry. Source versions may change, while the research project already pins
 its own exact dated responses and checksums. Canonical promotion would require
 selection of a concrete reusable snapshot and a registered, pinned downstream
 consumer contract.
+
+## Verified municipal series for wealth and rentier dynamics (November 2026)
+
+The [wealth/rentier dynamics research](https://github.com/DiogoRibeiro7/wealth_rentier_dynamics/pull/63)
+consumes municipal INE observations. The source identities below were checked against
+INE's API metadata in [the R client audit](https://gitlab.com/DiogoRibeiro7/ine-data-client/-/merge_requests/38);
+the 2021 Census extracts were separately validated in
+[the Census acquisition](https://gitlab.com/DiogoRibeiro7/ine-data-client/-/merge_requests/39)
+before the research repository committed its observed CSV snapshots.
+
+| INE indicator | Measurement | Reference | Territorial classification | Municipality code | Extra dimension |
+| --- | --- | --- | --- | --- | --- |
+| `0012517` | Vacant dwellings, percent | 2021 Census | Census/NUTS2024 (`05320`) | 4 digits, level 5 | none |
+| `0012466` | Private households, count | 2021 Census | Census/NUTS2024 (`05320`) | 4 digits, level 5 | household size `T` (total) |
+| `0013249` | Completed family dwellings, count | annual | NUTS2024 (`05257`) | 7 digits, level 5 | promoter `T` (total) |
+| `0008269` | Net migration, signed count | annual | NUTS2013 (`03505`) | 7 digits, level 5 | none |
+
+The verified Census extract contains 308 municipal records per indicator,
+without missing values. Its exact raw and normalised source hashes are recorded
+in the downstream [Census snapshot PR](https://github.com/DiogoRibeiro7/wealth_rentier_dynamics/pull/63).
+The annual flow acquisition is a **separate, unverified extraction stage**; the
+[manual R-client job proposal](https://gitlab.com/DiogoRibeiro7/ine-data-client/-/merge_requests/40)
+must not be mistaken for a validated or committed annual dataset.
+
+### Reuse boundaries
+
+- This registry records identifiers, provenance and consumers. It does **not**
+  run INE ingestion, hold a mutable database, or copy these research snapshots.
+- Keep each territorial classification and vintage explicit. In particular,
+  `0008269` NUTS2013 and `0013249` NUTS2024 cannot be joined by raw
+  geographic codes without a documented concordance.
+- Treat counts and percentages as distinct units; do not sum percentages.
+- A future cross-project canonical snapshot requires raw source bytes,
+  transformation provenance, SHA-256 evidence, licensing and a pinned consumer
+  contract under the existing registry policy.
+- A separate Python data-engineering runtime can ingest and serve approved
+  snapshots by following [the provider-neutral handoff](../../docs/INGESTION_HANDOFF.md);
+  no database provider is selected by this record.
