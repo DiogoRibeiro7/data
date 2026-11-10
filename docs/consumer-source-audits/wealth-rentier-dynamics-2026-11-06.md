@@ -15,7 +15,7 @@ distinguishes live API covariates, local-file inputs and synthetic fixtures.
 | WID.world wealth shares | Top-1%, top-10% and bottom-50% net-wealth shares | Optional local bulk-ZIP loader; no pinned real archive evidenced | [WID external reference](https://github.com/DiogoRibeiro7/data/tree/main/external/world-inequality-database-wealth-shares); reuse unresolved |
 | OECD analytical house prices | Price-to-income/rent indices and house/rent price indices | Annual SDMX downloader; unrestricted unit/measure dimensions and first-value pivot need checking; no pinned retrieved CSV | [OECD external reference](https://github.com/DiogoRibeiro7/data/tree/main/external/oecd-analytical-house-price-indicators) and [2026-11-09 source-contract audit](wealth-rentier-dynamics-oecd-housing-2026-11-09.md); ownership and retrieval pending |
 | OECD annual wages | Real average-wage growth from a separate OECD SDMX dataflow | Downloader implemented; silently deduplicates years and can mistake a multi-year gap for year-on-year growth; no pinned retrieved CSV | [OECD annual-wages contract](https://github.com/DiogoRibeiro7/data/tree/main/external/oecd-average-annual-wages) and [2026-11-09 source audit](wealth-rentier-dynamics-oecd-wages-2026-11-09.md); ownership and retrieval pending |
-| Eurostat `ilc_lvho07b`, `ilc_lvps15`, `gov_10a_taxag` | Housing stress, ownership by citizenship/age, tax proxies | Public API downloaders; multi-country analysis | [Cross-country Eurostat source contract](https://github.com/DiogoRibeiro7/data/tree/main/external/eurostat-multicountry-housing-tax-covariates); no snapshots. The [Portugal-only record](https://github.com/DiogoRibeiro7/data/tree/main/external/eurostat-portugal-housing-indicators) covers different responses |
+| Eurostat `ilc_lvho07b`, `ilc_lvps15`, `gov_10a_taxag` | Housing stress, ownership by citizenship/age, tax proxies | Public API downloaders; unvalidated returned non-time slices in two normalizers; no pinned responses | [Cross-country Eurostat source contract](https://github.com/DiogoRibeiro7/data/tree/main/external/eurostat-multicountry-housing-tax-covariates) and [2026-11-10 parser audit](wealth-rentier-dynamics-eurostat-covariates-2026-11-10.md). The [Portugal-only record](https://github.com/DiogoRibeiro7/data/tree/main/external/eurostat-portugal-housing-indicators) covers different responses |
 | ECB DWA | Quarterly experimental distributional wealth and liabilities | Broad downloader exists but does not handle quarterly periods and official SDMX series keys | [ECB DWA external source](https://github.com/DiogoRibeiro7/data/tree/main/external/ecb-distributional-wealth-accounts) and [2026-11-07 compatibility audit](wealth-rentier-dynamics-ecb-dwa-2026-11-07.md); extraction blocked, no response pinned |
 | Banco de Portugal ISFF / HFCS | Household ownership transitions | Access-controlled microdata, explicitly local-file only | No central mirroring; access and confidentiality requirements govern use |
 | Synthetic panels | Tests and offline model demonstrations | Present in project under `data/sample/` | Project-specific fixtures; do not enter canonical registry |
@@ -44,7 +44,10 @@ study when that outcome is missing.
    dataflow, geography, units, request and observation vintage. The OECD wage
    [2026-11-09 audit](wealth-rentier-dynamics-oecd-wages-2026-11-09.md)
    identifies the missing-year growth calculation and first-row deduplication
-   risks; the three Eurostat products likewise lack pinned responses. The
+   risks. The [Eurostat audit](wealth-rentier-dynamics-eurostat-covariates-2026-11-10.md)
+   records unchecked ownership dimensions, the tax first-value pivot and
+   missing observation-status preservation; all three products lack pinned
+   responses. The
    [2026-11-07 ECB DWA audit](wealth-rentier-dynamics-ecb-dwa-2026-11-07.md)
    now identifies the quarterly-period and series-key incompatibility that
    must be corrected in the consumer before a real extraction. A source
@@ -76,7 +79,12 @@ default `ilc_lvps15` filter `citizen=NAT` selects **nationals**, not all
 residents. Its `gov_10a_taxag` `D5` tax/GDP ratio includes taxes on income
 and wealth and **must not be described as an observed capital-tax rate**.
 These interpretation limits are part of the source contract, independent of
-data acquisition status.
+data acquisition status. `D59A` means **current taxes on capital**, despite a
+downstream `property_taxes_pct_gdp` alias. The
+[Eurostat supplemental audit](wealth-rentier-dynamics-eurostat-covariates-2026-11-10.md)
+specifies source selection, unique-key and flagged-observation tests. The
+Eurostat `tessi162` view cites `ilc_lvho07b` as its source dataset; it is not
+an additional API product used by the consumer.
 
 The ECB DWA provides quarterly top-5%, top-10% and bottom-50% net-wealth
 shares. The published [DWA overview](https://data.ecb.europa.eu/sites/default/files/2024-01/DWA%20Overview%20note_0.pdf)

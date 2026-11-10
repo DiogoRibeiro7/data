@@ -25,7 +25,7 @@ consumers:
   - wealth_rentier_dynamics
 resolution:
   review_status: actionable
-  last_reviewed: 2026-11-06
+  last_reviewed: 2026-11-10
   blocker_category: exact-snapshot-identity
   blocker_summary: >-
     No raw response files, SHA-256 checksums or extraction timestamps have
@@ -35,17 +35,24 @@ resolution:
     - "https://ec.europa.eu/eurostat/help/copyright-notice"
     - "https://ec.europa.eu/eurostat/en/web/user-guides/data-browser/api-data-access/api-introduction"
     - "https://ec.europa.eu/eurostat/databrowser/view/tessi162/default/table?lang=en"
+    - "https://doi.org/10.2908/ILC_LVHO07B"
     - "https://ec.europa.eu/eurostat/databrowser/view/ilc_lvps15/default/table?lang=en"
     - "https://ec.europa.eu/eurostat/databrowser/view/gov_10a_taxag/default/table?lang=en"
-    - "https://github.com/DiogoRibeiro7/wealth_rentier_dynamics/blob/f3e6e3a5b035b65d883ddd70f082f1fb6b34bc0a/src/wealth_dynamics/data_sources.py"
+    - "https://github.com/DiogoRibeiro7/wealth_rentier_dynamics/blob/bf0e75b91f68911e306627f257baf52893f0e91c/src/wealth_dynamics/data_sources.py"
+    - "https://github.com/DiogoRibeiro7/data/blob/main/docs/consumer-source-audits/wealth-rentier-dynamics-eurostat-covariates-2026-11-10.md"
   reviewer_note: >-
     The three datasets are separate statistical products. In particular,
     ilc_lvps15 with citizen=NAT is not the home-ownership rate for all
     residents, while the D5 government tax receipts / GDP series is not an
-    effective capital-tax rate.
+    effective capital-tax rate. The ownership decoder does not validate
+    returned non-time dimensions, while the tax decoder's first-value pivot
+    may conceal unexpected duplicate slices. D59A is current taxes on capital,
+    despite the downstream property-taxes column alias. The tessi162
+    indicator is a derived view sourced from ilc_lvho07b, not a fourth input.
   next_action: >-
     Capture the exact query, geography, dataset code and DOI, response
     timestamp, Eurostat update metadata, data/structure dimensions, raw
-    JSON SHA-256, and transformation revision for each selected series before
-    considering a canonical registry snapshot.
+    JSON SHA-256, observation status flags, and transformation revision for
+    each selected series. Verify exact response dimensions and unique series
+    keys in downstream regression tests before considering a canonical snapshot.
   terminal: false
