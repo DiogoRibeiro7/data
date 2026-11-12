@@ -85,7 +85,7 @@ Adoption exemptions:
 - External actionable / terminal: **7 / 24**
 - Legacy actionable / terminal: **0 / 2**
 - Oldest review date: **2026-10-05**
-- Oldest deterministic debt age (days): **36**
+- Oldest deterministic debt age (days): **38**
 
 Debt by blocker category:
 
