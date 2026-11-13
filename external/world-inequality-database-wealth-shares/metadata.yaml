@@ -17,12 +17,14 @@ usage:
     country-year top-1% wealth-share outcome is missing unless the user
     supplies a WID archive. No such ZIP or a publisher-pinned revision is
     stored in the registry; publicly accessible downloads do not, by
-    themselves, establish full-archive redistribution permission.
+    themselves, establish full-archive redistribution permission. WID shares
+    are fractions of one; the downstream first-value pivot and missing-outcome
+    checks require consumer-side validation before empirical use.
 consumers:
   - wealth_rentier_dynamics
 resolution:
   review_status: terminal
-  last_reviewed: 2026-11-06
+  last_reviewed: 2026-11-12
   blocker_category: redistribution-rights
   blocker_summary: >-
     WID.world advertises open access and documents bulk downloads, but the
@@ -32,13 +34,21 @@ resolution:
     - "https://wid.world/data/"
     - "https://wid.world/codes-dictionary/"
     - "https://wid.world/methodology/"
-    - "https://github.com/DiogoRibeiro7/wealth_rentier_dynamics/blob/f3e6e3a5b035b65d883ddd70f082f1fb6b34bc0a/data/README.md"
+    - "https://github.com/DiogoRibeiro7/wealth_rentier_dynamics/blob/bf0e75b91f68911e306627f257baf52893f0e91c/data/README.md"
+    - "https://github.com/DiogoRibeiro7/wealth_rentier_dynamics/blob/bf0e75b91f68911e306627f257baf52893f0e91c/src/wealth_dynamics/data_sources.py"
+    - "https://github.com/DiogoRibeiro7/data/blob/main/docs/consumer-source-audits/wealth-rentier-dynamics-wid-2026-11-12.md"
   reviewer_note: >-
     The source URL is an interactive download page, not an immutable archive
     URL. The consumer loader is implemented and unit-tested, but possession
-    of a real ZIP and its checksum has not been independently verified.
+    of a real ZIP and its checksum has not been independently verified. The
+    bulk loader does not check embedded country codes, uses a first-value
+    pivot for repeated year/percentile combinations, and only requires the
+    top-1% result column to exist, not that every selected observation is
+    present. This is a consumer quality gate, distinct from redistribution.
   next_action: >-
-    Keep source downloads consumer-local. Reopen only if WID.world provides
-    explicit full-database redistribution terms or a suitable licence;
-    before any canonical promotion, identify a dated revision and checksum.
+    Keep source downloads consumer-local and validate country, unit,
+    unique-key, completeness and archive provenance before empirical use.
+    Reopen central redistribution only if WID.world provides explicit
+    full-database redistribution terms or a suitable licence; before any
+    canonical promotion, identify a dated revision and checksum.
   terminal: true

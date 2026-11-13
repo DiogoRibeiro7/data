@@ -12,7 +12,7 @@ distinguishes live API covariates, local-file inputs and synthetic fixtures.
 
 | Source | Consumer role | Acquisition state evidenced here | Registry disposition |
 | --- | --- | --- | --- |
-| WID.world wealth shares | Top-1%, top-10% and bottom-50% net-wealth shares | Optional local bulk-ZIP loader; no pinned real archive evidenced | [WID external reference](https://github.com/DiogoRibeiro7/data/tree/main/external/world-inequality-database-wealth-shares); reuse unresolved |
+| WID.world wealth shares | Top-1%, top-10% and bottom-50% net-wealth shares | Optional local bulk-ZIP loader; first-value pivot and country/coverage checks outstanding; no pinned real archive evidenced | [WID external reference](https://github.com/DiogoRibeiro7/data/tree/main/external/world-inequality-database-wealth-shares) and [2026-11-12 source audit](wealth-rentier-dynamics-wid-2026-11-12.md); reuse unresolved |
 | OECD analytical house prices | Price-to-income/rent indices and house/rent price indices | Annual SDMX downloader; unrestricted unit/measure dimensions and first-value pivot need checking; no pinned retrieved CSV | [OECD external reference](https://github.com/DiogoRibeiro7/data/tree/main/external/oecd-analytical-house-price-indicators) and [2026-11-09 source-contract audit](wealth-rentier-dynamics-oecd-housing-2026-11-09.md); ownership and retrieval pending |
 | OECD annual wages | Real average-wage growth from a separate OECD SDMX dataflow | Downloader implemented; silently deduplicates years and can mistake a multi-year gap for year-on-year growth; no pinned retrieved CSV | [OECD annual-wages contract](https://github.com/DiogoRibeiro7/data/tree/main/external/oecd-average-annual-wages) and [2026-11-09 source audit](wealth-rentier-dynamics-oecd-wages-2026-11-09.md); ownership and retrieval pending |
 | Eurostat `ilc_lvho07b`, `ilc_lvps15`, `gov_10a_taxag` | Housing stress, ownership by citizenship/age, tax proxies | Public API downloaders; unvalidated returned non-time slices in two normalizers; no pinned responses | [Cross-country Eurostat source contract](https://github.com/DiogoRibeiro7/data/tree/main/external/eurostat-multicountry-housing-tax-covariates) and [2026-11-10 parser audit](wealth-rentier-dynamics-eurostat-covariates-2026-11-10.md). The [Portugal-only record](https://github.com/DiogoRibeiro7/data/tree/main/external/eurostat-portugal-housing-indicators) covers different responses |
@@ -32,6 +32,11 @@ study when that outcome is missing.
    record the country members and extraction outcome, and keep the large ZIP
    out of Git. This is a consumer extraction task, not a central-registry
    redistribution authorization.
+   The [2026-11-12 audit](wealth-rentier-dynamics-wid-2026-11-12.md) further
+   requires country and percentile checks, rejection of conflicting duplicate
+   observations, explicit outcome coverage and fraction-scale preservation.
+   Source redistribution remains a **terminal** blocker for the public
+   registry, independent of consumer-local validation.
 2. **OECD source rights**: inspect the OECD Data Explorer source metadata
    for each selected country and measure. Its
    [general data terms](https://www.oecd.org/en/about/terms-conditions.html)
@@ -57,6 +62,14 @@ study when that outcome is missing.
    appropriate projects rather than the public data registry.
 
 ## Interpretation controls
+
+WID `shwealj992` is a net-personal-wealth **share among equal-split adults**,
+expressed as a fraction of one (`0.25` means 25%). It is not an absolute
+wealth stock or a series of percentage-valued observations. The
+[WID consumer audit](wealth-rentier-dynamics-wid-2026-11-12.md) records the
+first-value pivot, missing-outcome and geography-check risks, plus the
+consumer-local extraction evidence needed before empirical use. This does
+not change WID's unresolved full-archive redistribution status.
 
 The official [OECD wage indicator](https://www.oecd.org/en/data/indicators/average-annual-wages.html)
 is a *mean* wage per full-time-equivalent employee, not a median or a measure
