@@ -35,6 +35,21 @@
   ],
   "datasets": [
     {
+      "active_consumer_count": 0,
+      "deprecated_at": null,
+      "direct_predecessors": [],
+      "direct_replacement": null,
+      "id": "ine-portugal-new-lease-rents",
+      "migration_needed_consumer_count": 0,
+      "migration_note": null,
+      "preferred_dataset_id": "ine-portugal-new-lease-rents",
+      "replacement_chain": [
+        "ine-portugal-new-lease-rents"
+      ],
+      "status": "active",
+      "title": "INE Portugal: median new-lease rents, 2025"
+    },
+    {
       "active_consumer_count": 1,
       "deprecated_at": null,
       "direct_predecessors": [],
@@ -99,8 +114,8 @@
   "schema_version": 1,
   "summary": {
     "active_consumer_relationship_count": 4,
-    "active_count": 4,
-    "canonical_dataset_count": 4,
+    "active_count": 5,
+    "canonical_dataset_count": 5,
     "current_consumer_relationship_count": 4,
     "deprecated_count": 0,
     "migrated_relationship_count": 0,

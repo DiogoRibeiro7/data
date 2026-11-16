@@ -52,6 +52,10 @@ At that snapshot the registry contains:
 Remaining provenance debt is retained as explicit terminal evidence rather than
 silently reclassified as safe.
 
+The current registry also includes the [INE 2025 new-lease rent snapshot](datasets/ine-portugal-new-lease-rents/README.md)
+with separately pinned interpretation metadata. Its first platform consumer is
+planned and covered by a documented adoption exemption.
+
 ## Project status
 
 The registry is now in **maintenance mode**.

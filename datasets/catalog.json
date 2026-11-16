@@ -2,6 +2,28 @@
   "schema_version": 1,
   "datasets": [
     {
+      "id": "ine-portugal-new-lease-rents",
+      "title": "INE Portugal: median new-lease rents, 2025",
+      "description": "Official indicator 0014698: median monthly rent per square metre of gross private area for new family-dwelling leases in 2025, methodology 2026 and NUTS 2024 geography. Preserves the October 2026 observation response and separately collected November 2026 metadata and methodology; no transformation.\n",
+      "domain": [
+        "economics",
+        "housing",
+        "portugal",
+        "subnational"
+      ],
+      "snapshot": "Indicator 0014698, period S7A2025, source update 2026-09-29; observation DataExtracao 2026-10-30T15:16:42.184Z, preserved from social-security-housing-investment commit f84577d7cb5a5dd0338707faa32fe166881d9596, Git blob 500ab19d99028aa3484227a35ff3714b763afaa7. Companion metadata and methodology collected separately on 2026-11-16; not an atomic INE release.\n",
+      "source": {
+        "publisher": "Instituto Nacional de Estatística, I.P. (Statistics Portugal)",
+        "url": "https://www.ine.pt/ine/json_indicador/pindica.jsp?op=2&varcd=0014698&Dim1=S7A2025&lang=PT"
+      },
+      "license": {
+        "name": "CC BY 4.0 (INE statistical information)",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "redistribution": "allowed"
+      },
+      "path": "datasets/ine-portugal-new-lease-rents"
+    },
+    {
       "id": "online-retail-ii",
       "title": "Online Retail II",
       "description": "Two years of transactions from a UK-based non-store online retailer, covering 1 December 2009 through 9 December 2011.\n",

@@ -5,10 +5,10 @@ It makes no live network requests.
 
 ## Canonical registry
 
-- Canonical datasets: **4**
-- Canonical files: **4**
-- Files with verified SHA-256: **4**
-- Canonical datasets with complete licence metadata: **4**
+- Canonical datasets: **5**
+- Canonical files: **7**
+- Files with verified SHA-256: **7**
+- Canonical datasets with complete licence metadata: **5**
 
 ## External sources
 
@@ -44,8 +44,8 @@ External source usage annotations:
 - Pinned contracts: **4 / 4**
 - Pinned contract coverage: **100%**
 - Canonical datasets with >=1 active consumer: **4**
-- Canonical datasets with zero active consumers: **0**
-- Canonical dataset adoption coverage: **100%**
+- Canonical datasets with zero active consumers: **1**
+- Canonical dataset adoption coverage: **80%**
 - Lifecycle migration coverage: **100%** (0 / 0)
 - Migration required / planned / retained / migrated: **0 / 0 / 0 / 0**
 
@@ -59,20 +59,21 @@ Active consumers:
 
 - Baseline snapshot: **snapshot-2026.10.05**
 - Baseline canonical datasets: **2**
-- Current canonical datasets: **4**
-- Added since baseline: **2**
+- Current canonical datasets: **5**
+- Added since baseline: **3**
 - Added with active consumers: **2**
-- Added with exemptions: **0**
+- Added with exemptions: **1**
 - Uncovered canonical datasets: **0**
 
 Datasets added since baseline:
 
+- `ine-portugal-new-lease-rents`
 - `ons-gross-median-weekly-pay`
 - `unhcr-refugee-population-2024`
 
 Adoption exemptions:
 
-- None
+- `ine-portugal-new-lease-rents`: Source promotion precedes the planned data-platform-lab INE adapter. The reviewed contract is pinned at cf1bd2f9de0ecdc95e6f1390c185f00b08df84db (https://github.com/DiogoRibeiro7/data-platform-lab/pull/106); it is not an implemented consumer. Remove this exemption when the platform registers its actual implementation commit, merged registry commit, canonical paths and all source hashes.
 
 ## Legacy quarantine
 
