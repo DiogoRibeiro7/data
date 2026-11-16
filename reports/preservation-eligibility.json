@@ -33,6 +33,15 @@
   "canonical": [
     {
       "byte_archive_eligibility": "eligible",
+      "id": "ine-portugal-new-lease-rents",
+      "license_name": "CC BY 4.0 (INE statistical information)",
+      "metadata_path": "datasets/ine-portugal-new-lease-rents/metadata.yaml",
+      "reason": "canonical metadata explicitly permits redistribution",
+      "redistribution": "allowed",
+      "title": "INE Portugal: median new-lease rents, 2025"
+    },
+    {
+      "byte_archive_eligibility": "eligible",
       "id": "online-retail-ii",
       "license_name": "CC BY 4.0",
       "metadata_path": "datasets/online-retail-ii/metadata.yaml",
@@ -417,8 +426,8 @@
   "schema_version": 1,
   "static_distribution_eligibility": "eligible",
   "summary": {
-    "canonical_byte_archive_eligible_count": 4,
-    "canonical_dataset_count": 4,
+    "canonical_byte_archive_eligible_count": 5,
+    "canonical_dataset_count": 5,
     "canonical_metadata_only_count": 0,
     "external_metadata_only_count": 54,
     "external_source_count": 54,

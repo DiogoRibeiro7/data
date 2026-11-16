@@ -3,8 +3,8 @@
 This report is generated deterministically from committed canonical metadata
 and the committed consumer catalog. Do not edit it by hand.
 
-- Canonical datasets: **4**
-- Active: **4**
+- Canonical datasets: **5**
+- Active: **5**
 - Deprecated: **0**
 - Superseded: **0**
 - Replacement edges: **0**
@@ -21,6 +21,7 @@ and the committed consumer catalog. Do not edit it by hand.
 
 | Dataset | Status | Direct replacement | Preferred dataset | Consumers | Migration needed |
 | --- | --- | --- | --- | ---: | ---: |
+| `ine-portugal-new-lease-rents` | active | -- | ine-portugal-new-lease-rents | 0 | 0 |
 | `online-retail-ii` | active | -- | online-retail-ii | 1 | 0 |
 | `ons-gross-median-weekly-pay` | active | -- | ons-gross-median-weekly-pay | 1 | 0 |
 | `ucdp-ged-25-1` | active | -- | ucdp-ged-25-1 | 1 | 0 |

@@ -115,7 +115,10 @@ A project may deliberately retain a full immutable snapshot when offline scienti
 
 ## Current adoption
 
-All four canonical datasets currently have at least one registered active consumer.
+Four of the five canonical datasets have a registered active consumer.
+`ine-portugal-new-lease-rents` has a documented adoption exemption while the
+planned platform adapter is implemented; its source proposal is not counted
+as an active consumer.
 Consumer adoption is measured from formal `consumers/` records, not from
 free-form external-source annotations.
 

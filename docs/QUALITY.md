@@ -133,10 +133,11 @@ Quality generation now fails when:
 1. an active consumer relationship does not match a canonical path and SHA-256;
 2. a canonical dataset has no active consumer and no documented exemption.
 
-The current Phase 7 state has two additions since the baseline:
-`ons-gross-median-weekly-pay` and
-`unhcr-refugee-population-2024`. Both have active consumers, so the exemption
-list is empty.
+The additions since the baseline are `ons-gross-median-weekly-pay`,
+`unhcr-refugee-population-2024` and `ine-portugal-new-lease-rents`.
+The first two have active consumers. The INE package has a documented exemption
+until the planned platform adapter registers its actual pinned consumer
+contract; the exemption must then be removed.
 
 This policy is committed repository state and therefore remains offline and
 deterministic. It does not inspect GitHub releases or account-wide repositories
