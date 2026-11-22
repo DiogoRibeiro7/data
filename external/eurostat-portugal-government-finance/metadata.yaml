@@ -1,0 +1,60 @@
+schema_version: 1
+status: external-reference
+id: eurostat-portugal-government-finance
+title: "Eurostat Portugal general government debt, deficit, interest, GDP and bond yields"
+publisher: "Eurostat (European Commission)"
+source_url: "https://ec.europa.eu/eurostat/data/database"
+license:
+  name: "Eurostat free re-use policy (Commission Decision 2011/833/EU)"
+  url: "https://ec.europa.eu/eurostat/help/copyright-notice"
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: consumer-downloads-and-verifies
+  redistribution: allowed
+  attribution_required: true
+  note: >-
+    Medium-Blog/portugal-debt-2035-probability downloads four Eurostat API responses
+    for Portugal (gov_10dd_edpt1 in % of GDP and EUR million, nama_10_gdp,
+    irt_lt_mcby_a), verifies the SHA-256 recorded here and rebuilds its annual panel
+    at each run. Eurostat serves only the latest vintage, so the hashes identify the
+    vintage retrieved on 22 November 2026 (EDP notification of 21 October 2026); after
+    a revision the consumer stops unless run with --accept-revision. No bytes are
+    stored in Medium-Blog or in this registry.
+consumers:
+  - medium-blog/portugal-debt-2035-probability
+medium_blog:
+  folder: portugal-debt-2035-probability
+  fetch: "portugal-debt-2035-probability/fetch_data.py"
+  contract: data_sources/eurostat-portugal-government-finance.json
+  retrieved: "2026-11-22"
+  derived_output: "portugal-debt-2035-probability/data/panel.csv (built by build_data.py, not committed)"
+  files:
+    - path: "raw/edp_pc.json"
+      dataset: "gov_10dd_edpt1"
+      doi: "10.2908/GOV_10DD_EDPT1"
+      url: "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/gov_10dd_edpt1?geo=PT&unit=PC_GDP&sector=S13&na_item=GD&na_item=B9&na_item=D41PAY&format=JSON"
+      bytes: 4458
+      sha256: "93474c7b042499ed3da17814845ec67739bbdef9ba9bddaa414412fadaf12502"
+      provider_updated: "2026-10-21T11:00:00+0200"
+    - path: "raw/edp_mio.json"
+      dataset: "gov_10dd_edpt1"
+      doi: "10.2908/GOV_10DD_EDPT1"
+      url: "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/gov_10dd_edpt1?geo=PT&unit=MIO_EUR&sector=S13&na_item=GD&na_item=B9&na_item=D41PAY&format=JSON"
+      bytes: 4721
+      sha256: "c44fde7f921286053c015b198aa562b62da9459503b569e84130e2d8f80d317c"
+      provider_updated: "2026-10-21T11:00:00+0200"
+    - path: "raw/gdp.json"
+      dataset: "nama_10_gdp"
+      doi: "10.2908/NAMA_10_GDP"
+      url: "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_gdp?geo=PT&na_item=B1GQ&unit=CLV_PCH_PRE&unit=PD_PCH_PRE_EUR&unit=CP_MEUR&format=JSON"
+      bytes: 5437
+      sha256: "730baffc6067f396d0b821adfeb8a83e492b1352722e5e8219edd4e509053c3f"
+      provider_updated: "2026-11-11T23:00:00+0100"
+    - path: "raw/yld.json"
+      dataset: "irt_lt_mcby_a"
+      doi: "10.2908/IRT_LT_MCBY_A"
+      url: "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/irt_lt_mcby_a?geo=PT&format=JSON"
+      bytes: 4906
+      sha256: "462d5ff05537c4a25a9b5aad9c71277ad7815e34f702d7b5f9b5536bb92b8e2c"
+      provider_updated: "2026-02-25T23:00:00+0100"
