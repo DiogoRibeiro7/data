@@ -1,0 +1,35 @@
+schema_version: 1
+status: external-reference
+id: shiller-sp-composite-monthly
+title: "Robert Shiller's monthly S&P Composite series (price, dividends, earnings, CPI, CAPE) from 1871, Datahub mirror"
+publisher: "Robert J. Shiller (Yale University); mirrored by Datahub as datasets/s-and-p-500"
+source_url: "https://github.com/datasets/s-and-p-500"
+source_commit: "87a2284276f79d75041c71c8f6d9f2aa1c965e84"
+source_path: "data/data.csv"
+license:
+  name: "ODC-PDDL-1.0 (declared by the Datahub mirror's datapackage.json)"
+  url: "https://opendatacommons.org/licenses/pddl/1-0/"
+redistribution: dataset-specific
+storage: authoritative-upstream
+usage:
+  storage: authoritative-upstream
+  redistribution: dataset-specific
+  attribution_required: true
+  note: >-
+    The Datahub package declares ODC-PDDL-1.0 for its packaging and lists
+    Robert Shiller's online data (http://www.econ.yale.edu/~shiller/data.htm)
+    and FRED SP500 as sources. Shiller publishes the underlying series
+    without an explicit licence, so the PDDL declaration is treated as the
+    mirror's statement, not as the originator's grant, and no bytes are
+    mirrored here. Cite Shiller. At the pinned commit, earnings and
+    dividends end in June 2023 and CPI in September 2023; later months carry
+    the index price only. The mirror writes 0 rather than a missing value
+    for CAPE in the first ten years.
+medium_blog:
+  folder: growth-finite-world
+  fetch: "growth-finite-world/fetch_data.py"
+  raw_url: "https://raw.githubusercontent.com/datasets/s-and-p-500/87a2284276f79d75041c71c8f6d9f2aa1c965e84/data/data.csv"
+  sha256: "b797a3c8de4586af837b86a156b05f49be11ffab99e13171dae763b2a11bdf79"
+  derived_output: "growth-finite-world/data/sp500_monthly.csv (built by build_data.py, not committed)"
+consumers:
+  - medium-blog/growth-finite-world

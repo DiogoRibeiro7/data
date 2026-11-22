@@ -33,6 +33,15 @@
   "canonical": [
     {
       "byte_archive_eligibility": "eligible",
+      "id": "eurostat-services-energy-time",
+      "license_name": "Eurostat free re-use policy (Commission Decision 2011/833/EU)",
+      "metadata_path": "datasets/eurostat-services-energy-time/metadata.yaml",
+      "reason": "canonical metadata explicitly permits redistribution",
+      "redistribution": "allowed",
+      "title": "Eurostat: value added, hours worked, final energy, time use, consumption and prices for EU services, 1995-2025"
+    },
+    {
+      "byte_archive_eligibility": "eligible",
       "id": "ine-portugal-new-lease-rents",
       "license_name": "CC BY 4.0 (INE statistical information)",
       "metadata_path": "datasets/ine-portugal-new-lease-rents/metadata.yaml",
@@ -110,6 +119,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "boem-gulf-of-mexico-lease-sale-bids",
+      "metadata_path": "external/boem-gulf-of-mexico-lease-sale-bids/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "cfp-social-security-execution-2023-2025",
       "metadata_path": "external/cfp-social-security-execution-2023-2025/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -158,6 +173,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "energy-charts-electricity-load",
+      "metadata_path": "external/energy-charts-electricity-load/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "eurostat-multicountry-housing-tax-covariates",
       "metadata_path": "external/eurostat-multicountry-housing-tax-covariates/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -172,6 +193,12 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "eurostat-portugal-housing-indicators",
       "metadata_path": "external/eurostat-portugal-housing-indicators/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "eurotoptech-happiness-taxes-europe",
+      "metadata_path": "external/eurotoptech-happiness-taxes-europe/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -226,6 +253,12 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "ihru-primeiro-direito-costs-2020",
       "metadata_path": "external/ihru-primeiro-direito-costs-2020/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "imhof-wallimann-bid-rigging-tenders",
+      "metadata_path": "external/imhof-wallimann-bid-rigging-tenders/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -290,6 +323,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "miller-2008-suffrage-mortality-finance",
+      "metadata_path": "external/miller-2008-suffrage-mortality-finance/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "oecd-analytical-house-price-indicators",
       "metadata_path": "external/oecd-analytical-house-price-indicators/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -302,8 +341,32 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "oecd-government-at-a-glance-satisfaction-2025",
+      "metadata_path": "external/oecd-government-at-a-glance-satisfaction-2025/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "open-meteo-previous-runs-forecasts",
+      "metadata_path": "external/open-meteo-previous-runs-forecasts/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "our-world-in-data",
       "metadata_path": "external/our-world-in-data/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "owid-co2-data",
+      "metadata_path": "external/owid-co2-data/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "owid-energy-data",
+      "metadata_path": "external/owid-energy-data/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -346,6 +409,12 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "sef-rifa-foreign-residents-2017-2022",
       "metadata_path": "external/sef-rifa-foreign-residents-2017-2022/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "shiller-sp-composite-monthly",
+      "metadata_path": "external/shiller-sp-composite-monthly/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -426,11 +495,11 @@
   "schema_version": 1,
   "static_distribution_eligibility": "eligible",
   "summary": {
-    "canonical_byte_archive_eligible_count": 5,
-    "canonical_dataset_count": 5,
+    "canonical_byte_archive_eligible_count": 6,
+    "canonical_dataset_count": 6,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 54,
-    "external_source_count": 54,
+    "external_metadata_only_count": 64,
+    "external_source_count": 64,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }

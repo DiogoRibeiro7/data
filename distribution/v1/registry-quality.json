@@ -1,22 +1,24 @@
 {
   "canonical": {
-    "complete_license_datasets": 5,
-    "dataset_count": 5,
-    "file_count": 7,
-    "verified_checksum_files": 7
+    "complete_license_datasets": 6,
+    "dataset_count": 6,
+    "file_count": 14,
+    "verified_checksum_files": 14
   },
   "canonical_expansion": {
     "added_datasets_exempted": [
       "ine-portugal-new-lease-rents"
     ],
     "added_datasets_with_consumers": [
+      "eurostat-services-energy-time",
       "ons-gross-median-weekly-pay",
       "unhcr-refugee-population-2024"
     ],
     "baseline_dataset_count": 2,
     "baseline_snapshot": "snapshot-2026.10.05",
-    "current_dataset_count": 5,
+    "current_dataset_count": 6,
     "datasets_added_since_baseline": [
+      "eurostat-services-energy-time",
       "ine-portugal-new-lease-rents",
       "ons-gross-median-weekly-pay",
       "unhcr-refugee-population-2024"
@@ -44,11 +46,12 @@
       "displacement-risk-lab-dynamodb",
       "medium-blog"
     ],
-    "active_relationship_count": 4,
-    "canonical_dataset_adoption_coverage": 0.8,
-    "canonical_datasets_with_consumers": 4,
+    "active_relationship_count": 5,
+    "canonical_dataset_adoption_coverage": 0.8333333333333334,
+    "canonical_datasets_with_consumers": 5,
     "canonical_datasets_without_consumers": 1,
     "datasets_with_consumers": [
+      "eurostat-services-energy-time",
       "online-retail-ii",
       "ons-gross-median-weekly-pay",
       "ucdp-ged-25-1",
@@ -68,20 +71,20 @@
     "migration_planned_count": 0,
     "migration_required_count": 0,
     "migration_retained_count": 0,
-    "pinned_contract_count": 4,
+    "pinned_contract_count": 5,
     "pinned_contract_coverage": 1.0,
     "uncovered_datasets_without_consumers": []
   },
   "external": {
-    "pinned_immutable_identity_sources": 5,
+    "pinned_immutable_identity_sources": 8,
     "redistribution": {
-      "resolved": 24,
-      "unresolved": 30
+      "resolved": 31,
+      "unresolved": 33
     },
-    "source_count": 54,
+    "source_count": 64,
     "source_usage": {
-      "consumer_count": 14,
-      "consumer_references": 51,
+      "consumer_count": 21,
+      "consumer_references": 63,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -89,6 +92,13 @@
         "displacement-risk-lab-dynamodb",
         "ds-projects-portfolio",
         "empirical-analysis-r",
+        "medium-blog/auction-entry-boem",
+        "medium-blog/bid-rigging-screens",
+        "medium-blog/growth-finite-world",
+        "medium-blog/model-swap-tails",
+        "medium-blog/post-cutoff-forecasting",
+        "medium-blog/ranking-extremes",
+        "medium-blog/suffrage-public-health",
         "medium-statistical-dynamics",
         "perishable-inventory-decision-lab",
         "porto-metro-demand-analysis",
@@ -112,21 +122,21 @@
     "by_blocker_category": {
       "authoritative-source-identity": 1,
       "dataset-vs-repository-licence-scope": 3,
-      "exact-snapshot-identity": 2,
+      "exact-snapshot-identity": 3,
       "historical-export-route": 1,
-      "redistribution-rights": 26
+      "redistribution-rights": 27
     },
     "external": {
-      "actionable": 7,
+      "actionable": 9,
       "terminal": 24
     },
     "legacy": {
       "actionable": 0,
       "terminal": 2
     },
-    "oldest_age_days": 38,
+    "oldest_age_days": 48,
     "oldest_review_date": "2026-10-05",
-    "total_count": 33
+    "total_count": 36
   },
   "schema_version": 1,
   "snapshots": {

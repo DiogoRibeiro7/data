@@ -1,0 +1,34 @@
+schema_version: 1
+status: external-reference
+id: energy-charts-electricity-load
+title: "Energy-Charts electricity load and day-ahead load forecasts by European country"
+publisher: "Fraunhofer Institute for Solar Energy Systems ISE (Energy-Charts)"
+source_url: "https://api.energy-charts.info"
+license:
+  name: "CC BY 4.0 (Energy-Charts API default; per-response licence field governs)"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+redistribution: allowed-with-attribution
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: allowed-with-attribution
+  attribution_required: true
+  note: >-
+    Token-free REST API. The consumer downloads the `Load` series from
+    `/public_power` and the day-ahead load forecast from
+    `/public_power_forecast` (production_type=load, forecast_type=day-ahead)
+    for PT, ES, FR, BE, NL, DE, AT, IT and PL, at the resolution each response
+    declares (15 minutes or hourly), and aggregates to hourly means. Tables are
+    rebuilt on every run and not committed; the consumer's data/manifest.json
+    records every request and the SHA-256 of every cached file. The public
+    API allows about 2 requests per minute. Recent values can be revised, so
+    two downloads of the same period are not guaranteed to be identical.
+    Attribution: energy-charts.info.
+consumers:
+  - medium-blog/model-swap-tails
+  - medium-blog/post-cutoff-forecasting
+medium_blog:
+  related_paths:
+    - "model-swap-tails/src/swaptails/data.py"
+    - "post-cutoff-forecasting/src/postcutoff/data.py"
+  exact_snapshot_lineage: per-run manifest in the consumer

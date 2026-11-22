@@ -3,13 +3,13 @@
 This report is generated deterministically from committed canonical metadata
 and the committed consumer catalog. Do not edit it by hand.
 
-- Canonical datasets: **5**
-- Active: **5**
+- Canonical datasets: **6**
+- Active: **6**
 - Deprecated: **0**
 - Superseded: **0**
 - Replacement edges: **0**
-- Active consumer relationships: **4**
-- Current consumer relationships: **4**
+- Active consumer relationships: **5**
+- Current consumer relationships: **5**
 - Migration required: **0**
 - Migration planned: **0**
 - Intentionally retained: **0**
@@ -21,6 +21,7 @@ and the committed consumer catalog. Do not edit it by hand.
 
 | Dataset | Status | Direct replacement | Preferred dataset | Consumers | Migration needed |
 | --- | --- | --- | --- | ---: | ---: |
+| `eurostat-services-energy-time` | active | -- | eurostat-services-energy-time | 1 | 0 |
 | `ine-portugal-new-lease-rents` | active | -- | ine-portugal-new-lease-rents | 0 | 0 |
 | `online-retail-ii` | active | -- | online-retail-ii | 1 | 0 |
 | `ons-gross-median-weekly-pay` | active | -- | ons-gross-median-weekly-pay | 1 | 0 |
@@ -38,6 +39,7 @@ and the committed consumer catalog. Do not edit it by hand.
 | `city-wage-cost-global` | `ons-gross-median-weekly-pay` | current | `ons-gross-median-weekly-pay` | -- |
 | `displacement-risk-lab-dynamodb` | `ucdp-ged-25-1` | current | `ucdp-ged-25-1` | -- |
 | `displacement-risk-lab-dynamodb` | `unhcr-refugee-population-2024` | current | `unhcr-refugee-population-2024` | -- |
+| `medium-blog` | `eurostat-services-energy-time` | current | `eurostat-services-energy-time` | -- |
 | `medium-blog` | `online-retail-ii` | current | `online-retail-ii` | -- |
 
 ## Semantics

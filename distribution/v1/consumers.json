@@ -37,6 +37,18 @@
       "status": "active"
     },
     {
+      "consumer_commit": "70f802ad80f2f96d4ce2b35d004e019a54bd8cd0",
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "eurostat-services-energy-time",
+      "evidence_url": "https://github.com/DiogoRibeiro7/Medium-Blog/tree/services-energy-time/services-energy-time",
+      "path": "datasets/eurostat-services-energy-time/raw/nama_10_a10.json",
+      "registry_commit": "6911646f783bad0475e5942b1e043169e4e5cb02",
+      "registry_repository": "DiogoRibeiro7/data",
+      "sha256": "6a100cf6bbe75ca4d0e88203bc12a35088c740bc48491b037cca0b4f2816a652",
+      "status": "active"
+    },
+    {
       "consumer_commit": "71e4db18ab7af4ad2d5f3997a00e46e53676312b",
       "consumer_id": "medium-blog",
       "consumer_repository": "DiogoRibeiro7/Medium-Blog",

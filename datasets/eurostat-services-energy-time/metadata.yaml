@@ -1,0 +1,119 @@
+schema_version: 1
+
+id: eurostat-services-energy-time
+title: "Eurostat: value added, hours worked, final energy, time use, consumption and prices for EU services, 1995-2025"
+description: >
+  Seven Eurostat API responses, kept byte for byte, that together measure the
+  inputs of the service sector in the EU and its member states: real and
+  nominal value added and hours worked by NACE A*10 industry, final energy
+  consumption by sector, HETUS time use (2000 and 2010 waves), per-capita
+  consumption, population and HICP services prices. Snapshotted because
+  Eurostat's API serves only the current vintage of each dataset.
+
+domain:
+  - economics
+  - national-accounts
+  - energy
+  - labour-market
+  - time-use
+  - prices
+  - eu
+
+source:
+  publisher: "Eurostat (European Commission)"
+  url: "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data"
+  retrieved_at: 2026-11-22
+  snapshot: "Eurostat dissemination API, JSON-stat 2.0, seven queries retrieved 2026-11-22T20:10:07Z; each file records its upstream update timestamp"
+
+license:
+  name: "Eurostat free re-use policy (Commission Decision 2011/833/EU)"
+  url: "https://ec.europa.eu/eurostat/help/copyright-notice"
+  redistribution: allowed
+
+citation:
+  text: "Eurostat, datasets nama_10_a10, nama_10_a10_e, nrg_bal_c, tus_00age, nama_10_pc, nama_10_pe and prc_hicp_aind, retrieved 22 November 2026."
+  url: "https://ec.europa.eu/eurostat/data/database"
+
+files:
+  - path: raw/nama_10_a10.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "6a100cf6bbe75ca4d0e88203bc12a35088c740bc48491b037cca0b4f2816a652"
+    notes: >-
+      Gross value added (B1G) by NACE Rev.2 A*10 industry, chain-linked volumes (2020) and current
+      prices, million euro, all geographies, 1995 onward. Eurostat JSON-stat 2.0 response, 506,067
+      bytes, 31,959 observations, upstream dataset updated 2026-11-11T23:00:00+0100. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_a10?format=JSON&lang=EN&na_item=B1G&unit=CLV20_MEUR&unit=CP_MEUR&nace_r2=TOTAL&nace_r2=A&nace_r2=B-E&nace_r2=C&nace_r2=F&nace_r2=G-I&nace_r2=J&nace_r2=K&nace_r2=L&nace_r2=M_N&nace_r2=O-Q&nace_r2=R-U&sinceTimePeriod=1995
+  - path: raw/nama_10_a10_e.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "6dc6ddbdcd9054101f4df1f7fe86044b6786f2feda6beeabc5ea5d0c49bce425"
+    notes: >-
+      Total employment, domestic concept (EMP_DC), by NACE Rev.2 A*10 industry, thousand hours
+      worked and thousand persons, all geographies, 1995 onward. Eurostat JSON-stat 2.0 response,
+      475,622 bytes, 29,412 observations, upstream dataset updated 2026-10-21T23:00:00+0200. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_a10_e?format=JSON&lang=EN&na_item=EMP_DC&unit=THS_HW&unit=THS_PER&nace_r2=TOTAL&nace_r2=A&nace_r2=B-E&nace_r2=C&nace_r2=F&nace_r2=G-I&nace_r2=J&nace_r2=K&nace_r2=L&nace_r2=M_N&nace_r2=O-Q&nace_r2=R-U&sinceTimePeriod=1995
+  - path: raw/nrg_bal_c.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "fc2249d35669f7f4f65bc4aa7608b53c4096ccf3e2bae9713e98115b7073b2ac"
+    notes: >-
+      Complete energy balances: final energy consumption in total and by industry, transport,
+      households and commercial and public services (energy use), all products and electricity,
+      ktoe, all geographies, 1995 onward. Eurostat JSON-stat 2.0 response, 187,819 bytes, 11,540
+      observations, upstream dataset updated 2026-08-27T11:00:00+0200. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_bal_c?format=JSON&lang=EN&nrg_bal=FC_E&nrg_bal=FC_IND_E&nrg_bal=FC_TRA_E&nrg_bal=FC_OTH_CP_E&nrg_bal=FC_OTH_HH_E&siec=TOTAL&siec=E7000&unit=KTOE&sinceTimePeriod=1995
+  - path: raw/tus_00age.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "fddd5c9b429426f63ad2aea85fdaca53d8e2eb6077b7385bd961f8bb3b723805"
+    notes: >-
+      Harmonised European Time Use Surveys (HETUS) 2000 and 2010 waves: time spent per day in the
+      main activity, all persons and ages, 56 activity codes, 22 countries; durations are hh:mm
+      strings. Eurostat JSON-stat 2.0 response, 30,160 bytes, 1,783 observations, upstream dataset
+      updated 2024-03-22T11:00:00+0100. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/tus_00age?format=JSON&lang=EN&unit=TIME_SP&sex=T&age=TOTAL
+  - path: raw/nama_10_pc.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "03811a0d57751b88dd24005689e98e29776d949121011dc711369d51cdba25f8"
+    notes: >-
+      Per-capita GDP, household and NPISH consumption and actual individual consumption, in PPS
+      (EU27 2020) at current prices and chain-linked volumes (2020), all geographies, 1995 onward.
+      Eurostat JSON-stat 2.0 response, 113,495 bytes, 7,462 observations, upstream dataset updated
+      2026-11-11T23:00:00+0100. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_pc?format=JSON&lang=EN&na_item=P41&na_item=P31_S14_S15&na_item=B1GQ&unit=CP_PPS_EU27_2020_HAB&unit=CLV20_EUR_HAB&sinceTimePeriod=1995
+  - path: raw/nama_10_pe.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "72f9cb832d04789ea347d057d49b6dd41fd1405e883fc6c50df09f1a1d1429dc"
+    notes: >-
+      Total population, national concept (POP_NC), thousand persons, all geographies, 1995 onward.
+      Eurostat JSON-stat 2.0 response, 25,614 bytes, 1,308 observations, upstream dataset updated
+      2026-10-21T23:00:00+0200. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_pe?format=JSON&lang=EN&na_item=POP_NC&unit=THS_PER&sinceTimePeriod=1995
+  - path: raw/prc_hicp_aind.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "9d8b275f4149b15365f3412f35c086f5762136ef624887a63717aef60914b7eb"
+    notes: >-
+      HICP annual average indices for services (SERV) and all items (CP00), EU27 (2020) and euro
+      area. GOODS was requested and is not returned by the API. Eurostat JSON-stat 2.0 response,
+      6,285 bytes, 106 observations, upstream dataset updated 2026-02-06T23:00:00+0100. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_aind?format=JSON&lang=EN&coicop=SERV&coicop=GOODS&coicop=CP00&unit=INX_A_AVG&geo=EU27_2020&geo=EA
+
+lineage: []

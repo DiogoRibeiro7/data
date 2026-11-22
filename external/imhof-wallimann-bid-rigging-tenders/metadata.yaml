@@ -1,0 +1,41 @@
+schema_version: 1
+status: external-reference
+id: imhof-wallimann-bid-rigging-tenders
+title: "Swiss, Japanese (Okinawa) and Italian tender data for detecting bid-rigging coalitions"
+publisher: "Hannes Wallimann (Mendeley Data)"
+source_url: "https://data.mendeley.com/datasets/x8jwmbcpgn/1"
+doi: "10.17632/x8jwmbcpgn.1"
+license:
+  name: "CC BY 4.0"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+redistribution: permitted-with-attribution
+storage: authoritative-upstream
+usage:
+  storage: consumer-downloads-and-verifies
+  redistribution: permitted-with-attribution
+  attribution_required: true
+  note: >-
+    Medium-Blog/bid-rigging-screens downloads three files of version 1 of the dataset,
+    verifies the SHA-256 that Mendeley Data publishes for each file (recorded here) and
+    rebuilds every table at each run. The upstream files use CRLF line endings; the
+    checksums are of the upstream bytes. Prepared for Imhof and Wallimann (2021),
+    International Review of Law and Economics 68, 106016.
+consumers:
+  - medium-blog/bid-rigging-screens
+medium_blog:
+  folder: bid-rigging-screens
+  contract: data_sources/imhof-wallimann-bid-rigging-tenders.json
+  retrieved: "2026-11-21"
+  files:
+    - path: "raw/Italiandata.csv"
+      url: "https://data.mendeley.com/public-files/datasets/x8jwmbcpgn/files/4e40bd38-b1dc-4e42-8565-a9c37c07844f/file_downloaded"
+      bytes: 7452588
+      sha256: "58b1d0f2960c6439c5bbe6e7c1eeb2d246866c52db15af5ea73a580f76b0c038"
+    - path: "raw/Japanesedata.csv"
+      url: "https://data.mendeley.com/public-files/datasets/x8jwmbcpgn/files/0d5d30f4-0e02-4a83-a42d-c01d155e1950/file_downloaded"
+      bytes: 867017
+      sha256: "8dd425f53cef56be290396dea59ec89cf7fbeee9ca37b43ac3a9c18678885766"
+    - path: "raw/Swissdata_addpred.csv"
+      url: "https://data.mendeley.com/public-files/datasets/x8jwmbcpgn/files/7e571d20-97a0-4100-bcbd-3d3d4d8dc013/file_downloaded"
+      bytes: 2365451
+      sha256: "1424122753de9fbdf9e1a0f481ae9d75edaf5db73a396d136ec068122c5dd71e"

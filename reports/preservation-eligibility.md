@@ -7,16 +7,17 @@ the recorded upstream licence/terms.
 - Preservation policy: `preservation/policy-v1.json` (v1)
 - Release metadata: **eligible**
 - Static distribution: **eligible**
-- Canonical datasets: **5**
-- Canonical byte-archive eligible: **5**
+- Canonical datasets: **6**
+- Canonical byte-archive eligible: **6**
 - Canonical metadata-only: **0**
-- External sources (metadata-only): **54**
+- External sources (metadata-only): **64**
 - Legacy packages (metadata-only): **2**
 
 ## Canonical dataset bytes
 
 | Dataset | Eligibility | Redistribution | Licence |
 | --- | --- | --- | --- |
+| `eurostat-services-energy-time` | eligible | allowed | Eurostat free re-use policy (Commission Decision 2011/833/EU) |
 | `ine-portugal-new-lease-rents` | eligible | allowed | CC BY 4.0 (INE statistical information) |
 | `online-retail-ii` | eligible | allowed | CC BY 4.0 |
 | `ons-gross-median-weekly-pay` | eligible | allowed | Open Government Licence v3.0 |

@@ -1,0 +1,49 @@
+schema_version: 1
+status: external-reference
+id: miller-2008-suffrage-mortality-finance
+title: "Digitized U.S. state mortality (1900-1936) and municipal public finance (1905-1930) from Miller (2008)"
+publisher: "Grant Miller, Stanford University"
+source_url: "https://ngmiller.people.stanford.edu/publications/historical-health-improvement/womens-suffrage-political-responsiveness-and-child"
+doi: "10.1162/qjec.2008.123.3.1287"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: consumer-downloads-and-verifies
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    Medium-Blog/suffrage-public-health downloads the two harmonized Stata files linked
+    from the paper's page, verifies the SHA-256 recorded here and rebuilds every table at
+    each run. The bytes are not stored in Medium-Blog or in this registry. The page links
+    two Voteview files as well; both need a Google sign-in and are not used.
+consumers:
+  - medium-blog/suffrage-public-health
+medium_blog:
+  folder: suffrage-public-health
+  contract: data_sources/miller-2008-suffrage-mortality-finance.json
+  retrieved: "2026-11-21"
+  files:
+    - path: "raw/mortality_harmonized.dta"
+      url: "https://drive.usercontent.google.com/download?id=1ubiSqKHZYhCbVkKaqS_lM7gZXERQyw5v&export=download&confirm=t"
+      bytes: 354109
+      sha256: "8f2ad1a33e2570045f6d38430bac21538a7748b92bbb7a204b1f39025b20da3c"
+      upstream_name: "master_mortality_data_1900_1936_corrected.dta"
+    - path: "raw/public_finance.dta"
+      url: "https://drive.usercontent.google.com/download?id=1btRcnnJuHJljMRUrGCGdRNbdLrEUFTWU&export=download&confirm=t"
+      bytes: 1754759
+      sha256: "79472b30b99e308bcd3969cb729bda108c053255cdf9ea5901cab1bc0601f380"
+      upstream_name: "municipalpf_harmonizd.dta"
+resolution:
+  review_status: actionable
+  last_reviewed: 2026-11-22
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    The author publishes the files openly on his university page for replication, but
+    neither the page nor the online appendix states a licence or redistribution terms.
+  evidence:
+    - "https://ngmiller.people.stanford.edu/publications/historical-health-improvement/womens-suffrage-political-responsiveness-and-child"
+    - "https://ngmiller.people.stanford.edu/sites/g/files/sbiybj24836/files/media/file/suffrage_online_appendix.pdf"
+  next_action: >-
+    Keep the files consumer-downloaded and checksum-verified. Ask the author for terms
+    before any mirror or canonical promotion.
+  terminal: false
