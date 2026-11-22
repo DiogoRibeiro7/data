@@ -27,6 +27,14 @@
     {
       "consumer_id": "medium-blog",
       "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "eurostat-services-energy-time",
+      "preferred_dataset_id": "eurostat-services-energy-time",
+      "rationale": null,
+      "status": "current"
+    },
+    {
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
       "dataset_id": "online-retail-ii",
       "preferred_dataset_id": "online-retail-ii",
       "rationale": null,
@@ -34,6 +42,21 @@
     }
   ],
   "datasets": [
+    {
+      "active_consumer_count": 1,
+      "deprecated_at": null,
+      "direct_predecessors": [],
+      "direct_replacement": null,
+      "id": "eurostat-services-energy-time",
+      "migration_needed_consumer_count": 0,
+      "migration_note": null,
+      "preferred_dataset_id": "eurostat-services-energy-time",
+      "replacement_chain": [
+        "eurostat-services-energy-time"
+      ],
+      "status": "active",
+      "title": "Eurostat: value added, hours worked, final energy, time use, consumption and prices for EU services, 1995-2025"
+    },
     {
       "active_consumer_count": 1,
       "deprecated_at": null,
@@ -98,10 +121,10 @@
   "preferred_replacements": {},
   "schema_version": 1,
   "summary": {
-    "active_consumer_relationship_count": 4,
-    "active_count": 4,
-    "canonical_dataset_count": 4,
-    "current_consumer_relationship_count": 4,
+    "active_consumer_relationship_count": 5,
+    "active_count": 5,
+    "canonical_dataset_count": 5,
+    "current_consumer_relationship_count": 5,
     "deprecated_count": 0,
     "migrated_relationship_count": 0,
     "migration_needed_count": 0,

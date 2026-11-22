@@ -34,6 +34,13 @@
     "medium-blog": {
       "datasets": [
         {
+          "dataset_id": "eurostat-services-energy-time",
+          "path": "datasets/eurostat-services-energy-time/raw/nama_10_a10.json",
+          "registry_commit": "6911646f783bad0475e5942b1e043169e4e5cb02",
+          "sha256": "6a100cf6bbe75ca4d0e88203bc12a35088c740bc48491b037cca0b4f2816a652",
+          "status": "active"
+        },
+        {
           "dataset_id": "online-retail-ii",
           "path": "datasets/online-retail-ii/raw/online_retail_II.xlsx",
           "registry_commit": "e90eed21a474c0a54ab9bf658c01dbd778bf58f1",
@@ -45,6 +52,18 @@
     }
   },
   "datasets": {
+    "eurostat-services-energy-time": {
+      "consumers": [
+        {
+          "consumer_id": "medium-blog",
+          "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+          "path": "datasets/eurostat-services-energy-time/raw/nama_10_a10.json",
+          "registry_commit": "6911646f783bad0475e5942b1e043169e4e5cb02",
+          "sha256": "6a100cf6bbe75ca4d0e88203bc12a35088c740bc48491b037cca0b4f2816a652",
+          "status": "active"
+        }
+      ]
+    },
     "online-retail-ii": {
       "consumers": [
         {

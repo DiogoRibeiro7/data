@@ -33,6 +33,15 @@
   "canonical": [
     {
       "byte_archive_eligibility": "eligible",
+      "id": "eurostat-services-energy-time",
+      "license_name": "Eurostat free re-use policy (Commission Decision 2011/833/EU)",
+      "metadata_path": "datasets/eurostat-services-energy-time/metadata.yaml",
+      "reason": "canonical metadata explicitly permits redistribution",
+      "redistribution": "allowed",
+      "title": "Eurostat: value added, hours worked, final energy, time use, consumption and prices for EU services, 1995-2025"
+    },
+    {
+      "byte_archive_eligibility": "eligible",
       "id": "online-retail-ii",
       "license_name": "CC BY 4.0",
       "metadata_path": "datasets/online-retail-ii/metadata.yaml",
@@ -477,8 +486,8 @@
   "schema_version": 1,
   "static_distribution_eligibility": "eligible",
   "summary": {
-    "canonical_byte_archive_eligible_count": 4,
-    "canonical_dataset_count": 4,
+    "canonical_byte_archive_eligible_count": 5,
+    "canonical_dataset_count": 5,
     "canonical_metadata_only_count": 0,
     "external_metadata_only_count": 64,
     "external_source_count": 64,
