@@ -5,10 +5,10 @@ It makes no live network requests.
 
 ## Canonical registry
 
-- Canonical datasets: **7**
-- Canonical files: **19**
-- Files with verified SHA-256: **19**
-- Canonical datasets with complete licence metadata: **7**
+- Canonical datasets: **8**
+- Canonical files: **29**
+- Files with verified SHA-256: **29**
+- Canonical datasets with complete licence metadata: **8**
 
 ## External sources
 
@@ -49,13 +49,13 @@ External source usage annotations:
 ## Canonical consumer adoption
 
 - Active consumer repositories: **3**
-- Active canonical relationships: **6**
+- Active canonical relationships: **7**
 - Deprecated relationships: **0**
-- Pinned contracts: **6 / 6**
+- Pinned contracts: **7 / 7**
 - Pinned contract coverage: **100%**
-- Canonical datasets with >=1 active consumer: **6**
+- Canonical datasets with >=1 active consumer: **7**
 - Canonical datasets with zero active consumers: **1**
-- Canonical dataset adoption coverage: **86%**
+- Canonical dataset adoption coverage: **88%**
 - Lifecycle migration coverage: **100%** (0 / 0)
 - Migration required / planned / retained / migrated: **0 / 0 / 0 / 0**
 
@@ -69,14 +69,15 @@ Active consumers:
 
 - Baseline snapshot: **snapshot-2026.10.05**
 - Baseline canonical datasets: **2**
-- Current canonical datasets: **7**
-- Added since baseline: **5**
-- Added with active consumers: **4**
+- Current canonical datasets: **8**
+- Added since baseline: **6**
+- Added with active consumers: **5**
 - Added with exemptions: **1**
 - Uncovered canonical datasets: **0**
 
 Datasets added since baseline:
 
+- `eurostat-material-use`
 - `eurostat-services-energy-time`
 - `eurostat-services-relative-prices`
 - `ine-portugal-new-lease-rents`
