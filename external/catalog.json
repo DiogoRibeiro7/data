@@ -84,6 +84,22 @@
       "path": "external/bis-portugal-residential-property-indices"
     },
     {
+      "id": "boem-gulf-of-mexico-lease-sale-bids",
+      "title": "BOEM Gulf of America (Gulf of Mexico) oil and gas lease sale bids, sales 231 to BBG3",
+      "publisher": "Bureau of Ocean Energy Management (U.S. Department of the Interior)",
+      "source_url": "https://www.boem.gov/Sale-231/",
+      "license": {
+        "name": "U.S. federal government work (generally public domain)",
+        "url": "https://www.boem.gov/copyright"
+      },
+      "redistribution": "public-domain-federal-work",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/auction-entry-boem"
+      ],
+      "path": "external/boem-gulf-of-mexico-lease-sale-bids"
+    },
+    {
       "id": "cfp-social-security-execution-2023-2025",
       "title": "CFP Social Security execution and FEFSS transfer annexes (2023–2025)",
       "publisher": "Conselho das Finanças Públicas (CFP)",
@@ -436,6 +452,22 @@
       }
     },
     {
+      "id": "imhof-wallimann-bid-rigging-tenders",
+      "title": "Swiss, Japanese (Okinawa) and Italian tender data for detecting bid-rigging coalitions",
+      "publisher": "Hannes Wallimann (Mendeley Data)",
+      "source_url": "https://data.mendeley.com/datasets/x8jwmbcpgn/1",
+      "license": {
+        "name": "CC BY 4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "permitted-with-attribution",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/bid-rigging-screens"
+      ],
+      "path": "external/imhof-wallimann-bid-rigging-tenders"
+    },
+    {
       "id": "impic-base-housing-works-contracts",
       "title": "IMPIC Portal BASE public housing works contracts and signed documents",
       "publisher": "Instituto dos Mercados Públicos, do Imobiliário e da Construção, I.P. (IMPIC); contracting authorities",
@@ -605,6 +637,24 @@
       "resolution": {
         "review_status": "terminal",
         "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
+      "id": "miller-2008-suffrage-mortality-finance",
+      "title": "Digitized U.S. state mortality (1900-1936) and municipal public finance (1905-1930) from Miller (2008)",
+      "publisher": "Grant Miller, Stanford University",
+      "source_url": "https://ngmiller.people.stanford.edu/publications/historical-health-improvement/womens-suffrage-political-responsiveness-and-child",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/suffrage-public-health"
+      ],
+      "path": "external/miller-2008-suffrage-mortality-finance",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
         "blocker_category": "redistribution-rights"
       }
     },
