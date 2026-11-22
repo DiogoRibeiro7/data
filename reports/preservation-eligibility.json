@@ -101,6 +101,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "boem-gulf-of-mexico-lease-sale-bids",
+      "metadata_path": "external/boem-gulf-of-mexico-lease-sale-bids/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "cfp-social-security-execution-2023-2025",
       "metadata_path": "external/cfp-social-security-execution-2023-2025/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -221,6 +227,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "imhof-wallimann-bid-rigging-tenders",
+      "metadata_path": "external/imhof-wallimann-bid-rigging-tenders/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "impic-base-housing-works-contracts",
       "metadata_path": "external/impic-base-housing-works-contracts/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -277,6 +289,12 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "medium-jansma-historical",
       "metadata_path": "external/medium-jansma-historical/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "miller-2008-suffrage-mortality-finance",
+      "metadata_path": "external/miller-2008-suffrage-mortality-finance/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -420,8 +438,8 @@
     "canonical_byte_archive_eligible_count": 4,
     "canonical_dataset_count": 4,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 54,
-    "external_source_count": 54,
+    "external_metadata_only_count": 57,
+    "external_source_count": 57,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }
