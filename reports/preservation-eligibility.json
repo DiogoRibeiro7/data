@@ -161,6 +161,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "ec-ameco-autumn-2026",
+      "metadata_path": "external/ec-ameco-autumn-2026/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "ecb-distributional-wealth-accounts",
       "metadata_path": "external/ecb-distributional-wealth-accounts/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -510,8 +516,8 @@
     "canonical_byte_archive_eligible_count": 6,
     "canonical_dataset_count": 6,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 66,
-    "external_source_count": 66,
+    "external_metadata_only_count": 67,
+    "external_source_count": 67,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }

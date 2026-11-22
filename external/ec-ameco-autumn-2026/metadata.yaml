@@ -1,0 +1,38 @@
+schema_version: 1
+status: external-reference
+id: ec-ameco-autumn-2026
+title: "European Commission AMECO database, autumn 2026 release (bulk file ameco0.zip)"
+publisher: "European Commission, Directorate-General for Economic and Financial Affairs"
+source_url: "https://economy-finance.ec.europa.eu/economic-research-and-databases/economic-databases/ameco-database_en"
+license:
+  name: "Commission reuse policy (Commission Decision 2011/833/EU)"
+  url: "https://commission.europa.eu/legal-notice_en"
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: consumer-downloads-and-verifies
+  redistribution: allowed
+  attribution_required: true
+  note: >-
+    Medium-Blog/portugal-fiscal-reaction downloads the AMECO bulk file, verifies the
+    SHA-256 recorded here and rebuilds an EU-27 annual panel (gross debt, primary
+    balance, interest, output gap, cyclically adjusted primary balance, GDP, deflator,
+    long-term interest rate) for 1994-2025 at each run; the Commission's forecast years
+    2026-2028 are dropped. AMECO is replaced at every Commission forecast, so the hash
+    identifies the autumn 2026 release (zip members dated 16 November 2026); after a new
+    release the consumer stops unless run with --accept-revision. No bytes are stored in
+    Medium-Blog or in this registry.
+consumers:
+  - medium-blog/portugal-fiscal-reaction
+medium_blog:
+  folder: portugal-fiscal-reaction
+  fetch: "portugal-fiscal-reaction/fetch_data.py"
+  contract: data_sources/ec-ameco-autumn-2026.json
+  retrieved: "2026-11-22"
+  derived_output: "portugal-fiscal-reaction/data/panel.csv (built by build_data.py, not committed)"
+  files:
+    - path: "raw/ameco0.zip"
+      url: "https://ec.europa.eu/economy_finance/db_indicators/ameco/documents/ameco0.zip"
+      bytes: 7275181
+      sha256: "5641705ee6af8854f193c1fe1815f6bdd4d9eb3a2871efa653056774b8d45a41"
+      release: "Autumn 2026 economic forecast"

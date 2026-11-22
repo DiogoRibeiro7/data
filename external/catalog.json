@@ -202,6 +202,22 @@
       "path": "external/dgt-caop-2025-municipal-register"
     },
     {
+      "id": "ec-ameco-autumn-2026",
+      "title": "European Commission AMECO database, autumn 2026 release (bulk file ameco0.zip)",
+      "publisher": "European Commission, Directorate-General for Economic and Financial Affairs",
+      "source_url": "https://economy-finance.ec.europa.eu/economic-research-and-databases/economic-databases/ameco-database_en",
+      "license": {
+        "name": "Commission reuse policy (Commission Decision 2011/833/EU)",
+        "url": "https://commission.europa.eu/legal-notice_en"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/portugal-fiscal-reaction"
+      ],
+      "path": "external/ec-ameco-autumn-2026"
+    },
+    {
       "id": "ecb-distributional-wealth-accounts",
       "title": "ECB Distributional Wealth Accounts (quarterly household net wealth)",
       "publisher": "European Central Bank / European System of Central Banks",
