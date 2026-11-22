@@ -3,8 +3,8 @@
 This report is generated deterministically from committed canonical metadata
 and the committed consumer catalog. Do not edit it by hand.
 
-- Canonical datasets: **7**
-- Active: **7**
+- Canonical datasets: **8**
+- Active: **8**
 - Deprecated: **0**
 - Superseded: **0**
 - Replacement edges: **0**
@@ -21,6 +21,7 @@ and the committed consumer catalog. Do not edit it by hand.
 
 | Dataset | Status | Direct replacement | Preferred dataset | Consumers | Migration needed |
 | --- | --- | --- | --- | ---: | ---: |
+| `eurostat-material-use` | active | -- | eurostat-material-use | 0 | 0 |
 | `eurostat-services-energy-time` | active | -- | eurostat-services-energy-time | 1 | 0 |
 | `eurostat-services-relative-prices` | active | -- | eurostat-services-relative-prices | 1 | 0 |
 | `ine-portugal-new-lease-rents` | active | -- | ine-portugal-new-lease-rents | 0 | 0 |

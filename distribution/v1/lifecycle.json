@@ -51,6 +51,21 @@
   ],
   "datasets": [
     {
+      "active_consumer_count": 0,
+      "deprecated_at": null,
+      "direct_predecessors": [],
+      "direct_replacement": null,
+      "id": "eurostat-material-use",
+      "migration_needed_consumer_count": 0,
+      "migration_note": null,
+      "preferred_dataset_id": "eurostat-material-use",
+      "replacement_chain": [
+        "eurostat-material-use"
+      ],
+      "status": "active",
+      "title": "Eurostat: EU material use, material footprint, circularity and waste treatment, with GDP, construction and population, 2000-2025"
+    },
+    {
       "active_consumer_count": 1,
       "deprecated_at": null,
       "direct_predecessors": [],
@@ -160,8 +175,8 @@
   "schema_version": 1,
   "summary": {
     "active_consumer_relationship_count": 6,
-    "active_count": 7,
-    "canonical_dataset_count": 7,
+    "active_count": 8,
+    "canonical_dataset_count": 8,
     "current_consumer_relationship_count": 6,
     "deprecated_count": 0,
     "migrated_relationship_count": 0,

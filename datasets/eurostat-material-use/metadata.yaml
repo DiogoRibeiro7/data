@@ -1,0 +1,161 @@
+schema_version: 1
+
+id: eurostat-material-use
+title: "Eurostat: EU material use, material footprint, circularity and waste treatment, with GDP, construction and population, 2000-2025"
+description: >
+  Ten Eurostat API responses, kept byte for byte, that measure how much
+  material the EU and its member states use and where it goes: domestic
+  material consumption by material group, the material footprint in raw
+  material equivalents (also by final use), the circular material use rate,
+  the material-flow data behind Eurostat's Sankey diagram, waste treatment by
+  type, and GDP, construction output and population for the same countries.
+  Snapshotted because Eurostat's API serves only the current vintage of each
+  dataset.
+
+domain:
+  - environment
+  - material-flows
+  - circular-economy
+  - waste
+  - national-accounts
+  - eu
+
+source:
+  publisher: "Eurostat (European Commission)"
+  url: "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data"
+  retrieved_at: 2026-11-22
+  snapshot: "Eurostat dissemination API, JSON-stat 2.0, ten queries retrieved 2026-11-22T23:14:04Z to 23:14:16Z; each file records its upstream update timestamp"
+
+license:
+  name: "Eurostat free re-use policy (Commission Decision 2011/833/EU)"
+  url: "https://ec.europa.eu/eurostat/help/copyright-notice"
+  redistribution: allowed
+
+citation:
+  text: "Eurostat, datasets env_ac_mfa, env_ac_rme, env_ac_rmefd, env_ac_cur, env_ac_curm, env_ac_sd, env_wastrt, nama_10_gdp, nama_10_a10 and nama_10_pe, retrieved 22 November 2026."
+  url: "https://ec.europa.eu/eurostat/data/database"
+
+files:
+  - path: raw/env_ac_mfa.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "bf8404fac88be14279c658d508316476b3ff2050a4a267e953f770e761f431db"
+    notes: >-
+      Economy-wide material flow accounts: domestic material consumption, domestic extraction,
+      imports and exports, in total and for biomass, metal ores, non-metallic minerals, fossil
+      energy materials and other products, thousand tonnes and tonnes per person, EU27 (2020)
+      and the 27 member states, 2000 onward. Eurostat JSON-stat 2.0 response, 639,762 bytes,
+      37,856 observations, upstream dataset updated 2026-07-02T11:00:00+0200. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/env_ac_mfa?format=JSON&lang=EN&indic_env=DMC&indic_env=DE&indic_env=IMP&indic_env=EXP&material=TOTAL&material=MF1&material=MF2&material=MF3&material=MF4&material=MF5&material=MF6&unit=THS_T&unit=T_HAB&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE&sinceTimePeriod=2000
+  - path: raw/env_ac_rme.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "77197e35a2deadcfab40645bc74b6a1b1303cd0d8a5dc78ca3c8046b7776052d"
+    notes: >-
+      Material footprints in raw material equivalents: raw material consumption, domestic
+      extraction, and imports and exports in raw material equivalents, in total and for the four
+      main material groups, thousand tonnes and tonnes per person, EU27 (2020) and the 27 member
+      states, every year Eurostat publishes. Eurostat JSON-stat 2.0 response, 236,273 bytes,
+      13,816 observations, upstream dataset updated 2026-07-21T23:00:00+0200. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/env_ac_rme?format=JSON&lang=EN&indic_env=RMC&indic_env=DE&indic_env=IMP_RME&indic_env=EXP_RME&material=TOTAL&material=MF1&material=MF2&material=MF3&material=MF4&unit=THS_T&unit=T_HAB&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE
+  - path: raw/env_ac_rmefd.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "8371fe7440b236cea684087d06761c2627e452ededf38c747f541d25da94813b"
+    notes: >-
+      Material footprint of the EU27 by final use: total, final consumption (households and
+      government) and gross capital formation, for all products and for construction (CPA F), in
+      total and by material group, thousand tonnes. Eurostat JSON-stat 2.0 response, 18,102
+      bytes, 850 observations, upstream dataset updated 2026-07-21T23:00:00+0200. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/env_ac_rmefd?format=JSON&lang=EN&indic_env=RMC&indic_env=RMC_P3&indic_env=RMC_P3_S13&indic_env=RMC_P3_S14&indic_env=RMC_P5&indic_env=RMC_P51G&material=TOTAL&material=MF1&material=MF2&material=MF3&material=MF4&cpa08=TOTAL&cpa08=CPA_F&unit=THS_T&geo=EU27_2020
+  - path: raw/env_ac_cur.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "1a59492dd813862dfe279fe850074e71a226828e8acb13066e76bae988e8a579"
+    notes: >-
+      Circular material use rate (percent), EU27 (2020) and the 27 member states, every year
+      Eurostat publishes. Eurostat JSON-stat 2.0 response, 8,158 bytes, 426 observations,
+      upstream dataset updated 2025-11-24T23:00:00+0100. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/env_ac_cur?format=JSON&lang=EN&unit=PC&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE
+  - path: raw/env_ac_curm.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "985b1fb43365ee4c430493d7ce4d49d124eed615a61df78871a122a1a7f8369f"
+    notes: >-
+      Circular material use rate by material group (percent), EU27 (2020). Eurostat JSON-stat
+      2.0 response, 4,084 bytes, 81 observations, upstream dataset updated
+      2025-11-24T23:00:00+0100. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/env_ac_curm?format=JSON&lang=EN&material=TOTAL&material=MF1&material=MF2&material=MF3&material=MF4&unit=PC&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE
+  - path: raw/env_ac_sd.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "d3b041c9a803323c4928320ed79d4a26a5a76ef43c3a13e01e11cce2f66f4f5c"
+    notes: >-
+      Material flows for the circular economy (Sankey diagram data): processed material,
+      material use, material accumulation, emissions, dissipative flows and trade in waste for
+      recycling, in total and by material group, thousand tonnes, EU27 (2020). Eurostat
+      JSON-stat 2.0 response, 21,517 bytes, 975 observations, upstream dataset updated
+      2025-11-25T23:00:00+0100. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/env_ac_sd?format=JSON&lang=EN&material=TOTAL&material=MF1&material=MF2&material=MF3&material=MF4&unit=THS_T&geo=EU27_2020
+  - path: raw/env_wastrt.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "fc316d295993afe4fd199140cefd5f3d04da15e3aac5e00b5c907ae36c1bbb35"
+    notes: >-
+      Treatment of waste by waste category and treatment type (recycling, backfilling, energy
+      recovery, incineration, landfill and other disposal), hazardous and non-hazardous, tonnes,
+      EU27 (2020) and Portugal, every second year from 2004. Eurostat JSON-stat 2.0 response,
+      22,341 bytes, 1,281 observations, upstream dataset updated 2026-10-28T11:00:00+0100.
+      Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/env_wastrt?format=JSON&lang=EN&unit=T&hazard=HAZ_NHAZ&waste=TOTAL&waste=TOT_X_MIN&waste=W121&waste=W12B&waste=W124&waste=W126&waste=W127&waste=W128_13&waste=W06&waste=W06_07A&waste=W09&waste=W10&geo=EU27_2020&geo=PT
+  - path: raw/nama_10_gdp.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "8adaef8903d9b0838d2e615e75142e1007ec43eab615dd9aa3e57f95c5fd3956"
+    notes: >-
+      Gross domestic product at market prices, chain-linked volumes (2020) and current prices,
+      million euro, EU27 (2020) and the 27 member states, 2000 onward. Eurostat JSON-stat 2.0
+      response, 26,626 bytes, 1,456 observations, upstream dataset updated
+      2026-11-11T23:00:00+0100. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_gdp?format=JSON&lang=EN&na_item=B1GQ&unit=CLV20_MEUR&unit=CP_MEUR&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE&sinceTimePeriod=2000
+  - path: raw/nama_10_a10.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "583636ab65823ab8873a58ad10aaa4096431ee8bda16c2bfcdba5e2932045c57"
+    notes: >-
+      Gross value added of construction (NACE F) and of all industries, chain-linked volumes
+      (2020), million euro, EU27 (2020) and the 27 member states, 2000 onward. Eurostat
+      JSON-stat 2.0 response, 25,877 bytes, 1,456 observations, upstream dataset updated
+      2026-11-11T23:00:00+0100. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_a10?format=JSON&lang=EN&na_item=B1G&unit=CLV20_MEUR&nace_r2=TOTAL&nace_r2=F&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE&sinceTimePeriod=2000
+  - path: raw/nama_10_pe.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "6c722147372159582cc925a295c4b8c1ac508cd7f5ff11eb5b27824244626490"
+    notes: >-
+      Total population, national concept, thousand persons, EU27 (2020) and the 27 member
+      states, 2000 onward. Eurostat JSON-stat 2.0 response, 14,821 bytes, 728 observations,
+      upstream dataset updated 2026-10-21T23:00:00+0200. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_pe?format=JSON&lang=EN&na_item=POP_NC&unit=THS_PER&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE&sinceTimePeriod=2000
+
+lineage: []

@@ -33,6 +33,15 @@
   "canonical": [
     {
       "byte_archive_eligibility": "eligible",
+      "id": "eurostat-material-use",
+      "license_name": "Eurostat free re-use policy (Commission Decision 2011/833/EU)",
+      "metadata_path": "datasets/eurostat-material-use/metadata.yaml",
+      "reason": "canonical metadata explicitly permits redistribution",
+      "redistribution": "allowed",
+      "title": "Eurostat: EU material use, material footprint, circularity and waste treatment, with GDP, construction and population, 2000-2025"
+    },
+    {
+      "byte_archive_eligibility": "eligible",
       "id": "eurostat-services-energy-time",
       "license_name": "Eurostat free re-use policy (Commission Decision 2011/833/EU)",
       "metadata_path": "datasets/eurostat-services-energy-time/metadata.yaml",
@@ -522,8 +531,8 @@
   "schema_version": 1,
   "static_distribution_eligibility": "eligible",
   "summary": {
-    "canonical_byte_archive_eligible_count": 7,
-    "canonical_dataset_count": 7,
+    "canonical_byte_archive_eligible_count": 8,
+    "canonical_dataset_count": 8,
     "canonical_metadata_only_count": 0,
     "external_metadata_only_count": 67,
     "external_source_count": 67,
