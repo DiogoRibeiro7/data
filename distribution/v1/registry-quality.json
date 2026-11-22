@@ -1,20 +1,22 @@
 {
   "canonical": {
-    "complete_license_datasets": 4,
-    "dataset_count": 4,
-    "file_count": 4,
-    "verified_checksum_files": 4
+    "complete_license_datasets": 5,
+    "dataset_count": 5,
+    "file_count": 11,
+    "verified_checksum_files": 11
   },
   "canonical_expansion": {
     "added_datasets_exempted": [],
     "added_datasets_with_consumers": [
+      "eurostat-services-energy-time",
       "ons-gross-median-weekly-pay",
       "unhcr-refugee-population-2024"
     ],
     "baseline_dataset_count": 2,
     "baseline_snapshot": "snapshot-2026.10.05",
-    "current_dataset_count": 4,
+    "current_dataset_count": 5,
     "datasets_added_since_baseline": [
+      "eurostat-services-energy-time",
       "ons-gross-median-weekly-pay",
       "unhcr-refugee-population-2024"
     ],
@@ -39,11 +41,12 @@
       "displacement-risk-lab-dynamodb",
       "medium-blog"
     ],
-    "active_relationship_count": 4,
+    "active_relationship_count": 5,
     "canonical_dataset_adoption_coverage": 1.0,
-    "canonical_datasets_with_consumers": 4,
+    "canonical_datasets_with_consumers": 5,
     "canonical_datasets_without_consumers": 0,
     "datasets_with_consumers": [
+      "eurostat-services-energy-time",
       "online-retail-ii",
       "ons-gross-median-weekly-pay",
       "ucdp-ged-25-1",
@@ -59,7 +62,7 @@
     "migration_planned_count": 0,
     "migration_required_count": 0,
     "migration_retained_count": 0,
-    "pinned_contract_count": 4,
+    "pinned_contract_count": 5,
     "pinned_contract_coverage": 1.0,
     "uncovered_datasets_without_consumers": []
   },

@@ -5,10 +5,10 @@ It makes no live network requests.
 
 ## Canonical registry
 
-- Canonical datasets: **4**
-- Canonical files: **4**
-- Files with verified SHA-256: **4**
-- Canonical datasets with complete licence metadata: **4**
+- Canonical datasets: **5**
+- Canonical files: **11**
+- Files with verified SHA-256: **11**
+- Canonical datasets with complete licence metadata: **5**
 
 ## External sources
 
@@ -44,11 +44,11 @@ External source usage annotations:
 ## Canonical consumer adoption
 
 - Active consumer repositories: **3**
-- Active canonical relationships: **4**
+- Active canonical relationships: **5**
 - Deprecated relationships: **0**
-- Pinned contracts: **4 / 4**
+- Pinned contracts: **5 / 5**
 - Pinned contract coverage: **100%**
-- Canonical datasets with >=1 active consumer: **4**
+- Canonical datasets with >=1 active consumer: **5**
 - Canonical datasets with zero active consumers: **0**
 - Canonical dataset adoption coverage: **100%**
 - Lifecycle migration coverage: **100%** (0 / 0)
@@ -64,14 +64,15 @@ Active consumers:
 
 - Baseline snapshot: **snapshot-2026.10.05**
 - Baseline canonical datasets: **2**
-- Current canonical datasets: **4**
-- Added since baseline: **2**
-- Added with active consumers: **2**
+- Current canonical datasets: **5**
+- Added since baseline: **3**
+- Added with active consumers: **3**
 - Added with exemptions: **0**
 - Uncovered canonical datasets: **0**
 
 Datasets added since baseline:
 
+- `eurostat-services-energy-time`
 - `ons-gross-median-weekly-pay`
 - `unhcr-refugee-population-2024`
 
