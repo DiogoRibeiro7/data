@@ -72,6 +72,24 @@ def main() -> int:
 
     import os
     step = os.environ.get("STEP", "all")
+    if step == "print":
+        import io
+        import pandas as pd
+        _, _, body = get(EXTERNAL["pmms_MORTGAGE30US.csv"])
+        m = pd.read_csv(io.BytesIO(body), parse_dates=["observation_date"])
+        m["year"] = m.observation_date.dt.year
+        print("PMMS annual mean of weekly 30-year fixed rates")
+        print(m.groupby("year").MORTGAGE30US.mean().round(4).to_csv())
+        _, _, body = get("https://web.archive.org/web/20261111163602id_/https://pages.stern.nyu.edu/~adamodar/pc/datasets/histretSP.xls")
+        x = pd.ExcelFile(io.BytesIO(body))
+        print("SHEETS", x.sheet_names)
+        for sh in x.sheet_names[:3]:
+            d = x.parse(sh, header=None)
+            print("SHEET", sh, d.shape)
+            print(d.iloc[:30, :12].to_csv())
+            print(d.iloc[90:130, :12].to_csv())
+        log.close()
+        return 0
     if step == "acs":
         acs = ROOT / "datasets" / "census-acs-housing-costs-msa" / "raw"
         base = "https://www2.census.gov/programs-surveys/acs/summary_file/{y}/table-based-SF/"

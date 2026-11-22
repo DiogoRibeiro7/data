@@ -22,9 +22,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+      - name: Install
+        run: pip install pandas xlrd==2.0.1
       - name: Download
         env:
-          STEP: acs
+          STEP: print
         run: python ingest/us-rent-or-buy/ingest.py
       - name: Commit what came back
         run: |
