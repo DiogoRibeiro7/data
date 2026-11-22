@@ -1,0 +1,36 @@
+schema_version: 1
+status: external-reference
+id: princeton-wordnet-3-0
+title: "Princeton WordNet 3.0 (NLTK data package)"
+publisher: "Princeton University; package distributed by the NLTK Project"
+source_url: "https://wordnet.princeton.edu/"
+source_commit: "550b6625bcef1f2abff2ff770a5a0d272c9c6b2a"
+source_path: "packages/corpora/wordnet.zip"
+license:
+  name: "WordNet 3.0 license (permissive; copyright notice and disclaimer must accompany copies)"
+  url: "https://wordnet.princeton.edu/license-and-commercial-use"
+redistribution: allowed-with-attribution
+storage: authoritative-upstream
+usage:
+  storage: consumer-downloads-and-verifies
+  redistribution: allowed-with-attribution
+  attribution_required: true
+  note: >-
+    Medium-Blog/curvature-prior downloads the WordNet 3.0 database as packaged in
+    github.com/nltk/nltk_data at the pinned gh-pages commit, verifies the size and
+    SHA-256 recorded here, and parses data.noun and index.noun at each run to build the
+    mammal and food noun hypernym subtrees. Nothing from the package is committed in the
+    consumer. Princeton's own download host refuses automated requests from the
+    project's build environment; the NLTK package carries the unmodified WordNet 3.0
+    database files with Princeton's LICENSE. Cite: Miller (1995) and Fellbaum (1998).
+consumers:
+  - medium-blog/curvature-prior
+medium_blog:
+  folder: curvature-prior
+  contract: data_sources/princeton-wordnet-3-0.json
+  retrieved: "2026-11-22"
+  files:
+    - path: "wordnet.zip"
+      url: "https://raw.githubusercontent.com/nltk/nltk_data/550b6625bcef1f2abff2ff770a5a0d272c9c6b2a/packages/corpora/wordnet.zip"
+      bytes: 10775600
+      sha256: "cbda5ea6eef7f36a97a43d4a75f85e07fccbb4f23657d27b4ccbc93e2646ab59"

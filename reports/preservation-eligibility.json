@@ -422,6 +422,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "princeton-wordnet-3-0",
+      "metadata_path": "external/princeton-wordnet-3-0/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "r-base-example-datasets",
       "metadata_path": "external/r-base-example-datasets/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -525,8 +531,8 @@
     "canonical_byte_archive_eligible_count": 7,
     "canonical_dataset_count": 7,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 67,
-    "external_source_count": 67,
+    "external_metadata_only_count": 68,
+    "external_source_count": 68,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }
