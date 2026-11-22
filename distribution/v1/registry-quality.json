@@ -66,13 +66,13 @@
   "external": {
     "pinned_immutable_identity_sources": 8,
     "redistribution": {
-      "resolved": 29,
+      "resolved": 31,
       "unresolved": 33
     },
-    "source_count": 62,
+    "source_count": 64,
     "source_usage": {
-      "consumer_count": 19,
-      "consumer_references": 60,
+      "consumer_count": 21,
+      "consumer_references": 63,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -83,6 +83,8 @@
         "medium-blog/auction-entry-boem",
         "medium-blog/bid-rigging-screens",
         "medium-blog/growth-finite-world",
+        "medium-blog/model-swap-tails",
+        "medium-blog/post-cutoff-forecasting",
         "medium-blog/ranking-extremes",
         "medium-blog/suffrage-public-health",
         "medium-statistical-dynamics",

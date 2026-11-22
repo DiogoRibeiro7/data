@@ -239,6 +239,23 @@
       "path": "external/ecb-portugal-mortgage-borrowing-cost"
     },
     {
+      "id": "energy-charts-electricity-load",
+      "title": "Energy-Charts electricity load and day-ahead load forecasts by European country",
+      "publisher": "Fraunhofer Institute for Solar Energy Systems ISE (Energy-Charts)",
+      "source_url": "https://api.energy-charts.info",
+      "license": {
+        "name": "CC BY 4.0 (Energy-Charts API default; per-response licence field governs)",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "allowed-with-attribution",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/model-swap-tails",
+        "medium-blog/post-cutoff-forecasting"
+      ],
+      "path": "external/energy-charts-electricity-load"
+    },
+    {
       "id": "eurostat-multicountry-housing-tax-covariates",
       "title": "Eurostat cross-country housing-cost, tenure and tax-account covariates",
       "publisher": "Eurostat (European Commission)",
@@ -736,6 +753,22 @@
         "medium-blog/ranking-extremes"
       ],
       "path": "external/oecd-government-at-a-glance-satisfaction-2025"
+    },
+    {
+      "id": "open-meteo-previous-runs-forecasts",
+      "title": "Open-Meteo Previous Runs API: archived weather forecasts at fixed lead times",
+      "publisher": "Open-Meteo",
+      "source_url": "https://open-meteo.com/en/docs/previous-runs-api",
+      "license": {
+        "name": "CC BY 4.0 (Open-Meteo data)",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "allowed-with-attribution",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/model-swap-tails"
+      ],
+      "path": "external/open-meteo-previous-runs-forecasts"
     },
     {
       "id": "our-world-in-data",
