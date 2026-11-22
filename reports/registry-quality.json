@@ -79,12 +79,12 @@
     "pinned_immutable_identity_sources": 8,
     "redistribution": {
       "resolved": 32,
-      "unresolved": 33
+      "unresolved": 34
     },
-    "source_count": 65,
+    "source_count": 66,
     "source_usage": {
-      "consumer_count": 22,
-      "consumer_references": 64,
+      "consumer_count": 23,
+      "consumer_references": 65,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -94,6 +94,7 @@
         "empirical-analysis-r",
         "medium-blog/auction-entry-boem",
         "medium-blog/bid-rigging-screens",
+        "medium-blog/europe-industrial-regions",
         "medium-blog/growth-finite-world",
         "medium-blog/model-swap-tails",
         "medium-blog/portugal-debt-2035-probability",
@@ -125,10 +126,10 @@
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 3,
       "historical-export-route": 1,
-      "redistribution-rights": 27
+      "redistribution-rights": 28
     },
     "external": {
-      "actionable": 9,
+      "actionable": 10,
       "terminal": 24
     },
     "legacy": {
@@ -137,7 +138,7 @@
     },
     "oldest_age_days": 48,
     "oldest_review_date": "2026-10-05",
-    "total_count": 36
+    "total_count": 37
   },
   "schema_version": 1,
   "snapshots": {
