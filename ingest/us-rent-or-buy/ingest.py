@@ -94,7 +94,7 @@ def main() -> int:
         for y in (2023, 2022):
             keep("census-sf-index", OUT / f"sf_{y}_index.html", base.format(y=y), False)
             keep("census-sf-index", OUT / f"sf_{y}_data_index.html", base.format(y=y) + "data/1YRData/", False)
-            for t in ("b25077", "b25064", "b25103", "b25021", "b25003"):
+            for t in ("b25077", "b25064", "b25058", "b25103", "b25021", "b25003"):
                 keep("census-sf", acs / f"acsdt1y{y}-{t}.dat",
                      base.format(y=y) + f"data/1YRData/acsdt1y{y}-{t}.dat", True)
         log.close()
