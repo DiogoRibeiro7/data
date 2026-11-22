@@ -13,7 +13,7 @@ registry_commit: "61f630990532bd6bcf6793621d6646d50be23d5c"
 path: datasets/eurostat-services-relative-prices/raw/nama_10_a64.json
 sha256: "11ee27e6a719fc8a255c7b48ddae42c3301e0632578191e5e7545c0b2602a8c4"
 
-consumer_commit: "9a5a6008754516c6571e463c589ba9888cc4be34"
+consumer_commit: "74df3f78b0cc1fab2a514bfffc20bef1a4b3a1b9"
 evidence_url: https://github.com/DiogoRibeiro7/Medium-Blog/tree/services-relative-prices/services-relative-prices
 
 notes: >

@@ -49,7 +49,7 @@
       "status": "active"
     },
     {
-      "consumer_commit": "9a5a6008754516c6571e463c589ba9888cc4be34",
+      "consumer_commit": "74df3f78b0cc1fab2a514bfffc20bef1a4b3a1b9",
       "consumer_id": "medium-blog",
       "consumer_repository": "DiogoRibeiro7/Medium-Blog",
       "dataset_id": "eurostat-services-relative-prices",
