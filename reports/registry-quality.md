@@ -12,14 +12,14 @@ It makes no live network requests.
 
 ## External sources
 
-- External source records: **65**
-- Redistribution resolved / unresolved: **32 / 33**
+- External source records: **66**
+- Redistribution resolved / unresolved: **32 / 34**
 - Sources pinned to an immutable Git commit: **8**
 
 External source usage annotations:
 
-- Referenced consumer repositories: **22**
-- Source usage references: **64**
+- Referenced consumer repositories: **23**
+- Source usage references: **65**
 
 - `causal-uplift-marketing-campaign`
 - `cpd-stress-test`
@@ -29,6 +29,7 @@ External source usage annotations:
 - `empirical-analysis-r`
 - `medium-blog/auction-entry-boem`
 - `medium-blog/bid-rigging-screens`
+- `medium-blog/europe-industrial-regions`
 - `medium-blog/growth-finite-world`
 - `medium-blog/model-swap-tails`
 - `medium-blog/portugal-debt-2035-probability`
@@ -91,8 +92,8 @@ Adoption exemptions:
 
 ## Provenance and licensing debt
 
-- Total debt items: **36**
-- External actionable / terminal: **9 / 24**
+- Total debt items: **37**
+- External actionable / terminal: **10 / 24**
 - Legacy actionable / terminal: **0 / 2**
 - Oldest review date: **2026-10-05**
 - Oldest deterministic debt age (days): **48**
@@ -103,7 +104,7 @@ Debt by blocker category:
 - `dataset-vs-repository-licence-scope`: **3**
 - `exact-snapshot-identity`: **3**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **27**
+- `redistribution-rights`: **28**
 
 ## Generated catalog freshness
 

@@ -514,6 +514,22 @@
       "title": "Metro do Porto whole-network validations (2022–2024)"
     },
     {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "The data-set page asks users to cite the database but states no licence or redistribution terms, and the host answers automated requests with HTTP 403, so neither a mirror nor a run-time download is available.",
+      "evidence_count": 2,
+      "id": "roses-wolf-regional-gdp-v7",
+      "last_reviewed": "2026-11-22",
+      "layer": "external",
+      "next_action": "Keep the files consumer-supplied and checksum-verified. Ask the authors for redistribution terms; with written permission the files can become a canonical dataset.",
+      "path": "external/roses-wolf-regional-gdp-v7/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "actionable",
+      "structured_evidence": true,
+      "terminal": false,
+      "title": "Rosés-Wolf database on regional GDP, version 7 (2025), with regional boundaries"
+    },
+    {
       "age_days": 22,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "SEF annual reports are publicly available through official/archival copies, but an explicit licence authorizing republication of the PDF files or machine-readable annex transcriptions is not established.",
@@ -580,20 +596,20 @@
   ],
   "schema_version": 1,
   "summary": {
-    "actionable_count": 9,
+    "actionable_count": 10,
     "by_blocker_category": {
       "authoritative-source-identity": 1,
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 3,
       "historical-export-route": 1,
-      "redistribution-rights": 27,
+      "redistribution-rights": 28,
       "unstructured": 1
     },
-    "external_count": 34,
+    "external_count": 35,
     "legacy_count": 2,
-    "structured_count": 35,
+    "structured_count": 36,
     "terminal_count": 26,
-    "total_debt": 36,
+    "total_debt": 37,
     "unstructured_count": 1
   }
 }

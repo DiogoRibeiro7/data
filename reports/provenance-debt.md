@@ -3,12 +3,12 @@
 This file is generated deterministically from committed external and legacy metadata.
 Do not edit it by hand.
 
-- Total debt items: **36**
-- External records: **34**
+- Total debt items: **37**
+- External records: **35**
 - Legacy packages: **2**
-- Structured evidence: **35**
+- Structured evidence: **36**
 - Unstructured debt: **1**
-- Actionable: **9**
+- Actionable: **10**
 - Terminal: **26**
 - Age reference date: **2026-11-22**
 
@@ -18,7 +18,7 @@ Do not edit it by hand.
 - `dataset-vs-repository-licence-scope`: **3**
 - `exact-snapshot-identity`: **3**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **27**
+- `redistribution-rights`: **28**
 - `unstructured`: **1**
 
 ## Queue
@@ -57,6 +57,7 @@ Do not edit it by hand.
 | external | `porto-metro-gtfs-2026-09-07` | actionable | A historical Porto open-data catalog tagged this dataset CC0, but the current migrated listing did not expose a clearly linked licence for the exact 7 September 2026 ZIP; carryover of the old licence is unverified. | 2026-10-30 | 23 | 2 | unresolved | Verify the migrated portal's machine-readable licence metadata or obtain publisher confirmation for the dated ZIP before canonical promotion. |
 | external | `porto-metro-line-b-validations-2015` | terminal | The infographic attributes the original counts to Metro do Porto and is published by PÚBLICO, but no source-specific licence for republishing its chart or a dataset derived from its transcription has been identified. | 2026-10-30 | 23 | 1 | unresolved | Retain the metadata-only record unless Metro do Porto or PÚBLICO provides express reuse terms for the exact underlying table or chart. |
 | external | `porto-metro-network-validations-2022-2024` | terminal | The operator's public sustainability report contains the rounded figures, but no explicit permission for redistributing the transcribed series as canonical dataset bytes has been established for this report. | 2026-10-30 | 23 | 1 | unresolved | Maintain metadata-only status unless operator-specific dataset reuse terms covering the figures are established. |
+| external | `roses-wolf-regional-gdp-v7` | actionable | The data-set page asks users to cite the database but states no licence or redistribution terms, and the host answers automated requests with HTTP 403, so neither a mirror nor a run-time download is available. | 2026-11-22 | 0 | 2 | unresolved | Keep the files consumer-supplied and checksum-verified. Ask the authors for redistribution terms; with written permission the files can become a canonical dataset. |
 | external | `sef-rifa-foreign-residents-2017-2022` | terminal | SEF annual reports are publicly available through official/archival copies, but an explicit licence authorizing republication of the PDF files or machine-readable annex transcriptions is not established. | 2026-10-31 | 22 | 3 | unresolved | Preserve distinct original vintages and archival links; reconsider canonical storage only if the responsible publisher confirms data-table redistribution rights for this exact report family. |
 | external | `world-inequality-database-wealth-shares` | terminal | WID.world advertises open access and documents bulk downloads, but the official data and documentation pages reviewed do not explicitly state terms permitting a separate repository to mirror its entire database ZIP. | 2026-11-12 | 10 | 6 | unresolved | Keep source downloads consumer-local and validate country, unit, unique-key, completeness and archive provenance before empirical use. Reopen central redistribution only if WID.world provides explicit full-database redistribution terms or a suitable licence; before any canonical promotion, identify a dated revision and checksum. |
 | legacy | `country-age-sex-2019` | terminal | The retained age/sex files are strongly attributable to UN World Population Prospects 2019, whose publications are CC BY 3.0 IGO, but the exact download/export route and the lineage of the Portugal CSV/XLSX variants cannot be reconstructed sufficiently to claim file-level provenance for these historical artifacts. | 2026-10-05 | 48 | 2 | unknown | Reopen only if the original authoritative UN export identity can be tied to the retained files and the Portugal workbook/CSV lineage can be resolved. |

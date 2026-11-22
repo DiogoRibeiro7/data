@@ -1,0 +1,49 @@
+schema_version: 1
+status: external-reference
+id: roses-wolf-regional-gdp-v7
+title: "Rosés-Wolf database on regional GDP, version 7 (2025), with regional boundaries"
+publisher: "Joan R. Rosés and Nikolaus Wolf, hosted by CEPR"
+source_url: "https://cepr.org/node/424487"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: consumer-supplied-and-verified
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The host refuses automated downloads, so the files are downloaded by hand in a
+    browser and placed in the consumer's data folder; the consumer verifies the
+    SHA-256 recorded here before reading them. The bytes are not stored in this
+    registry or in Medium-Blog. Users must cite: Rosés-Wolf database on regional GDP,
+    version 7 (2025).
+consumers:
+  - medium-blog/europe-industrial-regions
+medium_blog:
+  folder: europe-industrial-regions
+  contract: data_sources/roses-wolf-regional-gdp-v7.json
+  retrieved: "2026-11-22"
+  files:
+    - path: "raw/RosesWolf_RegionalGDP_v7.xlsx"
+      url: "https://cepr.org/system/files/2025-10/RosesWolf_RegionalGDP_v7.xlsx"
+      bytes: 258083
+      sha256: "5250483c36866737914df281363e0fca05febc57957f3737d8194250d7952fa9"
+    - path: "raw/RosesWolf_RegionalGDP_shapefile.zip"
+      url: "https://cepr.org/system/files/2022-11/RosesWolf_RegionalGDP_shapefile.zip"
+      bytes: 2506562
+      sha256: "a0f3bdc31b7034144bf3a3a59a7a1c34101fc1561d5e6acbec9a319c553160cd"
+resolution:
+  review_status: actionable
+  last_reviewed: 2026-11-22
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    The data-set page asks users to cite the database but states no licence or
+    redistribution terms, and the host answers automated requests with HTTP 403, so
+    neither a mirror nor a run-time download is available.
+  evidence:
+    - "https://cepr.org/node/424487"
+    - "https://www.wiwi.hu-berlin.de/de/professuren/vwl/wg/roses-wolf-database-on-regional-gdp"
+  next_action: >-
+    Keep the files consumer-supplied and checksum-verified. Ask the authors for
+    redistribution terms; with written permission the files can become a canonical
+    dataset.
+  terminal: false
