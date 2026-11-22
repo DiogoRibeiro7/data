@@ -23,13 +23,14 @@ jobs:
         with:
           python-version: '3.13'
       - name: Download
+        env:
+          STEP: acs
         run: python ingest/us-rent-or-buy/ingest.py
       - name: Commit what came back
         run: |
           git config user.name "Diogo Ribeiro"
           git config user.email "diogo_dj@hotmail.com"
-          git add datasets ingest/us-rent-or-buy/manifest.tsv ingest/us-rent-or-buy/errors || true
-          git add datasets ingest/us-rent-or-buy/manifest.tsv
+          git add datasets ingest/us-rent-or-buy
           if git diff --cached --quiet; then echo "nothing new"; else
             git commit -m "Ingest run for US rent-or-buy sources ($(date -u +%Y-%m-%dT%H:%MZ))"
             git push

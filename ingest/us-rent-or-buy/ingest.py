@@ -50,23 +50,40 @@ def get(url: str) -> tuple[int, str, bytes]:
 
 
 def main() -> int:
-    log = open(OUT / "manifest.tsv", "w")
+    import os
+    log = open(OUT / ("manifest_acs.tsv" if os.environ.get("STEP") == "acs" else "manifest.tsv"), "w")
     log.write("kind\tfile\tstatus\tbytes\tsha256\tfinal_url\turl\n")
 
     def keep(kind: str, path: Path, url: str, store: bool) -> bytes:
         status, final, body = get(url)
-        good = status == 200 and body and not body.lstrip().startswith(b"<")
+        good = status == 200 and body and not body.lstrip()[:15].lower().startswith((b"<html", b"<!doctype"))
         if store and good:
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(body)
         log.write(f"{kind}\t{path.name}\t{status}{'' if good else ' (not kept)'}\t{len(body)}\t"
                   f"{hashlib.sha256(body).hexdigest() if body else '-'}\t{final}\t{url}\n")
+        if kind == "census-sf-index" and body:
+            path.write_bytes(body)
         if not good and body:
             (OUT / "errors").mkdir(exist_ok=True)
             (OUT / "errors" / (path.name + ".txt")).write_bytes(body[:4000])
         time.sleep(0.4)
         return body if good else b""
 
+    import os
+    step = os.environ.get("STEP", "all")
+    if step == "acs":
+        acs = ROOT / "datasets" / "census-acs-housing-costs-msa" / "raw"
+        base = "https://www2.census.gov/programs-surveys/acs/summary_file/{y}/table-based-SF/"
+        for y in (2023, 2022):
+            keep("census-sf-index", OUT / f"sf_{y}_index.html", base.format(y=y), False)
+            keep("census-sf-index", OUT / f"sf_{y}_data_index.html", base.format(y=y) + "data/1YRData/", False)
+            for t in ("b25077", "b25064", "b25103", "b25021", "b25003"):
+                keep("census-sf", acs / f"acsdt1y{y}-{t}.dat",
+                     base.format(y=y) + f"data/1YRData/acsdt1y{y}-{t}.dat", True)
+        log.close()
+        print((OUT / "manifest_acs.tsv").read_text())
+        return 0
     bls = ROOT / "datasets" / "bls-cpi-rent-us-metros" / "raw"
     for sid in RENT + CPI:
         body = keep("fred-bls", bls / f"{sid}.csv", FRED.format(sid=sid, start="1913-01-01"), True)
