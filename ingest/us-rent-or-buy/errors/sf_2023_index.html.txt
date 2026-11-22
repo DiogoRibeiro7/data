@@ -9,8 +9,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <script src="/main/uswds/uswds-2.12.0/js/uswds-init.min.js" type="99dc5c1fb6b800082005358a-text/javascript"></script>
-    <script async type="99dc5c1fb6b800082005358a-text/javascript" id="_fed_an_ua_tag" src="/main/javascript/dap/Universal-Federated-Analytics-Min.js?agency=DOC"></script>
+    <script src="/main/uswds/uswds-2.12.0/js/uswds-init.min.js" type="6b2c114e9bbd7f3ab4ca7ace-text/javascript"></script>
+    <script async type="6b2c114e9bbd7f3ab4ca7ace-text/javascript" id="_fed_an_ua_tag" src="/main/javascript/dap/Universal-Federated-Analytics-Min.js?agency=DOC"></script>
    <!-- <link rel="stylesheet" href="https://www.census.gov/main/uswds/uswds-2.12.0/css/uswds.min.css" /> -->
   <!--  <link rel="stylesheet" href="https://www.census.gov/main/.in/css/all_header_styles.css" /> -->
   <link rel="stylesheet" href="/main/css/all_header_styles.css" />
@@ -18,7 +18,7 @@
    
   </head>
   <body>
-    <script src="/main/uswds/uswds-2.12.0/js/uswds.min.js" type="99dc5c1fb6b800082005358a-text/javascript"></script>
+    <script src="/main/uswds/uswds-2.12.0/js/uswds.min.js" type="6b2c114e9bbd7f3ab4ca7ace-text/javascript"></script>
     <section class="usa-banner" aria-label="Official government website">
         <div class="usa-accordion">
           <header class="usa-banner__header">
