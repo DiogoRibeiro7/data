@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+ <head>
+  <title>Index of /programs-surveys/acs/summary_file/2022/table-based-SF</title>
+ </head>
+ <body>
+<!-- GOV BANNER AND SIMPLE HEADER LAST UPDATED 11/17/2021 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="/main/uswds/uswds-2.12.0/js/uswds-init.min.js" type="7e25f5f87d0de286a413f1c1-text/javascript"></script>
+    <script async type="7e25f5f87d0de286a413f1c1-text/javascript" id="_fed_an_ua_tag" src="/main/javascript/dap/Universal-Federated-Analytics-Min.js?agency=DOC"></script>
+   <!-- <link rel="stylesheet" href="https://www.census.gov/main/uswds/uswds-2.12.0/css/uswds.min.css" /> -->
+  <!--  <link rel="stylesheet" href="https://www.census.gov/main/.in/css/all_header_styles.css" /> -->
+  <link rel="stylesheet" href="/main/css/all_header_styles.css" />
+   
+   
+  </head>
+  <body>
+    <script src="/main/uswds/uswds-2.12.0/js/uswds.min.js" type="7e25f5f87d0de286a413f1c1-text/javascript"></script>
+    <section class="usa-banner" aria-label="Official government website">
+        <div class="usa-accordion">
+          <header class="usa-banner__header">
+            <div class="usa-banner__inner">
+              <div class="grid-col-auto">
+                <img
+                  class="usa-banner__header-flag"
+                  src="/main/uswds/uswds-2.12.0/img/us_flag_small.png"
+                  alt="U.S. flag"
+                />
+              </div>
+              <div class="grid-col-fill tablet:grid-col-auto">
+                <p class="usa-banner__header-text">
+                  An official website of the United States government
+                </p>
+                <!-- <p class="usa-banner__header-action" aria-hidden="true">
+                  Here's how you know
+                </p>
+              </div>
+              <button
+                class="usa-accordion__button usa-banner__button"
+                aria-expanded="false"
+                aria-controls="gov-banner-default"
+              >
+                <span class="usa-banner__button-text">Here's how you know</span>
+              </button>
+            </div>
+          </header>
+          <div class="usa-banner__content usa-accordion__content" id="gov-banner-default">
+            <div class="grid-row grid-gap-lg">
+              <div class="usa-banner__guidance tablet:grid-col-6">
+                <img
+                  class="usa-banner__icon usa-media-block__img"
+                  src="https://www.census.gov/main/uswds/uswds-2.12.0/img/icon-dot-gov.svg"
+                  role="img"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <div class="usa-media-block__body">
+                  <p>
+                    <strong> Official websites use .gov </strong>
+                    <br />
+                    A <strong>.gov</strong> website belongs to an official government
+                    organization in the United States.
+                  </p>
+                </div>
+              </div>
+              <div class="usa-banner__guidance tablet:grid-col-6">
+                <img
+                  class="usa-banner__icon usa-media-block__img"
+                  src="https://www.census.gov/main/uswds/uswds-2.12.0/img/icon-https.svg"
+                  role="img"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <div class="usa-media-block__body">
+                  <p>
+                    <strong> Secure .gov websites use HTTPS </strong>
+                    <br />
+                    A <strong>lock</strong> (
+                    <span class="icon-lock"
+                      ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="52"
+                        height="64"
+                        viewBox="0 0 52 64"
+                        class="usa-banner__lock-image"
+                        role="img"
+                        aria-labelledby="banner-lock-title-de
