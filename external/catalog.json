@@ -293,6 +293,22 @@
       "path": "external/eurostat-portugal-citizenship-statistics"
     },
     {
+      "id": "eurostat-portugal-government-finance",
+      "title": "Eurostat Portugal general government debt, deficit, interest, GDP and bond yields",
+      "publisher": "Eurostat (European Commission)",
+      "source_url": "https://ec.europa.eu/eurostat/data/database",
+      "license": {
+        "name": "Eurostat free re-use policy (Commission Decision 2011/833/EU)",
+        "url": "https://ec.europa.eu/eurostat/help/copyright-notice"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/portugal-debt-2035-probability"
+      ],
+      "path": "external/eurostat-portugal-government-finance"
+    },
+    {
       "id": "eurostat-portugal-housing-indicators",
       "title": "Eurostat Portugal housing, income, and household indicators",
       "publisher": "Eurostat (European Commission)",
