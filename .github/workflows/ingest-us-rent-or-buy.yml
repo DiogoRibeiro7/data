@@ -23,7 +23,7 @@ jobs:
         with:
           python-version: '3.13'
       - name: Install
-        run: pip install pandas xlrd==2.0.1
+        run: pip install pandas "xlrd>=2.0.2"
       - name: Download
         env:
           STEP: print
