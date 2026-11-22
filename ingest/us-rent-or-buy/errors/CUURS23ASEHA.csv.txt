@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Error - St. Louis Fed</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">    
+    <link rel="stylesheet" type="text/css" href="/assets/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/home.min.css?1553087253">
+    <link rel="stylesheet" type="text/css" href="/assets/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/select2/dist/css/select2.min.css">
+    <style>p {
+        margin-bottom: 1.5em;
+    }</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+<!--googleoff: snippet-->
+<a href="#content-container" class="skip-to">Skip to main content</a>
+<!--googleon: snippet-->
+<a id="top"></a>
+<!--Move content shift styles internal to boost performance scores-->
+<style>
+    #zoom-and-share {
+        position:relative;
+        background-color: rgb(225, 233, 240);
+        min-height: 437px;
+    }
+</style>
+<div id="container">
+    <header>
+        <nav class="navbar navbar-expand-lg header-not-home py-0 EL-nonhomepage-header EL-header-and-subheader">
+            <div id="hidden-user" class='hide'></div>
+            <div id="action-modal"></div>
+            <div class="col-12 d-none d-lg-block">
+                <div class="col-12 d-none d-lg-flex">
+                    <a class="bank-logo-gtm" target="_blank" href="https://www.stlouisfed.org">
+                        <img class="research-logo-gtm" src="//fred.stlouisfed.org/images/Small_Stl_Fed_Logo.svg" alt="Federal Reserve Bank of St. Louis">
+                    </a>
+                    <hr class=" hr-post-frb-stls-logo">
+                </div>
+                <div class="col-12 d-none d-lg-flex">
+                    <div class="col-3 align-content-center">
+                        <a class="fred-logo-gtm" target="_blank" href="//fred.stlouisfed.org">
+                            <img class="header-logo-eagle" src="//fred.stlouisfed.org/images/FRED_Logo_Header.svg" alt="FRED homepage">
+                        </a>
+                    </div>    
+                    <div class="col-9 d-none d-lg-flex align-content-center justify-content-end">
+                        <div class='input-group EL-header-search-container' id="search-container-header">
+    <select id="head-search" class='EL-header-search'>
+        <option></option>
+    </select>
+
+    <button class="search-submit-select2" id="select2-nav-search-button" type="submit" aria-label="Submit Search">
+        <i class="fa fa-search" title="Submit Search"></i>
+    </button>
+</div>
+                        <nav id="blueheader-navbar-nav">
+                            <ul id="blueheader-navbar" class="nav float-end">
+                                <li class="blueheader-navbar-item center-content-vertically switch-products-gtm">
+                                    <span id="switchprod-popover-container" class="switchprod-popover-container">
+
+  <button type="button" id="switchProd" data-toggle="popover" aria-controls="switch-prod-list" 
+    aria-haspopup="true" class="header-popover" aria-label="Toggle Explore Our Apps Menu">
+    <img class="Switch-Products-gtm" src="//fred.stlouisfed.org/images/Waffle_Menu_off.svg" alt="Toggle Explore Our Apps Menu" />
+  </button>
+</span>
+
+<div id="switchprod-popover" class="hide">
+  <!-- empty alt values handle older screen readers that don't handle WAI-ARIA roles. Both methods allow the screenreader to skip the image and not read the filename to the us
