@@ -62,6 +62,21 @@
       "deprecated_at": null,
       "direct_predecessors": [],
       "direct_replacement": null,
+      "id": "eurostat-services-relative-prices",
+      "migration_needed_consumer_count": 0,
+      "migration_note": null,
+      "preferred_dataset_id": "eurostat-services-relative-prices",
+      "replacement_chain": [
+        "eurostat-services-relative-prices"
+      ],
+      "status": "active",
+      "title": "Eurostat: industry prices, wages, hours and margins, consumer prices of services and goods, and price levels, EU 1995-2025"
+    },
+    {
+      "active_consumer_count": 0,
+      "deprecated_at": null,
+      "direct_predecessors": [],
+      "direct_replacement": null,
       "id": "ine-portugal-new-lease-rents",
       "migration_needed_consumer_count": 0,
       "migration_note": null,
@@ -137,8 +152,8 @@
   "schema_version": 1,
   "summary": {
     "active_consumer_relationship_count": 5,
-    "active_count": 6,
-    "canonical_dataset_count": 6,
+    "active_count": 7,
+    "canonical_dataset_count": 7,
     "current_consumer_relationship_count": 5,
     "deprecated_count": 0,
     "migrated_relationship_count": 0,

@@ -1,0 +1,107 @@
+schema_version: 1
+
+id: eurostat-services-relative-prices
+title: "Eurostat: industry prices, wages, hours and margins, consumer prices of services and goods, and price levels, EU 1995-2025"
+description: >
+  Five Eurostat API responses, kept byte for byte, that measure why the
+  prices of services move relative to goods in the EU and its member states:
+  value added at current prices and in volume, compensation of employees,
+  operating surplus, taxes on production and depreciation by NACE section,
+  hours worked by all workers and by employees, HICP indices and weights for
+  services, goods and selected items, and PPP price level indices for goods
+  and services. Snapshotted because Eurostat's API serves only the current
+  vintage of each dataset.
+
+domain:
+  - economics
+  - national-accounts
+  - prices
+  - labour-market
+  - productivity
+  - eu
+
+source:
+  publisher: "Eurostat (European Commission)"
+  url: "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data"
+  retrieved_at: 2026-11-22
+  snapshot: "Eurostat dissemination API, JSON-stat 2.0, five queries retrieved 2026-11-22T21:59:03Z to 21:59:09Z; each file records its upstream update timestamp"
+
+license:
+  name: "Eurostat free re-use policy (Commission Decision 2011/833/EU)"
+  url: "https://ec.europa.eu/eurostat/help/copyright-notice"
+  redistribution: allowed
+
+citation:
+  text: "Eurostat, datasets nama_10_a64, nama_10_a64_e, prc_hicp_aind, prc_hicp_inw and prc_ppp_ind, retrieved 22 November 2026."
+  url: "https://ec.europa.eu/eurostat/data/database"
+
+files:
+  - path: raw/nama_10_a64.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "11ee27e6a719fc8a255c7b48ddae42c3301e0632578191e5e7545c0b2602a8c4"
+    notes: >-
+      Gross value added (B1G) at current prices and chain-linked volumes (2020), and
+      compensation of employees (D1), operating surplus and mixed income net (B2A3N), other
+      taxes less subsidies on production (D29X39) and consumption of fixed capital (P51C) at
+      current prices, million euro, by NACE Rev.2 industry (total, the 20 sections A to T, plus
+      J61, Q86 and Q87_Q88), EU27 (2020) and the 27 member states, 1995 onward. Eurostat
+      JSON-stat 2.0 response, 2,186,817 bytes, 144,392 observations, upstream dataset updated
+      2026-11-20T11:00:00+0100. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_a64?format=JSON&lang=EN&na_item=B1G&na_item=D1&na_item=B2A3N&na_item=D29X39&na_item=P51C&unit=CP_MEUR&unit=CLV20_MEUR&nace_r2=TOTAL&nace_r2=A&nace_r2=B&nace_r2=C&nace_r2=D&nace_r2=E&nace_r2=F&nace_r2=G&nace_r2=H&nace_r2=I&nace_r2=J&nace_r2=J61&nace_r2=K&nace_r2=L&nace_r2=M&nace_r2=N&nace_r2=O&nace_r2=P&nace_r2=Q&nace_r2=Q86&nace_r2=Q87_Q88&nace_r2=R&nace_r2=S&nace_r2=T&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE&sinceTimePeriod=1995
+  - path: raw/nama_10_a64_e.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "c0c90f441e21612bec574d7cf0df0ea6852b313e3e6a0e2530dfe16138139bc9"
+    notes: >-
+      Hours worked by total employment (EMP_DC) and by employees (SAL_DC), domestic concept,
+      thousand hours, same industries and geographies, 1995 onward. Eurostat JSON-stat 2.0
+      response, 622,210 bytes, 40,942 observations, upstream dataset updated
+      2026-11-20T11:00:00+0100. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_a64_e?format=JSON&lang=EN&na_item=EMP_DC&na_item=SAL_DC&unit=THS_HW&nace_r2=TOTAL&nace_r2=A&nace_r2=B&nace_r2=C&nace_r2=D&nace_r2=E&nace_r2=F&nace_r2=G&nace_r2=H&nace_r2=I&nace_r2=J&nace_r2=J61&nace_r2=K&nace_r2=L&nace_r2=M&nace_r2=N&nace_r2=O&nace_r2=P&nace_r2=Q&nace_r2=Q86&nace_r2=Q87_Q88&nace_r2=R&nace_r2=S&nace_r2=T&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE&sinceTimePeriod=1995
+  - path: raw/prc_hicp_aind.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "7b27b52c329f77c998adce5edd687d76cb836b0fc278e196a2e1dc6603f5fc85"
+    notes: >-
+      HICP annual average indices (2015=100) for all items, goods, services, special aggregates
+      (energy, food, non-energy industrial goods, service groups, education-health-social
+      protection, administered prices) and 39 COICOP items chosen to contrast services with
+      manufactured goods, EU27 (2020), euro area (EA20) and the 27 member states, every year
+      Eurostat publishes. Eurostat JSON-stat 2.0 response, 563,897 bytes, 39,016 observations,
+      upstream dataset updated 2026-02-06T23:00:00+0100. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_aind?format=JSON&lang=EN&unit=INX_A_AVG&coicop=CP00&coicop=GD&coicop=SERV&coicop=IGD_NNRG&coicop=NRG&coicop=FOOD&coicop=SERV_COM&coicop=SERV_HOUS&coicop=SERV_MSC&coicop=SERV_REC&coicop=SERV_TRA&coicop=EDUC_HLTH_SPR&coicop=AP&coicop=AP_NNRG&coicop=TOT_X_AP&coicop=TOT_X_NRG_FOOD&coicop=CP1211&coicop=CP0622&coicop=CP0621&coicop=CP063&coicop=CP10&coicop=CP12401&coicop=CP12402&coicop=CP1111&coicop=CP11201&coicop=CP0432&coicop=CP0723&coicop=CP05621&coicop=CP0830&coicop=CP0731&coicop=CP0733&coicop=CP07322&coicop=CP12702&coicop=CP12703&coicop=CP0941&coicop=CP09421&coicop=CP0935&coicop=CP0314&coicop=CP125&coicop=CP12621&coicop=CP081&coicop=CP0441&coicop=CP0442&coicop=CP041&coicop=CP0913&coicop=CP0911&coicop=CP0820&coicop=CP03&coicop=CP0531_0532&coicop=CP0511&coicop=CP07111&coicop=CP0611&coicop=CP01&coicop=CP0721&coicop=CP0931&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE&geo=EA20
+  - path: raw/prc_hicp_inw.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "1ccdb645e1416f0352be40ee0680ed1d02bacf67157feb252f3825e180f07e46"
+    notes: >-
+      HICP item weights (per mille of the all-items index) for the same COICOP codes, EU27
+      (2020), euro area (EA20) and Portugal, every year Eurostat publishes. Eurostat JSON-stat
+      2.0 response, 54,662 bytes, 3,708 observations, upstream dataset updated
+      2025-08-20T11:00:00+0200. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_inw?format=JSON&lang=EN&coicop=CP00&coicop=GD&coicop=SERV&coicop=IGD_NNRG&coicop=NRG&coicop=FOOD&coicop=SERV_COM&coicop=SERV_HOUS&coicop=SERV_MSC&coicop=SERV_REC&coicop=SERV_TRA&coicop=EDUC_HLTH_SPR&coicop=AP&coicop=AP_NNRG&coicop=TOT_X_AP&coicop=TOT_X_NRG_FOOD&coicop=CP1211&coicop=CP0622&coicop=CP0621&coicop=CP063&coicop=CP10&coicop=CP12401&coicop=CP12402&coicop=CP1111&coicop=CP11201&coicop=CP0432&coicop=CP0723&coicop=CP05621&coicop=CP0830&coicop=CP0731&coicop=CP0733&coicop=CP07322&coicop=CP12702&coicop=CP12703&coicop=CP0941&coicop=CP09421&coicop=CP0935&coicop=CP0314&coicop=CP125&coicop=CP12621&coicop=CP081&coicop=CP0441&coicop=CP0442&coicop=CP041&coicop=CP0913&coicop=CP0911&coicop=CP0820&coicop=CP03&coicop=CP0531_0532&coicop=CP0511&coicop=CP07111&coicop=CP0611&coicop=CP01&coicop=CP0721&coicop=CP0931&geo=EU27_2020&geo=EA20&geo=PT
+  - path: raw/prc_ppp_ind.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "7d4c9b4fff197bfb7eb295ff66383eedb6b5922f73abafd0a1020da212614e77"
+    notes: >-
+      Price level indices (EU27 2020 = 100) and per-capita volume indices of real expenditure
+      (PPS, EU27 2020 = 100) for GDP, actual individual consumption, total and consumer goods,
+      total, consumer and government services, and seven consumption categories, EU27 (2020) and
+      the 27 member states, 1995 onward (goods and services categories from 2003). Eurostat
+      JSON-stat 2.0 response, 210,069 bytes, 16,968 observations, upstream dataset updated
+      2025-07-10T11:00:00+0200. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_ppp_ind?format=JSON&lang=EN&na_item=PLI_EU27_2020&na_item=VI_PPS_EU27_2020_HAB&ppp_cat=GDP&ppp_cat=A01&ppp_cat=P01&ppp_cat=P0101&ppp_cat=P02&ppp_cat=P0201&ppp_cat=P0202&ppp_cat=A0103&ppp_cat=A0106&ppp_cat=A0110&ppp_cat=A0111&ppp_cat=A010901&ppp_cat=A0108&ppp_cat=A010703&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE&sinceTimePeriod=1995
+
+lineage: []
