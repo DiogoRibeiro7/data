@@ -1,0 +1,32 @@
+schema_version: 1
+status: external-reference
+id: freddie-mac-pmms-fred
+title: "Freddie Mac Primary Mortgage Market Survey: 30-year fixed rate, weekly, 1971-2025, through FRED"
+publisher: "Freddie Mac; distributed by the Federal Reserve Bank of St. Louis (FRED series MORTGAGE30US)"
+source_url: "https://fred.stlouisfed.org/series/MORTGAGE30US"
+redistribution: dataset-specific
+storage: authoritative-upstream
+usage:
+  storage: authoritative-upstream
+  redistribution: dataset-specific
+  attribution_required: true
+  note: >-
+    Freddie Mac's terms grant a limited licence to publish automatically updated
+    data content such as the PMMS with attribution, but not to republish
+    Freddie Mac content in general, so no bytes are kept here. The consumer
+    downloads the FRED graph CSV with fixed start and end dates (cosd and coed),
+    which makes the response stable, and checks its SHA-256. Weekly averages of
+    rates offered to borrowers with 20% down; Freddie Mac changed the survey's
+    method in November 2022 without revising earlier weeks. Cite Freddie Mac,
+    Primary Mortgage Market Survey.
+consumers:
+  - medium-blog/rent-or-buy-us
+medium_blog:
+  folder: rent-or-buy-us
+  contract: data_sources/freddie-mac-pmms-fred.json
+  retrieved: "2026-11-22"
+  files:
+    - path: "raw/MORTGAGE30US.csv"
+      url: "https://fred.stlouisfed.org/graph/fredgraph.csv?id=MORTGAGE30US&cosd=1971-04-02&coed=2025-12-31"
+      bytes: 46323
+      sha256: "6de0c8cd63d892bc9671daeb03f7584d1aa2e6e1fe7f2221df61c6c693d87c0f"

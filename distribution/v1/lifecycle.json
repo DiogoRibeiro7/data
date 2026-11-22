@@ -51,6 +51,36 @@
   ],
   "datasets": [
     {
+      "active_consumer_count": 0,
+      "deprecated_at": null,
+      "direct_predecessors": [],
+      "direct_replacement": null,
+      "id": "bls-cpi-rent-us-metros",
+      "migration_needed_consumer_count": 0,
+      "migration_note": null,
+      "preferred_dataset_id": "bls-cpi-rent-us-metros",
+      "replacement_chain": [
+        "bls-cpi-rent-us-metros"
+      ],
+      "status": "active",
+      "title": "BLS consumer price index: rent of primary residence for the U.S. and 16 metropolitan areas, and all-items CPI-U"
+    },
+    {
+      "active_consumer_count": 0,
+      "deprecated_at": null,
+      "direct_predecessors": [],
+      "direct_replacement": null,
+      "id": "census-acs-housing-costs-msa",
+      "migration_needed_consumer_count": 0,
+      "migration_note": null,
+      "preferred_dataset_id": "census-acs-housing-costs-msa",
+      "replacement_chain": [
+        "census-acs-housing-costs-msa"
+      ],
+      "status": "active",
+      "title": "Census ACS 1-year 2022 and 2023: median home value, rents, real estate taxes, rooms and tenure for all geographies"
+    },
+    {
       "active_consumer_count": 1,
       "deprecated_at": null,
       "direct_predecessors": [],
@@ -160,8 +190,8 @@
   "schema_version": 1,
   "summary": {
     "active_consumer_relationship_count": 6,
-    "active_count": 7,
-    "canonical_dataset_count": 7,
+    "active_count": 9,
+    "canonical_dataset_count": 9,
     "current_consumer_relationship_count": 6,
     "deprecated_count": 0,
     "migrated_relationship_count": 0,
