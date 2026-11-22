@@ -8,8 +8,8 @@ and the committed consumer catalog. Do not edit it by hand.
 - Deprecated: **0**
 - Superseded: **0**
 - Replacement edges: **0**
-- Active consumer relationships: **6**
-- Current consumer relationships: **6**
+- Active consumer relationships: **8**
+- Current consumer relationships: **8**
 - Migration required: **0**
 - Migration planned: **0**
 - Intentionally retained: **0**
@@ -21,8 +21,8 @@ and the committed consumer catalog. Do not edit it by hand.
 
 | Dataset | Status | Direct replacement | Preferred dataset | Consumers | Migration needed |
 | --- | --- | --- | --- | ---: | ---: |
-| `bls-cpi-rent-us-metros` | active | -- | bls-cpi-rent-us-metros | 0 | 0 |
-| `census-acs-housing-costs-msa` | active | -- | census-acs-housing-costs-msa | 0 | 0 |
+| `bls-cpi-rent-us-metros` | active | -- | bls-cpi-rent-us-metros | 1 | 0 |
+| `census-acs-housing-costs-msa` | active | -- | census-acs-housing-costs-msa | 1 | 0 |
 | `eurostat-services-energy-time` | active | -- | eurostat-services-energy-time | 1 | 0 |
 | `eurostat-services-relative-prices` | active | -- | eurostat-services-relative-prices | 1 | 0 |
 | `ine-portugal-new-lease-rents` | active | -- | ine-portugal-new-lease-rents | 0 | 0 |
@@ -42,6 +42,8 @@ and the committed consumer catalog. Do not edit it by hand.
 | `city-wage-cost-global` | `ons-gross-median-weekly-pay` | current | `ons-gross-median-weekly-pay` | -- |
 | `displacement-risk-lab-dynamodb` | `ucdp-ged-25-1` | current | `ucdp-ged-25-1` | -- |
 | `displacement-risk-lab-dynamodb` | `unhcr-refugee-population-2024` | current | `unhcr-refugee-population-2024` | -- |
+| `medium-blog` | `bls-cpi-rent-us-metros` | current | `bls-cpi-rent-us-metros` | -- |
+| `medium-blog` | `census-acs-housing-costs-msa` | current | `census-acs-housing-costs-msa` | -- |
 | `medium-blog` | `eurostat-services-energy-time` | current | `eurostat-services-energy-time` | -- |
 | `medium-blog` | `eurostat-services-relative-prices` | current | `eurostat-services-relative-prices` | -- |
 | `medium-blog` | `online-retail-ii` | current | `online-retail-ii` | -- |

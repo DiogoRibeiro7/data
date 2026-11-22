@@ -27,6 +27,22 @@
     {
       "consumer_id": "medium-blog",
       "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "bls-cpi-rent-us-metros",
+      "preferred_dataset_id": "bls-cpi-rent-us-metros",
+      "rationale": null,
+      "status": "current"
+    },
+    {
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "census-acs-housing-costs-msa",
+      "preferred_dataset_id": "census-acs-housing-costs-msa",
+      "rationale": null,
+      "status": "current"
+    },
+    {
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
       "dataset_id": "eurostat-services-energy-time",
       "preferred_dataset_id": "eurostat-services-energy-time",
       "rationale": null,
@@ -51,7 +67,7 @@
   ],
   "datasets": [
     {
-      "active_consumer_count": 0,
+      "active_consumer_count": 1,
       "deprecated_at": null,
       "direct_predecessors": [],
       "direct_replacement": null,
@@ -66,7 +82,7 @@
       "title": "BLS consumer price index: rent of primary residence for the U.S. and 16 metropolitan areas, and all-items CPI-U"
     },
     {
-      "active_consumer_count": 0,
+      "active_consumer_count": 1,
       "deprecated_at": null,
       "direct_predecessors": [],
       "direct_replacement": null,
@@ -189,10 +205,10 @@
   "preferred_replacements": {},
   "schema_version": 1,
   "summary": {
-    "active_consumer_relationship_count": 6,
+    "active_consumer_relationship_count": 8,
     "active_count": 9,
     "canonical_dataset_count": 9,
-    "current_consumer_relationship_count": 6,
+    "current_consumer_relationship_count": 8,
     "deprecated_count": 0,
     "migrated_relationship_count": 0,
     "migration_needed_count": 0,
