@@ -5,10 +5,10 @@ It makes no live network requests.
 
 ## Canonical registry
 
-- Canonical datasets: **6**
-- Canonical files: **14**
-- Files with verified SHA-256: **14**
-- Canonical datasets with complete licence metadata: **6**
+- Canonical datasets: **7**
+- Canonical files: **19**
+- Files with verified SHA-256: **19**
+- Canonical datasets with complete licence metadata: **7**
 
 ## External sources
 
@@ -49,13 +49,13 @@ External source usage annotations:
 ## Canonical consumer adoption
 
 - Active consumer repositories: **3**
-- Active canonical relationships: **5**
+- Active canonical relationships: **6**
 - Deprecated relationships: **0**
-- Pinned contracts: **5 / 5**
+- Pinned contracts: **6 / 6**
 - Pinned contract coverage: **100%**
-- Canonical datasets with >=1 active consumer: **5**
+- Canonical datasets with >=1 active consumer: **6**
 - Canonical datasets with zero active consumers: **1**
-- Canonical dataset adoption coverage: **83%**
+- Canonical dataset adoption coverage: **86%**
 - Lifecycle migration coverage: **100%** (0 / 0)
 - Migration required / planned / retained / migrated: **0 / 0 / 0 / 0**
 
@@ -69,15 +69,16 @@ Active consumers:
 
 - Baseline snapshot: **snapshot-2026.10.05**
 - Baseline canonical datasets: **2**
-- Current canonical datasets: **6**
-- Added since baseline: **4**
-- Added with active consumers: **3**
+- Current canonical datasets: **7**
+- Added since baseline: **5**
+- Added with active consumers: **4**
 - Added with exemptions: **1**
 - Uncovered canonical datasets: **0**
 
 Datasets added since baseline:
 
 - `eurostat-services-energy-time`
+- `eurostat-services-relative-prices`
 - `ine-portugal-new-lease-rents`
 - `ons-gross-median-weekly-pay`
 - `unhcr-refugee-population-2024`

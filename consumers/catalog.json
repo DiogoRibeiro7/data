@@ -49,6 +49,18 @@
       "status": "active"
     },
     {
+      "consumer_commit": "74df3f78b0cc1fab2a514bfffc20bef1a4b3a1b9",
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "eurostat-services-relative-prices",
+      "evidence_url": "https://github.com/DiogoRibeiro7/Medium-Blog/tree/services-relative-prices/services-relative-prices",
+      "path": "datasets/eurostat-services-relative-prices/raw/nama_10_a64.json",
+      "registry_commit": "61f630990532bd6bcf6793621d6646d50be23d5c",
+      "registry_repository": "DiogoRibeiro7/data",
+      "sha256": "11ee27e6a719fc8a255c7b48ddae42c3301e0632578191e5e7545c0b2602a8c4",
+      "status": "active"
+    },
+    {
       "consumer_commit": "71e4db18ab7af4ad2d5f3997a00e46e53676312b",
       "consumer_id": "medium-blog",
       "consumer_repository": "DiogoRibeiro7/Medium-Blog",

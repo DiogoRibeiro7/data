@@ -1,0 +1,24 @@
+schema_version: 1
+status: active
+
+consumer_id: medium-blog
+consumer_repository: DiogoRibeiro7/Medium-Blog
+
+dataset_id: eurostat-services-relative-prices
+
+registry_layer: canonical
+registry_repository: DiogoRibeiro7/data
+registry_commit: "61f630990532bd6bcf6793621d6646d50be23d5c"
+
+path: datasets/eurostat-services-relative-prices/raw/nama_10_a64.json
+sha256: "11ee27e6a719fc8a255c7b48ddae42c3301e0632578191e5e7545c0b2602a8c4"
+
+consumer_commit: "74df3f78b0cc1fab2a514bfffc20bef1a4b3a1b9"
+evidence_url: https://github.com/DiogoRibeiro7/Medium-Blog/tree/services-relative-prices/services-relative-prices
+
+notes: >
+  Folder services-relative-prices reads all five raw files of the dataset, not
+  only the one named here. Medium-Blog records the registry commit, URL, size
+  and SHA-256 of each file in data_sources/eurostat-services-relative-prices.json;
+  services-relative-prices/fetch.py downloads them at every run and stops if any
+  byte differs.

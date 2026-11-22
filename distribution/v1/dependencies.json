@@ -41,6 +41,13 @@
           "status": "active"
         },
         {
+          "dataset_id": "eurostat-services-relative-prices",
+          "path": "datasets/eurostat-services-relative-prices/raw/nama_10_a64.json",
+          "registry_commit": "61f630990532bd6bcf6793621d6646d50be23d5c",
+          "sha256": "11ee27e6a719fc8a255c7b48ddae42c3301e0632578191e5e7545c0b2602a8c4",
+          "status": "active"
+        },
+        {
           "dataset_id": "online-retail-ii",
           "path": "datasets/online-retail-ii/raw/online_retail_II.xlsx",
           "registry_commit": "e90eed21a474c0a54ab9bf658c01dbd778bf58f1",
@@ -60,6 +67,18 @@
           "path": "datasets/eurostat-services-energy-time/raw/nama_10_a10.json",
           "registry_commit": "6911646f783bad0475e5942b1e043169e4e5cb02",
           "sha256": "6a100cf6bbe75ca4d0e88203bc12a35088c740bc48491b037cca0b4f2816a652",
+          "status": "active"
+        }
+      ]
+    },
+    "eurostat-services-relative-prices": {
+      "consumers": [
+        {
+          "consumer_id": "medium-blog",
+          "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+          "path": "datasets/eurostat-services-relative-prices/raw/nama_10_a64.json",
+          "registry_commit": "61f630990532bd6bcf6793621d6646d50be23d5c",
+          "sha256": "11ee27e6a719fc8a255c7b48ddae42c3301e0632578191e5e7545c0b2602a8c4",
           "status": "active"
         }
       ]

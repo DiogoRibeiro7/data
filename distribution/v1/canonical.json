@@ -27,6 +27,30 @@
       "path": "datasets/eurostat-services-energy-time"
     },
     {
+      "id": "eurostat-services-relative-prices",
+      "title": "Eurostat: industry prices, wages, hours and margins, consumer prices of services and goods, and price levels, EU 1995-2025",
+      "description": "Five Eurostat API responses, kept byte for byte, that measure why the prices of services move relative to goods in the EU and its member states: value added at current prices and in volume, compensation of employees, operating surplus, taxes on production and depreciation by NACE section, hours worked by all workers and by employees, HICP indices and weights for services, goods and selected items, and PPP price level indices for goods and services. Snapshotted because Eurostat's API serves only the current vintage of each dataset.\n",
+      "domain": [
+        "economics",
+        "national-accounts",
+        "prices",
+        "labour-market",
+        "productivity",
+        "eu"
+      ],
+      "snapshot": "Eurostat dissemination API, JSON-stat 2.0, five queries retrieved 2026-11-22T21:59:03Z to 21:59:09Z; each file records its upstream update timestamp",
+      "source": {
+        "publisher": "Eurostat (European Commission)",
+        "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data"
+      },
+      "license": {
+        "name": "Eurostat free re-use policy (Commission Decision 2011/833/EU)",
+        "url": "https://ec.europa.eu/eurostat/help/copyright-notice",
+        "redistribution": "allowed"
+      },
+      "path": "datasets/eurostat-services-relative-prices"
+    },
+    {
       "id": "ine-portugal-new-lease-rents",
       "title": "INE Portugal: median new-lease rents, 2025",
       "description": "Official indicator 0014698: median monthly rent per square metre of gross private area for new family-dwelling leases in 2025, methodology 2026 and NUTS 2024 geography. Preserves the October 2026 observation response and separately collected November 2026 metadata and methodology; no transformation.\n",
