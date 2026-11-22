@@ -83,11 +83,9 @@ def main() -> int:
         _, _, body = get("https://web.archive.org/web/20261111163602id_/https://pages.stern.nyu.edu/~adamodar/pc/datasets/histretSP.xls")
         x = pd.ExcelFile(io.BytesIO(body), engine="xlrd")
         print("SHEETS", x.sheet_names)
-        for sh in x.sheet_names[:3]:
-            d = x.parse(sh, header=None)
-            print("SHEET", sh, d.shape)
-            print(d.iloc[:30, :12].to_csv())
-            print(d.iloc[90:130, :12].to_csv())
+        d = pd.read_excel(x, sheet_name="Returns by year", header=None)
+        print("ROWS")
+        print(d.iloc[19:118, :8].to_csv(index=False, header=False))
         log.close()
         return 0
     if step == "acs":
