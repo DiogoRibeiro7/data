@@ -81,13 +81,13 @@
   "external": {
     "pinned_immutable_identity_sources": 8,
     "redistribution": {
-      "resolved": 33,
+      "resolved": 34,
       "unresolved": 34
     },
-    "source_count": 67,
+    "source_count": 68,
     "source_usage": {
-      "consumer_count": 24,
-      "consumer_references": 66,
+      "consumer_count": 26,
+      "consumer_references": 69,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -102,6 +102,8 @@
         "medium-blog/model-swap-tails",
         "medium-blog/portugal-debt-2035-probability",
         "medium-blog/portugal-fiscal-reaction",
+        "medium-blog/portugal-fiscal-rules",
+        "medium-blog/portugal-realtime-output-gap",
         "medium-blog/post-cutoff-forecasting",
         "medium-blog/ranking-extremes",
         "medium-blog/suffrage-public-health",

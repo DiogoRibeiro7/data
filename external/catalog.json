@@ -213,9 +213,27 @@
       "redistribution": "allowed",
       "storage": "authoritative-upstream",
       "consumers": [
-        "medium-blog/portugal-fiscal-reaction"
+        "medium-blog/portugal-fiscal-reaction",
+        "medium-blog/portugal-fiscal-rules",
+        "medium-blog/portugal-realtime-output-gap"
       ],
       "path": "external/ec-ameco-autumn-2026"
+    },
+    {
+      "id": "ec-ameco-vintages-2011-2021",
+      "title": "European Commission AMECO database, archived releases spring 2011 to autumn 2018 and autumn 2021",
+      "publisher": "European Commission, Directorate-General for Economic and Financial Affairs",
+      "source_url": "https://economy-finance.ec.europa.eu/economic-research-and-databases/economic-databases/ameco-database/ameco-archive_en",
+      "license": {
+        "name": "Commission reuse policy (Commission Decision 2011/833/EU)",
+        "url": "https://commission.europa.eu/legal-notice_en"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/portugal-realtime-output-gap"
+      ],
+      "path": "external/ec-ameco-vintages-2011-2021"
     },
     {
       "id": "ecb-distributional-wealth-accounts",
