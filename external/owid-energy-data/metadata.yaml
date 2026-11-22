@@ -1,0 +1,34 @@
+schema_version: 1
+status: external-reference
+id: owid-energy-data
+title: "Our World in Data energy dataset (owid/energy-data)"
+publisher: "Global Change Data Lab / Our World in Data"
+source_url: "https://github.com/owid/energy-data"
+source_commit: "f8de88a4f6f9cab44f1cf606047cbd6c4414042c"
+source_path: "owid-energy-data.csv"
+license:
+  name: "CC BY 4.0 for OWID-produced data; third-party series keep their providers' terms"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+redistribution: dataset-specific
+storage: authoritative-upstream
+usage:
+  storage: authoritative-upstream
+  redistribution: dataset-specific
+  attribution_required: true
+  note: >-
+    Pinned file from the OWID access layer (see our-world-in-data). Per the
+    OWID codebook at the same commit, primary energy consumption (TWh) comes
+    from the US EIA International Energy Data (2025) and the Energy
+    Institute Statistical Review of World Energy (2025); coal, gas and oil
+    production from the Energy Institute (2025) and The Shift Data Portal
+    (2019); GDP from the Maddison Project Database 2023. Each series keeps
+    its provider's terms. No bytes are mirrored here.
+medium_blog:
+  folder: growth-finite-world
+  fetch: "growth-finite-world/fetch_data.py"
+  raw_url: "https://raw.githubusercontent.com/owid/energy-data/f8de88a4f6f9cab44f1cf606047cbd6c4414042c/owid-energy-data.csv"
+  sha256: "266f2e2baad7975351bc9bb4aa061d22b1da9fe4c47d51d2ac6071e01e171f76"
+  columns_used: [country, iso_code, year, gdp, population, primary_energy_consumption, coal_production, gas_production, oil_production]
+  derived_output: "growth-finite-world/data/{world,countries}.csv (built by build_data.py, not committed)"
+consumers:
+  - medium-blog/growth-finite-world

@@ -299,6 +299,18 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "owid-co2-data",
+      "metadata_path": "external/owid-co2-data/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "owid-energy-data",
+      "metadata_path": "external/owid-energy-data/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "pordata-ine-portugal-infant-mortality",
       "metadata_path": "external/pordata-ine-portugal-infant-mortality/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -337,6 +349,12 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "sef-rifa-foreign-residents-2017-2022",
       "metadata_path": "external/sef-rifa-foreign-residents-2017-2022/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "shiller-sp-composite-monthly",
+      "metadata_path": "external/shiller-sp-composite-monthly/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -420,8 +438,8 @@
     "canonical_byte_archive_eligible_count": 4,
     "canonical_dataset_count": 4,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 54,
-    "external_source_count": 54,
+    "external_metadata_only_count": 57,
+    "external_source_count": 57,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }
