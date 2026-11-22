@@ -1,0 +1,62 @@
+schema_version: 1
+status: external-reference
+id: eurotoptech-happiness-taxes-europe
+title: "Euro Top Tech, Happiness and taxes in Europe: country table of engineers' happiness and satisfaction with tax-paid services"
+publisher: "Euro Top Tech (crowdsourced reports from software engineers living in Europe)"
+source_url: "https://www.eurotoptech.com/research/happiness-taxes-europe"
+license:
+  name: "Unresolved (site terms not reviewed; no dataset licence stated on the page)"
+  url: "https://www.eurotoptech.com/terms-of-service"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The page reports, for 29 countries with at least 5 rated reports, the mean
+    0-10 happiness rating, the mean 0-10 rating of satisfaction with tax-paid
+    services, the number of rated reports, and the average effective tax
+    rate, savings rate and net pay. Totals on 22 November 2026: 1,673
+    approved self-reported submissions, 782 with both ratings; the 29 listed
+    countries hold 744 of them. The page recomputes from a live database,
+    offers no download, standard deviations or intervals, and says thin
+    samples (5-9 reports) can shift with a handful of new submissions, so a
+    later visit can show other numbers. Respondents are self-selected
+    engineers, not a sample of residents. The consumer transcribes the table
+    as read on 22 November 2026 into snapshot.py; the SHA-256 below is taken
+    over that module's canonical text (one comma-separated line per country,
+    fixed decimals) and is checked by the consumer's tests. No bytes are
+    mirrored here.
+medium_blog:
+  folder: ranking-extremes
+  snapshot: "ranking-extremes/snapshot.py (table transcribed by hand from the page)"
+  read_on: "2026-11-22"
+  canonical_text: "snapshot.canonical_text()"
+  sha256: "7bb9db9c13991e50adeb860a8e2f8403fe0ff85687f1862e582dbcdc64707140"
+  columns: [country, iso3, happiness, services, n, tax, savings, net_pay]
+consumers:
+  - medium-blog/ranking-extremes
+resolution:
+  review_status: actionable
+  last_reviewed: 2026-11-22
+  blocker_category: exact-snapshot-identity
+  blocker_summary: >-
+    The upstream page is a live recomputation with no versioned export, so
+    the 22 November 2026 values exist only as the consumer's transcription
+    and its digest. The site's terms on reuse of research pages were not
+    reviewed, so redistribution of the transcribed values is unresolved.
+  evidence:
+    - "https://www.eurotoptech.com/research/happiness-taxes-europe"
+    - "https://www.eurotoptech.com/methodology"
+    - "https://www.eurotoptech.com/terms-of-service"
+  reviewer_note: >-
+    An archived capture of the page from the same day would give an
+    independent byte identity for the transcription. The Wayback Machine
+    holds a capture from 11 October 2026, which shows an earlier state of the
+    database and is not the snapshot used.
+  next_action: >-
+    Capture the page in a web archive and record the capture URL, or obtain a
+    dated export from Euro Top Tech; review the terms of service for reuse of
+    the published aggregates.
+  terminal: false

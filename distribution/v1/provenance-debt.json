@@ -130,6 +130,22 @@
       "title": "Eurostat cross-country housing-cost, tenure and tax-account covariates"
     },
     {
+      "age_days": 0,
+      "blocker_category": "exact-snapshot-identity",
+      "blocker_summary": "The upstream page is a live recomputation with no versioned export, so the 22 November 2026 values exist only as the consumer's transcription and its digest. The site's terms on reuse of research pages were not reviewed, so redistribution of the transcribed values is unresolved.",
+      "evidence_count": 3,
+      "id": "eurotoptech-happiness-taxes-europe",
+      "last_reviewed": "2026-11-22",
+      "layer": "external",
+      "next_action": "Capture the page in a web archive and record the capture URL, or obtain a dated export from Euro Top Tech; review the terms of service for reuse of the published aggregates.",
+      "path": "external/eurotoptech-happiness-taxes-europe/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "actionable",
+      "structured_evidence": true,
+      "terminal": false,
+      "title": "Euro Top Tech, Happiness and taxes in Europe: country table of engineers' happiness and satisfaction with tax-paid services"
+    },
+    {
       "age_days": 16,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "GPP permits partial reproduction of public information under conditions, but its published legal notice does not explicitly establish permission to mirror an entire SIMA wholesale-market CSV export in this registry.",
@@ -402,6 +418,22 @@
       "title": "OECD real average annual wages (full-time equivalent, PPP adjusted)"
     },
     {
+      "age_days": null,
+      "blocker_category": null,
+      "blocker_summary": "Structured resolution evidence not yet recorded.",
+      "evidence_count": 0,
+      "id": "oecd-government-at-a-glance-satisfaction-2025",
+      "last_reviewed": null,
+      "layer": "external",
+      "next_action": "Backfill structured resolution evidence.",
+      "path": "external/oecd-government-at-a-glance-satisfaction-2025/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": null,
+      "structured_evidence": false,
+      "terminal": null,
+      "title": "OECD Government at a Glance 2025: satisfaction with public services (healthcare, education, administrative services)"
+    },
+    {
       "age_days": 22,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "The underlying official INE statistics can be attributed and used, but no PORDATA/FFMS terms permitting verbatim redistribution of its complete portal export or repackaged table were established for this source.",
@@ -548,19 +580,20 @@
   ],
   "schema_version": 1,
   "summary": {
-    "actionable_count": 8,
+    "actionable_count": 9,
     "by_blocker_category": {
       "authoritative-source-identity": 1,
       "dataset-vs-repository-licence-scope": 3,
-      "exact-snapshot-identity": 2,
+      "exact-snapshot-identity": 3,
       "historical-export-route": 1,
-      "redistribution-rights": 27
+      "redistribution-rights": 27,
+      "unstructured": 1
     },
-    "external_count": 32,
+    "external_count": 34,
     "legacy_count": 2,
-    "structured_count": 34,
+    "structured_count": 35,
     "terminal_count": 26,
-    "total_debt": 34,
-    "unstructured_count": 0
+    "total_debt": 36,
+    "unstructured_count": 1
   }
 }

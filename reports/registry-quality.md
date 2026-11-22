@@ -12,14 +12,14 @@ It makes no live network requests.
 
 ## External sources
 
-- External source records: **57**
-- Redistribution resolved / unresolved: **27 / 30**
+- External source records: **62**
+- Redistribution resolved / unresolved: **29 / 33**
 - Sources pinned to an immutable Git commit: **8**
 
 External source usage annotations:
 
-- Referenced consumer repositories: **15**
-- Source usage references: **55**
+- Referenced consumer repositories: **19**
+- Source usage references: **60**
 
 - `causal-uplift-marketing-campaign`
 - `cpd-stress-test`
@@ -27,7 +27,11 @@ External source usage annotations:
 - `displacement-risk-lab-dynamodb`
 - `ds-projects-portfolio`
 - `empirical-analysis-r`
+- `medium-blog/auction-entry-boem`
+- `medium-blog/bid-rigging-screens`
 - `medium-blog/growth-finite-world`
+- `medium-blog/ranking-extremes`
+- `medium-blog/suffrage-public-health`
 - `medium-statistical-dynamics`
 - `perishable-inventory-decision-lab`
 - `porto-metro-demand-analysis`
@@ -82,19 +86,19 @@ Adoption exemptions:
 
 ## Provenance and licensing debt
 
-- Total debt items: **33**
-- External actionable / terminal: **7 / 24**
+- Total debt items: **36**
+- External actionable / terminal: **9 / 24**
 - Legacy actionable / terminal: **0 / 2**
 - Oldest review date: **2026-10-05**
-- Oldest deterministic debt age (days): **38**
+- Oldest deterministic debt age (days): **48**
 
 Debt by blocker category:
 
 - `authoritative-source-identity`: **1**
 - `dataset-vs-repository-licence-scope`: **3**
-- `exact-snapshot-identity`: **2**
+- `exact-snapshot-identity`: **3**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **26**
+- `redistribution-rights`: **27**
 
 ## Generated catalog freshness
 

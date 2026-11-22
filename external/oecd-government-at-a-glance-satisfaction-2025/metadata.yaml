@@ -1,0 +1,34 @@
+schema_version: 1
+status: external-reference
+id: oecd-government-at-a-glance-satisfaction-2025
+title: "OECD Government at a Glance 2025: satisfaction with public services (healthcare, education, administrative services)"
+publisher: "Organisation for Economic Co-operation and Development (OECD)"
+source_url: "https://sdmx.oecd.org/public/rest/data/OECD.GOV.GIP,DSD_GOV_INT@DF_GOV_SPS_2025,/A..CS_HC+CS_ES+TRUST_S_AS.....?format=csvfile"
+license:
+  name: "OECD Data Terms & Conditions (verify any third-party or series-specific rights)"
+  url: "https://www.oecd.org/en/about/terms-conditions.html"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    Dataflow OECD.GOV.GIP,DSD_GOV_INT@DF_GOV_SPS_2025, measures CS_HC
+    (satisfaction with the healthcare system), CS_ES (education system) and
+    TRUST_S_AS (administrative services), unit PT_RESP (percent of
+    respondents satisfied). 2023 values come from the OECD Survey on Drivers
+    of Trust in Public Institutions (30 countries plus the OECD figure);
+    2021 values exist for some countries. The consumer keeps 2023 rows for
+    countries with all three measures and averages them into a composite.
+    The CSV response was byte-identical across two downloads on 22 November
+    2026 and is pinned by SHA-256 below; an OECD revision makes the
+    consumer fail rather than change. No bytes are mirrored here.
+medium_blog:
+  folder: ranking-extremes
+  fetch: "ranking-extremes/fetch_data.py"
+  sha256: "99f57c65c66a5ac474c62fc9876f260c6ed9ec8b2bd3a7efbde8d7578b3673f7"
+  retrieved: "2026-11-22"
+  derived_output: "ranking-extremes/.cache/oecd_gov_sps_2025.csv (downloaded at every run, not committed)"
+consumers:
+  - medium-blog/ranking-extremes

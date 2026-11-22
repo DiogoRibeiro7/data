@@ -294,6 +294,27 @@
       "path": "external/eurostat-portugal-housing-indicators"
     },
     {
+      "id": "eurotoptech-happiness-taxes-europe",
+      "title": "Euro Top Tech, Happiness and taxes in Europe: country table of engineers' happiness and satisfaction with tax-paid services",
+      "publisher": "Euro Top Tech (crowdsourced reports from software engineers living in Europe)",
+      "source_url": "https://www.eurotoptech.com/research/happiness-taxes-europe",
+      "license": {
+        "name": "Unresolved (site terms not reviewed; no dataset licence stated on the page)",
+        "url": "https://www.eurotoptech.com/terms-of-service"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/ranking-extremes"
+      ],
+      "path": "external/eurotoptech-happiness-taxes-europe",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "exact-snapshot-identity"
+      }
+    },
+    {
       "id": "fred-economic-data",
       "title": "FRED economic data",
       "publisher": "Federal Reserve Bank of St. Louis",
@@ -699,6 +720,22 @@
         "terminal": false,
         "blocker_category": "redistribution-rights"
       }
+    },
+    {
+      "id": "oecd-government-at-a-glance-satisfaction-2025",
+      "title": "OECD Government at a Glance 2025: satisfaction with public services (healthcare, education, administrative services)",
+      "publisher": "Organisation for Economic Co-operation and Development (OECD)",
+      "source_url": "https://sdmx.oecd.org/public/rest/data/OECD.GOV.GIP,DSD_GOV_INT@DF_GOV_SPS_2025,/A..CS_HC+CS_ES+TRUST_S_AS.....?format=csvfile",
+      "license": {
+        "name": "OECD Data Terms & Conditions (verify any third-party or series-specific rights)",
+        "url": "https://www.oecd.org/en/about/terms-conditions.html"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/ranking-extremes"
+      ],
+      "path": "external/oecd-government-at-a-glance-satisfaction-2025"
     },
     {
       "id": "our-world-in-data",

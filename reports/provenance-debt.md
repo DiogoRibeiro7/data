@@ -3,12 +3,12 @@
 This file is generated deterministically from committed external and legacy metadata.
 Do not edit it by hand.
 
-- Total debt items: **34**
-- External records: **32**
+- Total debt items: **36**
+- External records: **34**
 - Legacy packages: **2**
-- Structured evidence: **34**
-- Unstructured debt: **0**
-- Actionable: **8**
+- Structured evidence: **35**
+- Unstructured debt: **1**
+- Actionable: **9**
 - Terminal: **26**
 - Age reference date: **2026-11-22**
 
@@ -16,9 +16,10 @@ Do not edit it by hand.
 
 - `authoritative-source-identity`: **1**
 - `dataset-vs-repository-licence-scope`: **3**
-- `exact-snapshot-identity`: **2**
+- `exact-snapshot-identity`: **3**
 - `historical-export-route`: **1**
 - `redistribution-rights`: **27**
+- `unstructured`: **1**
 
 ## Queue
 
@@ -32,6 +33,7 @@ Do not edit it by hand.
 | external | `dgs-infoclique-mortality` | terminal | DGS publicly disseminates SICO mortality information, but its current legal notice protects site contents and no dataset-specific redistribution grant covering the historical InfoClique/SICO CSV exports was recovered. | 2026-10-05 | 48 | 2 | unresolved | Reopen only if DGS publishes dataset-specific reuse terms or an authoritative open-data licence covering the historical mortality exports. |
 | external | `ecb-distributional-wealth-accounts` | actionable | The consumer downloads DWA/* without selecting a country, statistic, frequency or series-key identity. Its normalizer expects numeric years and semantic series aliases that do not match the quarterly DWA SDMX period/series-key contract. The declared top-1% outcome is not substantiated by the DWA indicators checked here; no dated response hash exists. | 2026-11-07 | 15 | 6 | unresolved | In the consumer, select and test exact DWA series keys by geography and group, decode quarterly TIME_PERIOD correctly, preserve ECB units and observation flags, and define a documented annual aggregation if needed. Pin full query URLs, API access dates, release vintages and SHA-256 for raw responses. Check permissions before redistributing transformed values. |
 | external | `eurostat-multicountry-housing-tax-covariates` | actionable | No raw response files, SHA-256 checksums or extraction timestamps have been pinned for these cross-country Eurostat consumer requests. Eurostat's API publishes current datasets, not immutable historical API versions. | 2026-11-10 | 12 | 8 | allowed | Capture the exact query, geography, dataset code and DOI, response timestamp, Eurostat update metadata, data/structure dimensions, raw JSON SHA-256, observation status flags, and transformation revision for each selected series. Verify exact response dimensions and unique series keys in downstream regression tests before considering a canonical snapshot. |
+| external | `eurotoptech-happiness-taxes-europe` | actionable | The upstream page is a live recomputation with no versioned export, so the 22 November 2026 values exist only as the consumer's transcription and its digest. The site's terms on reuse of research pages were not reviewed, so redistribution of the transcribed values is unresolved. | 2026-11-22 | 0 | 3 | unresolved | Capture the page in a web archive and record the capture URL, or obtain a dated export from Euro Top Tech; review the terms of service for reuse of the published aggregates. |
 | external | `gpp-sima-orange-wholesale-quotations` | terminal | GPP permits partial reproduction of public information under conditions, but its published legal notice does not explicitly establish permission to mirror an entire SIMA wholesale-market CSV export in this registry. | 2026-11-06 | 16 | 4 | unresolved | Continue linking to GPP and the consumer's pinned snapshot. Revisit central mirroring only if GPP publishes explicit reuse terms covering complete SIMA CSV exports or grants the necessary permission. |
 | external | `hillstrom-minethatdata-email-experiment-2008` | terminal | Kevin Hillstrom publicly invited download and analysis of the 2008 competition CSV, but an explicit grant to redistribute its full underlying data from a central public repository was not located. A Kaggle uploader's description or licence cannot independently prove that the original dataset owner granted downstream sublicensing rights. | 2026-10-31 | 22 | 3 | unresolved | Continue upstream-on-demand acquisition in the research project. Revisit canonical preservation only with documented owner permission for the exact source file and a verified SHA-256 snapshot. |
 | external | `ibm-telco-customer-churn` | terminal | The pinned IBM repository is Apache-2.0 licensed as a code pattern, but the README explicitly separates third-party objects and no dataset-specific redistribution licence for Telco-Customer-Churn.csv was established. | 2026-10-05 | 48 | 3 | unresolved | Reopen only if IBM publishes dataset-specific terms or an authoritative licence statement covering Telco-Customer-Churn.csv. |
@@ -49,6 +51,7 @@ Do not edit it by hand.
 | external | `miller-2008-suffrage-mortality-finance` | actionable | The author publishes the files openly on his university page for replication, but neither the page nor the online appendix states a licence or redistribution terms. | 2026-11-22 | 0 | 2 | unresolved | Keep the files consumer-downloaded and checksum-verified. Ask the author for terms before any mirror or canonical promotion. |
 | external | `oecd-analytical-house-price-indicators` | actionable | OECD's general terms allow data reuse with attribution unless additional source-specific or third-party restrictions apply. Country-measure source ownership is not verified for this consumer. Its open SDMX measure/unit selector and first-value pivot also need an exact-series, uniqueness and unit check before a response can support empirical results. | 2026-11-09 | 13 | 5 | unresolved | In the consumer, select and validate exact country, annual-frequency, measure, unit and seasonal-adjustment dimensions; reject duplicate observations per country/year/measure. Inspect OECD Data Explorer source metadata for PRT, ESP, FRA, ITA, IRL and NLD and each selected measure; confirm third-party permissions. Pin exact query, dated SDMX response, raw SHA-256 and transformation revision before canonical consideration. |
 | external | `oecd-average-annual-wages` | actionable | The OECD general reuse policy is permissive, but country-series third- party ownership remains unchecked. The consumer also discards duplicate year rows without validating remaining SDMX dimensions or unique source identity, and its nominally year-on-year growth can span missing years. | 2026-11-09 | 13 | 4 | unresolved | In the consumer, validate exact REF_AREA, WG, USD_PPP, price base Q and other returned SDMX dimensions; reject conflicting duplicate year rows; compute wage_growth only for consecutive years and report gaps. Verify source ownership in OECD Data Explorer for all six areas; preserve the response URL, access timestamp, byte SHA-256, PPP reference year and transformation revision before proposing a canonical snapshot. |
+| external | `oecd-government-at-a-glance-satisfaction-2025` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
 | external | `pordata-ine-portugal-infant-mortality` | terminal | The underlying official INE statistics can be attributed and used, but no PORDATA/FFMS terms permitting verbatim redistribution of its complete portal export or repackaged table were established for this source. | 2026-10-31 | 22 | 3 | unresolved | Retain external citation and the limited attributed downstream transcriptions. Obtain explicit table-export reuse terms, or source the same series directly from INE under its applicable redistribution policy before considering canonical promotion. |
 | external | `pordata-portugal-resident-population` | terminal | INE permits rediffusion of official statistical information with source attribution, but the historical workbook was a PORDATA-generated Excel export and no authoritative term was recovered that clearly permits mirroring that secondary-source artifact. | 2026-10-05 | 48 | 3 | unresolved | Reopen only if PORDATA or FFMS publishes terms explicitly authorizing redistribution of exported table files, or if the registry replaces the artifact with a directly sourced INE representation under INE reuse terms. |
 | external | `porto-metro-gtfs-2026-09-07` | actionable | A historical Porto open-data catalog tagged this dataset CC0, but the current migrated listing did not expose a clearly linked licence for the exact 7 September 2026 ZIP; carryover of the old licence is unverified. | 2026-10-30 | 23 | 2 | unresolved | Verify the migrated portal's machine-readable licence metadata or obtain publisher confirmation for the dated ZIP before canonical promotion. |
