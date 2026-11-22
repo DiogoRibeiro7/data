@@ -54,11 +54,13 @@ association does not reuse another project's retrieval hashes.
 
 ## Registry decision
 
-**Metadata-only external record.** No INE API bytes are copied into the central
-registry. Source versions may change, while the research project already pins
-its own exact dated responses and checksums. Canonical promotion would require
-selection of a concrete reusable snapshot and a registered, pinned downstream
-consumer contract.
+**Metadata-only external record for the broader INE source family.** One selected
+2025 new-lease rent snapshot (indicator `0014698`) and its separately collected
+metadata are now preserved in the [canonical rent package](../../datasets/ine-portugal-new-lease-rents/README.md).
+That package documents its hashes, geography, source defects and planned
+platform consumer; an adoption exemption applies until the adapter is implemented
+and its pinned consumer contract is registered. Other INE responses remain
+project-local and retain their independent collection dates and checksums.
 
 ## Verified municipal series for wealth and rentier dynamics (November 2026)
 
@@ -85,8 +87,9 @@ must not be mistaken for a validated or committed annual dataset.
 
 ### Reuse boundaries
 
-- This registry records identifiers, provenance and consumers. It does **not**
-  run INE ingestion, hold a mutable database, or copy these research snapshots.
+- This external record describes identifiers, provenance and consumers. The
+  canonical rent package is a separate, narrowly selected snapshot; the registry
+  does not run INE ingestion or hold a mutable database.
 - Keep each territorial classification and vintage explicit. In particular,
   `0008269` NUTS2013 and `0013249` NUTS2024 cannot be joined by raw
   geographic codes without a documented concordance.

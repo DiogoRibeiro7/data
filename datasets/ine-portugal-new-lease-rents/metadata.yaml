@@ -1,0 +1,79 @@
+schema_version: 1
+
+id: ine-portugal-new-lease-rents
+title: "INE Portugal: median new-lease rents, 2025"
+description: >
+  Official indicator 0014698: median monthly rent per square metre of gross
+  private area for new family-dwelling leases in 2025, methodology 2026 and
+  NUTS 2024 geography. Preserves the October 2026 observation response and
+  separately collected November 2026 metadata and methodology; no transformation.
+
+domain:
+  - economics
+  - housing
+  - portugal
+  - subnational
+
+source:
+  publisher: "Instituto Nacional de Estatística, I.P. (Statistics Portugal)"
+  url: "https://www.ine.pt/ine/json_indicador/pindica.jsp?op=2&varcd=0014698&Dim1=S7A2025&lang=PT"
+  retrieved_at: 2026-10-30
+  snapshot: >
+    Indicator 0014698, period S7A2025, source update 2026-09-29;
+    observation DataExtracao 2026-10-30T15:16:42.184Z, preserved from
+    social-security-housing-investment commit
+    f84577d7cb5a5dd0338707faa32fe166881d9596, Git blob
+    500ab19d99028aa3484227a35ff3714b763afaa7. Companion metadata and
+    methodology collected separately on 2026-11-16; not an atomic INE release.
+
+license:
+  name: "CC BY 4.0 (INE statistical information)"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+  redistribution: allowed
+
+citation:
+  text: >
+    Fonte: Instituto Nacional de Estatística, I.P. – Portugal.
+    Indicator 0014698, median new-lease rents, 2025, methodology 2026,
+    NUTS 2024. Observations collected 2026-10-30; companion metadata
+    collected 2026-11-16. CC BY 4.0. Raw source bytes unchanged.
+  url: "https://www.ine.pt/bddXplorer/htdocs/minfo.jsp?var_cd=0014698&lingua=PT"
+
+files:
+  - path: raw/ine_0014698_S7A2025_2026-10-30.json
+    role: raw
+    format: json
+    sha256: "e19aa7476bc3c21f0525b753b774c8a71f87e6e02bfb049adffcb43607377285"
+    row_count: 638
+    encoding: utf-8
+    notes: >
+      Exact 91,363-byte response from the pinned research Git blob. Includes
+      487 numeric and 151 null/not-applicable observations across six geographic
+      levels; 308 are municipalities (247 numeric, 61 null). Request and
+      original collection date are recorded in the pinned research inventory.
+  - path: raw/ine_0014698_metadata_2026-11-16.json
+    role: raw
+    format: json
+    sha256: "a3f73b35775d909322f44aecd21f667d6a54180e1e3fb1e012dae1d2829e609b"
+    encoding: utf-8
+    notes: >
+      Exact 150,884-byte response collected at 2026-11-16 08:56:10 UTC from
+      https://www.ine.pt/ine/json_indicador/pindicaMeta.jsp?varcd=0014698&lang=PT
+      using ineDataClient source commit e60e69ea3a4f149b61b3b2b44c49e8c01be6095a.
+      Includes dimensions, classification 05433, all 638 geography codes/labels/
+      levels, units and revision note. DataExtracao 2026-11-16T08:56:09.906Z;
+      source update 2026-09-29. This is not metadata retrieved in October.
+  - path: raw/ine_0014698_methodology_2026-11-16.html
+    role: raw
+    format: html
+    sha256: "636de2e18744e021e783a0378679ab2f250c60ebbd4193a478d98d26b724ec1a"
+    encoding: utf-8
+    notes: >
+      Exact 8,819-byte indicator information page collected at
+      2026-11-16 08:56:14 UTC from
+      https://www.ine.pt/bddXplorer/htdocs/minfo.jsp?var_cd=0014698&lingua=PT
+      using the pinned INE client's bounded curl transport. Preserves upstream
+      wording/encoding defects, including a sales-related formula under the
+      rent indicator. See README for interpretation limits.
+
+lineage: []
