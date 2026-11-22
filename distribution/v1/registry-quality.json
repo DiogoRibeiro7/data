@@ -64,15 +64,15 @@
     "uncovered_datasets_without_consumers": []
   },
   "external": {
-    "pinned_immutable_identity_sources": 5,
+    "pinned_immutable_identity_sources": 8,
     "redistribution": {
-      "resolved": 24,
+      "resolved": 27,
       "unresolved": 30
     },
-    "source_count": 54,
+    "source_count": 57,
     "source_usage": {
-      "consumer_count": 14,
-      "consumer_references": 51,
+      "consumer_count": 15,
+      "consumer_references": 55,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -80,6 +80,7 @@
         "displacement-risk-lab-dynamodb",
         "ds-projects-portfolio",
         "empirical-analysis-r",
+        "medium-blog/growth-finite-world",
         "medium-statistical-dynamics",
         "perishable-inventory-decision-lab",
         "porto-metro-demand-analysis",

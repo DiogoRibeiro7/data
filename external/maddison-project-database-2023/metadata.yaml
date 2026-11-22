@@ -26,3 +26,4 @@ usage:
     file or specified its country cohort. No bytes are mirrored here.
 consumers:
   - portugal-living-standards-reassessment
+  - medium-blog/growth-finite-world

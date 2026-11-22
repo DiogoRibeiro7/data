@@ -1,0 +1,35 @@
+schema_version: 1
+status: external-reference
+id: owid-co2-data
+title: "Our World in Data CO2 and greenhouse gas emissions dataset (owid/co2-data)"
+publisher: "Global Change Data Lab / Our World in Data"
+source_url: "https://github.com/owid/co2-data"
+source_commit: "22d9a01321ddec951b36f2bfc66e05dc6ad50ad8"
+source_path: "owid-co2-data.csv"
+license:
+  name: "CC BY 4.0 for OWID-produced data; third-party series keep their providers' terms"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+redistribution: dataset-specific
+storage: authoritative-upstream
+usage:
+  storage: authoritative-upstream
+  redistribution: dataset-specific
+  attribution_required: true
+  note: >-
+    Pinned file from the OWID access layer (see our-world-in-data). The
+    columns used downstream come from third parties: territorial and
+    consumption-based CO2 from the Global Carbon Budget (2026), GDP from the
+    Maddison Project Database 2023 (see maddison-project-database-2023,
+    whose citation rules apply), and population from OWID's compilation.
+    Each keeps its provider's terms. Country GDP in this file is annual;
+    world GDP is given only for Maddison benchmark years before 2015. No
+    bytes are mirrored here.
+medium_blog:
+  folder: growth-finite-world
+  fetch: "growth-finite-world/fetch_data.py"
+  raw_url: "https://raw.githubusercontent.com/owid/co2-data/22d9a01321ddec951b36f2bfc66e05dc6ad50ad8/owid-co2-data.csv"
+  sha256: "300fb68fe6b0d514ed7f5cf773df77d7e24a495438d84b76e2f39eba1584a0f7"
+  columns_used: [country, iso_code, year, gdp, population, co2, consumption_co2]
+  derived_output: "growth-finite-world/data/{us_gdp,world,countries}.csv (built by build_data.py, not committed)"
+consumers:
+  - medium-blog/growth-finite-world

@@ -525,6 +525,7 @@
       "redistribution": "allowed",
       "storage": "authoritative-upstream",
       "consumers": [
+        "medium-blog/growth-finite-world",
         "portugal-living-standards-reassessment"
       ],
       "path": "external/maddison-project-database-2023"
@@ -663,6 +664,38 @@
       "path": "external/our-world-in-data"
     },
     {
+      "id": "owid-co2-data",
+      "title": "Our World in Data CO2 and greenhouse gas emissions dataset (owid/co2-data)",
+      "publisher": "Global Change Data Lab / Our World in Data",
+      "source_url": "https://github.com/owid/co2-data",
+      "license": {
+        "name": "CC BY 4.0 for OWID-produced data; third-party series keep their providers' terms",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "dataset-specific",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/growth-finite-world"
+      ],
+      "path": "external/owid-co2-data"
+    },
+    {
+      "id": "owid-energy-data",
+      "title": "Our World in Data energy dataset (owid/energy-data)",
+      "publisher": "Global Change Data Lab / Our World in Data",
+      "source_url": "https://github.com/owid/energy-data",
+      "license": {
+        "name": "CC BY 4.0 for OWID-produced data; third-party series keep their providers' terms",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "dataset-specific",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/growth-finite-world"
+      ],
+      "path": "external/owid-energy-data"
+    },
+    {
       "id": "pordata-ine-portugal-infant-mortality",
       "title": "INE/PORDATA Portugal infant mortality rate, annual historical series",
       "publisher": "Instituto Nacional de Estatística (INE); distributed by PORDATA / Fundação Francisco Manuel dos Santos",
@@ -781,6 +814,22 @@
         "terminal": true,
         "blocker_category": "redistribution-rights"
       }
+    },
+    {
+      "id": "shiller-sp-composite-monthly",
+      "title": "Robert Shiller's monthly S&P Composite series (price, dividends, earnings, CPI, CAPE) from 1871, Datahub mirror",
+      "publisher": "Robert J. Shiller (Yale University); mirrored by Datahub as datasets/s-and-p-500",
+      "source_url": "https://github.com/datasets/s-and-p-500",
+      "license": {
+        "name": "ODC-PDDL-1.0 (declared by the Datahub mirror's datapackage.json)",
+        "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+      },
+      "redistribution": "dataset-specific",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/growth-finite-world"
+      ],
+      "path": "external/shiller-sp-composite-monthly"
     },
     {
       "id": "turing-change-point-dataset",
