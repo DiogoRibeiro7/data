@@ -1,0 +1,29 @@
+schema_version: 1
+status: external-reference
+id: open-meteo-previous-runs-forecasts
+title: "Open-Meteo Previous Runs API: archived weather forecasts at fixed lead times"
+publisher: "Open-Meteo"
+source_url: "https://open-meteo.com/en/docs/previous-runs-api"
+license:
+  name: "CC BY 4.0 (Open-Meteo data)"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+redistribution: allowed-with-attribution
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: allowed-with-attribution
+  attribution_required: true
+  note: >-
+    Hourly `temperature_2m_previous_day2` (the value forecast two days
+    earlier) from https://previous-runs-api.open-meteo.com/v1/forecast for
+    three to six large cities per country, averaged with equal weights. The
+    API keeps previous-run data from January 2024 for most models. Used as a
+    known future covariate whose every value was available before a
+    day-before 18:00 forecast cutoff. Rebuilt on every run, not committed.
+    Attribution: Weather data by Open-Meteo.com.
+consumers:
+  - medium-blog/model-swap-tails
+medium_blog:
+  related_paths:
+    - "model-swap-tails/src/swaptails/data.py"
+  exact_snapshot_lineage: per-run manifest in the consumer
