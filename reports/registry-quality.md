@@ -5,21 +5,21 @@ It makes no live network requests.
 
 ## Canonical registry
 
-- Canonical datasets: **8**
-- Canonical files: **29**
-- Files with verified SHA-256: **29**
-- Canonical datasets with complete licence metadata: **8**
+- Canonical datasets: **10**
+- Canonical files: **59**
+- Files with verified SHA-256: **59**
+- Canonical datasets with complete licence metadata: **10**
 
 ## External sources
 
-- External source records: **67**
-- Redistribution resolved / unresolved: **33 / 34**
-- Sources pinned to an immutable Git commit: **8**
+- External source records: **71**
+- Redistribution resolved / unresolved: **36 / 35**
+- Sources pinned to an immutable Git commit: **9**
 
 External source usage annotations:
 
-- Referenced consumer repositories: **24**
-- Source usage references: **66**
+- Referenced consumer repositories: **27**
+- Source usage references: **72**
 
 - `causal-uplift-marketing-campaign`
 - `cpd-stress-test`
@@ -34,8 +34,11 @@ External source usage annotations:
 - `medium-blog/model-swap-tails`
 - `medium-blog/portugal-debt-2035-probability`
 - `medium-blog/portugal-fiscal-reaction`
+- `medium-blog/portugal-fiscal-rules`
+- `medium-blog/portugal-realtime-output-gap`
 - `medium-blog/post-cutoff-forecasting`
 - `medium-blog/ranking-extremes`
+- `medium-blog/rent-or-buy-us`
 - `medium-blog/suffrage-public-health`
 - `medium-statistical-dynamics`
 - `perishable-inventory-decision-lab`
@@ -49,13 +52,13 @@ External source usage annotations:
 ## Canonical consumer adoption
 
 - Active consumer repositories: **3**
-- Active canonical relationships: **7**
+- Active canonical relationships: **9**
 - Deprecated relationships: **0**
-- Pinned contracts: **7 / 7**
+- Pinned contracts: **9 / 9**
 - Pinned contract coverage: **100%**
-- Canonical datasets with >=1 active consumer: **7**
+- Canonical datasets with >=1 active consumer: **9**
 - Canonical datasets with zero active consumers: **1**
-- Canonical dataset adoption coverage: **88%**
+- Canonical dataset adoption coverage: **90%**
 - Lifecycle migration coverage: **100%** (0 / 0)
 - Migration required / planned / retained / migrated: **0 / 0 / 0 / 0**
 
@@ -69,14 +72,16 @@ Active consumers:
 
 - Baseline snapshot: **snapshot-2026.10.05**
 - Baseline canonical datasets: **2**
-- Current canonical datasets: **8**
-- Added since baseline: **6**
-- Added with active consumers: **5**
+- Current canonical datasets: **10**
+- Added since baseline: **8**
+- Added with active consumers: **7**
 - Added with exemptions: **1**
 - Uncovered canonical datasets: **0**
 
 Datasets added since baseline:
 
+- `bls-cpi-rent-us-metros`
+- `census-acs-housing-costs-msa`
 - `eurostat-material-use`
 - `eurostat-services-energy-time`
 - `eurostat-services-relative-prices`
@@ -95,8 +100,8 @@ Adoption exemptions:
 
 ## Provenance and licensing debt
 
-- Total debt items: **37**
-- External actionable / terminal: **10 / 24**
+- Total debt items: **38**
+- External actionable / terminal: **11 / 24**
 - Legacy actionable / terminal: **0 / 2**
 - Oldest review date: **2026-10-05**
 - Oldest deterministic debt age (days): **48**
@@ -107,7 +112,7 @@ Debt by blocker category:
 - `dataset-vs-repository-licence-scope`: **3**
 - `exact-snapshot-identity`: **3**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **28**
+- `redistribution-rights`: **29**
 
 ## Generated catalog freshness
 

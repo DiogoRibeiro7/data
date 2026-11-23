@@ -1,0 +1,175 @@
+schema_version: 1
+id: census-acs-housing-costs-msa
+title: 'Census ACS 1-year 2022 and 2023: median home value, rents, real estate taxes, rooms and tenure for all geographies'
+description: 'Twelve table-based summary files of the American Community Survey 1-year estimates, kept byte for
+  byte: median value of owner-occupied homes (B25077), median gross rent (B25064), median contract rent (B25058),
+  median real estate taxes paid (B25103), median rooms by tenure (B25021) and tenure counts (B25003), for 2022 and
+  2023, every geography in the release including the nation and metropolitan statistical areas. Used to set price,
+  rent and property-tax levels in one year so that index series can be turned into dollars. Taken from the static
+  summary-file directory because the Census data API now requires a key.'
+domain:
+- economics
+- housing
+- rents
+- census
+- united-states
+source:
+  publisher: U.S. Census Bureau, American Community Survey
+  url: https://www2.census.gov/programs-surveys/acs/summary_file/
+  retrieved_at: '2026-11-22'
+  snapshot: ACS 1-year table-based summary files for 2022 and 2023, retrieved 2026-11-22T23:16Z to 23:21Z by a GitHub
+    Actions run of this repository
+license:
+  name: U.S. Government work, public domain (17 U.S.C. 105)
+  url: https://www.census.gov/about/policies/open-gov/open-data.html
+  redistribution: allowed
+citation:
+  text: U.S. Census Bureau, American Community Survey 1-year estimates, 2022 and 2023, tables B25003, B25021, B25058,
+    B25064, B25077 and B25103, table-based summary files, retrieved 22 November 2026.
+  url: https://www.census.gov/programs-surveys/acs
+files:
+- path: raw/acsdt1y2022-b25003.dat
+  role: raw
+  format: psv
+  encoding: utf-8
+  compression: null
+  sha256: 22c09f45723ed43180f25b10981af810ffc987620cc45ca876f92f39631c948b
+  row_count: 8103
+  column_count: 7
+  notes: 'ACS 2022 1-year table B25003, tenure: occupied units, owner-occupied, renter-occupied, estimates (_E)
+    and margins of error (_M) for every geography in the 1-year release, keyed by GEO_ID (metropolitan statistical
+    areas are 310M700USnnnnn in 2023 and 310M600USnnnnn in 2022; the nation is 0100000US). Pipe-delimited, 404,058
+    bytes. URL: https://www2.census.gov/programs-surveys/acs/summary_file/2022/table-based-SF/data/1YRData/acsdt1y2022-b25003.dat'
+- path: raw/acsdt1y2022-b25021.dat
+  role: raw
+  format: psv
+  encoding: utf-8
+  compression: null
+  sha256: 49e159e4b33bd3a64df57d2b668d6d20b9a45cbd7e09ffb6b74f60162f54dc6f
+  row_count: 8103
+  column_count: 7
+  notes: 'ACS 2022 1-year table B25021, median number of rooms by tenure (total, owner-occupied, renter-occupied),
+    estimates (_E) and margins of error (_M) for every geography in the 1-year release, keyed by GEO_ID (metropolitan
+    statistical areas are 310M700USnnnnn in 2023 and 310M600USnnnnn in 2022; the nation is 0100000US). Pipe-delimited,
+    325,767 bytes. URL: https://www2.census.gov/programs-surveys/acs/summary_file/2022/table-based-SF/data/1YRData/acsdt1y2022-b25021.dat'
+- path: raw/acsdt1y2022-b25058.dat
+  role: raw
+  format: psv
+  encoding: utf-8
+  compression: null
+  sha256: 266fb607162c54b779962f9b749c5aff3c4819cd8dbb5a85c282e351b7901fed
+  row_count: 8103
+  column_count: 3
+  notes: 'ACS 2022 1-year table B25058, median contract rent (dollars) of renter-occupied units paying cash rent,
+    estimates (_E) and margins of error (_M) for every geography in the 1-year release, keyed by GEO_ID (metropolitan
+    statistical areas are 310M700USnnnnn in 2023 and 310M600USnnnnn in 2022; the nation is 0100000US). Pipe-delimited,
+    193,615 bytes. URL: https://www2.census.gov/programs-surveys/acs/summary_file/2022/table-based-SF/data/1YRData/acsdt1y2022-b25058.dat'
+- path: raw/acsdt1y2022-b25064.dat
+  role: raw
+  format: psv
+  encoding: utf-8
+  compression: null
+  sha256: be6ade6aec499d220158c9e6d15d0b51e46b825e469b6178169ca00aa0cfb911
+  row_count: 8103
+  column_count: 3
+  notes: 'ACS 2022 1-year table B25064, median gross rent (dollars) of renter-occupied units paying cash rent, estimates
+    (_E) and margins of error (_M) for every geography in the 1-year release, keyed by GEO_ID (metropolitan statistical
+    areas are 310M700USnnnnn in 2023 and 310M600USnnnnn in 2022; the nation is 0100000US). Pipe-delimited, 195,396
+    bytes. URL: https://www2.census.gov/programs-surveys/acs/summary_file/2022/table-based-SF/data/1YRData/acsdt1y2022-b25064.dat'
+- path: raw/acsdt1y2022-b25077.dat
+  role: raw
+  format: psv
+  encoding: utf-8
+  compression: null
+  sha256: 2ce7a81314c8290186972e1675f3fbea3bfd19dab53cd8f206c2964130a40eb5
+  row_count: 8102
+  column_count: 3
+  notes: 'ACS 2022 1-year table B25077, median value (dollars) of owner-occupied housing units, estimates (_E) and
+    margins of error (_M) for every geography in the 1-year release, keyed by GEO_ID (metropolitan statistical areas
+    are 310M700USnnnnn in 2023 and 310M600USnnnnn in 2022; the nation is 0100000US). Pipe-delimited, 234,051 bytes.
+    URL: https://www2.census.gov/programs-surveys/acs/summary_file/2022/table-based-SF/data/1YRData/acsdt1y2022-b25077.dat'
+- path: raw/acsdt1y2022-b25103.dat
+  role: raw
+  format: psv
+  encoding: utf-8
+  compression: null
+  sha256: 4b618086bbed7027b8528c106f5db653cdcee4da9831e94f93ccf54fde6f826a
+  row_count: 8101
+  column_count: 7
+  notes: 'ACS 2022 1-year table B25103, median real estate taxes paid (dollars) by owner-occupied units, estimates
+    (_E) and margins of error (_M) for every geography in the 1-year release, keyed by GEO_ID (metropolitan statistical
+    areas are 310M700USnnnnn in 2023 and 310M600USnnnnn in 2022; the nation is 0100000US). Pipe-delimited, 348,022
+    bytes. URL: https://www2.census.gov/programs-surveys/acs/summary_file/2022/table-based-SF/data/1YRData/acsdt1y2022-b25103.dat'
+- path: raw/acsdt1y2023-b25003.dat
+  role: raw
+  format: psv
+  encoding: utf-8
+  compression: null
+  sha256: 92fcc05c45c28592796fcbb17a935dac383ab1cd62e0bbd6a7595a48afe209ed
+  row_count: 8106
+  column_count: 7
+  notes: 'ACS 2023 1-year table B25003, tenure: occupied units, owner-occupied, renter-occupied, estimates (_E)
+    and margins of error (_M) for every geography in the 1-year release, keyed by GEO_ID (metropolitan statistical
+    areas are 310M700USnnnnn in 2023 and 310M600USnnnnn in 2022; the nation is 0100000US). Pipe-delimited, 404,176
+    bytes. URL: https://www2.census.gov/programs-surveys/acs/summary_file/2023/table-based-SF/data/1YRData/acsdt1y2023-b25003.dat'
+- path: raw/acsdt1y2023-b25021.dat
+  role: raw
+  format: psv
+  encoding: utf-8
+  compression: null
+  sha256: bd082617acd8fafd2bdde3a162745abb2e8b3fe960118734ba9327f7d6b01f9d
+  row_count: 8106
+  column_count: 7
+  notes: 'ACS 2023 1-year table B25021, median number of rooms by tenure (total, owner-occupied, renter-occupied),
+    estimates (_E) and margins of error (_M) for every geography in the 1-year release, keyed by GEO_ID (metropolitan
+    statistical areas are 310M700USnnnnn in 2023 and 310M600USnnnnn in 2022; the nation is 0100000US). Pipe-delimited,
+    325,778 bytes. URL: https://www2.census.gov/programs-surveys/acs/summary_file/2023/table-based-SF/data/1YRData/acsdt1y2023-b25021.dat'
+- path: raw/acsdt1y2023-b25058.dat
+  role: raw
+  format: psv
+  encoding: utf-8
+  compression: null
+  sha256: f7edc919db8537508185a682744e7d83f5a0c9b28e7c2ee9d42ee71b4701cc1f
+  row_count: 8106
+  column_count: 3
+  notes: 'ACS 2023 1-year table B25058, median contract rent (dollars) of renter-occupied units paying cash rent,
+    estimates (_E) and margins of error (_M) for every geography in the 1-year release, keyed by GEO_ID (metropolitan
+    statistical areas are 310M700USnnnnn in 2023 and 310M600USnnnnn in 2022; the nation is 0100000US). Pipe-delimited,
+    194,401 bytes. URL: https://www2.census.gov/programs-surveys/acs/summary_file/2023/table-based-SF/data/1YRData/acsdt1y2023-b25058.dat'
+- path: raw/acsdt1y2023-b25064.dat
+  role: raw
+  format: psv
+  encoding: utf-8
+  compression: null
+  sha256: f45d5674900b087021e00a4c728ae52ff16d5fbeb856ef9198240d45887d376f
+  row_count: 8106
+  column_count: 3
+  notes: 'ACS 2023 1-year table B25064, median gross rent (dollars) of renter-occupied units paying cash rent, estimates
+    (_E) and margins of error (_M) for every geography in the 1-year release, keyed by GEO_ID (metropolitan statistical
+    areas are 310M700USnnnnn in 2023 and 310M600USnnnnn in 2022; the nation is 0100000US). Pipe-delimited, 196,335
+    bytes. URL: https://www2.census.gov/programs-surveys/acs/summary_file/2023/table-based-SF/data/1YRData/acsdt1y2023-b25064.dat'
+- path: raw/acsdt1y2023-b25077.dat
+  role: raw
+  format: psv
+  encoding: utf-8
+  compression: null
+  sha256: c39987ce683bc4ac8d5831ac9fb67cbcdfaa9bbb81193bc3af4582ad97353723
+  row_count: 8106
+  column_count: 3
+  notes: 'ACS 2023 1-year table B25077, median value (dollars) of owner-occupied housing units, estimates (_E) and
+    margins of error (_M) for every geography in the 1-year release, keyed by GEO_ID (metropolitan statistical areas
+    are 310M700USnnnnn in 2023 and 310M600USnnnnn in 2022; the nation is 0100000US). Pipe-delimited, 234,323 bytes.
+    URL: https://www2.census.gov/programs-surveys/acs/summary_file/2023/table-based-SF/data/1YRData/acsdt1y2023-b25077.dat'
+- path: raw/acsdt1y2023-b25103.dat
+  role: raw
+  format: psv
+  encoding: utf-8
+  compression: null
+  sha256: d0ddc93d6a790afa95b0e8660e0620b09117be7bcf0a857ea1e03e38a3fbcd82
+  row_count: 8098
+  column_count: 7
+  notes: 'ACS 2023 1-year table B25103, median real estate taxes paid (dollars) by owner-occupied units, estimates
+    (_E) and margins of error (_M) for every geography in the 1-year release, keyed by GEO_ID (metropolitan statistical
+    areas are 310M700USnnnnn in 2023 and 310M600USnnnnn in 2022; the nation is 0100000US). Pipe-delimited, 349,456
+    bytes. URL: https://www2.census.gov/programs-surveys/acs/summary_file/2023/table-based-SF/data/1YRData/acsdt1y2023-b25103.dat'
+lineage: []

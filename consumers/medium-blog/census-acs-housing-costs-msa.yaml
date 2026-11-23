@@ -1,0 +1,25 @@
+schema_version: 1
+status: active
+
+consumer_id: medium-blog
+consumer_repository: DiogoRibeiro7/Medium-Blog
+
+dataset_id: census-acs-housing-costs-msa
+
+registry_layer: canonical
+registry_repository: DiogoRibeiro7/data
+registry_commit: "547c25d42b5607c6c29fc60918b8fb74b42d5b2e"
+
+path: datasets/census-acs-housing-costs-msa/raw/acsdt1y2023-b25077.dat
+sha256: "c39987ce683bc4ac8d5831ac9fb67cbcdfaa9bbb81193bc3af4582ad97353723"
+
+consumer_commit: "3d1d2d48c9d519929ef7db0349e499de32326e8f"
+evidence_url: https://github.com/DiogoRibeiro7/Medium-Blog/tree/rent-or-buy-us/rent-or-buy-us
+
+notes: >
+  Folder rent-or-buy-us reads all twelve raw files of the dataset, not only the
+  one named here: six ACS 1-year tables for 2022 and 2023 (tenure, rooms,
+  contract rent, gross rent, home value and real estate taxes). Medium-Blog
+  records the registry commit, URL, size and SHA-256 of each file in
+  data_sources/census-acs-housing-costs-msa.json; rent-or-buy-us/fetch.py
+  downloads them at every run and stops if any byte differs.

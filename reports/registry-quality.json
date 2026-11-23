@@ -1,15 +1,17 @@
 {
   "canonical": {
-    "complete_license_datasets": 8,
-    "dataset_count": 8,
-    "file_count": 29,
-    "verified_checksum_files": 29
+    "complete_license_datasets": 10,
+    "dataset_count": 10,
+    "file_count": 59,
+    "verified_checksum_files": 59
   },
   "canonical_expansion": {
     "added_datasets_exempted": [
       "ine-portugal-new-lease-rents"
     ],
     "added_datasets_with_consumers": [
+      "bls-cpi-rent-us-metros",
+      "census-acs-housing-costs-msa",
       "eurostat-material-use",
       "eurostat-services-energy-time",
       "eurostat-services-relative-prices",
@@ -18,8 +20,10 @@
     ],
     "baseline_dataset_count": 2,
     "baseline_snapshot": "snapshot-2026.10.05",
-    "current_dataset_count": 8,
+    "current_dataset_count": 10,
     "datasets_added_since_baseline": [
+      "bls-cpi-rent-us-metros",
+      "census-acs-housing-costs-msa",
       "eurostat-material-use",
       "eurostat-services-energy-time",
       "eurostat-services-relative-prices",
@@ -50,11 +54,13 @@
       "displacement-risk-lab-dynamodb",
       "medium-blog"
     ],
-    "active_relationship_count": 7,
-    "canonical_dataset_adoption_coverage": 0.875,
-    "canonical_datasets_with_consumers": 7,
+    "active_relationship_count": 9,
+    "canonical_dataset_adoption_coverage": 0.9,
+    "canonical_datasets_with_consumers": 9,
     "canonical_datasets_without_consumers": 1,
     "datasets_with_consumers": [
+      "bls-cpi-rent-us-metros",
+      "census-acs-housing-costs-msa",
       "eurostat-material-use",
       "eurostat-services-energy-time",
       "eurostat-services-relative-prices",
@@ -77,20 +83,20 @@
     "migration_planned_count": 0,
     "migration_required_count": 0,
     "migration_retained_count": 0,
-    "pinned_contract_count": 7,
+    "pinned_contract_count": 9,
     "pinned_contract_coverage": 1.0,
     "uncovered_datasets_without_consumers": []
   },
   "external": {
-    "pinned_immutable_identity_sources": 8,
+    "pinned_immutable_identity_sources": 9,
     "redistribution": {
-      "resolved": 33,
-      "unresolved": 34
+      "resolved": 36,
+      "unresolved": 35
     },
-    "source_count": 67,
+    "source_count": 71,
     "source_usage": {
-      "consumer_count": 24,
-      "consumer_references": 66,
+      "consumer_count": 27,
+      "consumer_references": 72,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -105,8 +111,11 @@
         "medium-blog/model-swap-tails",
         "medium-blog/portugal-debt-2035-probability",
         "medium-blog/portugal-fiscal-reaction",
+        "medium-blog/portugal-fiscal-rules",
+        "medium-blog/portugal-realtime-output-gap",
         "medium-blog/post-cutoff-forecasting",
         "medium-blog/ranking-extremes",
+        "medium-blog/rent-or-buy-us",
         "medium-blog/suffrage-public-health",
         "medium-statistical-dynamics",
         "perishable-inventory-decision-lab",
@@ -133,10 +142,10 @@
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 3,
       "historical-export-route": 1,
-      "redistribution-rights": 28
+      "redistribution-rights": 29
     },
     "external": {
-      "actionable": 10,
+      "actionable": 11,
       "terminal": 24
     },
     "legacy": {
@@ -145,7 +154,7 @@
     },
     "oldest_age_days": 48,
     "oldest_review_date": "2026-10-05",
-    "total_count": 37
+    "total_count": 38
   },
   "schema_version": 1,
   "snapshots": {

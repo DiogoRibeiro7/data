@@ -24,6 +24,8 @@ usage:
     Medium-Blog or in this registry.
 consumers:
   - medium-blog/portugal-fiscal-reaction
+  - medium-blog/portugal-fiscal-rules
+  - medium-blog/portugal-realtime-output-gap
 medium_blog:
   folder: portugal-fiscal-reaction
   fetch: "portugal-fiscal-reaction/fetch_data.py"

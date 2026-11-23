@@ -33,6 +33,24 @@
   "canonical": [
     {
       "byte_archive_eligibility": "eligible",
+      "id": "bls-cpi-rent-us-metros",
+      "license_name": "U.S. Government work, public domain (17 U.S.C. 105)",
+      "metadata_path": "datasets/bls-cpi-rent-us-metros/metadata.yaml",
+      "reason": "canonical metadata explicitly permits redistribution",
+      "redistribution": "allowed",
+      "title": "BLS consumer price index: rent of primary residence for the U.S. and 16 metropolitan areas, and all-items CPI-U"
+    },
+    {
+      "byte_archive_eligibility": "eligible",
+      "id": "census-acs-housing-costs-msa",
+      "license_name": "U.S. Government work, public domain (17 U.S.C. 105)",
+      "metadata_path": "datasets/census-acs-housing-costs-msa/metadata.yaml",
+      "reason": "canonical metadata explicitly permits redistribution",
+      "redistribution": "allowed",
+      "title": "Census ACS 1-year 2022 and 2023: median home value, rents, real estate taxes, rooms and tenure for all geographies"
+    },
+    {
+      "byte_archive_eligibility": "eligible",
       "id": "eurostat-material-use",
       "license_name": "Eurostat free re-use policy (Commission Decision 2011/833/EU)",
       "metadata_path": "datasets/eurostat-material-use/metadata.yaml",
@@ -161,6 +179,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "damodaran-historical-returns",
+      "metadata_path": "external/damodaran-historical-returns/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "dgo-2026-social-security-budget",
       "metadata_path": "external/dgo-2026-social-security-budget/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -181,6 +205,12 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "ec-ameco-autumn-2026",
       "metadata_path": "external/ec-ameco-autumn-2026/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "ec-ameco-vintages-2011-2021",
+      "metadata_path": "external/ec-ameco-vintages-2011-2021/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -235,6 +265,12 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "fred-economic-data",
       "metadata_path": "external/fred-economic-data/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "freddie-mac-pmms-fred",
+      "metadata_path": "external/freddie-mac-pmms-fred/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -455,6 +491,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "sp-corelogic-case-shiller-datahub",
+      "metadata_path": "external/sp-corelogic-case-shiller-datahub/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "turing-change-point-dataset",
       "metadata_path": "external/turing-change-point-dataset/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -531,11 +573,11 @@
   "schema_version": 1,
   "static_distribution_eligibility": "eligible",
   "summary": {
-    "canonical_byte_archive_eligible_count": 8,
-    "canonical_dataset_count": 8,
+    "canonical_byte_archive_eligible_count": 10,
+    "canonical_dataset_count": 10,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 67,
-    "external_source_count": 67,
+    "external_metadata_only_count": 71,
+    "external_source_count": 71,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }
