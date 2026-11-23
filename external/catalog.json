@@ -623,6 +623,22 @@
       "path": "external/ine-portugal-housing-statistics"
     },
     {
+      "id": "ine-portugal-municipal-infrastructure",
+      "title": "INE Portugal municipal population, housing, schools, transport and hospital indicators",
+      "publisher": "Instituto Nacional de Estatística, I.P. (Statistics Portugal)",
+      "source_url": "https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_api_v2&xlang=pt",
+      "license": {
+        "name": "CC BY 4.0 (INE statistical information)",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/portugal-infrastructure-saturation"
+      ],
+      "path": "external/ine-portugal-municipal-infrastructure"
+    },
+    {
       "id": "jhu-csse-covid19",
       "title": "JHU CSSE COVID-19 time series",
       "publisher": "Johns Hopkins University Center for Systems Science and Engineering",

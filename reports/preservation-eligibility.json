@@ -341,6 +341,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "ine-portugal-municipal-infrastructure",
+      "metadata_path": "external/ine-portugal-municipal-infrastructure/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "jhu-csse-covid19",
       "metadata_path": "external/jhu-csse-covid19/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -582,8 +588,8 @@
     "canonical_byte_archive_eligible_count": 10,
     "canonical_dataset_count": 10,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 72,
-    "external_source_count": 72,
+    "external_metadata_only_count": 73,
+    "external_source_count": 73,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }
