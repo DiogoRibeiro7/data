@@ -1,0 +1,212 @@
+schema_version: 1
+id: bls-cpi-rent-us-metros
+title: 'BLS consumer price index: rent of primary residence for the U.S. and 16 metropolitan areas, and all-items
+  CPI-U'
+description: 'Eighteen responses kept byte for byte: the CPI-U index of rent of primary residence (not seasonally
+  adjusted) for the U.S. city average and for sixteen metropolitan areas that also have an S&P CoreLogic Case-Shiller
+  home price index, plus the all-items CPI-U. Retrieved from FRED''s graph CSV endpoint, and from DBnomics for the
+  two areas whose current BLS series FRED does not carry (Washington, and Los Angeles after 2017). Snapshotted because
+  both services serve only the latest vintage. Metropolitan rent indices are published monthly, bimonthly, semiannually
+  or annually depending on the area and period; each file keeps the frequency it was served in.'
+domain:
+- economics
+- prices
+- housing
+- rents
+- united-states
+source:
+  publisher: U.S. Bureau of Labor Statistics, retrieved through FRED (Federal Reserve Bank of St. Louis) and DBnomics
+  url: https://www.bls.gov/cpi/
+  retrieved_at: '2026-11-22'
+  snapshot: FRED fredgraph.csv with coed=2025-12-31 and DBnomics API v22, retrieved 2026-11-22T23:12Z to 23:14Z
+    by a GitHub Actions run of this repository
+license:
+  name: U.S. Government work, public domain (17 U.S.C. 105)
+  url: https://www.bls.gov/opub/copyright-information.htm
+  redistribution: allowed
+citation:
+  text: U.S. Bureau of Labor Statistics, Consumer Price Index for All Urban Consumers, rent of primary residence
+    (SEHA) and all items (SA0), retrieved from FRED and DBnomics, 22 November 2026.
+  url: https://www.bls.gov/cpi/
+files:
+- path: raw/CPIAUCNS.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  compression: null
+  sha256: 2f72ee1766c487a1ab631bfcf161ef6743858e59a331b57da36d89c5496f7fa0
+  notes: 'Consumer Price Index for All Urban Consumers: all items, U.S. city average, all items (CPI-U), not seasonally
+    adjusted, monthly (1982-84=100), BLS series CPIAUCNS; 1913-01 to 2025-12, 1355 observations. FRED graph CSV,
+    24,922 bytes. Query: https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCNS&cosd=1913-01-01&coed=2025-12-31'
+  row_count: 1356
+  column_count: 2
+- path: raw/CUUR0000SEHA.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  compression: null
+  sha256: 62795a0ad3241321ea98ce53732950e2ba35551ff044699749f2ef088f6376ba
+  notes: 'CPI-U rent of primary residence, U.S. city average, not seasonally adjusted, monthly (1982-84=100), BLS
+    series CUUR0000SEHA; 1914-12 to 2025-12, 1071 observations. FRED graph CSV, 22,961 bytes. Query: https://fred.stlouisfed.org/graph/fredgraph.csv?id=CUUR0000SEHA&cosd=1913-01-01&coed=2025-12-31'
+  row_count: 1333
+  column_count: 2
+- path: raw/CUURS35ASEHA.dbnomics.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 2166c29c5e0002d0705f6e223063af5984d7a3850624a2206f94ed91861498cc
+  notes: 'CPI-U rent of primary residence, Washington-Arlington-Alexandria, not seasonally adjusted, monthly or
+    bimonthly (1982-84=100), BLS series CUURS35ASEHA; 1998-01 to 2025-01, 325 observations. DBnomics JSON (BLS mirror),
+    28,479 bytes. Query: https://api.db.nomics.world/v22/series/BLS/cu/CUURS35ASEHA?observations=1&format=json'
+- path: raw/CUUSA101SEHA.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  compression: null
+  sha256: 68b99324e239ecb947d5f943cb7e0dd51630683460ff2f1c306cc2ca5d4dbfb9
+  notes: 'CPI-U rent of primary residence, New York-Newark-Jersey City, not seasonally adjusted, semiannual (1982-84=100),
+    BLS series CUUSA101SEHA; 1984-01 to 2025-07, 84 observations. FRED graph CSV, 1,626 bytes. Query: https://fred.stlouisfed.org/graph/fredgraph.csv?id=CUUSA101SEHA&cosd=1913-01-01&coed=2025-12-31'
+  row_count: 84
+  column_count: 2
+- path: raw/CUUSA103SEHA.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  compression: null
+  sha256: 74ac2970a5985f3d9d79d3786ab0721b7ceebe09821e01ff3812acb37f8e66b9
+  notes: 'CPI-U rent of primary residence, Boston-Cambridge-Newton, not seasonally adjusted, annual (1982-84=100),
+    BLS series CUUSA103SEHA; 1984-01 to 2025-01, 42 observations. FRED graph CSV, 828 bytes. Query: https://fred.stlouisfed.org/graph/fredgraph.csv?id=CUUSA103SEHA&cosd=1913-01-01&coed=2025-12-31'
+  row_count: 42
+  column_count: 2
+- path: raw/CUUSA207SEHA.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  compression: null
+  sha256: 029b7c4ae128659a5808f7d6ca30a8fba5d334c721fc8aab0f03ad5f259dc983
+  notes: 'CPI-U rent of primary residence, Chicago-Naperville-Elgin, not seasonally adjusted, semiannual (1982-84=100),
+    BLS series CUUSA207SEHA; 1984-01 to 2025-07, 84 observations. FRED graph CSV, 1,626 bytes. Query: https://fred.stlouisfed.org/graph/fredgraph.csv?id=CUUSA207SEHA&cosd=1913-01-01&coed=2025-12-31'
+  row_count: 84
+  column_count: 2
+- path: raw/CUUSA208SEHA.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  compression: null
+  sha256: 9829b6db8abbdc4b59e17c6973d5c446f354e3824717f007d602378188f022f3
+  notes: 'CPI-U rent of primary residence, Detroit-Warren-Dearborn, not seasonally adjusted, semiannual (1982-84=100),
+    BLS series CUUSA208SEHA; 1984-01 to 2025-07, 84 observations. FRED graph CSV, 1,626 bytes. Query: https://fred.stlouisfed.org/graph/fredgraph.csv?id=CUUSA208SEHA&cosd=1913-01-01&coed=2025-12-31'
+  row_count: 84
+  column_count: 2
+- path: raw/CUUSA211SEHA.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  compression: null
+  sha256: ef6d38308d569f26fe9e512d3bdfc088c366f02a119433fd170bd997e3b54957
+  notes: 'CPI-U rent of primary residence, Minneapolis-St. Paul-Bloomington, not seasonally adjusted, annual (1982-84=100),
+    BLS series CUUSA211SEHA; 1984-01 to 2025-01, 42 observations. FRED graph CSV, 828 bytes. Query: https://fred.stlouisfed.org/graph/fredgraph.csv?id=CUUSA211SEHA&cosd=1913-01-01&coed=2025-12-31'
+  row_count: 42
+  column_count: 2
+- path: raw/CUUSA316SEHA.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  compression: null
+  sha256: b3485b36100c4d58058780f5dbcea208a58da5f044c95967792d4c7ce61755ed
+  notes: 'CPI-U rent of primary residence, Dallas-Fort Worth-Arlington, not seasonally adjusted, annual (1982-84=100),
+    BLS series CUUSA316SEHA; 1984-01 to 2025-01, 42 observations. FRED graph CSV, 828 bytes. Query: https://fred.stlouisfed.org/graph/fredgraph.csv?id=CUUSA316SEHA&cosd=1913-01-01&coed=2025-12-31'
+  row_count: 42
+  column_count: 2
+- path: raw/CUUSA319SEHA.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  compression: null
+  sha256: 5c1b64f96531f5ac62da29ee22308c80ffae432c334d0f5e253c8494cc8006e2
+  notes: 'CPI-U rent of primary residence, Atlanta-Sandy Springs-Roswell, not seasonally adjusted, semiannual (1982-84=100),
+    BLS series CUUSA319SEHA; 1984-01 to 2025-07, 84 observations. FRED graph CSV, 1,626 bytes. Query: https://fred.stlouisfed.org/graph/fredgraph.csv?id=CUUSA319SEHA&cosd=1913-01-01&coed=2025-12-31'
+  row_count: 84
+  column_count: 2
+- path: raw/CUUSA320SEHA.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  compression: null
+  sha256: 100caed017b8d8374b3b75f337b49d3b9a50ccfe416de88bc0706f747c7b26e3
+  notes: 'CPI-U rent of primary residence, Miami-Fort Lauderdale-West Palm Beach, not seasonally adjusted, semiannual
+    (1982-84=100), BLS series CUUSA320SEHA; 1984-01 to 2025-07, 84 observations. FRED graph CSV, 1,626 bytes. Query:
+    https://fred.stlouisfed.org/graph/fredgraph.csv?id=CUUSA320SEHA&cosd=1913-01-01&coed=2025-12-31'
+  row_count: 84
+  column_count: 2
+- path: raw/CUUSA321SEHA.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  compression: null
+  sha256: f31b79d12cab2f4d8c275a42dc4c0dfdbbae7cdef7e12f99a3922c54003304b5
+  notes: 'CPI-U rent of primary residence, Tampa-St. Petersburg-Clearwater, not seasonally adjusted, annual (1982-84=100),
+    BLS series CUUSA321SEHA; 1987-01 to 2025-01, 39 observations. FRED graph CSV, 771 bytes. Query: https://fred.stlouisfed.org/graph/fredgraph.csv?id=CUUSA321SEHA&cosd=1913-01-01&coed=2025-12-31'
+  row_count: 39
+  column_count: 2
+- path: raw/CUUSA422SEHA.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  compression: null
+  sha256: b24494606a4f34cf582174a581c8001ceec1245428fca182e556ae13a95113d9
+  notes: 'CPI-U rent of primary residence, San Francisco-Oakland-Hayward, not seasonally adjusted, semiannual (1982-84=100),
+    BLS series CUUSA422SEHA; 1984-01 to 2025-07, 84 observations. FRED graph CSV, 1,626 bytes. Query: https://fred.stlouisfed.org/graph/fredgraph.csv?id=CUUSA422SEHA&cosd=1913-01-01&coed=2025-12-31'
+  row_count: 84
+  column_count: 2
+- path: raw/CUUSA423SEHA.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  compression: null
+  sha256: 0f35f4003e460e99491600821234142f1d3f56f2c01d8fd1a098914234b64677
+  notes: 'CPI-U rent of primary residence, Seattle-Tacoma-Bellevue, not seasonally adjusted, semiannual (1982-84=100),
+    BLS series CUUSA423SEHA; 1984-01 to 2025-07, 84 observations. FRED graph CSV, 1,626 bytes. Query: https://fred.stlouisfed.org/graph/fredgraph.csv?id=CUUSA423SEHA&cosd=1913-01-01&coed=2025-12-31'
+  row_count: 84
+  column_count: 2
+- path: raw/CUUSA424SEHA.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  compression: null
+  sha256: d3052a9b518addb597bec545b90305f48b76fdae9abaf90302317d6d5c956808
+  notes: 'CPI-U rent of primary residence, San Diego-Carlsbad, not seasonally adjusted, annual (1982-84=100), BLS
+    series CUUSA424SEHA; 1984-01 to 2025-01, 42 observations. FRED graph CSV, 828 bytes. Query: https://fred.stlouisfed.org/graph/fredgraph.csv?id=CUUSA424SEHA&cosd=1913-01-01&coed=2025-12-31'
+  row_count: 42
+  column_count: 2
+- path: raw/CUUSA429SEHA.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  compression: null
+  sha256: 10f4408cc69566ce83d3883369fcb43e67b05c0b3c8cdb15d25c698191459d62
+  notes: 'CPI-U rent of primary residence, Phoenix-Mesa-Scottsdale, not seasonally adjusted, annual (1982-84=100),
+    BLS series CUUSA429SEHA; 2002-01 to 2025-01, 24 observations. FRED graph CSV, 486 bytes. Query: https://fred.stlouisfed.org/graph/fredgraph.csv?id=CUUSA429SEHA&cosd=1913-01-01&coed=2025-12-31'
+  row_count: 24
+  column_count: 2
+- path: raw/CUUSA433SEHA.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  compression: null
+  sha256: 7c7822e0c7c9278b0f08ea93e6fe59fd6bb421de147bbbf708e57fe4fbd01357
+  notes: 'CPI-U rent of primary residence, Denver-Aurora-Lakewood, not seasonally adjusted, annual (1982-84=100),
+    BLS series CUUSA433SEHA; 1984-01 to 2025-01, 42 observations. FRED graph CSV, 828 bytes. Query: https://fred.stlouisfed.org/graph/fredgraph.csv?id=CUUSA433SEHA&cosd=1913-01-01&coed=2025-12-31'
+  row_count: 42
+  column_count: 2
+- path: raw/CUUSS49ASEHA.dbnomics.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: df46ac6c201f5efbd5bdab9b11bee98dc13d5d7f36fd5187a3d29fc9e188ecdd
+  notes: 'CPI-U rent of primary residence, Los Angeles-Long Beach-Anaheim, not seasonally adjusted, semiannual (index),
+    BLS series CUUSS49ASEHA; 1984-S1 to 2024-S2, 82 observations. DBnomics JSON (BLS mirror), 21,091 bytes. Query:
+    https://api.db.nomics.world/v22/series/BLS/cu/CUUSS49ASEHA?observations=1&format=json'
+lineage: []

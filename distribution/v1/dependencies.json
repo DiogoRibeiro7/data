@@ -34,6 +34,20 @@
     "medium-blog": {
       "datasets": [
         {
+          "dataset_id": "bls-cpi-rent-us-metros",
+          "path": "datasets/bls-cpi-rent-us-metros/raw/CUUR0000SEHA.csv",
+          "registry_commit": "547c25d42b5607c6c29fc60918b8fb74b42d5b2e",
+          "sha256": "62795a0ad3241321ea98ce53732950e2ba35551ff044699749f2ef088f6376ba",
+          "status": "active"
+        },
+        {
+          "dataset_id": "census-acs-housing-costs-msa",
+          "path": "datasets/census-acs-housing-costs-msa/raw/acsdt1y2023-b25077.dat",
+          "registry_commit": "547c25d42b5607c6c29fc60918b8fb74b42d5b2e",
+          "sha256": "c39987ce683bc4ac8d5831ac9fb67cbcdfaa9bbb81193bc3af4582ad97353723",
+          "status": "active"
+        },
+        {
           "dataset_id": "eurostat-services-energy-time",
           "path": "datasets/eurostat-services-energy-time/raw/nama_10_a10.json",
           "registry_commit": "6911646f783bad0475e5942b1e043169e4e5cb02",
@@ -59,6 +73,30 @@
     }
   },
   "datasets": {
+    "bls-cpi-rent-us-metros": {
+      "consumers": [
+        {
+          "consumer_id": "medium-blog",
+          "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+          "path": "datasets/bls-cpi-rent-us-metros/raw/CUUR0000SEHA.csv",
+          "registry_commit": "547c25d42b5607c6c29fc60918b8fb74b42d5b2e",
+          "sha256": "62795a0ad3241321ea98ce53732950e2ba35551ff044699749f2ef088f6376ba",
+          "status": "active"
+        }
+      ]
+    },
+    "census-acs-housing-costs-msa": {
+      "consumers": [
+        {
+          "consumer_id": "medium-blog",
+          "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+          "path": "datasets/census-acs-housing-costs-msa/raw/acsdt1y2023-b25077.dat",
+          "registry_commit": "547c25d42b5607c6c29fc60918b8fb74b42d5b2e",
+          "sha256": "c39987ce683bc4ac8d5831ac9fb67cbcdfaa9bbb81193bc3af4582ad97353723",
+          "status": "active"
+        }
+      ]
+    },
     "eurostat-services-energy-time": {
       "consumers": [
         {

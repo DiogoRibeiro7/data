@@ -2,6 +2,52 @@
   "schema_version": 1,
   "datasets": [
     {
+      "id": "bls-cpi-rent-us-metros",
+      "title": "BLS consumer price index: rent of primary residence for the U.S. and 16 metropolitan areas, and all-items CPI-U",
+      "description": "Eighteen responses kept byte for byte: the CPI-U index of rent of primary residence (not seasonally adjusted) for the U.S. city average and for sixteen metropolitan areas that also have an S&P CoreLogic Case-Shiller home price index, plus the all-items CPI-U. Retrieved from FRED's graph CSV endpoint, and from DBnomics for the two areas whose current BLS series FRED does not carry (Washington, and Los Angeles after 2017). Snapshotted because both services serve only the latest vintage. Metropolitan rent indices are published monthly, bimonthly, semiannually or annually depending on the area and period; each file keeps the frequency it was served in.",
+      "domain": [
+        "economics",
+        "prices",
+        "housing",
+        "rents",
+        "united-states"
+      ],
+      "snapshot": "FRED fredgraph.csv with coed=2025-12-31 and DBnomics API v22, retrieved 2026-11-22T23:12Z to 23:14Z by a GitHub Actions run of this repository",
+      "source": {
+        "publisher": "U.S. Bureau of Labor Statistics, retrieved through FRED (Federal Reserve Bank of St. Louis) and DBnomics",
+        "url": "https://www.bls.gov/cpi/"
+      },
+      "license": {
+        "name": "U.S. Government work, public domain (17 U.S.C. 105)",
+        "url": "https://www.bls.gov/opub/copyright-information.htm",
+        "redistribution": "allowed"
+      },
+      "path": "datasets/bls-cpi-rent-us-metros"
+    },
+    {
+      "id": "census-acs-housing-costs-msa",
+      "title": "Census ACS 1-year 2022 and 2023: median home value, rents, real estate taxes, rooms and tenure for all geographies",
+      "description": "Twelve table-based summary files of the American Community Survey 1-year estimates, kept byte for byte: median value of owner-occupied homes (B25077), median gross rent (B25064), median contract rent (B25058), median real estate taxes paid (B25103), median rooms by tenure (B25021) and tenure counts (B25003), for 2022 and 2023, every geography in the release including the nation and metropolitan statistical areas. Used to set price, rent and property-tax levels in one year so that index series can be turned into dollars. Taken from the static summary-file directory because the Census data API now requires a key.",
+      "domain": [
+        "economics",
+        "housing",
+        "rents",
+        "census",
+        "united-states"
+      ],
+      "snapshot": "ACS 1-year table-based summary files for 2022 and 2023, retrieved 2026-11-22T23:16Z to 23:21Z by a GitHub Actions run of this repository",
+      "source": {
+        "publisher": "U.S. Census Bureau, American Community Survey",
+        "url": "https://www2.census.gov/programs-surveys/acs/summary_file/"
+      },
+      "license": {
+        "name": "U.S. Government work, public domain (17 U.S.C. 105)",
+        "url": "https://www.census.gov/about/policies/open-gov/open-data.html",
+        "redistribution": "allowed"
+      },
+      "path": "datasets/census-acs-housing-costs-msa"
+    },
+    {
       "id": "eurostat-services-energy-time",
       "title": "Eurostat: value added, hours worked, final energy, time use, consumption and prices for EU services, 1995-2025",
       "description": "Seven Eurostat API responses, kept byte for byte, that together measure the inputs of the service sector in the EU and its member states: real and nominal value added and hours worked by NACE A*10 industry, final energy consumption by sector, HETUS time use (2000 and 2010 waves), per-capita consumption, population and HICP services prices. Snapshotted because Eurostat's API serves only the current vintage of each dataset.\n",

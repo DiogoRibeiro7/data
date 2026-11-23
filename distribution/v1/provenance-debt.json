@@ -66,6 +66,22 @@
       "title": "Conta Geral do Estado annual Social Security execution tables, 2013–2025 editions"
     },
     {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "The data page offers the workbook for free use with citation but states no redistribution terms, and the live file changes every January.",
+      "evidence_count": 2,
+      "id": "damodaran-historical-returns",
+      "last_reviewed": "2026-11-22",
+      "layer": "external",
+      "next_action": "Keep the consumer pinned to the archived capture with its checksum; ask the author for redistribution terms before mirroring the bytes.",
+      "path": "external/damodaran-historical-returns/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "actionable",
+      "structured_evidence": true,
+      "terminal": false,
+      "title": "Aswath Damodaran, historical returns on stocks, bonds and bills, 1928-2025 (January 2026 update), Wayback Machine capture"
+    },
+    {
       "age_days": 22,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "DGO publishes the State Budget report and separate open-budget datasets, but licence terms for rehosting this specific report or a standalone transcribed table have not been established.",
@@ -596,20 +612,20 @@
   ],
   "schema_version": 1,
   "summary": {
-    "actionable_count": 10,
+    "actionable_count": 11,
     "by_blocker_category": {
       "authoritative-source-identity": 1,
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 3,
       "historical-export-route": 1,
-      "redistribution-rights": 28,
+      "redistribution-rights": 29,
       "unstructured": 1
     },
-    "external_count": 35,
+    "external_count": 36,
     "legacy_count": 2,
-    "structured_count": 36,
+    "structured_count": 37,
     "terminal_count": 26,
-    "total_debt": 37,
+    "total_debt": 38,
     "unstructured_count": 1
   }
 }
