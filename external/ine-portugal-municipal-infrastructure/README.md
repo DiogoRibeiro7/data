@@ -18,7 +18,7 @@ Statistics Portugal (INE) publishes, through its [public API](https://www.ine.pt
 
 Every INE response carries the time of extraction (`DataExtracao`), so two downloads of identical data differ byte for byte. The pin is therefore the SHA-256 of the indicator code, INE's last-update date (`DataUltimoAtualizacao`) and the data block (`Dados`), serialised as compact JSON with sorted keys in UTF-8. Two downloads of the same vintage give the same hash; a revision does not, and the consumer then stops unless it is run with `--accept-revision`.
 
-The annual population estimates (`0008273`, `0012918`) are the series INE revised in 2025 for the 2021-2024 period. The revised estimate for 31 December 2021 exceeds the 2021 census count by about 256,000 residents, most of them in the Lisbon area. Consumers should not mix census counts and revised estimates in one ratio without saying so.
+The annual population estimates (`0008273`, `0012918`) are the series INE published on 22 June 2026: its first estimates built entirely from administrative sources (for 2025), with 2021-2024 revised by the same method. The revised estimate for 31 December 2021 exceeds the 2021 census count by about 256,000 residents, most of them in the Lisbon area. Consumers should not mix census counts and revised estimates in one ratio without saying so.
 
 ## Reuse and registry decision
 
