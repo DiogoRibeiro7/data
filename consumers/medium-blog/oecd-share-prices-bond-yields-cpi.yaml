@@ -1,0 +1,24 @@
+schema_version: 1
+status: active
+
+consumer_id: medium-blog
+consumer_repository: DiogoRibeiro7/Medium-Blog
+
+dataset_id: oecd-share-prices-bond-yields-cpi
+
+registry_layer: canonical
+registry_repository: DiogoRibeiro7/data
+registry_commit: "4a7bae8f116aea0831bd8f58e5fe993d74b667ce"
+
+path: datasets/oecd-share-prices-bond-yields-cpi/raw/finmark_share.csv
+sha256: "fe8d95a1b4e513a2ece424e5089a605f0c7d2df03f4efecfe3b107c3f2642efa"
+
+consumer_commit: "29ce33635bbc2e5050fb70ee9b2930c00e6f448b"
+evidence_url: https://github.com/DiogoRibeiro7/Medium-Blog/tree/long-horizon-stock-risk/long-horizon-stock-risk
+
+notes: >
+  Folder long-horizon-stock-risk reads all three raw files of the dataset, not
+  only the one named here. Medium-Blog records the registry commit, URL, size
+  and SHA-256 of each file in data_sources/oecd-share-prices-bond-yields-cpi.json;
+  long-horizon-stock-risk/fetch.py downloads them at every run and stops if any
+  byte differs.

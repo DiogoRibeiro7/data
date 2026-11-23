@@ -1,9 +1,9 @@
 {
   "canonical": {
-    "complete_license_datasets": 10,
-    "dataset_count": 10,
-    "file_count": 59,
-    "verified_checksum_files": 59
+    "complete_license_datasets": 11,
+    "dataset_count": 11,
+    "file_count": 62,
+    "verified_checksum_files": 62
   },
   "canonical_expansion": {
     "added_datasets_exempted": [
@@ -15,12 +15,13 @@
       "eurostat-material-use",
       "eurostat-services-energy-time",
       "eurostat-services-relative-prices",
+      "oecd-share-prices-bond-yields-cpi",
       "ons-gross-median-weekly-pay",
       "unhcr-refugee-population-2024"
     ],
     "baseline_dataset_count": 2,
     "baseline_snapshot": "snapshot-2026.10.05",
-    "current_dataset_count": 10,
+    "current_dataset_count": 11,
     "datasets_added_since_baseline": [
       "bls-cpi-rent-us-metros",
       "census-acs-housing-costs-msa",
@@ -28,6 +29,7 @@
       "eurostat-services-energy-time",
       "eurostat-services-relative-prices",
       "ine-portugal-new-lease-rents",
+      "oecd-share-prices-bond-yields-cpi",
       "ons-gross-median-weekly-pay",
       "unhcr-refugee-population-2024"
     ],
@@ -54,9 +56,9 @@
       "displacement-risk-lab-dynamodb",
       "medium-blog"
     ],
-    "active_relationship_count": 9,
-    "canonical_dataset_adoption_coverage": 0.9,
-    "canonical_datasets_with_consumers": 9,
+    "active_relationship_count": 10,
+    "canonical_dataset_adoption_coverage": 0.9090909090909091,
+    "canonical_datasets_with_consumers": 10,
     "canonical_datasets_without_consumers": 1,
     "datasets_with_consumers": [
       "bls-cpi-rent-us-metros",
@@ -64,6 +66,7 @@
       "eurostat-material-use",
       "eurostat-services-energy-time",
       "eurostat-services-relative-prices",
+      "oecd-share-prices-bond-yields-cpi",
       "online-retail-ii",
       "ons-gross-median-weekly-pay",
       "ucdp-ged-25-1",
@@ -83,7 +86,7 @@
     "migration_planned_count": 0,
     "migration_required_count": 0,
     "migration_retained_count": 0,
-    "pinned_contract_count": 9,
+    "pinned_contract_count": 10,
     "pinned_contract_coverage": 1.0,
     "uncovered_datasets_without_consumers": []
   },
@@ -95,8 +98,8 @@
     },
     "source_count": 75,
     "source_usage": {
-      "consumer_count": 30,
-      "consumer_references": 77,
+      "consumer_count": 31,
+      "consumer_references": 78,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -110,6 +113,7 @@
         "medium-blog/curvature-prior",
         "medium-blog/europe-industrial-regions",
         "medium-blog/growth-finite-world",
+        "medium-blog/long-horizon-stock-risk",
         "medium-blog/model-swap-tails",
         "medium-blog/portugal-debt-2035-probability",
         "medium-blog/portugal-fiscal-reaction",

@@ -69,6 +69,13 @@
           "status": "active"
         },
         {
+          "dataset_id": "oecd-share-prices-bond-yields-cpi",
+          "path": "datasets/oecd-share-prices-bond-yields-cpi/raw/finmark_share.csv",
+          "registry_commit": "4a7bae8f116aea0831bd8f58e5fe993d74b667ce",
+          "sha256": "fe8d95a1b4e513a2ece424e5089a605f0c7d2df03f4efecfe3b107c3f2642efa",
+          "status": "active"
+        },
+        {
           "dataset_id": "online-retail-ii",
           "path": "datasets/online-retail-ii/raw/online_retail_II.xlsx",
           "registry_commit": "e90eed21a474c0a54ab9bf658c01dbd778bf58f1",
@@ -136,6 +143,18 @@
           "path": "datasets/eurostat-services-relative-prices/raw/nama_10_a64.json",
           "registry_commit": "61f630990532bd6bcf6793621d6646d50be23d5c",
           "sha256": "11ee27e6a719fc8a255c7b48ddae42c3301e0632578191e5e7545c0b2602a8c4",
+          "status": "active"
+        }
+      ]
+    },
+    "oecd-share-prices-bond-yields-cpi": {
+      "consumers": [
+        {
+          "consumer_id": "medium-blog",
+          "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+          "path": "datasets/oecd-share-prices-bond-yields-cpi/raw/finmark_share.csv",
+          "registry_commit": "4a7bae8f116aea0831bd8f58e5fe993d74b667ce",
+          "sha256": "fe8d95a1b4e513a2ece424e5089a605f0c7d2df03f4efecfe3b107c3f2642efa",
           "status": "active"
         }
       ]

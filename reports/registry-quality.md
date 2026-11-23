@@ -5,10 +5,10 @@ It makes no live network requests.
 
 ## Canonical registry
 
-- Canonical datasets: **10**
-- Canonical files: **59**
-- Files with verified SHA-256: **59**
-- Canonical datasets with complete licence metadata: **10**
+- Canonical datasets: **11**
+- Canonical files: **62**
+- Files with verified SHA-256: **62**
+- Canonical datasets with complete licence metadata: **11**
 
 ## External sources
 
@@ -18,8 +18,8 @@ It makes no live network requests.
 
 External source usage annotations:
 
-- Referenced consumer repositories: **30**
-- Source usage references: **77**
+- Referenced consumer repositories: **31**
+- Source usage references: **78**
 
 - `causal-uplift-marketing-campaign`
 - `cpd-stress-test`
@@ -33,6 +33,7 @@ External source usage annotations:
 - `medium-blog/curvature-prior`
 - `medium-blog/europe-industrial-regions`
 - `medium-blog/growth-finite-world`
+- `medium-blog/long-horizon-stock-risk`
 - `medium-blog/model-swap-tails`
 - `medium-blog/portugal-debt-2035-probability`
 - `medium-blog/portugal-fiscal-reaction`
@@ -55,13 +56,13 @@ External source usage annotations:
 ## Canonical consumer adoption
 
 - Active consumer repositories: **3**
-- Active canonical relationships: **9**
+- Active canonical relationships: **10**
 - Deprecated relationships: **0**
-- Pinned contracts: **9 / 9**
+- Pinned contracts: **10 / 10**
 - Pinned contract coverage: **100%**
-- Canonical datasets with >=1 active consumer: **9**
+- Canonical datasets with >=1 active consumer: **10**
 - Canonical datasets with zero active consumers: **1**
-- Canonical dataset adoption coverage: **90%**
+- Canonical dataset adoption coverage: **91%**
 - Lifecycle migration coverage: **100%** (0 / 0)
 - Migration required / planned / retained / migrated: **0 / 0 / 0 / 0**
 
@@ -75,9 +76,9 @@ Active consumers:
 
 - Baseline snapshot: **snapshot-2026.10.05**
 - Baseline canonical datasets: **2**
-- Current canonical datasets: **10**
-- Added since baseline: **8**
-- Added with active consumers: **7**
+- Current canonical datasets: **11**
+- Added since baseline: **9**
+- Added with active consumers: **8**
 - Added with exemptions: **1**
 - Uncovered canonical datasets: **0**
 
@@ -89,6 +90,7 @@ Datasets added since baseline:
 - `eurostat-services-energy-time`
 - `eurostat-services-relative-prices`
 - `ine-portugal-new-lease-rents`
+- `oecd-share-prices-bond-yields-cpi`
 - `ons-gross-median-weekly-pay`
 - `unhcr-refugee-population-2024`
 
