@@ -985,6 +985,22 @@
       }
     },
     {
+      "id": "princeton-wordnet-3-0",
+      "title": "Princeton WordNet 3.0 (NLTK data package)",
+      "publisher": "Princeton University; package distributed by the NLTK Project",
+      "source_url": "https://wordnet.princeton.edu/",
+      "license": {
+        "name": "WordNet 3.0 license (permissive; copyright notice and disclaimer must accompany copies)",
+        "url": "https://wordnet.princeton.edu/license-and-commercial-use"
+      },
+      "redistribution": "allowed-with-attribution",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/curvature-prior"
+      ],
+      "path": "external/princeton-wordnet-3-0"
+    },
+    {
       "id": "r-base-example-datasets",
       "title": "R base example datasets",
       "publisher": "R Core Team",
