@@ -1,0 +1,83 @@
+schema_version: 1
+
+id: oecd-share-prices-bond-yields-cpi
+title: "OECD: share price indices, long-term government bond yields and consumer prices, 23 markets, 1914-2025"
+description: >
+  Three OECD SDMX responses, kept byte for byte, for the 23 OECD members of
+  1973 without Turkey: monthly share price indices and long-term (10-year)
+  government bond yields from the financial market statistics, and the
+  consumer price index (all items) at monthly, quarterly and annual frequency.
+  Together they give real share price returns and approximate real bond
+  returns from the 1950s to 2025. The share price indices leave out
+  dividends. Snapshotted because the OECD API serves only the current vintage
+  of each dataflow.
+
+domain:
+  - economics
+  - finance
+  - asset-returns
+  - prices
+  - oecd
+
+source:
+  publisher: "Organisation for Economic Co-operation and Development (OECD)"
+  url: "https://sdmx.oecd.org/public/rest/data"
+  retrieved_at: 2026-11-23
+  snapshot: "OECD SDMX REST API, SDMX-CSV 1.0, three queries retrieved 2026-11-23T19:32:14Z to 19:32:47Z, each ending at 2025-12"
+
+license:
+  name: "Creative Commons Attribution 4.0 International (OECD open-access policy, July 2024)"
+  url: "https://www.oecd.org/en/about/terms-conditions.html"
+  redistribution: allowed
+
+citation:
+  text: "OECD, Financial market statistics (DSD_STES@DF_FINMARK, version 4.0) and Consumer prices (DSD_PRICES@DF_PRICES_ALL, version 1.0), retrieved 23 November 2026."
+  url: "https://data-explorer.oecd.org/"
+
+files:
+  - path: raw/finmark_share.csv
+    role: raw
+    format: csv
+    encoding: utf-8
+    compression: null
+    sha256: "fe8d95a1b4e513a2ece424e5089a605f0c7d2df03f4efecfe3b107c3f2642efa"
+    notes: >-
+      Share price indices (MEASURE SHARE), monthly averages, 2015 = 100, without dividends,
+      for AUS AUT BEL CAN CHE DEU DNK ESP FIN FRA GBR GRC IRL ISL ITA JPN LUX NLD NOR NZL
+      PRT SWE USA. SDMX-CSV with CRLF line endings, 1,553,774 bytes, 16,030 observations,
+      from 1950-01 (Sweden) to 2025-12; most markets start between 1955 and 1960, Belgium,
+      Denmark, Spain, Greece, Norway and Portugal in the 1980s, Iceland in 1993 and
+      Luxembourg in 1999. OBS_STATUS is A except for 5 observations marked B (break) and
+      2 marked E (estimated). Query:
+      https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_STES@DF_FINMARK,4.0/AUS+AUT+BEL+CAN+CHE+DEU+DNK+ESP+FIN+FRA+GBR+GRC+IRL+ISL+ITA+JPN+LUX+NLD+NOR+NZL+PRT+SWE+USA.M.SHARE......?dimensionAtObservation=AllDimensions&endPeriod=2025-12
+      with header Accept: application/vnd.sdmx.data+csv; charset=utf-8.
+  - path: raw/finmark_irlt.csv
+    role: raw
+    format: csv
+    encoding: utf-8
+    compression: null
+    sha256: "4307f2d3cafdf5d2664fdd12ebba430d2e2a6679b1c54eb724e37eebd23786f3"
+    notes: >-
+      Long-term interest rates (MEASURE IRLT), government bonds with a maturity of about ten
+      years, per cent a year, monthly averages, for the same 23 markets. SDMX-CSV with CRLF
+      line endings, 1,230,857 bytes, 13,858 observations, from 1953-04 (United States) to
+      2025-12; Japan starts in 1989, Italy in 1991, Austria in 1990, Greece in 1997 and
+      Iceland ends in 2022-08. Query:
+      https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_STES@DF_FINMARK,4.0/AUS+AUT+BEL+CAN+CHE+DEU+DNK+ESP+FIN+FRA+GBR+GRC+IRL+ISL+ITA+JPN+LUX+NLD+NOR+NZL+PRT+SWE+USA.M.IRLT......?dimensionAtObservation=AllDimensions&endPeriod=2025-12
+      with header Accept: application/vnd.sdmx.data+csv; charset=utf-8.
+  - path: raw/prices_cpi.csv
+    role: raw
+    format: csv
+    encoding: utf-8
+    compression: null
+    sha256: "4102c7d14b927160ae646aba06a342b50e50844db98a4edc910602114ecaac36"
+    notes: >-
+      Consumer price index, all items (EXPENDITURE _T), national methodology, not seasonally
+      adjusted, index 2015 = 100, at monthly, quarterly and annual frequency, for the same 23
+      markets. SDMX-CSV with CRLF line endings, 2,483,687 bytes, 26,326 observations, from
+      1914 (Canada, New Zealand) to 2025-12. Australia and New Zealand are quarterly (Australia
+      monthly only from 2024-04); Japan's series ends in 2021-06 in this dataflow. Query:
+      https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL,1.0/AUS+AUT+BEL+CAN+CHE+DEU+DNK+ESP+FIN+FRA+GBR+GRC+IRL+ISL+ITA+JPN+LUX+NLD+NOR+NZL+PRT+SWE+USA.M+Q+A.N.CPI.IX._T.N._Z?dimensionAtObservation=AllDimensions&endPeriod=2025-12
+      with header Accept: application/vnd.sdmx.data+csv; charset=utf-8.
+
+lineage: []
