@@ -90,13 +90,13 @@
   "external": {
     "pinned_immutable_identity_sources": 10,
     "redistribution": {
-      "resolved": 38,
+      "resolved": 40,
       "unresolved": 35
     },
-    "source_count": 73,
+    "source_count": 75,
     "source_usage": {
-      "consumer_count": 29,
-      "consumer_references": 74,
+      "consumer_count": 30,
+      "consumer_references": 77,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -106,6 +106,7 @@
         "empirical-analysis-r",
         "medium-blog/auction-entry-boem",
         "medium-blog/bid-rigging-screens",
+        "medium-blog/centres-users-residents",
         "medium-blog/curvature-prior",
         "medium-blog/europe-industrial-regions",
         "medium-blog/growth-finite-world",

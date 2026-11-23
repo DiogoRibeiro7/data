@@ -6,6 +6,8 @@ Statistics Portugal (INE) publishes, through its [public API](https://www.ine.pt
 
 `Medium-Blog/portugal-infrastructure-saturation` downloads each response with `fetch.py` and checks it against the content hash recorded in `metadata.yaml` and in the consumer's `data_sources/ine-portugal-municipal-infrastructure.json`. All 46 were retrieved on 23 November 2026.
 
+`Medium-Blog/centres-users-residents` re-downloads 18 of these responses (population estimates, census housing and commuting, sale prices and new-lease rents, enrolment rates and hospital beds) and checks them against the same content hashes, through the same contract file.
+
 | Theme | Indicators |
 | --- | --- |
 | Population | `0008273` (estimates, NUTS 2013), `0012918` (estimates, NUTS 2024), `0014630` (census 2021 by age), `0011631` (census 2021 residence one year before), `0011613` (census 2021 density), `0012450` births, `0012538` deaths |
