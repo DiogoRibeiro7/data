@@ -3,12 +3,12 @@
 This file is generated deterministically from committed external and legacy metadata.
 Do not edit it by hand.
 
-- Total debt items: **37**
-- External records: **35**
+- Total debt items: **38**
+- External records: **36**
 - Legacy packages: **2**
-- Structured evidence: **36**
+- Structured evidence: **37**
 - Unstructured debt: **1**
-- Actionable: **10**
+- Actionable: **11**
 - Terminal: **26**
 - Age reference date: **2026-11-22**
 
@@ -18,7 +18,7 @@ Do not edit it by hand.
 - `dataset-vs-repository-licence-scope`: **3**
 - `exact-snapshot-identity`: **3**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **28**
+- `redistribution-rights`: **29**
 - `unstructured`: **1**
 
 ## Queue
@@ -29,6 +29,7 @@ Do not edit it by hand.
 | external | `amt-porto-metro-demand` | actionable | AMT publishes the dashboards and statutory reports publicly, but the source pages examined do not state dataset-specific terms authorizing republication of the manually transcribed tables as a dataset. | 2026-10-30 | 23 | 3 | unresolved | Check whether AMT publishes applicable data reuse terms or an official downloadable dataset; seek authoritative clarification before proposing any canonical redistribution of the extracted values. |
 | external | `cfp-social-security-execution-2023-2025` | terminal | CFP publicly provides the underlying XLSX annexes, but no source-specific licence authorizing central republication of these workbooks or the normalized extraction has been established. | 2026-10-31 | 22 | 2 | unresolved | Keep this as an external reference unless explicit applicable reuse terms are established for the source annexes and their derived tables. |
 | external | `cge-social-security-accounts-2013-2025` | terminal | Ministry of Finance CGE tables are publicly downloadable, but no source-specific terms authorizing republication of the thirteen Excel workbooks as canonical dataset bytes have been established. | 2026-10-31 | 22 | 2 | unresolved | Retain authoritative upstream links and downstream checksum evidence; reconsider promotion only after explicit reuse and pinned snapshot checks. |
+| external | `damodaran-historical-returns` | actionable | The data page offers the workbook for free use with citation but states no redistribution terms, and the live file changes every January. | 2026-11-22 | 0 | 2 | unresolved | Keep the consumer pinned to the archived capture with its checksum; ask the author for redistribution terms before mirroring the bytes. |
 | external | `dgo-2026-social-security-budget` | terminal | DGO publishes the State Budget report and separate open-budget datasets, but licence terms for rehosting this specific report or a standalone transcribed table have not been established. | 2026-10-31 | 22 | 2 | unresolved | Preserve official source attribution and forecast vintage; reconsider canonical archiving only for a specifically licensed official table. |
 | external | `dgs-infoclique-mortality` | terminal | DGS publicly disseminates SICO mortality information, but its current legal notice protects site contents and no dataset-specific redistribution grant covering the historical InfoClique/SICO CSV exports was recovered. | 2026-10-05 | 48 | 2 | unresolved | Reopen only if DGS publishes dataset-specific reuse terms or an authoritative open-data licence covering the historical mortality exports. |
 | external | `ecb-distributional-wealth-accounts` | actionable | The consumer downloads DWA/* without selecting a country, statistic, frequency or series-key identity. Its normalizer expects numeric years and semantic series aliases that do not match the quarterly DWA SDMX period/series-key contract. The declared top-1% outcome is not substantiated by the DWA indicators checked here; no dated response hash exists. | 2026-11-07 | 15 | 6 | unresolved | In the consumer, select and test exact DWA series keys by geography and group, decode quarterly TIME_PERIOD correctly, preserve ECB units and observation flags, and define a documented annual aggregation if needed. Pin full query URLs, API access dates, release vintages and SHA-256 for raw responses. Check permissions before redistributing transformed values. |

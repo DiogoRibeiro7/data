@@ -37,6 +37,42 @@
       "status": "active"
     },
     {
+      "consumer_commit": "3d1d2d48c9d519929ef7db0349e499de32326e8f",
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "bls-cpi-rent-us-metros",
+      "evidence_url": "https://github.com/DiogoRibeiro7/Medium-Blog/tree/rent-or-buy-us/rent-or-buy-us",
+      "path": "datasets/bls-cpi-rent-us-metros/raw/CUUR0000SEHA.csv",
+      "registry_commit": "547c25d42b5607c6c29fc60918b8fb74b42d5b2e",
+      "registry_repository": "DiogoRibeiro7/data",
+      "sha256": "62795a0ad3241321ea98ce53732950e2ba35551ff044699749f2ef088f6376ba",
+      "status": "active"
+    },
+    {
+      "consumer_commit": "3d1d2d48c9d519929ef7db0349e499de32326e8f",
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "census-acs-housing-costs-msa",
+      "evidence_url": "https://github.com/DiogoRibeiro7/Medium-Blog/tree/rent-or-buy-us/rent-or-buy-us",
+      "path": "datasets/census-acs-housing-costs-msa/raw/acsdt1y2023-b25077.dat",
+      "registry_commit": "547c25d42b5607c6c29fc60918b8fb74b42d5b2e",
+      "registry_repository": "DiogoRibeiro7/data",
+      "sha256": "c39987ce683bc4ac8d5831ac9fb67cbcdfaa9bbb81193bc3af4582ad97353723",
+      "status": "active"
+    },
+    {
+      "consumer_commit": "94c9b6486ae71d0f86e87ae3a3bfcbecc0520050",
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "eurostat-material-use",
+      "evidence_url": "https://github.com/DiogoRibeiro7/Medium-Blog/tree/eu-material-use/eu-material-use",
+      "path": "datasets/eurostat-material-use/raw/env_ac_mfa.json",
+      "registry_commit": "4b79d15530674d62c7fee0935509c88f0555e8f6",
+      "registry_repository": "DiogoRibeiro7/data",
+      "sha256": "bf8404fac88be14279c658d508316476b3ff2050a4a267e953f770e761f431db",
+      "status": "active"
+    },
+    {
       "consumer_commit": "70f802ad80f2f96d4ce2b35d004e019a54bd8cd0",
       "consumer_id": "medium-blog",
       "consumer_repository": "DiogoRibeiro7/Medium-Blog",

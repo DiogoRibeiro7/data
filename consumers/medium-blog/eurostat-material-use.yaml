@@ -1,0 +1,24 @@
+schema_version: 1
+status: active
+
+consumer_id: medium-blog
+consumer_repository: DiogoRibeiro7/Medium-Blog
+
+dataset_id: eurostat-material-use
+
+registry_layer: canonical
+registry_repository: DiogoRibeiro7/data
+registry_commit: "4b79d15530674d62c7fee0935509c88f0555e8f6"
+
+path: datasets/eurostat-material-use/raw/env_ac_mfa.json
+sha256: "bf8404fac88be14279c658d508316476b3ff2050a4a267e953f770e761f431db"
+
+consumer_commit: "94c9b6486ae71d0f86e87ae3a3bfcbecc0520050"
+evidence_url: https://github.com/DiogoRibeiro7/Medium-Blog/tree/eu-material-use/eu-material-use
+
+notes: >
+  Folder eu-material-use reads all ten raw files of the dataset, not only the
+  one named here. Medium-Blog records the registry commit, URL, size and
+  SHA-256 of each file in data_sources/eurostat-material-use.json;
+  eu-material-use/fetch.py downloads them at every run and stops if any byte
+  differs.

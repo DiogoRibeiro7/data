@@ -152,6 +152,24 @@
       "path": "external/criteo-uplift-prediction-benchmark"
     },
     {
+      "id": "damodaran-historical-returns",
+      "title": "Aswath Damodaran, historical returns on stocks, bonds and bills, 1928-2025 (January 2026 update), Wayback Machine capture",
+      "publisher": "Aswath Damodaran, NYU Stern; capture by the Internet Archive",
+      "source_url": "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/histretSP.html",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/rent-or-buy-us"
+      ],
+      "path": "external/damodaran-historical-returns",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
       "id": "dgo-2026-social-security-budget",
       "title": "DGO State Budget 2026 Social Security balance and financial projections",
       "publisher": "Direção-Geral do Orçamento (DGO); Ministério das Finanças",
@@ -213,9 +231,27 @@
       "redistribution": "allowed",
       "storage": "authoritative-upstream",
       "consumers": [
-        "medium-blog/portugal-fiscal-reaction"
+        "medium-blog/portugal-fiscal-reaction",
+        "medium-blog/portugal-fiscal-rules",
+        "medium-blog/portugal-realtime-output-gap"
       ],
       "path": "external/ec-ameco-autumn-2026"
+    },
+    {
+      "id": "ec-ameco-vintages-2011-2021",
+      "title": "European Commission AMECO database, archived releases spring 2011 to autumn 2018 and autumn 2021",
+      "publisher": "European Commission, Directorate-General for Economic and Financial Affairs",
+      "source_url": "https://economy-finance.ec.europa.eu/economic-research-and-databases/economic-databases/ameco-database/ameco-archive_en",
+      "license": {
+        "name": "Commission reuse policy (Commission Decision 2011/833/EU)",
+        "url": "https://commission.europa.eu/legal-notice_en"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/portugal-realtime-output-gap"
+      ],
+      "path": "external/ec-ameco-vintages-2011-2021"
     },
     {
       "id": "ecb-distributional-wealth-accounts",
@@ -375,6 +411,19 @@
         "productivity_taxation_inequality_project"
       ],
       "path": "external/fred-economic-data"
+    },
+    {
+      "id": "freddie-mac-pmms-fred",
+      "title": "Freddie Mac Primary Mortgage Market Survey: 30-year fixed rate, weekly, 1971-2025, through FRED",
+      "publisher": "Freddie Mac; distributed by the Federal Reserve Bank of St. Louis (FRED series MORTGAGE30US)",
+      "source_url": "https://fred.stlouisfed.org/series/MORTGAGE30US",
+      "license": null,
+      "redistribution": "dataset-specific",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/rent-or-buy-us"
+      ],
+      "path": "external/freddie-mac-pmms-fred"
     },
     {
       "id": "gpp-sima-orange-wholesale-quotations",
@@ -1016,6 +1065,22 @@
         "medium-blog/growth-finite-world"
       ],
       "path": "external/shiller-sp-composite-monthly"
+    },
+    {
+      "id": "sp-corelogic-case-shiller-datahub",
+      "title": "S&P CoreLogic Case-Shiller home price indices, national and 20 metropolitan areas, monthly, Datahub mirror",
+      "publisher": "S&P Dow Jones Indices and CoreLogic; mirrored by Datahub as datasets/house-prices-us",
+      "source_url": "https://github.com/datasets/house-prices-us",
+      "license": {
+        "name": "ODC-PDDL-1.0 (declared by the Datahub mirror's datapackage.json)",
+        "url": "https://opendatacommons.org/licenses/pddl/1-0/"
+      },
+      "redistribution": "dataset-specific",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/rent-or-buy-us"
+      ],
+      "path": "external/sp-corelogic-case-shiller-datahub"
     },
     {
       "id": "turing-change-point-dataset",

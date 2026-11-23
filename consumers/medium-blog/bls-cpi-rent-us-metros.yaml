@@ -1,0 +1,25 @@
+schema_version: 1
+status: active
+
+consumer_id: medium-blog
+consumer_repository: DiogoRibeiro7/Medium-Blog
+
+dataset_id: bls-cpi-rent-us-metros
+
+registry_layer: canonical
+registry_repository: DiogoRibeiro7/data
+registry_commit: "547c25d42b5607c6c29fc60918b8fb74b42d5b2e"
+
+path: datasets/bls-cpi-rent-us-metros/raw/CUUR0000SEHA.csv
+sha256: "62795a0ad3241321ea98ce53732950e2ba35551ff044699749f2ef088f6376ba"
+
+consumer_commit: "3d1d2d48c9d519929ef7db0349e499de32326e8f"
+evidence_url: https://github.com/DiogoRibeiro7/Medium-Blog/tree/rent-or-buy-us/rent-or-buy-us
+
+notes: >
+  Folder rent-or-buy-us reads all eighteen raw files of the dataset, not only
+  the one named here: the national rent and all-items indexes and the sixteen
+  metro rent indexes. Medium-Blog records the registry commit, URL, size and
+  SHA-256 of each file in data_sources/bls-cpi-rent-us-metros.json;
+  rent-or-buy-us/fetch.py downloads them at every run and stops if any byte
+  differs.

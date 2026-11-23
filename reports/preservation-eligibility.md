@@ -7,16 +7,19 @@ the recorded upstream licence/terms.
 - Preservation policy: `preservation/policy-v1.json` (v1)
 - Release metadata: **eligible**
 - Static distribution: **eligible**
-- Canonical datasets: **7**
-- Canonical byte-archive eligible: **7**
+- Canonical datasets: **10**
+- Canonical byte-archive eligible: **10**
 - Canonical metadata-only: **0**
-- External sources (metadata-only): **68**
+- External sources (metadata-only): **72**
 - Legacy packages (metadata-only): **2**
 
 ## Canonical dataset bytes
 
 | Dataset | Eligibility | Redistribution | Licence |
 | --- | --- | --- | --- |
+| `bls-cpi-rent-us-metros` | eligible | allowed | U.S. Government work, public domain (17 U.S.C. 105) |
+| `census-acs-housing-costs-msa` | eligible | allowed | U.S. Government work, public domain (17 U.S.C. 105) |
+| `eurostat-material-use` | eligible | allowed | Eurostat free re-use policy (Commission Decision 2011/833/EU) |
 | `eurostat-services-energy-time` | eligible | allowed | Eurostat free re-use policy (Commission Decision 2011/833/EU) |
 | `eurostat-services-relative-prices` | eligible | allowed | Eurostat free re-use policy (Commission Decision 2011/833/EU) |
 | `ine-portugal-new-lease-rents` | eligible | allowed | CC BY 4.0 (INE statistical information) |
