@@ -380,7 +380,7 @@
     },
     {
       "id": "eurostat-urban-audit-cities-fuas",
-      "title": "Eurostat city statistics (Urban Audit): population, jobs and dwellings for cities and functional urban areas",
+      "title": "Eurostat city statistics (Urban Audit) for cities and functional urban areas, with national-accounts employment",
       "publisher": "Eurostat (European Commission)",
       "source_url": "https://ec.europa.eu/eurostat/web/cities/database",
       "license": {
