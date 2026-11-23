@@ -1111,7 +1111,8 @@
       "redistribution": "dataset-specific",
       "storage": "authoritative-upstream",
       "consumers": [
-        "medium-blog/growth-finite-world"
+        "medium-blog/growth-finite-world",
+        "medium-blog/long-horizon-stock-risk"
       ],
       "path": "external/shiller-sp-composite-monthly"
     },
