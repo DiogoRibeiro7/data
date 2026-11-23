@@ -257,6 +257,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "eurostat-urban-audit-cities-fuas",
+      "metadata_path": "external/eurostat-urban-audit-cities-fuas/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "eurotoptech-happiness-taxes-europe",
       "metadata_path": "external/eurotoptech-happiness-taxes-europe/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -331,6 +337,12 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "impic-base-housing-works-contracts",
       "metadata_path": "external/impic-base-housing-works-contracts/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "ine-portugal-centre-users-homes",
+      "metadata_path": "external/ine-portugal-centre-users-homes/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -588,8 +600,8 @@
     "canonical_byte_archive_eligible_count": 10,
     "canonical_dataset_count": 10,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 73,
-    "external_source_count": 73,
+    "external_metadata_only_count": 75,
+    "external_source_count": 75,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }

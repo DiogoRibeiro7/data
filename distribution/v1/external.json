@@ -379,6 +379,22 @@
       "path": "external/eurostat-portugal-housing-indicators"
     },
     {
+      "id": "eurostat-urban-audit-cities-fuas",
+      "title": "Eurostat city statistics (Urban Audit) for cities and functional urban areas, with national-accounts employment",
+      "publisher": "Eurostat (European Commission)",
+      "source_url": "https://ec.europa.eu/eurostat/web/cities/database",
+      "license": {
+        "name": "Eurostat free re-use policy (Commission Decision 2011/833/EU)",
+        "url": "https://ec.europa.eu/eurostat/help/copyright-notice"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/centres-users-residents"
+      ],
+      "path": "external/eurostat-urban-audit-cities-fuas"
+    },
+    {
       "id": "eurotoptech-happiness-taxes-europe",
       "title": "Euro Top Tech, Happiness and taxes in Europe: country table of engineers' happiness and satisfaction with tax-paid services",
       "publisher": "Euro Top Tech (crowdsourced reports from software engineers living in Europe)",
@@ -605,6 +621,22 @@
       }
     },
     {
+      "id": "ine-portugal-centre-users-homes",
+      "title": "INE Portugal municipal in-commuting, employees by place of work, tourist beds and dwellings completed",
+      "publisher": "Instituto Nacional de Estatística, I.P. (Statistics Portugal)",
+      "source_url": "https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_api_v2&xlang=pt",
+      "license": {
+        "name": "CC BY 4.0 (INE statistical information)",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/centres-users-residents"
+      ],
+      "path": "external/ine-portugal-centre-users-homes"
+    },
+    {
       "id": "ine-portugal-housing-statistics",
       "title": "INE Portugal housing, construction, and household statistics",
       "publisher": "Instituto Nacional de Estatística, I.P. (Statistics Portugal)",
@@ -634,6 +666,7 @@
       "redistribution": "allowed",
       "storage": "authoritative-upstream",
       "consumers": [
+        "medium-blog/centres-users-residents",
         "medium-blog/portugal-infrastructure-saturation"
       ],
       "path": "external/ine-portugal-municipal-infrastructure"
