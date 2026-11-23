@@ -67,6 +67,14 @@
     {
       "consumer_id": "medium-blog",
       "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "oecd-share-prices-bond-yields-cpi",
+      "preferred_dataset_id": "oecd-share-prices-bond-yields-cpi",
+      "rationale": null,
+      "status": "current"
+    },
+    {
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
       "dataset_id": "online-retail-ii",
       "preferred_dataset_id": "online-retail-ii",
       "rationale": null,
@@ -169,6 +177,21 @@
       "deprecated_at": null,
       "direct_predecessors": [],
       "direct_replacement": null,
+      "id": "oecd-share-prices-bond-yields-cpi",
+      "migration_needed_consumer_count": 0,
+      "migration_note": null,
+      "preferred_dataset_id": "oecd-share-prices-bond-yields-cpi",
+      "replacement_chain": [
+        "oecd-share-prices-bond-yields-cpi"
+      ],
+      "status": "active",
+      "title": "OECD: share price indices, long-term government bond yields and consumer prices, 23 markets, 1914-2025"
+    },
+    {
+      "active_consumer_count": 1,
+      "deprecated_at": null,
+      "direct_predecessors": [],
+      "direct_replacement": null,
       "id": "online-retail-ii",
       "migration_needed_consumer_count": 0,
       "migration_note": null,
@@ -228,10 +251,10 @@
   "preferred_replacements": {},
   "schema_version": 1,
   "summary": {
-    "active_consumer_relationship_count": 9,
-    "active_count": 10,
-    "canonical_dataset_count": 10,
-    "current_consumer_relationship_count": 9,
+    "active_consumer_relationship_count": 10,
+    "active_count": 11,
+    "canonical_dataset_count": 11,
+    "current_consumer_relationship_count": 10,
     "deprecated_count": 0,
     "migrated_relationship_count": 0,
     "migration_needed_count": 0,

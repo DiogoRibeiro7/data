@@ -3,13 +3,13 @@
 This report is generated deterministically from committed canonical metadata
 and the committed consumer catalog. Do not edit it by hand.
 
-- Canonical datasets: **10**
-- Active: **10**
+- Canonical datasets: **11**
+- Active: **11**
 - Deprecated: **0**
 - Superseded: **0**
 - Replacement edges: **0**
-- Active consumer relationships: **9**
-- Current consumer relationships: **9**
+- Active consumer relationships: **10**
+- Current consumer relationships: **10**
 - Migration required: **0**
 - Migration planned: **0**
 - Intentionally retained: **0**
@@ -27,6 +27,7 @@ and the committed consumer catalog. Do not edit it by hand.
 | `eurostat-services-energy-time` | active | -- | eurostat-services-energy-time | 1 | 0 |
 | `eurostat-services-relative-prices` | active | -- | eurostat-services-relative-prices | 1 | 0 |
 | `ine-portugal-new-lease-rents` | active | -- | ine-portugal-new-lease-rents | 0 | 0 |
+| `oecd-share-prices-bond-yields-cpi` | active | -- | oecd-share-prices-bond-yields-cpi | 1 | 0 |
 | `online-retail-ii` | active | -- | online-retail-ii | 1 | 0 |
 | `ons-gross-median-weekly-pay` | active | -- | ons-gross-median-weekly-pay | 1 | 0 |
 | `ucdp-ged-25-1` | active | -- | ucdp-ged-25-1 | 1 | 0 |
@@ -48,6 +49,7 @@ and the committed consumer catalog. Do not edit it by hand.
 | `medium-blog` | `eurostat-material-use` | current | `eurostat-material-use` | -- |
 | `medium-blog` | `eurostat-services-energy-time` | current | `eurostat-services-energy-time` | -- |
 | `medium-blog` | `eurostat-services-relative-prices` | current | `eurostat-services-relative-prices` | -- |
+| `medium-blog` | `oecd-share-prices-bond-yields-cpi` | current | `oecd-share-prices-bond-yields-cpi` | -- |
 | `medium-blog` | `online-retail-ii` | current | `online-retail-ii` | -- |
 
 ## Semantics

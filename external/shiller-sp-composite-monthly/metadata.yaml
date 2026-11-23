@@ -24,7 +24,9 @@ usage:
     mirrored here. Cite Shiller. At the pinned commit, earnings and
     dividends end in June 2023 and CPI in September 2023; later months carry
     the index price only. The mirror writes 0 rather than a missing value
-    for CAPE in the first ten years.
+    for CAPE in the first ten years. The Medium-Blog folder long-horizon-stock-risk reads the same pinned file through
+    data_sources/shiller-sp-composite-monthly.json in Medium-Blog and uses the
+    monthly price, dividend, CPI and long rate from January 1871 to June 2023.
 medium_blog:
   folder: growth-finite-world
   fetch: "growth-finite-world/fetch_data.py"
@@ -33,3 +35,4 @@ medium_blog:
   derived_output: "growth-finite-world/data/sp500_monthly.csv (built by build_data.py, not committed)"
 consumers:
   - medium-blog/growth-finite-world
+  - medium-blog/long-horizon-stock-risk

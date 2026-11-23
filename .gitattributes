@@ -18,6 +18,7 @@ legacy/**/raw/** -text
 # byte identity includes source line endings or encoding markers.
 datasets/ons-gross-median-weekly-pay/raw/** -text
 datasets/ine-portugal-new-lease-rents/raw/** -text
+datasets/oecd-share-prices-bond-yields-cpi/raw/** -text
 
 # Common binary data/archive formats.
 *.xlsx -text

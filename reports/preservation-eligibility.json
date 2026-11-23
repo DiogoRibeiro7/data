@@ -87,6 +87,15 @@
     },
     {
       "byte_archive_eligibility": "eligible",
+      "id": "oecd-share-prices-bond-yields-cpi",
+      "license_name": "Creative Commons Attribution 4.0 International (OECD open-access policy, July 2024)",
+      "metadata_path": "datasets/oecd-share-prices-bond-yields-cpi/metadata.yaml",
+      "reason": "canonical metadata explicitly permits redistribution",
+      "redistribution": "allowed",
+      "title": "OECD: share price indices, long-term government bond yields and consumer prices, 23 markets, 1914-2025"
+    },
+    {
+      "byte_archive_eligibility": "eligible",
       "id": "online-retail-ii",
       "license_name": "CC BY 4.0",
       "metadata_path": "datasets/online-retail-ii/metadata.yaml",
@@ -597,8 +606,8 @@
   "schema_version": 1,
   "static_distribution_eligibility": "eligible",
   "summary": {
-    "canonical_byte_archive_eligible_count": 10,
-    "canonical_dataset_count": 10,
+    "canonical_byte_archive_eligible_count": 11,
+    "canonical_dataset_count": 11,
     "canonical_metadata_only_count": 0,
     "external_metadata_only_count": 75,
     "external_source_count": 75,

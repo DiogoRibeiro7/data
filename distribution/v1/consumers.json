@@ -97,6 +97,18 @@
       "status": "active"
     },
     {
+      "consumer_commit": "29ce33635bbc2e5050fb70ee9b2930c00e6f448b",
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "oecd-share-prices-bond-yields-cpi",
+      "evidence_url": "https://github.com/DiogoRibeiro7/Medium-Blog/tree/long-horizon-stock-risk/long-horizon-stock-risk",
+      "path": "datasets/oecd-share-prices-bond-yields-cpi/raw/finmark_share.csv",
+      "registry_commit": "4a7bae8f116aea0831bd8f58e5fe993d74b667ce",
+      "registry_repository": "DiogoRibeiro7/data",
+      "sha256": "fe8d95a1b4e513a2ece424e5089a605f0c7d2df03f4efecfe3b107c3f2642efa",
+      "status": "active"
+    },
+    {
       "consumer_commit": "71e4db18ab7af4ad2d5f3997a00e46e53676312b",
       "consumer_id": "medium-blog",
       "consumer_repository": "DiogoRibeiro7/Medium-Blog",

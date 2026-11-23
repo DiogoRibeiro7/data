@@ -143,6 +143,29 @@
       "path": "datasets/ine-portugal-new-lease-rents"
     },
     {
+      "id": "oecd-share-prices-bond-yields-cpi",
+      "title": "OECD: share price indices, long-term government bond yields and consumer prices, 23 markets, 1914-2025",
+      "description": "Three OECD SDMX responses, kept byte for byte, for the 23 OECD members of 1973 without Turkey: monthly share price indices and long-term (10-year) government bond yields from the financial market statistics, and the consumer price index (all items) at monthly, quarterly and annual frequency. Together they give real share price returns and approximate real bond returns from the 1950s to 2025. The share price indices leave out dividends. Snapshotted because the OECD API serves only the current vintage of each dataflow.\n",
+      "domain": [
+        "economics",
+        "finance",
+        "asset-returns",
+        "prices",
+        "oecd"
+      ],
+      "snapshot": "OECD SDMX REST API, SDMX-CSV 1.0, three queries retrieved 2026-11-23T19:32:14Z to 19:32:47Z, each ending at 2025-12",
+      "source": {
+        "publisher": "Organisation for Economic Co-operation and Development (OECD)",
+        "url": "https://sdmx.oecd.org/public/rest/data"
+      },
+      "license": {
+        "name": "Creative Commons Attribution 4.0 International (OECD open-access policy, July 2024)",
+        "url": "https://www.oecd.org/en/about/terms-conditions.html",
+        "redistribution": "allowed"
+      },
+      "path": "datasets/oecd-share-prices-bond-yields-cpi"
+    },
+    {
       "id": "online-retail-ii",
       "title": "Online Retail II",
       "description": "Two years of transactions from a UK-based non-store online retailer, covering 1 December 2009 through 9 December 2011.\n",
