@@ -418,6 +418,22 @@
       "title": "OECD analytical house-price, rent and affordability indicators"
     },
     {
+      "age_days": null,
+      "blocker_category": null,
+      "blocker_summary": "Structured resolution evidence not yet recorded.",
+      "evidence_count": 0,
+      "id": "oecd-asset-backed-pensions",
+      "last_reviewed": null,
+      "layer": "external",
+      "next_action": "Backfill structured resolution evidence.",
+      "path": "external/oecd-asset-backed-pensions/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": null,
+      "structured_evidence": false,
+      "terminal": null,
+      "title": "OECD Global Pension Statistics: asset-backed pension investment and private-equity allocation"
+    },
+    {
       "age_days": 13,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "The OECD general reuse policy is permissive, but country-series third- party ownership remains unchecked. The consumer also discards duplicate year rows without validating remaining SDMX dimensions or unique source identity, and its nominally year-on-year growth can span missing years.",
@@ -448,6 +464,54 @@
       "structured_evidence": false,
       "terminal": null,
       "title": "OECD Government at a Glance 2025: satisfaction with public services (healthcare, education, administrative services)"
+    },
+    {
+      "age_days": null,
+      "blocker_category": null,
+      "blocker_summary": "Structured resolution evidence not yet recorded.",
+      "evidence_count": 0,
+      "id": "oecd-patents-foreign-ownership",
+      "last_reviewed": null,
+      "layer": "external",
+      "next_action": "Backfill structured resolution evidence.",
+      "path": "external/oecd-patents-foreign-ownership/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": null,
+      "structured_evidence": false,
+      "terminal": null,
+      "title": "OECD patent statistics: foreign ownership of domestic inventions (PCT and EPO, priority date)"
+    },
+    {
+      "age_days": null,
+      "blocker_category": null,
+      "blocker_summary": "Structured resolution evidence not yet recorded.",
+      "evidence_count": 0,
+      "id": "oecd-sdbs-high-growth-enterprises",
+      "last_reviewed": null,
+      "layer": "external",
+      "next_action": "Backfill structured resolution evidence.",
+      "path": "external/oecd-sdbs-high-growth-enterprises/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": null,
+      "structured_evidence": false,
+      "terminal": null,
+      "title": "OECD SDBS business demography: medium- and high-growth employer enterprises (ICT and R&D industries)"
+    },
+    {
+      "age_days": null,
+      "blocker_category": null,
+      "blocker_summary": "Structured resolution evidence not yet recorded.",
+      "evidence_count": 0,
+      "id": "oecd-venture-capital-investments",
+      "last_reviewed": null,
+      "layer": "external",
+      "next_action": "Backfill structured resolution evidence.",
+      "path": "external/oecd-venture-capital-investments/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": null,
+      "structured_evidence": false,
+      "terminal": null,
+      "title": "OECD venture capital investments (market statistics), by stage"
     },
     {
       "age_days": 22,
@@ -619,13 +683,13 @@
       "exact-snapshot-identity": 3,
       "historical-export-route": 1,
       "redistribution-rights": 29,
-      "unstructured": 1
+      "unstructured": 5
     },
-    "external_count": 36,
+    "external_count": 40,
     "legacy_count": 2,
     "structured_count": 37,
     "terminal_count": 26,
-    "total_debt": 38,
-    "unstructured_count": 1
+    "total_debt": 42,
+    "unstructured_count": 5
   }
 }

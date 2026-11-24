@@ -1,0 +1,30 @@
+schema_version: 1
+status: external-reference
+id: oecd-venture-capital-investments
+title: "OECD venture capital investments (market statistics), by stage"
+publisher: "Organisation for Economic Co-operation and Development (OECD)"
+source_url: "https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_VC@DF_VC_INV,1.0/all?format=csvfile"
+license:
+  name: "OECD Terms and Conditions (verify any third-party or series-specific rights)"
+  url: "https://www.oecd.org/en/about/terms-conditions.html"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: consumer-downloads-and-verifies
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The whole dataflow is downloaded; the consumer keeps the percentage-of-GDP rows. The CSV response was byte-identical across two downloads on 24 November 2026 and is pinned by SHA-256 below. No bytes are mirrored here.
+consumers:
+  - medium-blog/uk-innovation-ownership
+medium_blog:
+  folder: uk-innovation-ownership
+  fetch: "uk-innovation-ownership/fetch_data.py"
+  retrieved: "2026-11-24"
+  derived_output: "uk-innovation-ownership/.cache/ (downloaded at every run, not committed)"
+  files:
+    - path: ".cache/venture_capital.csv"
+      dataset: "DSD_VC@DF_VC_INV"
+      url: "https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_VC@DF_VC_INV,1.0/all?format=csvfile"
+      bytes: 496642
+      sha256: "7e9ec1ba4dd91db54b72b2ba752c1b7cd8efc268587b29c7fea066c2be3810d9"

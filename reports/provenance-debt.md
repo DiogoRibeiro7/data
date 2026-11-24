@@ -3,11 +3,11 @@
 This file is generated deterministically from committed external and legacy metadata.
 Do not edit it by hand.
 
-- Total debt items: **38**
-- External records: **36**
+- Total debt items: **42**
+- External records: **40**
 - Legacy packages: **2**
 - Structured evidence: **37**
-- Unstructured debt: **1**
+- Unstructured debt: **5**
 - Actionable: **11**
 - Terminal: **26**
 - Age reference date: **2026-11-22**
@@ -19,7 +19,7 @@ Do not edit it by hand.
 - `exact-snapshot-identity`: **3**
 - `historical-export-route`: **1**
 - `redistribution-rights`: **29**
-- `unstructured`: **1**
+- `unstructured`: **5**
 
 ## Queue
 
@@ -51,8 +51,12 @@ Do not edit it by hand.
 | external | `medium-jansma-historical` | terminal | The pinned research repository documents collection of roughly 1.4 million Medium stories and says the dataset was published for public use on Kaggle, but the actual dataset is off-repository, the GitHub repository has no LICENSE, and no authoritative dataset-specific redistribution licence for the exact Kaggle object was recovered. The record is terminal external-only. | 2026-10-11 | 42 | 4 | unresolved | Reopen only if the exact Kaggle object/version and authoritative dataset-specific redistribution terms are recovered. |
 | external | `miller-2008-suffrage-mortality-finance` | actionable | The author publishes the files openly on his university page for replication, but neither the page nor the online appendix states a licence or redistribution terms. | 2026-11-22 | 0 | 2 | unresolved | Keep the files consumer-downloaded and checksum-verified. Ask the author for terms before any mirror or canonical promotion. |
 | external | `oecd-analytical-house-price-indicators` | actionable | OECD's general terms allow data reuse with attribution unless additional source-specific or third-party restrictions apply. Country-measure source ownership is not verified for this consumer. Its open SDMX measure/unit selector and first-value pivot also need an exact-series, uniqueness and unit check before a response can support empirical results. | 2026-11-09 | 13 | 5 | unresolved | In the consumer, select and validate exact country, annual-frequency, measure, unit and seasonal-adjustment dimensions; reject duplicate observations per country/year/measure. Inspect OECD Data Explorer source metadata for PRT, ESP, FRA, ITA, IRL and NLD and each selected measure; confirm third-party permissions. Pin exact query, dated SDMX response, raw SHA-256 and transformation revision before canonical consideration. |
+| external | `oecd-asset-backed-pensions` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
 | external | `oecd-average-annual-wages` | actionable | The OECD general reuse policy is permissive, but country-series third- party ownership remains unchecked. The consumer also discards duplicate year rows without validating remaining SDMX dimensions or unique source identity, and its nominally year-on-year growth can span missing years. | 2026-11-09 | 13 | 4 | unresolved | In the consumer, validate exact REF_AREA, WG, USD_PPP, price base Q and other returned SDMX dimensions; reject conflicting duplicate year rows; compute wage_growth only for consecutive years and report gaps. Verify source ownership in OECD Data Explorer for all six areas; preserve the response URL, access timestamp, byte SHA-256, PPP reference year and transformation revision before proposing a canonical snapshot. |
 | external | `oecd-government-at-a-glance-satisfaction-2025` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
+| external | `oecd-patents-foreign-ownership` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
+| external | `oecd-sdbs-high-growth-enterprises` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
+| external | `oecd-venture-capital-investments` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
 | external | `pordata-ine-portugal-infant-mortality` | terminal | The underlying official INE statistics can be attributed and used, but no PORDATA/FFMS terms permitting verbatim redistribution of its complete portal export or repackaged table were established for this source. | 2026-10-31 | 22 | 3 | unresolved | Retain external citation and the limited attributed downstream transcriptions. Obtain explicit table-export reuse terms, or source the same series directly from INE under its applicable redistribution policy before considering canonical promotion. |
 | external | `pordata-portugal-resident-population` | terminal | INE permits rediffusion of official statistical information with source attribution, but the historical workbook was a PORDATA-generated Excel export and no authoritative term was recovered that clearly permits mirroring that secondary-source artifact. | 2026-10-05 | 48 | 3 | unresolved | Reopen only if PORDATA or FFMS publishes terms explicitly authorizing redistribution of exported table files, or if the registry replaces the artifact with a directly sourced INE representation under INE reuse terms. |
 | external | `porto-metro-gtfs-2026-09-07` | actionable | A historical Porto open-data catalog tagged this dataset CC0, but the current migrated listing did not expose a clearly linked licence for the exact 7 September 2026 ZIP; carryover of the old licence is unverified. | 2026-10-30 | 23 | 2 | unresolved | Verify the migrated portal's machine-readable licence metadata or obtain publisher confirmation for the dated ZIP before canonical promotion. |

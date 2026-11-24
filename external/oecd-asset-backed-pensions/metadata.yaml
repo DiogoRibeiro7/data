@@ -1,0 +1,30 @@
+schema_version: 1
+status: external-reference
+id: oecd-asset-backed-pensions
+title: "OECD Global Pension Statistics: asset-backed pension investment and private-equity allocation"
+publisher: "Organisation for Economic Co-operation and Development (OECD)"
+source_url: "https://sdmx.oecd.org/public/rest/data/OECD.DAF.CM,DSD_FP@DF_FPS,1.0/.A.1000+1286.PT_B1GQ+PT_AS._T._T._T+PF?format=csvfile"
+license:
+  name: "OECD Terms and Conditions (verify any third-party or series-specific rights)"
+  url: "https://www.oecd.org/en/about/terms-conditions.html"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: consumer-downloads-and-verifies
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    Coverage of the private-equity measure is patchy (the UK reports it from 2019). The CSV response was byte-identical across two downloads on 24 November 2026 and is pinned by SHA-256 below. No bytes are mirrored here.
+consumers:
+  - medium-blog/uk-innovation-ownership
+medium_blog:
+  folder: uk-innovation-ownership
+  fetch: "uk-innovation-ownership/fetch_data.py"
+  retrieved: "2026-11-24"
+  derived_output: "uk-innovation-ownership/.cache/ (downloaded at every run, not committed)"
+  files:
+    - path: ".cache/pensions.csv"
+      dataset: "DSD_FP@DF_FPS"
+      url: "https://sdmx.oecd.org/public/rest/data/OECD.DAF.CM,DSD_FP@DF_FPS,1.0/.A.1000+1286.PT_B1GQ+PT_AS._T._T._T+PF?format=csvfile"
+      bytes: 370270
+      sha256: "0dc315320409fa873c18d7b097e4ee1b305650274d930dab083c3f17763dc01d"
