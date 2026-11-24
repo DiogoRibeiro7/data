@@ -560,8 +560,20 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "unicode-cldr-49-exemplar-characters",
+      "metadata_path": "external/unicode-cldr-49-exemplar-characters/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "upct-orange-postharvest-coatings-2025",
       "metadata_path": "external/upct-orange-postharvest-coatings-2025/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "wordfreq-3-1-1-word-frequencies",
+      "metadata_path": "external/wordfreq-3-1-1-word-frequencies/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -609,8 +621,8 @@
     "canonical_byte_archive_eligible_count": 11,
     "canonical_dataset_count": 11,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 75,
-    "external_source_count": 75,
+    "external_metadata_only_count": 77,
+    "external_source_count": 77,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }

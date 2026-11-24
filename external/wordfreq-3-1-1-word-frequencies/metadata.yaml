@@ -1,0 +1,36 @@
+schema_version: 1
+status: external-reference
+id: wordfreq-3-1-1-word-frequencies
+title: "wordfreq 3.1.1: word frequency lists for 44 languages (frozen snapshot of language use up to 2021)"
+publisher: "Robyn Speer (wordfreq), distributed on PyPI"
+source_url: "https://pypi.org/project/wordfreq/3.1.1/"
+license:
+  name: "CC BY-SA 4.0 (word-list data); Apache-2.0 (code)"
+  url: "https://creativecommons.org/licenses/by-sa/4.0/"
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: allowed
+  attribution_required: true
+  note: >-
+    The word lists ship inside the wordfreq wheel (wordfreq/data/*.msgpack.gz),
+    so a pinned pip install is the byte source; nothing is mirrored here.
+    Each list gives word frequencies as shares of word tokens, built from
+    Wikipedia, OpenSubtitles 2018, Google Books Ngrams, NewsCrawl and
+    GlobalVoices, OSCAR web text, the Leeds Internet Corpus, ParaCrawl,
+    Twitter, Reddit and the SUBTLEX lists (Brysbaert et al.). Attribution:
+    cite Speer (2022), doi:10.5281/zenodo.7199437, credit the SUBTLEX
+    authors and keep it clear that SUBTLEX is freely available data. The
+    author froze the data in September 2024 (SUNSET.md): it reflects
+    language found online up to 2021. Words are case-folded (German ss for
+    ß, Greek σ for final ς). medium-blog/letter-loops reads the "best" list
+    of 36 languages (18 large, 18 small) and checks the SHA-256 of each
+    file against its digests.txt.
+medium_blog:
+  folder: letter-loops
+  pin: "wordfreq==3.1.1 in letter-loops/requirements.txt"
+  digests: "letter-loops/digests.txt (one SHA-256 per wordfreq/data list used)"
+  sha256_large_en: "dffae8066b78dce0a6667cf5f58e567054f902674667090a7ac8a8a44628b05c"
+consumers:
+  - medium-blog/letter-loops
