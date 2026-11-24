@@ -3,8 +3,8 @@
 This report is generated deterministically from committed canonical metadata
 and the committed consumer catalog. Do not edit it by hand.
 
-- Canonical datasets: **11**
-- Active: **11**
+- Canonical datasets: **12**
+- Active: **12**
 - Deprecated: **0**
 - Superseded: **0**
 - Replacement edges: **0**
@@ -23,6 +23,7 @@ and the committed consumer catalog. Do not edit it by hand.
 | --- | --- | --- | --- | ---: | ---: |
 | `bls-cpi-rent-us-metros` | active | -- | bls-cpi-rent-us-metros | 1 | 0 |
 | `census-acs-housing-costs-msa` | active | -- | census-acs-housing-costs-msa | 1 | 0 |
+| `eurostat-food-vat-incidence` | active | -- | eurostat-food-vat-incidence | 0 | 0 |
 | `eurostat-material-use` | active | -- | eurostat-material-use | 1 | 0 |
 | `eurostat-services-energy-time` | active | -- | eurostat-services-energy-time | 1 | 0 |
 | `eurostat-services-relative-prices` | active | -- | eurostat-services-relative-prices | 1 | 0 |
