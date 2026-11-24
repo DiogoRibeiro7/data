@@ -12,14 +12,14 @@ It makes no live network requests.
 
 ## External sources
 
-- External source records: **75**
-- Redistribution resolved / unresolved: **40 / 35**
+- External source records: **80**
+- Redistribution resolved / unresolved: **41 / 39**
 - Sources pinned to an immutable Git commit: **10**
 
 External source usage annotations:
 
-- Referenced consumer repositories: **31**
-- Source usage references: **78**
+- Referenced consumer repositories: **32**
+- Source usage references: **83**
 
 - `causal-uplift-marketing-campaign`
 - `cpd-stress-test`
@@ -44,6 +44,7 @@ External source usage annotations:
 - `medium-blog/ranking-extremes`
 - `medium-blog/rent-or-buy-us`
 - `medium-blog/suffrage-public-health`
+- `medium-blog/uk-innovation-ownership`
 - `medium-statistical-dynamics`
 - `perishable-inventory-decision-lab`
 - `porto-metro-demand-analysis`
@@ -105,7 +106,7 @@ Adoption exemptions:
 
 ## Provenance and licensing debt
 
-- Total debt items: **38**
+- Total debt items: **42**
 - External actionable / terminal: **11 / 24**
 - Legacy actionable / terminal: **0 / 2**
 - Oldest review date: **2026-10-05**

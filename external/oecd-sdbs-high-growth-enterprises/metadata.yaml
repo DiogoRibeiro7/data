@@ -1,0 +1,30 @@
+schema_version: 1
+status: external-reference
+id: oecd-sdbs-high-growth-enterprises
+title: "OECD SDBS business demography: medium- and high-growth employer enterprises (ICT and R&D industries)"
+publisher: "Organisation for Economic Co-operation and Development (OECD)"
+source_url: "https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_SDBSBD_ISIC4@DF_BD_EMP_HG,1.0/A..ENT.J+J62+J63+M72.S_GE10._T.ENT_EMP.HGE10.PT_ENT10?format=csvfile"
+license:
+  name: "OECD Terms and Conditions (verify any third-party or series-specific rights)"
+  url: "https://www.oecd.org/en/about/terms-conditions.html"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: consumer-downloads-and-verifies
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The CSV response was byte-identical across two downloads on 24 November 2026 and is pinned by SHA-256 below. No bytes are mirrored here.
+consumers:
+  - medium-blog/uk-innovation-ownership
+medium_blog:
+  folder: uk-innovation-ownership
+  fetch: "uk-innovation-ownership/fetch_data.py"
+  retrieved: "2026-11-24"
+  derived_output: "uk-innovation-ownership/.cache/ (downloaded at every run, not committed)"
+  files:
+    - path: ".cache/high_growth.csv"
+      dataset: "DSD_SDBSBD_ISIC4@DF_BD_EMP_HG"
+      url: "https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_SDBSBD_ISIC4@DF_BD_EMP_HG,1.0/A..ENT.J+J62+J63+M72.S_GE10._T.ENT_EMP.HGE10.PT_ENT10?format=csvfile"
+      bytes: 304748
+      sha256: "58e557f648f4176ed46a720f1b1db4e271e75942edece4c414ae8525cc160ec4"

@@ -242,6 +242,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "eurostat-inward-fats-ict",
+      "metadata_path": "external/eurostat-inward-fats-ict/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "eurostat-multicountry-housing-tax-covariates",
       "metadata_path": "external/eurostat-multicountry-housing-tax-covariates/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -428,6 +434,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "oecd-asset-backed-pensions",
+      "metadata_path": "external/oecd-asset-backed-pensions/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "oecd-average-annual-wages",
       "metadata_path": "external/oecd-average-annual-wages/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -436,6 +448,24 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "oecd-government-at-a-glance-satisfaction-2025",
       "metadata_path": "external/oecd-government-at-a-glance-satisfaction-2025/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "oecd-patents-foreign-ownership",
+      "metadata_path": "external/oecd-patents-foreign-ownership/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "oecd-sdbs-high-growth-enterprises",
+      "metadata_path": "external/oecd-sdbs-high-growth-enterprises/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "oecd-venture-capital-investments",
+      "metadata_path": "external/oecd-venture-capital-investments/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -621,8 +651,8 @@
     "canonical_byte_archive_eligible_count": 11,
     "canonical_dataset_count": 11,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 77,
-    "external_source_count": 77,
+    "external_metadata_only_count": 82,
+    "external_source_count": 82,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }

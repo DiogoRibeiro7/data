@@ -308,6 +308,22 @@
       "path": "external/energy-charts-electricity-load"
     },
     {
+      "id": "eurostat-inward-fats-ict",
+      "title": "Eurostat inward FATS: persons employed in foreign- and US-controlled enterprises, ICT and R&D industries (fats_g1a_08)",
+      "publisher": "Eurostat (European Commission)",
+      "source_url": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/fats_g1a_08/A.J+J62+J63+M72.V16110.WORLD+WRL_X_REP+US.?format=SDMX-CSV",
+      "license": {
+        "name": "Eurostat free re-use policy (Commission Decision 2011/833/EU)",
+        "url": "https://ec.europa.eu/eurostat/help/copyright-notice"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/uk-innovation-ownership"
+      ],
+      "path": "external/eurostat-inward-fats-ict"
+    },
+    {
       "id": "eurostat-multicountry-housing-tax-covariates",
       "title": "Eurostat cross-country housing-cost, tenure and tax-account covariates",
       "publisher": "Eurostat (European Commission)",
@@ -848,6 +864,22 @@
       }
     },
     {
+      "id": "oecd-asset-backed-pensions",
+      "title": "OECD Global Pension Statistics: asset-backed pension investment and private-equity allocation",
+      "publisher": "Organisation for Economic Co-operation and Development (OECD)",
+      "source_url": "https://sdmx.oecd.org/public/rest/data/OECD.DAF.CM,DSD_FP@DF_FPS,1.0/.A.1000+1286.PT_B1GQ+PT_AS._T._T._T+PF?format=csvfile",
+      "license": {
+        "name": "OECD Terms and Conditions (verify any third-party or series-specific rights)",
+        "url": "https://www.oecd.org/en/about/terms-conditions.html"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/uk-innovation-ownership"
+      ],
+      "path": "external/oecd-asset-backed-pensions"
+    },
+    {
       "id": "oecd-average-annual-wages",
       "title": "OECD real average annual wages (full-time equivalent, PPP adjusted)",
       "publisher": "Organisation for Economic Co-operation and Development (OECD)",
@@ -883,6 +915,54 @@
         "medium-blog/ranking-extremes"
       ],
       "path": "external/oecd-government-at-a-glance-satisfaction-2025"
+    },
+    {
+      "id": "oecd-patents-foreign-ownership",
+      "title": "OECD patent statistics: foreign ownership of domestic inventions (PCT and EPO, priority date)",
+      "publisher": "Organisation for Economic Co-operation and Development (OECD)",
+      "source_url": "https://sdmx.oecd.org/public/rest/data/OECD.STI.PIE,DSD_PATENTS@DF_PATENTS_FOREIGN,1.0/9P50_1+6F0.A.AP.PATN.PRIORITY..W+WXD+USA....?format=csvfile",
+      "license": {
+        "name": "OECD Terms and Conditions (verify any third-party or series-specific rights)",
+        "url": "https://www.oecd.org/en/about/terms-conditions.html"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/uk-innovation-ownership"
+      ],
+      "path": "external/oecd-patents-foreign-ownership"
+    },
+    {
+      "id": "oecd-sdbs-high-growth-enterprises",
+      "title": "OECD SDBS business demography: medium- and high-growth employer enterprises (ICT and R&D industries)",
+      "publisher": "Organisation for Economic Co-operation and Development (OECD)",
+      "source_url": "https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_SDBSBD_ISIC4@DF_BD_EMP_HG,1.0/A..ENT.J+J62+J63+M72.S_GE10._T.ENT_EMP.HGE10.PT_ENT10?format=csvfile",
+      "license": {
+        "name": "OECD Terms and Conditions (verify any third-party or series-specific rights)",
+        "url": "https://www.oecd.org/en/about/terms-conditions.html"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/uk-innovation-ownership"
+      ],
+      "path": "external/oecd-sdbs-high-growth-enterprises"
+    },
+    {
+      "id": "oecd-venture-capital-investments",
+      "title": "OECD venture capital investments (market statistics), by stage",
+      "publisher": "Organisation for Economic Co-operation and Development (OECD)",
+      "source_url": "https://sdmx.oecd.org/public/rest/data/OECD.SDD.TPS,DSD_VC@DF_VC_INV,1.0/all?format=csvfile",
+      "license": {
+        "name": "OECD Terms and Conditions (verify any third-party or series-specific rights)",
+        "url": "https://www.oecd.org/en/about/terms-conditions.html"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/uk-innovation-ownership"
+      ],
+      "path": "external/oecd-venture-capital-investments"
     },
     {
       "id": "open-meteo-previous-runs-forecasts",
