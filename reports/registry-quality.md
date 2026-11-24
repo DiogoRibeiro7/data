@@ -5,10 +5,10 @@ It makes no live network requests.
 
 ## Canonical registry
 
-- Canonical datasets: **11**
-- Canonical files: **62**
-- Files with verified SHA-256: **62**
-- Canonical datasets with complete licence metadata: **11**
+- Canonical datasets: **12**
+- Canonical files: **69**
+- Files with verified SHA-256: **69**
+- Canonical datasets with complete licence metadata: **12**
 
 ## External sources
 
@@ -57,13 +57,13 @@ External source usage annotations:
 ## Canonical consumer adoption
 
 - Active consumer repositories: **3**
-- Active canonical relationships: **10**
+- Active canonical relationships: **11**
 - Deprecated relationships: **0**
-- Pinned contracts: **10 / 10**
+- Pinned contracts: **11 / 11**
 - Pinned contract coverage: **100%**
-- Canonical datasets with >=1 active consumer: **10**
+- Canonical datasets with >=1 active consumer: **11**
 - Canonical datasets with zero active consumers: **1**
-- Canonical dataset adoption coverage: **91%**
+- Canonical dataset adoption coverage: **92%**
 - Lifecycle migration coverage: **100%** (0 / 0)
 - Migration required / planned / retained / migrated: **0 / 0 / 0 / 0**
 
@@ -77,9 +77,9 @@ Active consumers:
 
 - Baseline snapshot: **snapshot-2026.10.05**
 - Baseline canonical datasets: **2**
-- Current canonical datasets: **11**
-- Added since baseline: **9**
-- Added with active consumers: **8**
+- Current canonical datasets: **12**
+- Added since baseline: **10**
+- Added with active consumers: **9**
 - Added with exemptions: **1**
 - Uncovered canonical datasets: **0**
 
@@ -87,6 +87,7 @@ Datasets added since baseline:
 
 - `bls-cpi-rent-us-metros`
 - `census-acs-housing-costs-msa`
+- `eurostat-food-vat-incidence`
 - `eurostat-material-use`
 - `eurostat-services-energy-time`
 - `eurostat-services-relative-prices`

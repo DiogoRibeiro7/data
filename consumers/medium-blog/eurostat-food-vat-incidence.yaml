@@ -1,0 +1,24 @@
+schema_version: 1
+status: active
+
+consumer_id: medium-blog
+consumer_repository: DiogoRibeiro7/Medium-Blog
+
+dataset_id: eurostat-food-vat-incidence
+
+registry_layer: canonical
+registry_repository: DiogoRibeiro7/data
+registry_commit: "110589357b5ff12b0430d9e1953e6e205246ea59"
+
+path: datasets/eurostat-food-vat-incidence/raw/hbs_str_t223.json
+sha256: "1d11c464d4f090bc478d7f8cd20b83c56eb08eea5870bafd53f238f3e3f76356"
+
+consumer_commit: "382b5589d17f81c71eef16dfaf5e8dbb8eaaa980"
+evidence_url: https://github.com/DiogoRibeiro7/Medium-Blog/tree/food-vat-shares/food-vat-shares
+
+notes: >
+  Folder food-vat-shares reads all seven raw files of the dataset, not only
+  the one named here. Medium-Blog records the registry commit, URL, size and
+  SHA-256 of each file in data_sources/eurostat-food-vat-incidence.json;
+  food-vat-shares/fetch.py downloads them at every run and stops if any byte
+  differs.

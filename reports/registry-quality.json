@@ -1,9 +1,9 @@
 {
   "canonical": {
-    "complete_license_datasets": 11,
-    "dataset_count": 11,
-    "file_count": 62,
-    "verified_checksum_files": 62
+    "complete_license_datasets": 12,
+    "dataset_count": 12,
+    "file_count": 69,
+    "verified_checksum_files": 69
   },
   "canonical_expansion": {
     "added_datasets_exempted": [
@@ -12,6 +12,7 @@
     "added_datasets_with_consumers": [
       "bls-cpi-rent-us-metros",
       "census-acs-housing-costs-msa",
+      "eurostat-food-vat-incidence",
       "eurostat-material-use",
       "eurostat-services-energy-time",
       "eurostat-services-relative-prices",
@@ -21,10 +22,11 @@
     ],
     "baseline_dataset_count": 2,
     "baseline_snapshot": "snapshot-2026.10.05",
-    "current_dataset_count": 11,
+    "current_dataset_count": 12,
     "datasets_added_since_baseline": [
       "bls-cpi-rent-us-metros",
       "census-acs-housing-costs-msa",
+      "eurostat-food-vat-incidence",
       "eurostat-material-use",
       "eurostat-services-energy-time",
       "eurostat-services-relative-prices",
@@ -56,13 +58,14 @@
       "displacement-risk-lab-dynamodb",
       "medium-blog"
     ],
-    "active_relationship_count": 10,
-    "canonical_dataset_adoption_coverage": 0.9090909090909091,
-    "canonical_datasets_with_consumers": 10,
+    "active_relationship_count": 11,
+    "canonical_dataset_adoption_coverage": 0.9166666666666666,
+    "canonical_datasets_with_consumers": 11,
     "canonical_datasets_without_consumers": 1,
     "datasets_with_consumers": [
       "bls-cpi-rent-us-metros",
       "census-acs-housing-costs-msa",
+      "eurostat-food-vat-incidence",
       "eurostat-material-use",
       "eurostat-services-energy-time",
       "eurostat-services-relative-prices",
@@ -86,7 +89,7 @@
     "migration_planned_count": 0,
     "migration_required_count": 0,
     "migration_retained_count": 0,
-    "pinned_contract_count": 10,
+    "pinned_contract_count": 11,
     "pinned_contract_coverage": 1.0,
     "uncovered_datasets_without_consumers": []
   },
