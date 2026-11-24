@@ -93,13 +93,13 @@
   "external": {
     "pinned_immutable_identity_sources": 10,
     "redistribution": {
-      "resolved": 41,
+      "resolved": 43,
       "unresolved": 39
     },
-    "source_count": 80,
+    "source_count": 82,
     "source_usage": {
-      "consumer_count": 32,
-      "consumer_references": 83,
+      "consumer_count": 33,
+      "consumer_references": 85,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -113,6 +113,7 @@
         "medium-blog/curvature-prior",
         "medium-blog/europe-industrial-regions",
         "medium-blog/growth-finite-world",
+        "medium-blog/letter-loops",
         "medium-blog/long-horizon-stock-risk",
         "medium-blog/model-swap-tails",
         "medium-blog/portugal-debt-2035-probability",
