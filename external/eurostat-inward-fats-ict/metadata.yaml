@@ -1,0 +1,30 @@
+schema_version: 1
+status: external-reference
+id: eurostat-inward-fats-ict
+title: "Eurostat inward FATS: persons employed in foreign- and US-controlled enterprises, ICT and R&D industries (fats_g1a_08)"
+publisher: "Eurostat (European Commission)"
+source_url: "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/fats_g1a_08/A.J+J62+J63+M72.V16110.WORLD+WRL_X_REP+US.?format=SDMX-CSV"
+license:
+  name: "Eurostat free re-use policy (Commission Decision 2011/833/EU)"
+  url: "https://ec.europa.eu/eurostat/help/copyright-notice"
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: consumer-downloads-and-verifies
+  redistribution: allowed
+  attribution_required: true
+  note: >-
+    The SDMX-CSV response carries Eurostat's last-update stamp (3 November 2023) and was byte-identical across two downloads on 24 November 2026; it is pinned by SHA-256 below. No bytes are mirrored here.
+consumers:
+  - medium-blog/uk-innovation-ownership
+medium_blog:
+  folder: uk-innovation-ownership
+  fetch: "uk-innovation-ownership/fetch_data.py"
+  retrieved: "2026-11-24"
+  derived_output: "uk-innovation-ownership/.cache/ (downloaded at every run, not committed)"
+  files:
+    - path: ".cache/fats_ict.csv"
+      dataset: "fats_g1a_08"
+      url: "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/fats_g1a_08/A.J+J62+J63+M72.V16110.WORLD+WRL_X_REP+US.?format=SDMX-CSV"
+      bytes: 358690
+      sha256: "26f8940d01e881a02b528ff230e1186421ebe7c1a57366ffcd9ab96784d66926"

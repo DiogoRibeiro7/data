@@ -93,13 +93,13 @@
   "external": {
     "pinned_immutable_identity_sources": 10,
     "redistribution": {
-      "resolved": 40,
-      "unresolved": 35
+      "resolved": 41,
+      "unresolved": 39
     },
-    "source_count": 75,
+    "source_count": 80,
     "source_usage": {
-      "consumer_count": 31,
-      "consumer_references": 78,
+      "consumer_count": 32,
+      "consumer_references": 83,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -124,6 +124,7 @@
         "medium-blog/ranking-extremes",
         "medium-blog/rent-or-buy-us",
         "medium-blog/suffrage-public-health",
+        "medium-blog/uk-innovation-ownership",
         "medium-statistical-dynamics",
         "perishable-inventory-decision-lab",
         "porto-metro-demand-analysis",
@@ -161,7 +162,7 @@
     },
     "oldest_age_days": 48,
     "oldest_review_date": "2026-10-05",
-    "total_count": 38
+    "total_count": 42
   },
   "schema_version": 1,
   "snapshots": {

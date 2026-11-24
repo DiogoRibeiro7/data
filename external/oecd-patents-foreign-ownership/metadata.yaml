@@ -1,0 +1,35 @@
+schema_version: 1
+status: external-reference
+id: oecd-patents-foreign-ownership
+title: "OECD patent statistics: foreign ownership of domestic inventions (PCT and EPO, priority date)"
+publisher: "Organisation for Economic Co-operation and Development (OECD)"
+source_url: "https://sdmx.oecd.org/public/rest/data/OECD.STI.PIE,DSD_PATENTS@DF_PATENTS_FOREIGN,1.0/9P50_1+6F0.A.AP.PATN.PRIORITY..W+WXD+USA....?format=csvfile"
+license:
+  name: "OECD Terms and Conditions (verify any third-party or series-specific rights)"
+  url: "https://www.oecd.org/en/about/terms-conditions.html"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: consumer-downloads-and-verifies
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    Partner W is the count of domestic inventions and WXD the count owned abroad; their ratio is the OECD indicator of foreign ownership of domestic inventions. Both CSV responses were byte-identical across two downloads on 24 November 2026 and are pinned by SHA-256 below; an OECD revision makes the consumer fail rather than change. No bytes are mirrored here.
+consumers:
+  - medium-blog/uk-innovation-ownership
+medium_blog:
+  folder: uk-innovation-ownership
+  fetch: "uk-innovation-ownership/fetch_data.py"
+  retrieved: "2026-11-24"
+  derived_output: "uk-innovation-ownership/.cache/ (downloaded at every run, not committed)"
+  files:
+    - path: ".cache/patents_foreign.csv"
+      dataset: "DSD_PATENTS@DF_PATENTS_FOREIGN"
+      url: "https://sdmx.oecd.org/public/rest/data/OECD.STI.PIE,DSD_PATENTS@DF_PATENTS_FOREIGN,1.0/9P50_1+6F0.A.AP.PATN.PRIORITY..W+WXD+USA....?format=csvfile"
+      bytes: 3013768
+      sha256: "18bfd5d3990bae6ae861b3d504bea33b58b66deea39d4b162de70f6b4af90c66"
+    - path: ".cache/patents_owners.csv"
+      dataset: "DSD_PATENTS@DF_PATENTS_FOREIGN"
+      url: "https://sdmx.oecd.org/public/rest/data/OECD.STI.PIE,DSD_PATENTS@DF_PATENTS_FOREIGN,1.0/9P50_1.A.AP.PATN.PRIORITY.GBR+DEU+FRA+ITA+NLD+SWE.....?format=csvfile"
+      bytes: 3037908
+      sha256: "68739f108ef6d8a4d8677c3d8a666be68e5daac3da6a0311939855095cd45d1a"
