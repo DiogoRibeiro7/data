@@ -1,0 +1,29 @@
+schema_version: 1
+status: external-reference
+id: unicode-cldr-49-exemplar-characters
+title: "Unicode CLDR 49: exemplar characters (standard alphabets) per locale, cldr-misc-full 49.0.0"
+publisher: "Unicode Consortium (Common Locale Data Repository), JSON distribution on npm"
+source_url: "https://registry.npmjs.org/cldr-misc-full/-/cldr-misc-full-49.0.0.tgz"
+license:
+  name: "Unicode License v3 (Unicode-3.0)"
+  url: "https://www.unicode.org/license.txt"
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: allowed
+  attribution_required: true
+  note: >-
+    main/<locale>/characters.json gives each locale's exemplar characters;
+    the main set is used as the language's standard alphabet (letters
+    only; multi-letter sequences in braces and marks are skipped).
+    medium-blog/letter-loops downloads the npm tarball at every run, checks
+    its SHA-256 and extracts the characters.json of 36 locales into a local
+    data/ folder that is not committed. Serbo-Croatian uses the hr locale.
+    No bytes are mirrored here.
+medium_blog:
+  folder: letter-loops
+  tarball: "cldr-misc-full-49.0.0.tgz"
+  sha256: "d0129e972402b1d6b32ab44c82c5a058c3f721bf61bf07b2b652c9444eba8821"
+consumers:
+  - medium-blog/letter-loops
