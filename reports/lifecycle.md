@@ -8,8 +8,8 @@ and the committed consumer catalog. Do not edit it by hand.
 - Deprecated: **0**
 - Superseded: **0**
 - Replacement edges: **0**
-- Active consumer relationships: **11**
-- Current consumer relationships: **11**
+- Active consumer relationships: **12**
+- Current consumer relationships: **12**
 - Migration required: **0**
 - Migration planned: **0**
 - Intentionally retained: **0**
@@ -23,7 +23,7 @@ and the committed consumer catalog. Do not edit it by hand.
 | --- | --- | --- | --- | ---: | ---: |
 | `bls-cpi-rent-us-metros` | active | -- | bls-cpi-rent-us-metros | 1 | 0 |
 | `census-acs-housing-costs-msa` | active | -- | census-acs-housing-costs-msa | 1 | 0 |
-| `eurostat-eu-convergence-education` | active | -- | eurostat-eu-convergence-education | 0 | 0 |
+| `eurostat-eu-convergence-education` | active | -- | eurostat-eu-convergence-education | 1 | 0 |
 | `eurostat-food-vat-incidence` | active | -- | eurostat-food-vat-incidence | 1 | 0 |
 | `eurostat-material-use` | active | -- | eurostat-material-use | 1 | 0 |
 | `eurostat-services-energy-time` | active | -- | eurostat-services-energy-time | 1 | 0 |
@@ -48,6 +48,7 @@ and the committed consumer catalog. Do not edit it by hand.
 | `displacement-risk-lab-dynamodb` | `unhcr-refugee-population-2024` | current | `unhcr-refugee-population-2024` | -- |
 | `medium-blog` | `bls-cpi-rent-us-metros` | current | `bls-cpi-rent-us-metros` | -- |
 | `medium-blog` | `census-acs-housing-costs-msa` | current | `census-acs-housing-costs-msa` | -- |
+| `medium-blog` | `eurostat-eu-convergence-education` | current | `eurostat-eu-convergence-education` | -- |
 | `medium-blog` | `eurostat-food-vat-incidence` | current | `eurostat-food-vat-incidence` | -- |
 | `medium-blog` | `eurostat-material-use` | current | `eurostat-material-use` | -- |
 | `medium-blog` | `eurostat-services-energy-time` | current | `eurostat-services-energy-time` | -- |

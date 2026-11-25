@@ -1,0 +1,26 @@
+schema_version: 1
+status: active
+
+consumer_id: medium-blog
+consumer_repository: DiogoRibeiro7/Medium-Blog
+
+dataset_id: eurostat-eu-convergence-education
+
+registry_layer: canonical
+registry_repository: DiogoRibeiro7/data
+registry_commit: "c5efef4299c409cfd9881317f4166e24ffa40084"
+
+path: datasets/eurostat-eu-convergence-education/raw/nama_10_pc.json
+sha256: "15b5e3f72789bbd76fa4c17f890aae40d80cd11c0a2f6acce7265d52a7b1e4ff"
+
+consumer_commit: "4bdd3152128b44c01a28e2662a04022c3ac76fe3"
+evidence_url: https://github.com/DiogoRibeiro7/Medium-Blog/tree/estado-novo-legacy/estado-novo-legacy
+
+notes: >
+  Folder estado-novo-legacy reads all four raw files of the dataset, not only
+  the one named here. Medium-Blog records the registry commit, URL, size and
+  SHA-256 of each file in data_sources/eurostat-eu-convergence-education.json;
+  estado-novo-legacy/fetch.py downloads them at every run and stops if any
+  byte differs. The same folder reads the external references
+  barro-lee-educational-attainment, penn-world-table-10-01 and owid-co2-data
+  through their own contracts.

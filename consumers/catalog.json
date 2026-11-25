@@ -61,6 +61,18 @@
       "status": "active"
     },
     {
+      "consumer_commit": "4bdd3152128b44c01a28e2662a04022c3ac76fe3",
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "eurostat-eu-convergence-education",
+      "evidence_url": "https://github.com/DiogoRibeiro7/Medium-Blog/tree/estado-novo-legacy/estado-novo-legacy",
+      "path": "datasets/eurostat-eu-convergence-education/raw/nama_10_pc.json",
+      "registry_commit": "c5efef4299c409cfd9881317f4166e24ffa40084",
+      "registry_repository": "DiogoRibeiro7/data",
+      "sha256": "15b5e3f72789bbd76fa4c17f890aae40d80cd11c0a2f6acce7265d52a7b1e4ff",
+      "status": "active"
+    },
+    {
       "consumer_commit": "382b5589d17f81c71eef16dfaf5e8dbb8eaaa980",
       "consumer_id": "medium-blog",
       "consumer_repository": "DiogoRibeiro7/Medium-Blog",
