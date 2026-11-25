@@ -28,3 +28,6 @@ World GDP is given only for Maddison benchmark years before 2015.
 
 - `medium-blog/growth-finite-world`: `DiogoRibeiro7/Medium-Blog`, folder
   `growth-finite-world`, fetched and checked by `fetch_data.py`.
+- `medium-blog/estado-novo-legacy`: `DiogoRibeiro7/Medium-Blog`, folder
+  `estado-novo-legacy`, contract `data_sources/owid-co2-data.json`, fetched
+  and checked by `fetch.py`; reads `iso_code`, `year`, `gdp` and `population`.

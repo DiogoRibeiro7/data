@@ -51,6 +51,15 @@
     },
     {
       "byte_archive_eligibility": "eligible",
+      "id": "eurostat-eu-convergence-education",
+      "license_name": "Eurostat free re-use policy (Commission Decision 2011/833/EU)",
+      "metadata_path": "datasets/eurostat-eu-convergence-education/metadata.yaml",
+      "reason": "canonical metadata explicitly permits redistribution",
+      "redistribution": "allowed",
+      "title": "Eurostat: GDP per head, labour productivity and adult educational attainment in the EU member states, 1975-2025"
+    },
+    {
+      "byte_archive_eligibility": "eligible",
       "id": "eurostat-food-vat-incidence",
       "license_name": "Eurostat free re-use policy (Commission Decision 2011/833/EU)",
       "metadata_path": "datasets/eurostat-food-vat-incidence/metadata.yaml",
@@ -151,6 +160,12 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "amt-porto-metro-demand",
       "metadata_path": "external/amt-porto-metro-demand/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "barro-lee-educational-attainment",
+      "metadata_path": "external/barro-lee-educational-attainment/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -503,6 +518,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "penn-world-table-10-01",
+      "metadata_path": "external/penn-world-table-10-01/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "pordata-ine-portugal-infant-mortality",
       "metadata_path": "external/pordata-ine-portugal-infant-mortality/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -645,11 +666,11 @@
   "schema_version": 1,
   "static_distribution_eligibility": "eligible",
   "summary": {
-    "canonical_byte_archive_eligible_count": 12,
-    "canonical_dataset_count": 12,
+    "canonical_byte_archive_eligible_count": 13,
+    "canonical_dataset_count": 13,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 80,
-    "external_source_count": 80,
+    "external_metadata_only_count": 82,
+    "external_source_count": 82,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }

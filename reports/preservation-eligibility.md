@@ -7,10 +7,10 @@ the recorded upstream licence/terms.
 - Preservation policy: `preservation/policy-v1.json` (v1)
 - Release metadata: **eligible**
 - Static distribution: **eligible**
-- Canonical datasets: **12**
-- Canonical byte-archive eligible: **12**
+- Canonical datasets: **13**
+- Canonical byte-archive eligible: **13**
 - Canonical metadata-only: **0**
-- External sources (metadata-only): **80**
+- External sources (metadata-only): **82**
 - Legacy packages (metadata-only): **2**
 
 ## Canonical dataset bytes
@@ -19,6 +19,7 @@ the recorded upstream licence/terms.
 | --- | --- | --- | --- |
 | `bls-cpi-rent-us-metros` | eligible | allowed | U.S. Government work, public domain (17 U.S.C. 105) |
 | `census-acs-housing-costs-msa` | eligible | allowed | U.S. Government work, public domain (17 U.S.C. 105) |
+| `eurostat-eu-convergence-education` | eligible | allowed | Eurostat free re-use policy (Commission Decision 2011/833/EU) |
 | `eurostat-food-vat-incidence` | eligible | allowed | Eurostat free re-use policy (Commission Decision 2011/833/EU) |
 | `eurostat-material-use` | eligible | allowed | Eurostat free re-use policy (Commission Decision 2011/833/EU) |
 | `eurostat-services-energy-time` | eligible | allowed | Eurostat free re-use policy (Commission Decision 2011/833/EU) |
