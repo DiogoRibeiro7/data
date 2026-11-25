@@ -33,3 +33,4 @@ medium_blog:
   derived_output: "growth-finite-world/data/{us_gdp,world,countries}.csv (built by build_data.py, not committed)"
 consumers:
   - medium-blog/growth-finite-world
+  - medium-blog/estado-novo-legacy

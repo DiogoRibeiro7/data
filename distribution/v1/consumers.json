@@ -61,6 +61,30 @@
       "status": "active"
     },
     {
+      "consumer_commit": "4bdd3152128b44c01a28e2662a04022c3ac76fe3",
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "eurostat-eu-convergence-education",
+      "evidence_url": "https://github.com/DiogoRibeiro7/Medium-Blog/tree/estado-novo-legacy/estado-novo-legacy",
+      "path": "datasets/eurostat-eu-convergence-education/raw/nama_10_pc.json",
+      "registry_commit": "c5efef4299c409cfd9881317f4166e24ffa40084",
+      "registry_repository": "DiogoRibeiro7/data",
+      "sha256": "15b5e3f72789bbd76fa4c17f890aae40d80cd11c0a2f6acce7265d52a7b1e4ff",
+      "status": "active"
+    },
+    {
+      "consumer_commit": "382b5589d17f81c71eef16dfaf5e8dbb8eaaa980",
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "eurostat-food-vat-incidence",
+      "evidence_url": "https://github.com/DiogoRibeiro7/Medium-Blog/tree/food-vat-shares/food-vat-shares",
+      "path": "datasets/eurostat-food-vat-incidence/raw/hbs_str_t223.json",
+      "registry_commit": "110589357b5ff12b0430d9e1953e6e205246ea59",
+      "registry_repository": "DiogoRibeiro7/data",
+      "sha256": "1d11c464d4f090bc478d7f8cd20b83c56eb08eea5870bafd53f238f3e3f76356",
+      "status": "active"
+    },
+    {
       "consumer_commit": "94c9b6486ae71d0f86e87ae3a3bfcbecc0520050",
       "consumer_id": "medium-blog",
       "consumer_repository": "DiogoRibeiro7/Medium-Blog",

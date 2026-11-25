@@ -48,6 +48,20 @@
           "status": "active"
         },
         {
+          "dataset_id": "eurostat-eu-convergence-education",
+          "path": "datasets/eurostat-eu-convergence-education/raw/nama_10_pc.json",
+          "registry_commit": "c5efef4299c409cfd9881317f4166e24ffa40084",
+          "sha256": "15b5e3f72789bbd76fa4c17f890aae40d80cd11c0a2f6acce7265d52a7b1e4ff",
+          "status": "active"
+        },
+        {
+          "dataset_id": "eurostat-food-vat-incidence",
+          "path": "datasets/eurostat-food-vat-incidence/raw/hbs_str_t223.json",
+          "registry_commit": "110589357b5ff12b0430d9e1953e6e205246ea59",
+          "sha256": "1d11c464d4f090bc478d7f8cd20b83c56eb08eea5870bafd53f238f3e3f76356",
+          "status": "active"
+        },
+        {
           "dataset_id": "eurostat-material-use",
           "path": "datasets/eurostat-material-use/raw/env_ac_mfa.json",
           "registry_commit": "4b79d15530674d62c7fee0935509c88f0555e8f6",
@@ -107,6 +121,30 @@
           "path": "datasets/census-acs-housing-costs-msa/raw/acsdt1y2023-b25077.dat",
           "registry_commit": "547c25d42b5607c6c29fc60918b8fb74b42d5b2e",
           "sha256": "c39987ce683bc4ac8d5831ac9fb67cbcdfaa9bbb81193bc3af4582ad97353723",
+          "status": "active"
+        }
+      ]
+    },
+    "eurostat-eu-convergence-education": {
+      "consumers": [
+        {
+          "consumer_id": "medium-blog",
+          "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+          "path": "datasets/eurostat-eu-convergence-education/raw/nama_10_pc.json",
+          "registry_commit": "c5efef4299c409cfd9881317f4166e24ffa40084",
+          "sha256": "15b5e3f72789bbd76fa4c17f890aae40d80cd11c0a2f6acce7265d52a7b1e4ff",
+          "status": "active"
+        }
+      ]
+    },
+    "eurostat-food-vat-incidence": {
+      "consumers": [
+        {
+          "consumer_id": "medium-blog",
+          "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+          "path": "datasets/eurostat-food-vat-incidence/raw/hbs_str_t223.json",
+          "registry_commit": "110589357b5ff12b0430d9e1953e6e205246ea59",
+          "sha256": "1d11c464d4f090bc478d7f8cd20b83c56eb08eea5870bafd53f238f3e3f76356",
           "status": "active"
         }
       ]

@@ -1,9 +1,9 @@
 {
   "canonical": {
-    "complete_license_datasets": 11,
-    "dataset_count": 11,
-    "file_count": 62,
-    "verified_checksum_files": 62
+    "complete_license_datasets": 13,
+    "dataset_count": 13,
+    "file_count": 73,
+    "verified_checksum_files": 73
   },
   "canonical_expansion": {
     "added_datasets_exempted": [
@@ -12,6 +12,8 @@
     "added_datasets_with_consumers": [
       "bls-cpi-rent-us-metros",
       "census-acs-housing-costs-msa",
+      "eurostat-eu-convergence-education",
+      "eurostat-food-vat-incidence",
       "eurostat-material-use",
       "eurostat-services-energy-time",
       "eurostat-services-relative-prices",
@@ -21,10 +23,12 @@
     ],
     "baseline_dataset_count": 2,
     "baseline_snapshot": "snapshot-2026.10.05",
-    "current_dataset_count": 11,
+    "current_dataset_count": 13,
     "datasets_added_since_baseline": [
       "bls-cpi-rent-us-metros",
       "census-acs-housing-costs-msa",
+      "eurostat-eu-convergence-education",
+      "eurostat-food-vat-incidence",
       "eurostat-material-use",
       "eurostat-services-energy-time",
       "eurostat-services-relative-prices",
@@ -56,13 +60,15 @@
       "displacement-risk-lab-dynamodb",
       "medium-blog"
     ],
-    "active_relationship_count": 10,
-    "canonical_dataset_adoption_coverage": 0.9090909090909091,
-    "canonical_datasets_with_consumers": 10,
+    "active_relationship_count": 12,
+    "canonical_dataset_adoption_coverage": 0.9230769230769231,
+    "canonical_datasets_with_consumers": 12,
     "canonical_datasets_without_consumers": 1,
     "datasets_with_consumers": [
       "bls-cpi-rent-us-metros",
       "census-acs-housing-costs-msa",
+      "eurostat-eu-convergence-education",
+      "eurostat-food-vat-incidence",
       "eurostat-material-use",
       "eurostat-services-energy-time",
       "eurostat-services-relative-prices",
@@ -86,20 +92,20 @@
     "migration_planned_count": 0,
     "migration_required_count": 0,
     "migration_retained_count": 0,
-    "pinned_contract_count": 10,
+    "pinned_contract_count": 12,
     "pinned_contract_coverage": 1.0,
     "uncovered_datasets_without_consumers": []
   },
   "external": {
-    "pinned_immutable_identity_sources": 10,
+    "pinned_immutable_identity_sources": 12,
     "redistribution": {
-      "resolved": 43,
-      "unresolved": 39
+      "resolved": 44,
+      "unresolved": 40
     },
-    "source_count": 82,
+    "source_count": 84,
     "source_usage": {
-      "consumer_count": 33,
-      "consumer_references": 85,
+      "consumer_count": 34,
+      "consumer_references": 89,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -111,6 +117,7 @@
         "medium-blog/bid-rigging-screens",
         "medium-blog/centres-users-residents",
         "medium-blog/curvature-prior",
+        "medium-blog/estado-novo-legacy",
         "medium-blog/europe-industrial-regions",
         "medium-blog/growth-finite-world",
         "medium-blog/letter-loops",
@@ -151,19 +158,19 @@
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 3,
       "historical-export-route": 1,
-      "redistribution-rights": 29
+      "redistribution-rights": 30
     },
     "external": {
-      "actionable": 11,
+      "actionable": 12,
       "terminal": 24
     },
     "legacy": {
       "actionable": 0,
       "terminal": 2
     },
-    "oldest_age_days": 48,
+    "oldest_age_days": 51,
     "oldest_review_date": "2026-10-05",
-    "total_count": 42
+    "total_count": 43
   },
   "schema_version": 1,
   "snapshots": {

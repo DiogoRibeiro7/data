@@ -1,0 +1,76 @@
+schema_version: 1
+
+id: eurostat-eu-convergence-education
+title: "Eurostat: GDP per head, labour productivity and adult educational attainment in the EU member states, 1975-2025"
+description: >
+  Four Eurostat API responses, kept byte for byte, that place each EU member
+  state on GDP and consumption per head and on labour productivity in
+  purchasing power standards relative to the EU average, and that show how
+  much of its adult population, by ten-year age band, and of its managers
+  has at most lower secondary education. Together they let a reader follow
+  income convergence since 1995 and the age profile of educational
+  attainment in the same countries. Snapshotted because Eurostat's API
+  serves only the current vintage of each dataset.
+
+domain:
+  - economics
+  - economic-growth
+  - convergence
+  - education
+  - labour-market
+  - eu
+
+source:
+  publisher: "Eurostat (European Commission)"
+  url: "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data"
+  retrieved_at: 2026-11-25
+  snapshot: "Eurostat dissemination API, JSON-stat 2.0, four queries retrieved 2026-11-25T00:38:28Z to 2026-11-25T00:38:33Z; each file records its upstream update timestamp"
+
+license:
+  name: "Eurostat free re-use policy (Commission Decision 2011/833/EU)"
+  url: "https://ec.europa.eu/eurostat/help/copyright-notice"
+  redistribution: allowed
+
+citation:
+  text: "Eurostat, datasets nama_10_pc, edat_lfse_03, lfsa_egised and nama_10_lp_ulc, retrieved 25 November 2026."
+  url: "https://ec.europa.eu/eurostat/data/database"
+
+files:
+  - path: raw/nama_10_pc.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "15b5e3f72789bbd76fa4c17f890aae40d80cd11c0a2f6acce7265d52a7b1e4ff"
+    notes: >-
+      GDP (B1GQ) and actual individual consumption (P41) per capita in purchasing power standards, as an index with EU27 (2020) = 100 and in current PPS per head, EU27 (2020) and the 27 member states, 1975 onward where published (most series start in 1995 or 2000). Eurostat JSON-stat 2.0 response, 53,748 bytes, 3,472 observations, upstream dataset updated 2026-11-24T23:00:00+0100, retrieved 2026-11-25T00:38:28Z. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_pc?format=JSON&lang=EN&unit=PC_EU27_2020_HAB_MPPS_CP&unit=CP_PPS_EU27_2020_HAB&na_item=B1GQ&na_item=P41&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE
+  - path: raw/edat_lfse_03.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "c8babca938a802f7ae70b9ef5ca4c639bdce2042b48fb8c2cd400e0edcaee2e3"
+    notes: >-
+      Population aged 25-64 and in ten-year bands (25-34, 35-44, 45-54, 55-64) by educational attainment, percentage with at most lower secondary education (ISCED 2011 levels 0-2) and with tertiary education (levels 5-8), both sexes, EU27 (2020) and the 27 member states, Labour Force Survey, 1992 onward. Eurostat JSON-stat 2.0 response, 118,970 bytes, 8,389 observations, upstream dataset updated 2026-10-30T23:00:00+0100, retrieved 2026-11-25T00:38:30Z. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/edat_lfse_03?format=JSON&lang=EN&sex=T&unit=PC&isced11=ED0-2&isced11=ED5-8&age=Y25-64&age=Y25-34&age=Y35-44&age=Y45-54&age=Y55-64&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE
+  - path: raw/lfsa_egised.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "63077f2c73e4b0511faa8d5e95091665cf525b5e155b66e959d48fe8d3417fbd"
+    notes: >-
+      Employed persons aged 20-64 by occupation (ISCO-08 total, managers OC1, professionals OC2, technicians and associate professionals OC3) and educational attainment (total, ISCED 0-2, ISCED 5-8), thousands, both sexes, EU27 (2020) and the 27 member states, Labour Force Survey; ISCO-08 breakdowns start in 2011. Eurostat JSON-stat 2.0 response, 168,673 bytes, 9,461 observations, upstream dataset updated 2026-10-30T11:00:00+0100, retrieved 2026-11-25T00:38:32Z. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/lfsa_egised?format=JSON&lang=EN&age=Y20-64&sex=T&isco08=TOTAL&isco08=OC1&isco08=OC2&isco08=OC3&isced11=TOTAL&isced11=ED0-2&isced11=ED5-8&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE
+  - path: raw/nama_10_lp_ulc.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "456047b0f1b71e4e659dc7104696a5feb72a3dde045995ed0a10286bc62fe071"
+    notes: >-
+      Nominal labour productivity per person employed (NLPR_PER) and per hour worked (NLPR_HW), PPS, EU27 (2020) = 100, EU27 (2020) and the 27 member states, 1975 onward where published. Eurostat JSON-stat 2.0 response, 26,489 bytes, 1,731 observations, upstream dataset updated 2026-11-24T23:00:00+0100, retrieved 2026-11-25T00:38:33Z. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_lp_ulc?format=JSON&lang=EN&na_item=NLPR_HW&na_item=NLPR_PER&unit=PC_EU27_2020_MPPS_CP&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE
+
+lineage: []

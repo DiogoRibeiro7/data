@@ -38,6 +38,27 @@
       }
     },
     {
+      "id": "barro-lee-educational-attainment",
+      "title": "Barro-Lee educational attainment: version 3 (1950-2015) and the long-run series of Education Matters (1870-2010), adults aged 25-64",
+      "publisher": "Robert J. Barro and Jong-Wha Lee (barrolee.com, GitHub repository barrolee/BarroLeeDataSet)",
+      "source_url": "https://github.com/barrolee/BarroLeeDataSet",
+      "license": {
+        "name": "MIT licence on the repository; the site footer reserves copyright to the authors; citation requested",
+        "url": "https://raw.githubusercontent.com/barrolee/BarroLeeDataSet/ee575b42f659bad7445dfc26d19816ede8000e47/LICENSE"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/estado-novo-legacy"
+      ],
+      "path": "external/barro-lee-educational-attainment",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
       "id": "bdp-economic-bulletin-october-2026",
       "title": "Banco de Portugal October 2026 macroeconomic projections for 2026–2028",
       "publisher": "Banco de Portugal",
@@ -741,6 +762,7 @@
       "redistribution": "allowed",
       "storage": "authoritative-upstream",
       "consumers": [
+        "medium-blog/estado-novo-legacy",
         "medium-blog/growth-finite-world",
         "portugal-living-standards-reassessment"
       ],
@@ -1005,6 +1027,7 @@
       "redistribution": "dataset-specific",
       "storage": "authoritative-upstream",
       "consumers": [
+        "medium-blog/estado-novo-legacy",
         "medium-blog/growth-finite-world"
       ],
       "path": "external/owid-co2-data"
@@ -1024,6 +1047,22 @@
         "medium-blog/growth-finite-world"
       ],
       "path": "external/owid-energy-data"
+    },
+    {
+      "id": "penn-world-table-10-01",
+      "title": "Penn World Table 10.01 (Feenstra, Inklaar and Timmer), as shipped in the CRAN package pwt10 10.01-0",
+      "publisher": "Groningen Growth and Development Centre, University of Groningen; R packaging by Achim Zeileis (CRAN, mirrored at github.com/cran/pwt10)",
+      "source_url": "https://www.rug.nl/ggdc/productivity/pwt/pwt-releases/pwt1001",
+      "license": {
+        "name": "CC BY 4.0 (Penn World Table 10.01); the pwt10 package code is GPL-2 | GPL-3",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/estado-novo-legacy"
+      ],
+      "path": "external/penn-world-table-10-01"
     },
     {
       "id": "pordata-ine-portugal-infant-mortality",

@@ -1,0 +1,103 @@
+schema_version: 1
+
+id: eurostat-food-vat-incidence
+title: "Eurostat: household budgets, food shares and incomes by income fifth, for the incidence of VAT on food, EU 2010-2025"
+description: >
+  Seven Eurostat API responses, kept byte for byte, that show how the share
+  of the household budget spent on food, drink and restaurants varies across
+  income fifths in each member state, how much each fifth spends, what share
+  of disposable income goes on food, where given incomes fall in each national
+  income distribution, and how food prices moved since the last survey.
+  Together they let a reader compute who gains, in euros and as a share of the
+  budget, from a change in VAT on food. Snapshotted because Eurostat's API
+  serves only the current vintage of each dataset.
+
+domain:
+  - economics
+  - household-budgets
+  - taxation
+  - prices
+  - income-distribution
+  - eu
+
+source:
+  publisher: "Eurostat (European Commission)"
+  url: "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data"
+  retrieved_at: 2026-11-24
+  snapshot: "Eurostat dissemination API, JSON-stat 2.0, seven queries retrieved 2026-11-24T21:28:57Z to 2026-11-24T21:32:02Z; each file records its upstream update timestamp"
+
+license:
+  name: "Eurostat free re-use policy (Commission Decision 2011/833/EU)"
+  url: "https://ec.europa.eu/eurostat/help/copyright-notice"
+  redistribution: allowed
+
+citation:
+  text: "Eurostat, datasets hbs_str_t223, hbs_exp_t133, hbs_exp_t111, icw_aff_01, icw_sr_10, ilc_di01 and prc_hicp_aind, retrieved 24 November 2026."
+  url: "https://ec.europa.eu/eurostat/data/database"
+
+files:
+  - path: raw/hbs_str_t223.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "1d11c464d4f090bc478d7f8cd20b83c56eb08eea5870bafd53f238f3e3f76356"
+    notes: >-
+      Structure of consumption expenditure by income fifth (QU1 to QU5) and COICOP purpose, per mille of total consumption expenditure: the twelve divisions CP01 to CP12 and the groups CP011 (food), CP012 (non-alcoholic beverages), CP041 (actual rentals), CP042 (imputed rentals), CP111 (catering services) and CP112 (accommodation), EU27 (2020) and the 27 member states, budget-survey waves 2010, 2015 and 2020. Italy has no data by income fifth; for 2020, Cyprus, France and Malta are their 2015 surveys repriced by Eurostat, and Portugal publishes divisions only. Eurostat JSON-stat 2.0 response, 77,411 bytes, 6,810 observations, upstream dataset updated 2025-10-22T23:00:00+0200, retrieved 2026-11-24T21:28:57Z. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/hbs_str_t223?format=JSON&lang=EN&unit=PM&coicop=CP01&coicop=CP011&coicop=CP012&coicop=CP02&coicop=CP03&coicop=CP04&coicop=CP041&coicop=CP042&coicop=CP05&coicop=CP06&coicop=CP07&coicop=CP08&coicop=CP09&coicop=CP10&coicop=CP11&coicop=CP111&coicop=CP112&coicop=CP12&quant_inc=QU1&quant_inc=QU2&quant_inc=QU3&quant_inc=QU4&quant_inc=QU5&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE&time=2010&time=2015&time=2020
+  - path: raw/hbs_exp_t133.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "8031373a8d39f9f0b246c60c5a30a5a5335e674b34e765919a97eaf253089ff3"
+    notes: >-
+      Mean consumption expenditure by income fifth and total, in PPS per adult equivalent and per household, same geographies and waves. Eurostat JSON-stat 2.0 response, 15,619 bytes, 928 observations, upstream dataset updated 2025-10-22T23:00:00+0200, retrieved 2026-11-24T21:28:57Z. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/hbs_exp_t133?format=JSON&lang=EN&unit=PPS_AE&unit=PPS_HH&quant_inc=TOTAL&quant_inc=QU1&quant_inc=QU2&quant_inc=QU3&quant_inc=QU4&quant_inc=QU5&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE&time=2010&time=2015&time=2020
+  - path: raw/hbs_exp_t111.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "80a31967b2afc68af57042db406cb12ac69105314d34cea81502c5e45b5e6471"
+    notes: >-
+      Mean consumption expenditure per household and per adult equivalent in euros, national currency and PPS (totals, no income breakdown), same geographies and waves; used for the euros-per-PPS factor of each survey. Eurostat JSON-stat 2.0 response, 7,968 bytes, 332 observations, upstream dataset updated 2025-10-15T23:00:00+0200, retrieved 2026-11-24T21:32:02Z. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/hbs_exp_t111?format=JSON&lang=EN&unit=EUR_HH&unit=PPS_HH&unit=EUR_AE&unit=PPS_AE&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE&time=2010&time=2015&time=2020
+  - path: raw/icw_aff_01.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "fd4738da89fea4b0f9def505b2a8470f79b398e1f691a4643c75da9f99d1a509"
+    notes: >-
+      Experimental income-consumption-wealth statistics: disposable income of households spent on all consumption (CP00), consumption without imputed rent (CP00_X_042), food and non-alcoholic beverages (CP01) and food (CP011), as a percentage of disposable income, by income fifth and decile, 2015 and 2020. Eurostat JSON-stat 2.0 response, 79,262 bytes, 3,360 observations, upstream dataset updated 2026-02-04T23:00:00+0100, retrieved 2026-11-24T21:28:58Z. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/icw_aff_01?format=JSON&lang=EN&unit=PC_DI&coicop=CP00&coicop=CP00_X_042&coicop=CP01&coicop=CP011&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE&time=2015&time=2020
+  - path: raw/icw_sr_10.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "7028a2058c36c75d5a67e4171c1dc994b1dfed6fcf04f42176318b0386e29ac3"
+    notes: >-
+      Experimental statistics: aggregate propensity to consume (consumption as a percentage of disposable income) by income fifth, 2015 and 2020. Eurostat JSON-stat 2.0 response, 10,437 bytes, 318 observations, upstream dataset updated 2026-02-04T23:00:00+0100, retrieved 2026-11-24T21:28:58Z. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/icw_sr_10?format=JSON&lang=EN&unit=PC_DI&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE&time=2015&time=2020
+  - path: raw/ilc_di01.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "a3d8dfd5426d70bfa774fac86e154fe98d33885097243c6182011a2c86a4b3f8"
+    notes: >-
+      EU-SILC distribution of equivalised disposable income: top cut-off points of deciles 1 to 9 and quintiles 1 to 4, euros, survey years 2022 onward (incomes of the previous year). Eurostat JSON-stat 2.0 response, 22,968 bytes, 1,456 observations, upstream dataset updated 2026-10-23T23:00:00+0200, retrieved 2026-11-24T21:28:59Z. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/ilc_di01?format=JSON&lang=EN&statinfo=TC&unit=EUR&quant_inc=D1&quant_inc=D2&quant_inc=D3&quant_inc=D4&quant_inc=D5&quant_inc=D6&quant_inc=D7&quant_inc=D8&quant_inc=D9&quant_inc=QU1&quant_inc=QU2&quant_inc=QU3&quant_inc=QU4&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE&sinceTimePeriod=2022
+  - path: raw/prc_hicp_aind.json
+    role: raw
+    format: json
+    encoding: utf-8
+    compression: null
+    sha256: "a89b83729aec0ab4ea4b837191019c0a47df52f58fc7f6dc829bc7701e1aeb7d"
+    notes: >-
+      HICP annual average indices (2015 = 100): all items (CP00), food and non-alcoholic beverages (CP01) and restaurants, cafés and the like (CP111), 2010 onward. Eurostat JSON-stat 2.0 response, 22,249 bytes, 1,344 observations, upstream dataset updated 2026-02-06T23:00:00+0100, retrieved 2026-11-24T21:29:00Z. Query:
+      https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_aind?format=JSON&lang=EN&unit=INX_A_AVG&coicop=CP00&coicop=CP01&coicop=CP111&geo=EU27_2020&geo=BE&geo=BG&geo=CZ&geo=DK&geo=DE&geo=EE&geo=IE&geo=EL&geo=ES&geo=FR&geo=HR&geo=IT&geo=CY&geo=LV&geo=LT&geo=LU&geo=HU&geo=MT&geo=NL&geo=AT&geo=PL&geo=PT&geo=RO&geo=SI&geo=SK&geo=FI&geo=SE&sinceTimePeriod=2010
+
+lineage: []

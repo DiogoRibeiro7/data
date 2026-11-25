@@ -30,11 +30,11 @@ class PreservationEligibilityTests(unittest.TestCase):
         report = PRESERVE.build_report(ROOT)
         summary = report["summary"]
 
-        self.assertEqual(summary["canonical_dataset_count"], 11)
-        self.assertEqual(summary["canonical_byte_archive_eligible_count"], 11)
+        self.assertEqual(summary["canonical_dataset_count"], 13)
+        self.assertEqual(summary["canonical_byte_archive_eligible_count"], 13)
         self.assertEqual(summary["canonical_metadata_only_count"], 0)
-        self.assertEqual(summary["external_source_count"], 82)
-        self.assertEqual(summary["external_metadata_only_count"], 82)
+        self.assertEqual(summary["external_source_count"], 84)
+        self.assertEqual(summary["external_metadata_only_count"], 84)
         self.assertEqual(summary["legacy_package_count"], 2)
         self.assertEqual(summary["legacy_metadata_only_count"], 2)
 
