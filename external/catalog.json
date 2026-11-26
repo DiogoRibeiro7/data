@@ -416,6 +416,22 @@
       "path": "external/eurostat-portugal-housing-indicators"
     },
     {
+      "id": "eurostat-regional-employment-pt",
+      "title": "Eurostat employed persons aged 15-74 by NUTS 2 region, Portugal, Grande Lisboa and Península de Setúbal",
+      "publisher": "Eurostat (European Commission)",
+      "source_url": "https://ec.europa.eu/eurostat/databrowser/view/lfst_r_lfe2emp/default/table",
+      "license": {
+        "name": "Eurostat free re-use policy (Commission Decision 2011/833/EU)",
+        "url": "https://ec.europa.eu/eurostat/help/copyright-notice"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/lisbon-metro-ridership"
+      ],
+      "path": "external/eurostat-regional-employment-pt"
+    },
+    {
       "id": "eurostat-urban-audit-cities-fuas",
       "title": "Eurostat city statistics (Urban Audit) for cities and functional urban areas, with national-accounts employment",
       "publisher": "Eurostat (European Commission)",
@@ -692,6 +708,22 @@
       "path": "external/ine-portugal-housing-statistics"
     },
     {
+      "id": "ine-portugal-metro-ridership",
+      "title": "INE Portugal metro survey (passengers, passenger-km, place-km), Lisbon airport passengers, regional bus and river-line passengers",
+      "publisher": "Instituto Nacional de Estatística, I.P. (Statistics Portugal)",
+      "source_url": "https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_api_v2&xlang=pt",
+      "license": {
+        "name": "CC BY 4.0 (INE statistical information)",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/lisbon-metro-ridership"
+      ],
+      "path": "external/ine-portugal-metro-ridership"
+    },
+    {
       "id": "ine-portugal-municipal-infrastructure",
       "title": "INE Portugal municipal population, housing, schools, transport and hospital indicators",
       "publisher": "Instituto Nacional de Estatística, I.P. (Statistics Portugal)",
@@ -704,6 +736,7 @@
       "storage": "authoritative-upstream",
       "consumers": [
         "medium-blog/centres-users-residents",
+        "medium-blog/lisbon-metro-ridership",
         "medium-blog/portugal-infrastructure-saturation"
       ],
       "path": "external/ine-portugal-municipal-infrastructure"

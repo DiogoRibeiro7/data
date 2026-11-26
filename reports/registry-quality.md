@@ -12,14 +12,14 @@ It makes no live network requests.
 
 ## External sources
 
-- External source records: **84**
-- Redistribution resolved / unresolved: **44 / 40**
+- External source records: **86**
+- Redistribution resolved / unresolved: **46 / 40**
 - Sources pinned to an immutable Git commit: **12**
 
 External source usage annotations:
 
-- Referenced consumer repositories: **34**
-- Source usage references: **89**
+- Referenced consumer repositories: **35**
+- Source usage references: **92**
 
 - `causal-uplift-marketing-campaign`
 - `cpd-stress-test`
@@ -35,6 +35,7 @@ External source usage annotations:
 - `medium-blog/europe-industrial-regions`
 - `medium-blog/growth-finite-world`
 - `medium-blog/letter-loops`
+- `medium-blog/lisbon-metro-ridership`
 - `medium-blog/long-horizon-stock-risk`
 - `medium-blog/model-swap-tails`
 - `medium-blog/portugal-debt-2035-probability`

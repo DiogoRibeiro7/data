@@ -1,0 +1,36 @@
+schema_version: 1
+status: external-reference
+id: eurostat-regional-employment-pt
+title: Eurostat employed persons aged 15-74 by NUTS 2 region, Portugal, Grande Lisboa and Península de Setúbal
+publisher: Eurostat (European Commission)
+source_url: https://ec.europa.eu/eurostat/databrowser/view/lfst_r_lfe2emp/default/table
+license:
+  name: Eurostat free re-use policy (Commission Decision 2011/833/EU)
+  url: https://ec.europa.eu/eurostat/help/copyright-notice
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: consumer-downloads-and-verifies
+  redistribution: allowed
+  attribution_required: true
+  note: 'Medium-Blog/lisbon-metro-ridership downloads one response of the Eurostat dissemination API: lfst_r_lfe2emp (employed persons, 15-74,
+    both sexes, thousands) for PT, PT1A Grande Lisboa and PT1B Península de Setúbal from 2019, regions of the 2024 NUTS. Eurostat serves identical
+    bytes for identical data, so the pin is the SHA-256 of the response. A mismatch means Eurostat updated the data; the consumer then stops unless
+    run with --accept-revision. Retrieved 26 November 2026. No bytes are stored in Medium-Blog or in this registry.'
+consumers:
+- medium-blog/lisbon-metro-ridership
+medium_blog:
+  folder: lisbon-metro-ridership
+  fetch: lisbon-metro-ridership/fetch.py
+  contract: data_sources/eurostat-regional-employment-pt.json
+  retrieved: '2026-11-26'
+  hash: sha256 of the response bytes
+  derived_output: lisbon-metro-ridership/data/employment.csv (built by panel.py, not committed)
+  files:
+  - path: data/raw/employment_nuts2.json
+    dataset: lfst_r_lfe2emp
+    query: geo=PT&geo=PT1A&geo=PT1B&sex=T&age=Y15-74&sinceTimePeriod=2019
+    url: https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/lfst_r_lfe2emp?format=JSON&lang=EN&geo=PT&geo=PT1A&geo=PT1B&sex=T&age=Y15-74&sinceTimePeriod=2019
+    eurostat_updated: 2026-10-30T23:00:00+0100
+    bytes: 3746
+    sha256: e276499211acb7d0f790d4fd5084bbf3f0ed03f568dffbd3672c835eed1d4fd8

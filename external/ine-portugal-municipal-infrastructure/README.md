@@ -8,6 +8,8 @@ Statistics Portugal (INE) publishes, through its [public API](https://www.ine.pt
 
 `Medium-Blog/centres-users-residents` re-downloads 18 of these responses (population estimates, census housing and commuting, sale prices and new-lease rents, enrolment rates and hospital beds) and checks them against the same content hashes, through the same contract file.
 
+`Medium-Blog/lisbon-metro-ridership` re-downloads two of these responses (`pop_est_2024` and `pop_est_2025`, resident population by municipality at the end of 2024 and 2025) and checks them against the same content hashes.
+
 | Theme | Indicators |
 | --- | --- |
 | Population | `0008273` (estimates, NUTS 2013), `0012918` (estimates, NUTS 2024), `0014630` (census 2021 by age), `0011631` (census 2021 residence one year before), `0011613` (census 2021 density), `0012450` births, `0012538` deaths |

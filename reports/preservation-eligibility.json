@@ -296,6 +296,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "eurostat-regional-employment-pt",
+      "metadata_path": "external/eurostat-regional-employment-pt/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "eurostat-urban-audit-cities-fuas",
       "metadata_path": "external/eurostat-urban-audit-cities-fuas/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -388,6 +394,12 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "ine-portugal-housing-statistics",
       "metadata_path": "external/ine-portugal-housing-statistics/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "ine-portugal-metro-ridership",
+      "metadata_path": "external/ine-portugal-metro-ridership/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -681,8 +693,8 @@
     "canonical_byte_archive_eligible_count": 13,
     "canonical_dataset_count": 13,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 84,
-    "external_source_count": 84,
+    "external_metadata_only_count": 86,
+    "external_source_count": 86,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }

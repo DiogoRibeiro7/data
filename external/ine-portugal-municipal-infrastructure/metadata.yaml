@@ -20,10 +20,12 @@ usage:
     bytes of two downloads of the same data differ; the pin is a content hash: SHA-256 of IndicadorCod, DataUltimoAtualizacao
     and Dados serialised as sorted-key JSON. A mismatch means INE revised the data; the consumer then stops unless run with
     --accept-revision. Retrieved 23 November 2026. No bytes are stored in Medium-Blog or in this registry. Medium-Blog/centres-users-residents
-    re-downloads 18 of these responses and checks them against the same content hashes.'
+    re-downloads 18 of these responses and checks them against the same content hashes. Medium-Blog/lisbon-metro-ridership re-downloads
+    two of them (pop_est_2024 and pop_est_2025) against the same content hashes.'
 consumers:
 - medium-blog/portugal-infrastructure-saturation
 - medium-blog/centres-users-residents
+- medium-blog/lisbon-metro-ridership
 medium_blog:
   folder: portugal-infrastructure-saturation
   fetch: portugal-infrastructure-saturation/fetch.py
