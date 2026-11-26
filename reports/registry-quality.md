@@ -5,10 +5,10 @@ It makes no live network requests.
 
 ## Canonical registry
 
-- Canonical datasets: **13**
-- Canonical files: **73**
-- Files with verified SHA-256: **73**
-- Canonical datasets with complete licence metadata: **13**
+- Canonical datasets: **15**
+- Canonical files: **114**
+- Files with verified SHA-256: **114**
+- Canonical datasets with complete licence metadata: **15**
 
 ## External sources
 
@@ -64,8 +64,8 @@ External source usage annotations:
 - Pinned contracts: **12 / 12**
 - Pinned contract coverage: **100%**
 - Canonical datasets with >=1 active consumer: **12**
-- Canonical datasets with zero active consumers: **1**
-- Canonical dataset adoption coverage: **92%**
+- Canonical datasets with zero active consumers: **3**
+- Canonical dataset adoption coverage: **80%**
 - Lifecycle migration coverage: **100%** (0 / 0)
 - Migration required / planned / retained / migrated: **0 / 0 / 0 / 0**
 
@@ -79,10 +79,10 @@ Active consumers:
 
 - Baseline snapshot: **snapshot-2026.10.05**
 - Baseline canonical datasets: **2**
-- Current canonical datasets: **13**
-- Added since baseline: **11**
+- Current canonical datasets: **15**
+- Added since baseline: **13**
 - Added with active consumers: **10**
-- Added with exemptions: **1**
+- Added with exemptions: **3**
 - Uncovered canonical datasets: **0**
 
 Datasets added since baseline:
@@ -98,10 +98,14 @@ Datasets added since baseline:
 - `oecd-share-prices-bond-yields-cpi`
 - `ons-gross-median-weekly-pay`
 - `unhcr-refugee-population-2024`
+- `world-bank-cwon-2024-gdp-resilience-2026-11-26`
+- `world-bank-wdi-gdp-resilience-2026-11-26`
 
 Adoption exemptions:
 
 - `ine-portugal-new-lease-rents`: Source promotion precedes the planned data-platform-lab INE adapter. The reviewed contract is pinned at cf1bd2f9de0ecdc95e6f1390c185f00b08df84db (https://github.com/DiogoRibeiro7/data-platform-lab/pull/106); it is not an implemented consumer. Remove this exemption when the platform registers its actual implementation commit, merged registry commit, canonical paths and all source hashes.
+- `world-bank-cwon-2024-gdp-resilience-2026-11-26`: Reviewed source promotion precedes the Medium-Blog GDP resilience analysis (PR #776). Remove when the implemented consumer registers its pinned registry revision, data paths and checksums.
+- `world-bank-wdi-gdp-resilience-2026-11-26`: Reviewed source promotion precedes the Medium-Blog GDP resilience analysis (PR #776). Remove when the implemented consumer registers its pinned registry revision, data paths and checksums.
 
 ## Legacy quarantine
 

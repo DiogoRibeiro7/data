@@ -147,6 +147,24 @@
       "reason": "canonical metadata explicitly permits redistribution",
       "redistribution": "allowed",
       "title": "UNHCR Refugee Population Statistics — Global Trends 2024"
+    },
+    {
+      "byte_archive_eligibility": "eligible",
+      "id": "world-bank-cwon-2024-gdp-resilience-2026-11-26",
+      "license_name": "CC BY 4.0 (World Bank dataset terms, including attribution and provider exceptions)",
+      "metadata_path": "datasets/world-bank-cwon-2024-gdp-resilience-2026-11-26/metadata.yaml",
+      "reason": "canonical metadata explicitly permits redistribution",
+      "redistribution": "allowed",
+      "title": "World Bank CWON 2024: real wealth per capita and components, 33 requested countries, 1995–2020"
+    },
+    {
+      "byte_archive_eligibility": "eligible",
+      "id": "world-bank-wdi-gdp-resilience-2026-11-26",
+      "license_name": "CC BY 4.0 (World Bank dataset terms, including attribution and provider exceptions)",
+      "metadata_path": "datasets/world-bank-wdi-gdp-resilience-2026-11-26/metadata.yaml",
+      "reason": "canonical metadata explicitly permits redistribution",
+      "redistribution": "allowed",
+      "title": "World Bank WDI: GDP, population and sectoral value added, 33 countries, 1995–2025"
     }
   ],
   "external": [
@@ -678,8 +696,8 @@
   "schema_version": 1,
   "static_distribution_eligibility": "eligible",
   "summary": {
-    "canonical_byte_archive_eligible_count": 13,
-    "canonical_dataset_count": 13,
+    "canonical_byte_archive_eligible_count": 15,
+    "canonical_dataset_count": 15,
     "canonical_metadata_only_count": 0,
     "external_metadata_only_count": 84,
     "external_source_count": 84,

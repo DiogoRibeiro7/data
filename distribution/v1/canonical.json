@@ -301,6 +301,50 @@
         "redistribution": "allowed"
       },
       "path": "datasets/unhcr-refugee-population-2024"
+    },
+    {
+      "id": "world-bank-cwon-2024-gdp-resilience-2026-11-26",
+      "title": "World Bank CWON 2024: real wealth per capita and components, 33 requested countries, 1995–2020",
+      "description": "5,821 non-null of 6,006 requested cells; 182 absent, three explicit nulls. Cyprus absent; Bulgaria 1995 total wealth, foreign assets and liabilities null. Bulgaria's 1996 total (192.0511 chained 2019 USD per capita) is an extreme baseline; report sensitivity without Bulgaria and with later starting years, never silently correct it. Original API responses and manifest.",
+      "domain": [
+        "economics",
+        "national-accounts",
+        "economic-growth",
+        "wealth"
+      ],
+      "snapshot": "Wealth Accounts source 59, lastupdated 2024-10-08; CWON 2024; API retrieval 2026-11-26T20:00:03.488609+00:00 to 2026-11-26T20:00:07.058258+00:00; manifest SHA-256 9c64681577f4f4bf89f4e135ec05772bfb2712e8fcde52beaa8050be7145f6be",
+      "source": {
+        "publisher": "World Bank (and original providers identified in indicator metadata)",
+        "url": "https://datacatalog.worldbank.org/search/dataset/0042066/wealth-accounting"
+      },
+      "license": {
+        "name": "CC BY 4.0 (World Bank dataset terms, including attribution and provider exceptions)",
+        "url": "https://datacatalog.worldbank.org/search/dataset/0042066/wealth-accounting",
+        "redistribution": "allowed"
+      },
+      "path": "datasets/world-bank-cwon-2024-gdp-resilience-2026-11-26"
+    },
+    {
+      "id": "world-bank-wdi-gdp-resilience-2026-11-26",
+      "title": "World Bank WDI: GDP, population and sectoral value added, 33 countries, 1995–2025",
+      "description": "8,116 non-null of 8,184 requested cells; 68 explicit nulls. GDP and population complete. Broad sectors balanced through 2021 (1995–1996 also incomplete); manufacturing missing for Bulgaria. Manufacturing is nested within industry. Original API responses and manifest.",
+      "domain": [
+        "economics",
+        "national-accounts",
+        "economic-growth",
+        "population"
+      ],
+      "snapshot": "WDI source 2; observation lastupdated 2026-11-11; API retrieval 2026-11-26T17:58:51.604028+00:00 to 2026-11-26T17:58:59.867295+00:00; manifest SHA-256 45807a39fe812ba771fb88812509cdd55c23b2f0cc020de799bde86cb2e1838f",
+      "source": {
+        "publisher": "World Bank (and original providers identified in indicator metadata)",
+        "url": "https://datacatalog.worldbank.org/infrastructure-data/search/dataset/0037712/world-development-indicators"
+      },
+      "license": {
+        "name": "CC BY 4.0 (World Bank dataset terms, including attribution and provider exceptions)",
+        "url": "https://datacatalog.worldbank.org/infrastructure-data/search/dataset/0037712/world-development-indicators",
+        "redistribution": "allowed"
+      },
+      "path": "datasets/world-bank-wdi-gdp-resilience-2026-11-26"
     }
   ]
 }

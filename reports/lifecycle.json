@@ -292,14 +292,44 @@
       ],
       "status": "active",
       "title": "UNHCR Refugee Population Statistics — Global Trends 2024"
+    },
+    {
+      "active_consumer_count": 0,
+      "deprecated_at": null,
+      "direct_predecessors": [],
+      "direct_replacement": null,
+      "id": "world-bank-cwon-2024-gdp-resilience-2026-11-26",
+      "migration_needed_consumer_count": 0,
+      "migration_note": null,
+      "preferred_dataset_id": "world-bank-cwon-2024-gdp-resilience-2026-11-26",
+      "replacement_chain": [
+        "world-bank-cwon-2024-gdp-resilience-2026-11-26"
+      ],
+      "status": "active",
+      "title": "World Bank CWON 2024: real wealth per capita and components, 33 requested countries, 1995–2020"
+    },
+    {
+      "active_consumer_count": 0,
+      "deprecated_at": null,
+      "direct_predecessors": [],
+      "direct_replacement": null,
+      "id": "world-bank-wdi-gdp-resilience-2026-11-26",
+      "migration_needed_consumer_count": 0,
+      "migration_note": null,
+      "preferred_dataset_id": "world-bank-wdi-gdp-resilience-2026-11-26",
+      "replacement_chain": [
+        "world-bank-wdi-gdp-resilience-2026-11-26"
+      ],
+      "status": "active",
+      "title": "World Bank WDI: GDP, population and sectoral value added, 33 countries, 1995–2025"
     }
   ],
   "preferred_replacements": {},
   "schema_version": 1,
   "summary": {
     "active_consumer_relationship_count": 12,
-    "active_count": 13,
-    "canonical_dataset_count": 13,
+    "active_count": 15,
+    "canonical_dataset_count": 15,
     "current_consumer_relationship_count": 12,
     "deprecated_count": 0,
     "migrated_relationship_count": 0,

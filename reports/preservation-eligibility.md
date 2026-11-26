@@ -7,8 +7,8 @@ the recorded upstream licence/terms.
 - Preservation policy: `preservation/policy-v1.json` (v1)
 - Release metadata: **eligible**
 - Static distribution: **eligible**
-- Canonical datasets: **13**
-- Canonical byte-archive eligible: **13**
+- Canonical datasets: **15**
+- Canonical byte-archive eligible: **15**
 - Canonical metadata-only: **0**
 - External sources (metadata-only): **84**
 - Legacy packages (metadata-only): **2**
@@ -30,6 +30,8 @@ the recorded upstream licence/terms.
 | `ons-gross-median-weekly-pay` | eligible | allowed | Open Government Licence v3.0 |
 | `ucdp-ged-25-1` | eligible | allowed | CC BY 4.0 |
 | `unhcr-refugee-population-2024` | eligible | allowed | CC BY 4.0 |
+| `world-bank-cwon-2024-gdp-resilience-2026-11-26` | eligible | allowed | CC BY 4.0 (World Bank dataset terms, including attribution and provider exceptions) |
+| `world-bank-wdi-gdp-resilience-2026-11-26` | eligible | allowed | CC BY 4.0 (World Bank dataset terms, including attribution and provider exceptions) |
 
 ## External sources
 
