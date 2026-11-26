@@ -1,0 +1,30 @@
+schema_version: 1
+status: external-reference
+id: nltk-gutenberg-selections
+title: "Project Gutenberg Selections (NLTK corpus gutenberg): 18 public-domain books"
+publisher: "NLTK Project (nltk_data), texts from Project Gutenberg"
+source_url: "https://raw.githubusercontent.com/nltk/nltk_data/550b6625bcef1f2abff2ff770a5a0d272c9c6b2a/packages/corpora/gutenberg.zip"
+license:
+  name: "Public domain (as stated in the nltk_data index)"
+  url: "https://www.gutenberg.org/policy/license.html"
+redistribution: allowed
+storage: authoritative-upstream
+usage:
+  storage: project-local
+  redistribution: allowed
+  attribution_required: false
+  note: >-
+    Eighteen books by Austen (3), Blake, Bryant, Burgess, Carroll,
+    Chesterton (3), Edgeworth, Melville, Milton, Shakespeare (3), Whitman
+    and the King James Bible, with the Project Gutenberg headers removed by
+    NLTK. Pinned to nltk_data commit 550b662 on branch gh-pages; the zip's
+    SHA-256 equals the sha256_checksum in the nltk_data index.
+    medium-blog/decoding-loops downloads it at every run, checks the digest
+    and draws 144 prompts (8 evenly spaced passages per book). No bytes are
+    mirrored here.
+medium_blog:
+  folder: decoding-loops
+  commit: "550b6625bcef1f2abff2ff770a5a0d272c9c6b2a"
+  sha256: "2d3c3ab548c653944310f37f536443ec85d0a0ad855fcae217a0c9efdce2d611"
+consumers:
+  - medium-blog/decoding-loops

@@ -452,6 +452,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "nltk-gutenberg-selections",
+      "metadata_path": "external/nltk-gutenberg-selections/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "oecd-analytical-house-price-indicators",
       "metadata_path": "external/oecd-analytical-house-price-indicators/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -681,8 +687,8 @@
     "canonical_byte_archive_eligible_count": 13,
     "canonical_dataset_count": 13,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 84,
-    "external_source_count": 84,
+    "external_metadata_only_count": 85,
+    "external_source_count": 85,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }

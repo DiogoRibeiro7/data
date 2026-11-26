@@ -99,13 +99,13 @@
   "external": {
     "pinned_immutable_identity_sources": 12,
     "redistribution": {
-      "resolved": 44,
+      "resolved": 45,
       "unresolved": 40
     },
-    "source_count": 84,
+    "source_count": 85,
     "source_usage": {
-      "consumer_count": 34,
-      "consumer_references": 89,
+      "consumer_count": 35,
+      "consumer_references": 90,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -117,6 +117,7 @@
         "medium-blog/bid-rigging-screens",
         "medium-blog/centres-users-residents",
         "medium-blog/curvature-prior",
+        "medium-blog/decoding-loops",
         "medium-blog/estado-novo-legacy",
         "medium-blog/europe-industrial-regions",
         "medium-blog/growth-finite-world",

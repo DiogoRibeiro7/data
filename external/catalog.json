@@ -865,6 +865,22 @@
       }
     },
     {
+      "id": "nltk-gutenberg-selections",
+      "title": "Project Gutenberg Selections (NLTK corpus gutenberg): 18 public-domain books",
+      "publisher": "NLTK Project (nltk_data), texts from Project Gutenberg",
+      "source_url": "https://raw.githubusercontent.com/nltk/nltk_data/550b6625bcef1f2abff2ff770a5a0d272c9c6b2a/packages/corpora/gutenberg.zip",
+      "license": {
+        "name": "Public domain (as stated in the nltk_data index)",
+        "url": "https://www.gutenberg.org/policy/license.html"
+      },
+      "redistribution": "allowed",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/decoding-loops"
+      ],
+      "path": "external/nltk-gutenberg-selections"
+    },
+    {
       "id": "oecd-analytical-house-price-indicators",
       "title": "OECD analytical house-price, rent and affordability indicators",
       "publisher": "Organisation for Economic Co-operation and Development (OECD)",
