@@ -1,0 +1,140 @@
+schema_version: 1
+id: world-bank-cwon-2024-gdp-resilience-2026-11-26
+title: 'World Bank CWON 2024: real wealth per capita and components, 33 requested countries, 1995–2020'
+description: 5,821 non-null of 6,006 requested cells; 182 absent, three explicit nulls. Cyprus absent;
+  Bulgaria 1995 total wealth, foreign assets and liabilities null. Bulgaria's 1996 total (192.0511 chained
+  2019 USD per capita) is an extreme baseline; report sensitivity without Bulgaria and with later starting
+  years, never silently correct it. Original API responses and manifest.
+domain:
+- economics
+- national-accounts
+- economic-growth
+- wealth
+source:
+  publisher: World Bank (and original providers identified in indicator metadata)
+  url: https://datacatalog.worldbank.org/search/dataset/0042066/wealth-accounting
+  retrieved_at: '2026-11-26'
+  snapshot: Wealth Accounts source 59, lastupdated 2024-10-08; CWON 2024; API retrieval 2026-11-26T20:00:03.488609+00:00
+    to 2026-11-26T20:00:07.058258+00:00; manifest SHA-256 9c64681577f4f4bf89f4e135ec05772bfb2712e8fcde52beaa8050be7145f6be
+license:
+  name: CC BY 4.0 (World Bank dataset terms, including attribution and provider exceptions)
+  url: https://datacatalog.worldbank.org/search/dataset/0042066/wealth-accounting
+  redistribution: allowed
+citation:
+  text: World Bank. The Changing Wealth of Nations 2024. Retrieved November 26, 2026. Original provider
+    attribution in raw metadata.
+  url: https://datacatalog.worldbank.org/search/dataset/0042066/wealth-accounting
+files:
+- path: raw/NW.HCA.PC.metadata.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: cfb4e11220512f0db72dc7a966f2f6b70ab94287a910edd00845695296de6ee4
+  notes: 'Unmodified API bytes; 612 bytes; retrieved 2026-11-26T20:00:04.706355+00:00; URL: https://api.worldbank.org/v2/indicator/NW.HCA.PC?format=json&source=59'
+- path: raw/NW.HCA.PC.page-1.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 92a5d6d054dce79c7625aed916c97e2e6d37a39cfca0fc3d43abd6b17c577e47
+  notes: 'Unmodified API bytes; 194371 bytes; retrieved 2026-11-26T20:00:04.998250+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NW.HCA.PC?format=json&source=59&date=1995%3A2020&per_page=1000&page=1'
+- path: raw/NW.NCA.SSOI.PC.metadata.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 81fb179ab6685d775020777145661adcd6e732be0b1fde88078adef64d515293
+  notes: 'Unmodified API bytes; 1010 bytes; retrieved 2026-11-26T20:00:05.682273+00:00; URL: https://api.worldbank.org/v2/indicator/NW.NCA.SSOI.PC?format=json&source=59'
+- path: raw/NW.NCA.SSOI.PC.page-1.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 6b947699f545a09d926ba85e52edca14cc2fb8893d12c8b5aed9bddff3badf9a
+  notes: 'Unmodified API bytes; 214979 bytes; retrieved 2026-11-26T20:00:05.946827+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NW.NCA.SSOI.PC?format=json&source=59&date=1995%3A2020&per_page=1000&page=1'
+- path: raw/NW.NCA.TOTL.PC.metadata.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 5b4533d3f9158672775cee3d629491c341186e5322c89947b4c754d16f3b4bff
+  notes: 'Unmodified API bytes; 262 bytes; retrieved 2026-11-26T20:00:05.224692+00:00; URL: https://api.worldbank.org/v2/indicator/NW.NCA.TOTL.PC?format=json&source=59'
+- path: raw/NW.NCA.TOTL.PC.page-1.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 18036744a2794429f633f357fadafc702394f74fafdc0546148ea5b4d3fe459b
+  notes: 'Unmodified API bytes; 214328 bytes; retrieved 2026-11-26T20:00:05.499092+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NW.NCA.TOTL.PC?format=json&source=59&date=1995%3A2020&per_page=1000&page=1'
+- path: raw/NW.NFA.PC.metadata.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 68ba112a76f2058c7b0aa8b00681c4b219553cdf03d2cc6e09909568c7411ae9
+  notes: 'Unmodified API bytes; 563 bytes; retrieved 2026-11-26T20:00:06.143949+00:00; URL: https://api.worldbank.org/v2/indicator/NW.NFA.PC?format=json&source=59'
+- path: raw/NW.NFA.PC.page-1.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 5a3bf0e4f3fcea1c86f4f9c9c1df9053e374166f95b81a91b576604fa2d33a5d
+  notes: 'Unmodified API bytes; 195210 bytes; retrieved 2026-11-26T20:00:06.516234+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NW.NFA.PC?format=json&source=59&date=1995%3A2020&per_page=1000&page=1'
+- path: raw/NW.NFL.PC.metadata.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: fb2ede5b030ecfcd2b82355f477ebc62d8f2962d7bd31978d6c3ec2ff3729e8b
+  notes: 'Unmodified API bytes; 244 bytes; retrieved 2026-11-26T20:00:06.691033+00:00; URL: https://api.worldbank.org/v2/indicator/NW.NFL.PC?format=json&source=59'
+- path: raw/NW.NFL.PC.page-1.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 537edca0afd82a3ee0faae9d881b6ff319fd878f217608d0fb6c4fa7f8f867c0
+  notes: 'Unmodified API bytes; 199363 bytes; retrieved 2026-11-26T20:00:06.959340+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NW.NFL.PC?format=json&source=59&date=1995%3A2020&per_page=1000&page=1'
+- path: raw/NW.PCA.PC.metadata.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: c94e5251733db0ae3d36717b2b437392b62bde1216ee2c92a532fa82bbea065b
+  notes: 'Unmodified API bytes; 621 bytes; retrieved 2026-11-26T20:00:04.183323+00:00; URL: https://api.worldbank.org/v2/indicator/NW.PCA.PC?format=json&source=59'
+- path: raw/NW.PCA.PC.page-1.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: a64c1916a59bc46abb2bf230523bd09bf917597ec3fe8e1393043c7282ee5326
+  notes: 'Unmodified API bytes; 196867 bytes; retrieved 2026-11-26T20:00:04.523444+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NW.PCA.PC?format=json&source=59&date=1995%3A2020&per_page=1000&page=1'
+- path: raw/NW.TOW.PC.metadata.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 0013e4eacc351c9e8b1115a8cea693fb120234fe6c5e4f67205d4a7cdfad934e
+  notes: 'Unmodified API bytes; 634 bytes; retrieved 2026-11-26T20:00:03.659584+00:00; URL: https://api.worldbank.org/v2/indicator/NW.TOW.PC?format=json&source=59'
+- path: raw/NW.TOW.PC.page-1.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: f27d55c56eb7a9e01b5a7d0292248d1fc4935a93848a8da5375b925e9886b7aa
+  notes: 'Unmodified API bytes; 212687 bytes; retrieved 2026-11-26T20:00:03.951546+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NW.TOW.PC?format=json&source=59&date=1995%3A2020&per_page=1000&page=1'
+- path: raw/acquisition-manifest.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 9c64681577f4f4bf89f4e135ec05772bfb2712e8fcde52beaa8050be7145f6be
+  notes: Original acquisition provenance manifest (not an upstream observation response).
+- path: raw/source-before.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 840bf4cad70daf67fdbd191ed5be84a6ff17ed2a898c706d1e21f4a93f7d00dc
+  notes: 'Unmodified API bytes; 224 bytes; retrieved 2026-11-26T20:00:03.488609+00:00; URL: https://api.worldbank.org/v2/source/59?format=json'
+lineage: []

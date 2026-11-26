@@ -10,6 +10,14 @@
     {
       "dataset_id": "ine-portugal-new-lease-rents",
       "rationale": "Source promotion precedes the planned data-platform-lab INE adapter. The reviewed contract is pinned at cf1bd2f9de0ecdc95e6f1390c185f00b08df84db (https://github.com/DiogoRibeiro7/data-platform-lab/pull/106); it is not an implemented consumer. Remove this exemption when the platform registers its actual implementation commit, merged registry commit, canonical paths and all source hashes."
+    },
+    {
+      "dataset_id": "world-bank-wdi-gdp-resilience-2026-11-26",
+      "rationale": "Reviewed source promotion precedes the Medium-Blog GDP resilience analysis (PR #776). Remove when the implemented consumer registers its pinned registry revision, data paths and checksums."
+    },
+    {
+      "dataset_id": "world-bank-cwon-2024-gdp-resilience-2026-11-26",
+      "rationale": "Reviewed source promotion precedes the Medium-Blog GDP resilience analysis (PR #776). Remove when the implemented consumer registers its pinned registry revision, data paths and checksums."
     }
   ]
 }

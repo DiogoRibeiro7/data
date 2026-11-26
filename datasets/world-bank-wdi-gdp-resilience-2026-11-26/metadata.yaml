@@ -1,0 +1,202 @@
+schema_version: 1
+id: world-bank-wdi-gdp-resilience-2026-11-26
+title: 'World Bank WDI: GDP, population and sectoral value added, 33 countries, 1995–2025'
+description: 8,116 non-null of 8,184 requested cells; 68 explicit nulls. GDP and population complete.
+  Broad sectors balanced through 2021 (1995–1996 also incomplete); manufacturing missing for Bulgaria.
+  Manufacturing is nested within industry. Original API responses and manifest.
+domain:
+- economics
+- national-accounts
+- economic-growth
+- population
+source:
+  publisher: World Bank (and original providers identified in indicator metadata)
+  url: https://datacatalog.worldbank.org/infrastructure-data/search/dataset/0037712/world-development-indicators
+  retrieved_at: '2026-11-26'
+  snapshot: WDI source 2; observation lastupdated 2026-11-11; API retrieval 2026-11-26T17:58:51.604028+00:00
+    to 2026-11-26T17:58:59.867295+00:00; manifest SHA-256 45807a39fe812ba771fb88812509cdd55c23b2f0cc020de799bde86cb2e1838f
+license:
+  name: CC BY 4.0 (World Bank dataset terms, including attribution and provider exceptions)
+  url: https://datacatalog.worldbank.org/infrastructure-data/search/dataset/0037712/world-development-indicators
+  redistribution: allowed
+citation:
+  text: World Bank. World Development Indicators. Retrieved November 26, 2026. Original provider attribution
+    in raw metadata.
+  url: https://datacatalog.worldbank.org/infrastructure-data/search/dataset/0037712/world-development-indicators
+files:
+- path: raw/NV.AGR.TOTL.ZS.metadata.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: fe7405bdb44e1600d98e44cc0edb61a4cc77b9d8d2ce534bed46309ac173a117
+  notes: 'Unmodified API bytes; 1512 bytes; retrieved 2026-11-26T17:58:55.557675+00:00; URL: https://api.worldbank.org/v2/indicator/NV.AGR.TOTL.ZS?format=json&source=2'
+- path: raw/NV.AGR.TOTL.ZS.page-1.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 9ff2fc6feacceec5b4ff980bc6cc4d09e062a9ea6c825339434aca4ab014a05a
+  notes: 'Unmodified API bytes; 248519 bytes; retrieved 2026-11-26T17:58:56.029704+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NV.AGR.TOTL.ZS?format=json&source=2&date=1995%3A2025&per_page=1000&page=1'
+- path: raw/NV.AGR.TOTL.ZS.page-2.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: c8b7cff276a51e7002f3251eb95e5fb3366358a1c0f9f35e00cf037179cce6d2
+  notes: 'Unmodified API bytes; 5915 bytes; retrieved 2026-11-26T17:58:56.415672+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NV.AGR.TOTL.ZS?format=json&source=2&date=1995%3A2025&per_page=1000&page=2'
+- path: raw/NV.IND.MANF.ZS.metadata.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 54b1274c98563e9ffc9c80f402b8986a1433d3ca1bc9ce54b6922ce7749bb0a8
+  notes: 'Unmodified API bytes; 1092 bytes; retrieved 2026-11-26T17:58:57.796719+00:00; URL: https://api.worldbank.org/v2/indicator/NV.IND.MANF.ZS?format=json&source=2'
+- path: raw/NV.IND.MANF.ZS.page-1.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 9d25545e7e42ce4fd96bc624869e062537f8b7cf6400051d9f86d7ed9ddbeae5
+  notes: 'Unmodified API bytes; 226893 bytes; retrieved 2026-11-26T17:58:58.231347+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NV.IND.MANF.ZS?format=json&source=2&date=1995%3A2025&per_page=1000&page=1'
+- path: raw/NV.IND.MANF.ZS.page-2.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: d3ec128cf28ee169bfdb5e3852e2d94f2d6155311b9ab9580b29d6793044dba2
+  notes: 'Unmodified API bytes; 5430 bytes; retrieved 2026-11-26T17:58:58.603937+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NV.IND.MANF.ZS?format=json&source=2&date=1995%3A2025&per_page=1000&page=2'
+- path: raw/NV.IND.TOTL.ZS.metadata.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 989dfa43e4289f3b70735cd07f08fbbba8b2c76e89a6f0d19ded866027736c9b
+  notes: 'Unmodified API bytes; 1104 bytes; retrieved 2026-11-26T17:58:56.471271+00:00; URL: https://api.worldbank.org/v2/indicator/NV.IND.TOTL.ZS?format=json&source=2'
+- path: raw/NV.IND.TOTL.ZS.page-1.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: ce941be047710e8ed9723831a32ee2c3e3ed8dcaff75e8beef582c854f1b5dff
+  notes: 'Unmodified API bytes; 247380 bytes; retrieved 2026-11-26T17:58:56.977344+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NV.IND.TOTL.ZS?format=json&source=2&date=1995%3A2025&per_page=1000&page=1'
+- path: raw/NV.IND.TOTL.ZS.page-2.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 06463ebff3ccc289e85fbc4333fa71ec901cba0a0e1e2e126c6bbb3c355e22e0
+  notes: 'Unmodified API bytes; 5890 bytes; retrieved 2026-11-26T17:58:57.632946+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NV.IND.TOTL.ZS?format=json&source=2&date=1995%3A2025&per_page=1000&page=2'
+- path: raw/NV.SRV.TOTL.ZS.metadata.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 55d203ff83eb44bd8a39d3fd48042f3473c75f3ce2c6364cfb44da0454661fb6
+  notes: 'Unmodified API bytes; 1414 bytes; retrieved 2026-11-26T17:58:58.727375+00:00; URL: https://api.worldbank.org/v2/indicator/NV.SRV.TOTL.ZS?format=json&source=2'
+- path: raw/NV.SRV.TOTL.ZS.page-1.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 33719824700693dcf962e9ee1a311af7405a5f7e031c1b6286708102e25a760e
+  notes: 'Unmodified API bytes; 222369 bytes; retrieved 2026-11-26T17:58:59.498416+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NV.SRV.TOTL.ZS?format=json&source=2&date=1995%3A2025&per_page=1000&page=1'
+- path: raw/NV.SRV.TOTL.ZS.page-2.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 4a6a38a1b942fc6b02799357ae5310d51b0cc9f945f5ab70882c9c2e10498405
+  notes: 'Unmodified API bytes; 5312 bytes; retrieved 2026-11-26T17:58:59.867295+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NV.SRV.TOTL.ZS?format=json&source=2&date=1995%3A2025&per_page=1000&page=2'
+- path: raw/NY.GDP.MKTP.CD.metadata.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 51cec1e144a5bad8d92238630c0a305e20116e86d34ad95c7c315ed166255b28
+  notes: 'Unmodified API bytes; 938 bytes; retrieved 2026-11-26T17:58:51.604028+00:00; URL: https://api.worldbank.org/v2/indicator/NY.GDP.MKTP.CD?format=json&source=2'
+- path: raw/NY.GDP.MKTP.CD.page-1.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 50118d247bbe4e81beeffe268d096a1850b9193fcde5885dc5ff8c2ed4be37e0
+  notes: 'Unmodified API bytes; 207409 bytes; retrieved 2026-11-26T17:58:52.060569+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NY.GDP.MKTP.CD?format=json&source=2&date=1995%3A2025&per_page=1000&page=1'
+- path: raw/NY.GDP.MKTP.CD.page-2.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 66f019bcfcb199ed15ad0b8cb090634a5adab98402adb1041d8428f133f1d831
+  notes: 'Unmodified API bytes; 4943 bytes; retrieved 2026-11-26T17:58:52.452993+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NY.GDP.MKTP.CD?format=json&source=2&date=1995%3A2025&per_page=1000&page=2'
+- path: raw/NY.GDP.MKTP.KD.metadata.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: bc4bc0ffec1755410f52b1091c6b1f46917c7417977102350d3d1102b4659216
+  notes: 'Unmodified API bytes; 994 bytes; retrieved 2026-11-26T17:58:53.593043+00:00; URL: https://api.worldbank.org/v2/indicator/NY.GDP.MKTP.KD?format=json&source=2'
+- path: raw/NY.GDP.MKTP.KD.page-1.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 78a7321e45521c73b724f5f96afc2e8463cb07aa7ee42c53c4ce6b095b02423d
+  notes: 'Unmodified API bytes; 213436 bytes; retrieved 2026-11-26T17:58:54.033591+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NY.GDP.MKTP.KD?format=json&source=2&date=1995%3A2025&per_page=1000&page=1'
+- path: raw/NY.GDP.MKTP.KD.page-2.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: b4a3be7d6e0badc482a5ff583f2b10f47396b7e4d1014164fa4fd7b56ebadcbc
+  notes: 'Unmodified API bytes; 5128 bytes; retrieved 2026-11-26T17:58:54.393868+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NY.GDP.MKTP.KD?format=json&source=2&date=1995%3A2025&per_page=1000&page=2'
+- path: raw/NY.GDP.MKTP.PP.CD.metadata.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: e0a12d757d047f4a581238ccf5b79d606fc829fcf9b40c4808f951ec1d6b8ee1
+  notes: 'Unmodified API bytes; 2624 bytes; retrieved 2026-11-26T17:58:52.624265+00:00; URL: https://api.worldbank.org/v2/indicator/NY.GDP.MKTP.PP.CD?format=json&source=2'
+- path: raw/NY.GDP.MKTP.PP.CD.page-1.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: aef94649fc09f1c73c2a4be9db75b220db43e4a86dbb897f0d606faa15a64e77
+  notes: 'Unmodified API bytes; 227414 bytes; retrieved 2026-11-26T17:58:53.058747+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NY.GDP.MKTP.PP.CD?format=json&source=2&date=1995%3A2025&per_page=1000&page=1'
+- path: raw/NY.GDP.MKTP.PP.CD.page-2.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: d0343c2605ae1effbf2ba39478cc42c76df178d8b2e96c509eaca1bc2cf455e4
+  notes: 'Unmodified API bytes; 5403 bytes; retrieved 2026-11-26T17:58:53.441567+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/NY.GDP.MKTP.PP.CD?format=json&source=2&date=1995%3A2025&per_page=1000&page=2'
+- path: raw/SP.POP.TOTL.metadata.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 2f8491efc00bf2c0995112ff8e87aba69e5e9d22d0880b22f7e3a4ec757ba05c
+  notes: 'Unmodified API bytes; 1099 bytes; retrieved 2026-11-26T17:58:54.492985+00:00; URL: https://api.worldbank.org/v2/indicator/SP.POP.TOTL?format=json&source=2'
+- path: raw/SP.POP.TOTL.page-1.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: d01d9e54556d0078c6387b0bf1cf2d66546c55178d3d783228833695c0fe9706
+  notes: 'Unmodified API bytes; 196133 bytes; retrieved 2026-11-26T17:58:54.953410+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/SP.POP.TOTL?format=json&source=2&date=1995%3A2025&per_page=1000&page=1'
+- path: raw/SP.POP.TOTL.page-2.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 89b1116ad1f97d930ba6ecdd92824de29d90ccb7912c168ccdd501edd1140bc6
+  notes: 'Unmodified API bytes; 4764 bytes; retrieved 2026-11-26T17:58:55.464469+00:00; URL: https://api.worldbank.org/v2/country/AUT;BEL;BGR;CHE;CHN;CYP;CZE;DEU;DNK;ESP;EST;FIN;FRA;GBR;GRC;HRV;HUN;IND;IRL;ITA;JPN;LTU;LUX;LVA;MLT;NLD;POL;PRT;ROU;SVK;SVN;SWE;USA/indicator/SP.POP.TOTL?format=json&source=2&date=1995%3A2025&per_page=1000&page=2'
+- path: raw/acquisition-manifest.json
+  role: raw
+  format: json
+  encoding: utf-8
+  compression: null
+  sha256: 45807a39fe812ba771fb88812509cdd55c23b2f0cc020de799bde86cb2e1838f
+  notes: Original acquisition provenance manifest (not an upstream observation response).
+lineage: []

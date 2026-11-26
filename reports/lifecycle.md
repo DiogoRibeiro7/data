@@ -3,8 +3,8 @@
 This report is generated deterministically from committed canonical metadata
 and the committed consumer catalog. Do not edit it by hand.
 
-- Canonical datasets: **13**
-- Active: **13**
+- Canonical datasets: **15**
+- Active: **15**
 - Deprecated: **0**
 - Superseded: **0**
 - Replacement edges: **0**
@@ -34,6 +34,8 @@ and the committed consumer catalog. Do not edit it by hand.
 | `ons-gross-median-weekly-pay` | active | -- | ons-gross-median-weekly-pay | 1 | 0 |
 | `ucdp-ged-25-1` | active | -- | ucdp-ged-25-1 | 1 | 0 |
 | `unhcr-refugee-population-2024` | active | -- | unhcr-refugee-population-2024 | 1 | 0 |
+| `world-bank-cwon-2024-gdp-resilience-2026-11-26` | active | -- | world-bank-cwon-2024-gdp-resilience-2026-11-26 | 0 | 0 |
+| `world-bank-wdi-gdp-resilience-2026-11-26` | active | -- | world-bank-wdi-gdp-resilience-2026-11-26 | 0 | 0 |
 
 ## Replacement chains
 
