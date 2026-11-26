@@ -1,0 +1,101 @@
+name: Register reviewed GDP resilience snapshots
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: register-reviewed-gdp-resilience-snapshots
+  cancel-in-progress: false
+
+jobs:
+  register:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TARGET_BRANCH: register/reviewed-gdp-resilience-snapshots
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install registry dependencies
+        run: |
+          python -m pip install -r requirements-dev.txt
+          python -m pip install -e .
+      - name: Locate exact reviewed artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          locate() {
+            local workflow="$1" artifact="$2" digest="$3" label="$4" run directory
+            local runs
+            runs=$(gh run list --workflow "$workflow" --branch main --status success --limit 50 --json databaseId --jq '.[].databaseId')
+            for run in $runs; do
+              directory="$RUNNER_TEMP/$label-$run"
+              mkdir -p "$directory"
+              if gh run download "$run" --name "$artifact" --dir "$directory" &&
+                 test -f "$directory/manifest.json" &&
+                 printf '%s  %s\n' "$digest" "$directory/manifest.json" | sha256sum -c -; then
+                echo "$label source run: $run" >> "$GITHUB_STEP_SUMMARY"
+                echo "${label}_CANDIDATE=$directory" >> "$GITHUB_ENV"
+                return 0
+              fi
+            done
+            echo "::error::Exact reviewed $label artifact not found; refusing to use a fresh vintage."
+            return 1
+          }
+          locate acquire-wdi-gdp-resilience.yml wdi-gdp-resilience-candidate 45807a39fe812ba771fb88812509cdd55c23b2f0cc020de799bde86cb2e1838f WDI
+          locate acquire-cwon-gdp-resilience.yml cwon-2024-gdp-resilience-candidate 9c64681577f4f4bf89f4e135ec05772bfb2712e8fcde52beaa8050be7145f6be CWON
+      - name: Stage both immutable snapshots
+        run: |
+          python scripts/promote_reviewed_gdp_snapshots.py --wdi "$WDI_CANDIDATE" --cwon "$CWON_CANDIDATE"
+          git add datasets reports
+      - name: Regenerate registry outputs
+        run: |
+          python scripts/validate_repository.py --write-catalog
+          python scripts/generate_external_catalog.py --write
+          python scripts/generate_consumer_catalog.py --write
+          python scripts/generate_provenance_debt.py --write
+          python scripts/generate_registry_changelog.py --write
+          python scripts/generate_lifecycle_report.py --write
+          python scripts/generate_preservation_eligibility.py --write
+          python scripts/registry_quality.py --write
+          python scripts/generate_static_distribution.py --write
+      - name: Verify full registry
+        run: |
+          python -m unittest discover -s tests -v
+          python scripts/validate_repository.py
+          python scripts/generate_external_catalog.py
+          python scripts/generate_consumer_catalog.py
+          python scripts/generate_provenance_debt.py
+          python scripts/generate_registry_changelog.py
+          python scripts/generate_lifecycle_report.py
+          python scripts/generate_preservation_eligibility.py
+          python scripts/registry_quality.py
+          python scripts/generate_static_distribution.py
+      - name: Push registration branch (never main)
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --heads origin "$TARGET_BRANCH" >/dev/null; then
+            echo "::error::Registration branch already exists; inspect it rather than overwrite."
+            exit 1
+          else
+            status=$?
+            test "$status" -eq 2
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --stat
+          git commit -m "Register exact reviewed WDI and CWON snapshots"
+          git push origin "HEAD:refs/heads/$TARGET_BRANCH"
+          echo "Registration branch: $TARGET_BRANCH" >> "$GITHUB_STEP_SUMMARY"
