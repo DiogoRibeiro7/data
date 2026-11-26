@@ -1,0 +1,28 @@
+name: Acquire WDI GDP resilience candidate
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Test acquisition parser
+        run: python -m unittest discover -s tests -p test_acquire_wdi_gdp_resilience.py -v
+      - name: Acquire candidate data
+        run: python scripts/acquire_wdi_gdp_resilience.py --output wdi-candidate
+      - name: Upload complete candidate for review
+        uses: actions/upload-artifact@v7
+        with:
+          name: wdi-gdp-resilience-candidate
+          path: wdi-candidate/
+          if-no-files-found: error
+          retention-days: 30
