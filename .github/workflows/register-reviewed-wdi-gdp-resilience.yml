@@ -1,0 +1,86 @@
+name: Register reviewed WDI GDP snapshot
+
+on:
+  push:
+    branches:
+      - register/wdi-gdp-resilience-2026-11-26
+    paths:
+      - ".github/workflows/register-reviewed-wdi-gdp-resilience.yml"
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: register-reviewed-wdi-gdp-resilience
+  cancel-in-progress: false
+
+jobs:
+  register:
+    if: github.ref == 'refs/heads/register/wdi-gdp-resilience-2026-11-26'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install registry dependencies
+        run: |
+          python -m pip install -r requirements-dev.txt
+          python -m pip install -e .
+      - name: Find the exact reviewed acquisition artifact
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          EXPECTED_MANIFEST: 45807a39fe812ba771fb88812509cdd55c23b2f0cc020de799bde86cb2e1838f
+        run: |
+          set -euo pipefail
+          runs=$(gh run list --workflow acquire-wdi-gdp-resilience.yml --branch main --status success --limit 30 --json databaseId --jq '.[].databaseId')
+          for run in $runs; do
+            directory="$RUNNER_TEMP/wdi-run-$run"
+            mkdir -p "$directory"
+            if gh run download "$run" --name wdi-gdp-resilience-candidate --dir "$directory" &&
+               test -f "$directory/manifest.json" &&
+               printf '%s  %s\n' "$EXPECTED_MANIFEST" "$directory/manifest.json" | sha256sum -c -; then
+              echo "Verified source run: $run" >> "$GITHUB_STEP_SUMMARY"
+              echo "WDI_CANDIDATE=$directory" >> "$GITHUB_ENV"
+              exit 0
+            fi
+          done
+          echo "::error::The exact reviewed artifact was not found. Do not substitute a fresh WDI vintage."
+          exit 1
+      - name: Stage canonical dataset
+        run: python scripts/stage_reviewed_wdi_gdp_resilience.py "$WDI_CANDIDATE"
+      - name: Regenerate registry outputs
+        run: |
+          python scripts/validate_repository.py --write-catalog
+          python scripts/generate_external_catalog.py --write
+          python scripts/generate_consumer_catalog.py --write
+          python scripts/generate_provenance_debt.py --write
+          python scripts/generate_registry_changelog.py --write
+          python scripts/generate_lifecycle_report.py --write
+          python scripts/generate_preservation_eligibility.py --write
+          python scripts/registry_quality.py --write
+          python scripts/generate_static_distribution.py --write
+      - name: Validate complete registration
+        run: |
+          python -m unittest discover -s tests -v
+          python scripts/validate_repository.py
+          python scripts/generate_external_catalog.py
+          python scripts/generate_consumer_catalog.py
+          python scripts/generate_provenance_debt.py
+          python scripts/generate_registry_changelog.py
+          python scripts/generate_lifecycle_report.py
+          python scripts/generate_preservation_eligibility.py
+          python scripts/registry_quality.py
+          python scripts/generate_static_distribution.py
+      - name: Commit verified canonical snapshot to registration branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add datasets reports distribution consumers changelog
+          git diff --cached --stat
+          git commit -m "Register reviewed WDI GDP snapshot and regenerate registry outputs"
+          git push origin HEAD:refs/heads/register/wdi-gdp-resilience-2026-11-26
