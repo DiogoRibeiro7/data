@@ -1,0 +1,36 @@
+schema_version: 1
+status: external-reference
+id: openflights-airports
+title: "OpenFlights airport database (airports.dat), GitHub snapshot at commit a438edcb"
+publisher: "OpenFlights (Jani Patokallio and contributors)"
+source_url: "https://openflights.org/data"
+license:
+  name: "Open Database License (ODbL) v1.0; individual contents under the Database Contents License (DbCL) v1.0"
+  url: "https://opendatacommons.org/licenses/odbl/1-0/"
+redistribution: allowed-with-attribution
+storage: authoritative-upstream
+usage:
+  storage: authoritative-upstream
+  redistribution: allowed-with-attribution
+  attribution_required: true
+  note: >-
+    airports.dat lists airports with IATA and ICAO codes, coordinates, altitude
+    and time zone (UTC offset, DST rule and tz database name). The GitHub copy is
+    a static snapshot of the live OpenFlights database that is updated only now
+    and then, so the consumer pins the file to one commit of jpatokal/openflights
+    and checks its size and SHA-256 at every run; no bytes are kept here. The
+    consumer reads coordinates and standard-time offsets for 31 European
+    airports (one hub, thirty outstations) to build a synthetic airline network.
+    Derived tables that are made public must keep the ODbL attribution and
+    share-alike terms. Attribution: OpenFlights, https://openflights.org/data.
+consumers:
+  - medium-blog/airline-operations-optimization
+medium_blog:
+  folder: airline-operations-optimization
+  contract: data_sources/openflights-airports.json
+  retrieved: "2026-11-26"
+  files:
+    - path: "data/airports.dat"
+      url: "https://raw.githubusercontent.com/jpatokal/openflights/a438edcb869bd882506add5abdb9ff1f4aae1ae7/data/airports.dat"
+      bytes: 1127225
+      sha256: "9387cdb38df5bd664da823f8ccb69fdd9b33a1888f5b7cca09c34a3cd9ff59f9"
