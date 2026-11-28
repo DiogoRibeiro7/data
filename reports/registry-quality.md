@@ -12,14 +12,14 @@ It makes no live network requests.
 
 ## External sources
 
-- External source records: **86**
-- Redistribution resolved / unresolved: **46 / 40**
+- External source records: **87**
+- Redistribution resolved / unresolved: **47 / 40**
 - Sources pinned to an immutable Git commit: **12**
 
 External source usage annotations:
 
-- Referenced consumer repositories: **35**
-- Source usage references: **92**
+- Referenced consumer repositories: **36**
+- Source usage references: **93**
 
 - `causal-uplift-marketing-campaign`
 - `cpd-stress-test`
@@ -27,6 +27,7 @@ External source usage annotations:
 - `displacement-risk-lab-dynamodb`
 - `ds-projects-portfolio`
 - `empirical-analysis-r`
+- `medium-blog/airline-operations-optimization`
 - `medium-blog/auction-entry-boem`
 - `medium-blog/bid-rigging-screens`
 - `medium-blog/centres-users-residents`

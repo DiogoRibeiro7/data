@@ -530,6 +530,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "openflights-airports",
+      "metadata_path": "external/openflights-airports/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "our-world-in-data",
       "metadata_path": "external/our-world-in-data/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -711,8 +717,8 @@
     "canonical_byte_archive_eligible_count": 15,
     "canonical_dataset_count": 15,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 86,
-    "external_source_count": 86,
+    "external_metadata_only_count": 87,
+    "external_source_count": 87,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }
