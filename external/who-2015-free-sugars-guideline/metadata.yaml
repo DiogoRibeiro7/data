@@ -1,0 +1,29 @@
+schema_version: 1
+status: external-reference
+id: who-2015-free-sugars-guideline
+title: 'WHO (2015): sugars intake for adults and children'
+publisher: World Health Organization
+source_url: https://www.who.int/publications/i/item/9789241549028
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: authoritative-upstream
+  redistribution: unresolved
+  attribution_required: true
+  note: Guideline, not an independent study. Use for definition of free sugars, dental-caries
+    and weight-gain evidence context; do not mirror the guideline.
+consumers:
+- medium-blog/sugar-rush-evidence-audit
+resolution:
+  review_status: actionable
+  last_reviewed: '2026-11-28'
+  blocker_category: redistribution-rights
+  blocker_summary: No explicit redistribution permission established for this source.
+    Metadata only.
+  evidence:
+  - https://www.who.int/publications/i/item/9789241549028
+  reviewer_note: Guideline, not an independent study. Use for definition of free sugars,
+    dental-caries and weight-gain evidence context; do not mirror the guideline.
+  next_action: Verify source access and article-specific reuse terms before mirroring
+    any bytes.
+  terminal: false

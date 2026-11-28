@@ -1,0 +1,33 @@
+{
+  "status": "published-summary-not-independent-replication",
+  "source_locator": "sections 2.3–2.5, 3.2, 3.4",
+  "study_count": 9,
+  "participant_count": 461109,
+  "method": "Paule-Mandel random effects; Hartung-Knapp confidence interval",
+  "pooled_or": 1.23,
+  "ci95": [
+    1.02,
+    1.48
+  ],
+  "pi95": [
+    0.79,
+    1.9
+  ],
+  "i2_percent": 63.3,
+  "tau_squared_log_or": 0.0434,
+  "leave_out_kim_2018": {
+    "or": 1.16,
+    "ci95": [
+      1.0,
+      1.34
+    ],
+    "i2_percent": 42.1
+  },
+  "lfk_index": 3.37,
+  "cohort_conversion_baseline_risk_approx": 0.02,
+  "yu_2016_cases": 173,
+  "yu_2016_controls": 159,
+  "yu_2016_mean_age_cases": 9.2,
+  "yu_2016_mean_age_controls": 8.9,
+  "stratified_combination": "inverse variance on log OR; Lien 2006"
+}

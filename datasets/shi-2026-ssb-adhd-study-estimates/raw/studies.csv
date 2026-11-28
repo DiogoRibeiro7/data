@@ -1,0 +1,10 @@
+study_id,review_reference,year,primary_doi,region,design,n_study,age_range,mean_age_years,exposure,exposure_contrast,contrast_type,reporter,outcome_group,instrument,adjustment_codes,quality_score,quality_max
+geng-2020,29,2020,10.1016/j.jad.2020.01.076,China,cross-sectional,27200,3–6 years,4.5,ssb,>=2/day vs <1/day,categorical,parent,hyperactivity,SDQ,1;2;5;6;8;9;10;12;18;19,8,11
+kim-2018,32,2018,10.1016/j.appet.2018.05.004,South Korea,cross-sectional,16831,6–12 years,9.29,soft-drinks,>=1/day vs never,categorical,parent,adhd-specific,K-ARS,2;5;6;11,8,11
+kim-2024,12,2024,10.1159/000539458,South Korea,cohort,365236,18–24 months,1.75,ssb,>=200 mL/day vs <200 mL/day,categorical,parent,adhd-specific,ICD-10,5;11;12;21;23;27;28,9,9
+lien-2006,33,2006,10.2105/AJPH.2004.059477,Norway,cross-sectional,5498,15–16 years,15.5,soft-drinks,>4 glasses/day vs 1–6 glasses/week,categorical,self,hyperactivity,SDQ,6;7;13;14;15;17;20;24,7,11
+yu-2016,10,2016,10.3390/ijerph13070678,Taiwan,case-control,332,4–15 years,,ssb,>=7/week vs 0/week,categorical,parent,adhd-specific,DSM-IV-TR,1;6;14;22;25;26,9,9
+schwartz-2015,34,2015,10.1016/j.acap.2014.11.006,United States,cross-sectional,1649,6–18 years,12.4,ssb,per additional drink/day,continuous,self,hyperactivity,SDQ,2;3;5;7;11;16,9,11
+zhang-2023,13,2023,10.3390/nu15041034,China,cross-sectional,6541,6–12 years,8.6,ssb,>=2/week vs 0/week,categorical,parent,hyperactivity,CTRS-R:S,2;5;7;10;11;12;13;14;17,9,11
+zhang-2021,30,2021,10.3389/fpsyt.2021.573168,China,cross-sectional,30188,6–18 years,12.4,ssb,high vs low frequency,categorical,mixed,hyperactivity,SDQ,1;4;5;6;28;29,8,11
+zhou-2022,31,2022,10.16835/j.cnki.1000-9817.2022.01.015,China,cross-sectional,7634,3–6 years,4.69,ssb,>=2/day vs <1/day,categorical,parent,hyperactivity,SDQ,2;5;6;8;9;10;11;12,7,11

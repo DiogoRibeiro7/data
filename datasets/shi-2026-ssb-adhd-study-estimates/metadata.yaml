@@ -1,0 +1,53 @@
+schema_version: 1
+id: shi-2026-ssb-adhd-study-estimates
+title: 'Shi et al. 2026: sugar-sweetened beverages and ADHD-related outcomes'
+description: Nine observational studies; ten published adjusted OR estimates. Separate
+  study denominators, sex strata and published summary benchmarks.
+domain:
+- public-health
+- nutrition
+- epidemiology
+- adhd
+source:
+  publisher: Shi, Ma, Yang and Li; Frontiers in Nutrition
+  url: https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2026.1858738/full
+  retrieved_at: '2026-11-28'
+  snapshot: Article DOI 10.3389/fnut.2026.1858738, published 2026-09-16; Table 1 and
+    methods/results transcribed 2026-11-28
+license:
+  name: CC BY 4.0 (article and attributed table transcription)
+  url: https://creativecommons.org/licenses/by/4.0/
+  redistribution: allowed
+citation:
+  text: 'Shi B, Ma MJ, Yang M, Li YQ (2026), Sugar-sweetened beverage consumption
+    and attention-deficit/hyperactivity disorder symptoms in children and adolescents:
+    a systematic review and meta-analysis of observational studies. Frontiers in Nutrition
+    13:1858738. doi:10.3389/fnut.2026.1858738. Table 1, section 2.3–2.5, section 3.2;
+    CC BY 4.0. Transcribed and reformatted into separate study and estimate tables;
+    no original effect estimates recalculated.'
+  url: https://doi.org/10.3389/fnut.2026.1858738
+files:
+- path: raw/studies.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  sha256: 5f9d5c1accfb32af6c19274eefff1b5980e41573c58802ef5a62c56ca142c286
+  notes: Structured transcription of Table 1 and reference DOIs; one row per study.
+    Locally transcribed representation; not publisher byte snapshot.
+  row_count: 9
+- path: raw/effects.csv
+  role: raw
+  format: csv
+  encoding: utf-8
+  sha256: b16cc671cd7ce4aea12dbaa8b6357ba0d2f49862b3e6086d23bbd3a504dabf75
+  notes: Table 1 adjusted ORs and 95% CIs; two strata for Lien 2006. Locally transcribed
+    representation; not publisher byte snapshot.
+  row_count: 10
+- path: raw/published_summary.json
+  role: raw
+  format: json
+  encoding: utf-8
+  sha256: dee12efbcaf4029afc658a75c38d7eb0d214ffb19ecc853823051f3a7049ca33
+  notes: Source-reported benchmarks and design facts, not model output. Locally transcribed
+    representation; not publisher byte snapshot.
+lineage: []

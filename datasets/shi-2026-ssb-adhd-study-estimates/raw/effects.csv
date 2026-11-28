@@ -1,0 +1,11 @@
+study_id,stratum,adjusted_or_as_reported,ci95_lower,ci95_upper,original_metric_status,n_stratum,source_locator
+geng-2020,overall,1.11,0.99,1.26,review-reported-or,,Table 1 ref 29
+kim-2018,overall,1.75,1.33,2.29,review-reported-or,,Table 1 ref 32
+kim-2024,overall,1.17,1.08,1.28,review-converted-hr-to-or,,Table 1 ref 12; section 2.3
+lien-2006,boys,1.99,1.23,3.24,review-reported-or,,Table 1 ref 33
+lien-2006,girls,0.99,0.47,2.1,review-reported-or,,Table 1 ref 33
+yu-2016,overall,3.69,1.29,10.6,review-reported-or,,Table 1 ref 10
+schwartz-2015,overall,1.14,1.06,1.22,review-reported-or,,Table 1 ref 34
+zhang-2023,overall,1.07,0.82,1.39,review-reported-or,,Table 1 ref 13
+zhang-2021,overall,1.03,0.93,1.14,review-reported-or,,Table 1 ref 30
+zhou-2022,overall,1.15,1.0,1.32,review-reported-or,,Table 1 ref 31

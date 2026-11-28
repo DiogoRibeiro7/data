@@ -98,6 +98,22 @@
       "title": "Aswath Damodaran, historical returns on stocks, bonds and bills, 1928-2025 (January 2026 update), Wayback Machine capture"
     },
     {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "No explicit redistribution permission established for this source. Metadata only.",
+      "evidence_count": 1,
+      "id": "de-ruyter-2012-drink-trial",
+      "last_reviewed": "2026-11-28",
+      "layer": "external",
+      "next_action": "Verify source access and article-specific reuse terms before mirroring any bytes.",
+      "path": "external/de-ruyter-2012-drink-trial/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "actionable",
+      "structured_evidence": true,
+      "terminal": false,
+      "title": "de Ruyter et al. (2012): beverage substitution and body weight in children"
+    },
+    {
       "age_days": 28,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "DGO publishes the State Budget report and separate open-budget datasets, but licence terms for rehosting this specific report or a standalone transcribed table have not been established.",
@@ -178,6 +194,22 @@
       "title": "Euro Top Tech, Happiness and taxes in Europe: country table of engineers' happiness and satisfaction with tax-paid services"
     },
     {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "No explicit redistribution permission established for this source. Metadata only.",
+      "evidence_count": 1,
+      "id": "farsad-naeimi-2020-sugar-adhd-review",
+      "last_reviewed": "2026-11-28",
+      "layer": "external",
+      "next_action": "Verify source access and article-specific reuse terms before mirroring any bytes.",
+      "path": "external/farsad-naeimi-2020-sugar-adhd-review/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "actionable",
+      "structured_evidence": true,
+      "terminal": false,
+      "title": "Farsad-Naeimi et al. (2020): sugar and ADHD observational evidence"
+    },
+    {
       "age_days": 22,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "GPP permits partial reproduction of public information under conditions, but its published legal notice does not explicitly establish permission to mirror an entire SIMA wholesale-market CSV export in this registry.",
@@ -208,6 +240,22 @@
       "structured_evidence": true,
       "terminal": true,
       "title": "MineThatData 2008 Hillstrom randomized email marketing experiment"
+    },
+    {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "No explicit redistribution permission established for this source. Metadata only.",
+      "evidence_count": 1,
+      "id": "hoover-milich-1994-sugar-expectancies",
+      "last_reviewed": "2026-11-28",
+      "layer": "external",
+      "next_action": "Verify source access and article-specific reuse terms before mirroring any bytes.",
+      "path": "external/hoover-milich-1994-sugar-expectancies/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "actionable",
+      "structured_evidence": true,
+      "terminal": false,
+      "title": "Hoover and Milich (1994): sugar-expectancy experiment"
     },
     {
       "age_days": 54,
@@ -658,6 +706,54 @@
       "title": "SEF RIFA original foreign-resident nationality and sex tables (2017–2022)"
     },
     {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "No explicit redistribution permission established for this source. Metadata only.",
+      "evidence_count": 1,
+      "id": "who-2015-free-sugars-guideline",
+      "last_reviewed": "2026-11-28",
+      "layer": "external",
+      "next_action": "Verify source access and article-specific reuse terms before mirroring any bytes.",
+      "path": "external/who-2015-free-sugars-guideline/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "actionable",
+      "structured_evidence": true,
+      "terminal": false,
+      "title": "WHO (2015): sugars intake for adults and children"
+    },
+    {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "No explicit redistribution permission established for this source. Metadata only.",
+      "evidence_count": 1,
+      "id": "wolraich-1994-sucrose-diet-trial",
+      "last_reviewed": "2026-11-28",
+      "layer": "external",
+      "next_action": "Verify source access and article-specific reuse terms before mirroring any bytes.",
+      "path": "external/wolraich-1994-sucrose-diet-trial/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "actionable",
+      "structured_evidence": true,
+      "terminal": false,
+      "title": "Wolraich et al. (1994): sucrose and comparison diets in children"
+    },
+    {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "No explicit redistribution permission established for this source. Metadata only.",
+      "evidence_count": 1,
+      "id": "wolraich-1995-sugar-behaviour-meta-analysis",
+      "last_reviewed": "2026-11-28",
+      "layer": "external",
+      "next_action": "Verify source access and article-specific reuse terms before mirroring any bytes.",
+      "path": "external/wolraich-1995-sugar-behaviour-meta-analysis/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "actionable",
+      "structured_evidence": true,
+      "terminal": false,
+      "title": "Wolraich et al. (1995): controlled sugar challenges and children's behaviour/cognition"
+    },
+    {
       "age_days": 16,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "WID.world advertises open access and documents bulk downloads, but the official data and documentation pages reviewed do not explicitly state terms permitting a separate repository to mirror its entire database ZIP.",
@@ -708,20 +804,20 @@
   ],
   "schema_version": 1,
   "summary": {
-    "actionable_count": 13,
+    "actionable_count": 19,
     "by_blocker_category": {
       "authoritative-source-identity": 1,
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 3,
       "historical-export-route": 1,
-      "redistribution-rights": 31,
+      "redistribution-rights": 37,
       "unstructured": 5
     },
-    "external_count": 42,
+    "external_count": 48,
     "legacy_count": 2,
-    "structured_count": 39,
+    "structured_count": 45,
     "terminal_count": 26,
-    "total_debt": 44,
+    "total_debt": 50,
     "unstructured_count": 5
   }
 }

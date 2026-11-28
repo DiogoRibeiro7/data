@@ -280,6 +280,21 @@
       "title": "ONS Explore Local Statistics: Gross median weekly pay"
     },
     {
+      "active_consumer_count": 0,
+      "deprecated_at": null,
+      "direct_predecessors": [],
+      "direct_replacement": null,
+      "id": "shi-2026-ssb-adhd-study-estimates",
+      "migration_needed_consumer_count": 0,
+      "migration_note": null,
+      "preferred_dataset_id": "shi-2026-ssb-adhd-study-estimates",
+      "replacement_chain": [
+        "shi-2026-ssb-adhd-study-estimates"
+      ],
+      "status": "active",
+      "title": "Shi et al. 2026: sugar-sweetened beverages and ADHD-related outcomes"
+    },
+    {
       "active_consumer_count": 1,
       "deprecated_at": null,
       "direct_predecessors": [],
@@ -344,8 +359,8 @@
   "schema_version": 1,
   "summary": {
     "active_consumer_relationship_count": 14,
-    "active_count": 15,
-    "canonical_dataset_count": 15,
+    "active_count": 16,
+    "canonical_dataset_count": 16,
     "current_consumer_relationship_count": 14,
     "deprecated_count": 0,
     "migrated_relationship_count": 0,

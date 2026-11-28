@@ -3,8 +3,8 @@
 This report is generated deterministically from committed canonical metadata
 and the committed consumer catalog. Do not edit it by hand.
 
-- Canonical datasets: **15**
-- Active: **15**
+- Canonical datasets: **16**
+- Active: **16**
 - Deprecated: **0**
 - Superseded: **0**
 - Replacement edges: **0**
@@ -32,6 +32,7 @@ and the committed consumer catalog. Do not edit it by hand.
 | `oecd-share-prices-bond-yields-cpi` | active | -- | oecd-share-prices-bond-yields-cpi | 1 | 0 |
 | `online-retail-ii` | active | -- | online-retail-ii | 1 | 0 |
 | `ons-gross-median-weekly-pay` | active | -- | ons-gross-median-weekly-pay | 1 | 0 |
+| `shi-2026-ssb-adhd-study-estimates` | active | -- | shi-2026-ssb-adhd-study-estimates | 0 | 0 |
 | `ucdp-ged-25-1` | active | -- | ucdp-ged-25-1 | 1 | 0 |
 | `unhcr-refugee-population-2024` | active | -- | unhcr-refugee-population-2024 | 1 | 0 |
 | `world-bank-cwon-2024-gdp-resilience-2026-11-26` | active | -- | world-bank-cwon-2024-gdp-resilience-2026-11-26 | 1 | 0 |
