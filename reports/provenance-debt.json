@@ -34,6 +34,22 @@
       "title": "AMT Metro do Porto demand, service and section flows (2019–2024)"
     },
     {
+      "age_days": 0,
+      "blocker_category": "authoritative-source-identity",
+      "blocker_summary": "The bytes come from a third-party R package rather than from ANES, whose download needs a registration; the package's copy matches the 2016 release in size and variables but was not compared byte for byte with an ANES download.",
+      "evidence_count": 2,
+      "id": "anes-time-series-cumulative-1948-2016",
+      "last_reviewed": "2026-11-28",
+      "layer": "external",
+      "next_action": "Keep the pinned mirror for the consumer; compare it with a registered ANES download before any canonical promotion or a move to a newer release.",
+      "path": "external/anes-time-series-cumulative-1948-2016/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
+      "title": "ANES Time Series Cumulative Data File, 1948-2016 release, as packaged in the R package anesr (data/timeseries_cum.rda)"
+    },
+    {
       "age_days": 3,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "The repository's MIT licence file and the site's \"All rights reserved\" footer disagree, so it is not clear that the data files may be mirrored.",
@@ -530,6 +546,22 @@
       "title": "OECD SDBS business demography: medium- and high-growth employer enterprises (ICT and R&D industries)"
     },
     {
+      "age_days": 0,
+      "blocker_category": "exact-snapshot-identity",
+      "blocker_summary": "The OECD API serves only the current vintage, so the recorded hashes identify a retrieval that can be repeated only while the OECD serves the same data; no snapshot is stored.",
+      "evidence_count": 3,
+      "id": "oecd-union-density-life-expectancy",
+      "last_reviewed": "2026-11-28",
+      "layer": "external",
+      "next_action": "If the series must stay replayable after an OECD revision, propose a canonical snapshot of these two responses (see the data-platform-lab proposal postwar-settlement-panel).",
+      "path": "external/oecd-union-density-life-expectancy/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
+      "title": "OECD SDMX responses: trade union density (DF_TUD) and life expectancy at birth (DF_LE), 13 countries, 1960-2024, retrieved 2026-11-28"
+    },
+    {
       "age_days": null,
       "blocker_category": null,
       "blocker_summary": "Structured resolution evidence not yet recorded.",
@@ -544,6 +576,22 @@
       "structured_evidence": false,
       "terminal": null,
       "title": "OECD venture capital investments (market statistics), by stage"
+    },
+    {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "Our World in Data releases its own work under CC BY 4.0 but states that third-party data keep their original licences; WID.world and NORC terms for mirroring these extracts were not reviewed, so the bytes stay with the upstream repository.",
+      "evidence_count": 3,
+      "id": "owid-datasets-inequality-and-trust",
+      "last_reviewed": "2026-11-28",
+      "layer": "external",
+      "next_action": "Keep the consumer download-and-verify contract. Reopen only if a canonical snapshot is wanted, after checking the WID.world and NORC terms.",
+      "path": "external/owid-datasets-inequality-and-trust/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "terminal",
+      "structured_evidence": true,
+      "terminal": true,
+      "title": "Our World in Data datasets repository at one commit: WID pre-tax income distribution, World Wealth and Income Database top income shares (2018) and GSS interpersonal trust"
     },
     {
       "age_days": 28,
@@ -710,18 +758,18 @@
   "summary": {
     "actionable_count": 13,
     "by_blocker_category": {
-      "authoritative-source-identity": 1,
+      "authoritative-source-identity": 2,
       "dataset-vs-repository-licence-scope": 3,
-      "exact-snapshot-identity": 3,
+      "exact-snapshot-identity": 4,
       "historical-export-route": 1,
-      "redistribution-rights": 31,
+      "redistribution-rights": 32,
       "unstructured": 5
     },
-    "external_count": 42,
+    "external_count": 45,
     "legacy_count": 2,
-    "structured_count": 39,
-    "terminal_count": 26,
-    "total_debt": 44,
+    "structured_count": 42,
+    "terminal_count": 29,
+    "total_debt": 47,
     "unstructured_count": 5
   }
 }

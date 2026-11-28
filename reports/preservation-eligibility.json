@@ -182,6 +182,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "anes-time-series-cumulative-1948-2016",
+      "metadata_path": "external/anes-time-series-cumulative-1948-2016/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "barro-lee-educational-attainment",
       "metadata_path": "external/barro-lee-educational-attainment/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -524,6 +530,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "oecd-union-density-life-expectancy",
+      "metadata_path": "external/oecd-union-density-life-expectancy/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "oecd-venture-capital-investments",
       "metadata_path": "external/oecd-venture-capital-investments/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -550,6 +562,12 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "owid-co2-data",
       "metadata_path": "external/owid-co2-data/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "owid-datasets-inequality-and-trust",
+      "metadata_path": "external/owid-datasets-inequality-and-trust/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -723,8 +741,8 @@
     "canonical_byte_archive_eligible_count": 15,
     "canonical_dataset_count": 15,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 88,
-    "external_source_count": 88,
+    "external_metadata_only_count": 91,
+    "external_source_count": 91,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }

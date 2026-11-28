@@ -1,0 +1,63 @@
+schema_version: 1
+status: external-reference
+id: owid-datasets-inequality-and-trust
+title: "Our World in Data datasets repository at one commit: WID pre-tax income distribution, World Wealth and Income Database top income shares (2018) and GSS interpersonal trust"
+publisher: "Our World in Data (repository owid/owid-datasets); underlying data from the World Inequality Lab (WID.world) and NORC at the University of Chicago (General Social Survey)"
+source_url: "https://github.com/owid/owid-datasets"
+source_commit: "6155d4ca1ea14ef30e753010a25521eeb416e8a2"
+license:
+  name: "CC BY 4.0 for Our World in Data's work; the third-party series keep their providers' terms (WID.world, NORC)"
+  url: "https://creativecommons.org/licenses/by/4.0/"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: consumer-downloads-and-verifies
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    Three CSV files of the archived owid/owid-datasets repository, read at commit
+    6155d4ca1ea14ef30e753010a25521eeb416e8a2 (14 April 2025) so that a Git commit fixes the bytes.
+    (1) "World Inequality Database (WID) - Pretax income": WID distributional national accounts,
+    pre-tax national income, equal-split adults; the consumer uses the column
+    "P99-P100 - share of the top 1%" (per cent) for the United States, the United Kingdom and
+    eleven continental and Nordic countries, 1960-2017. (2) "Top income shares - World Wealth and
+    Income Database (2018)": the older fiscal-income top 1% shares (fractions of one, despite the
+    column name "Pre-tax national income"), used only as a check. (3) "Interpersonal Trust - General
+    Social Survey (GSS)": the share of American adults answering that most people can be trusted,
+    1972-2018. Cite WID.world (World Inequality Lab), the World Wealth and Income Database, NORC's
+    General Social Survey, and Our World in Data. No bytes are mirrored here.
+consumers:
+  - medium-blog/social-contract-break-dates
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-11-28
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    Our World in Data releases its own work under CC BY 4.0 but states that third-party data keep
+    their original licences; WID.world and NORC terms for mirroring these extracts were not
+    reviewed, so the bytes stay with the upstream repository.
+  evidence:
+    - "https://github.com/owid/owid-datasets"
+    - "https://wid.world/data/"
+    - "https://gss.norc.org/"
+  next_action: >-
+    Keep the consumer download-and-verify contract. Reopen only if a canonical snapshot is wanted,
+    after checking the WID.world and NORC terms.
+  terminal: true
+medium_blog:
+  folder: social-contract-break-dates
+  contract: data_sources/owid-datasets-inequality-and-trust.json
+  retrieved: "2026-11-28"
+  files:
+    - path: "external/wid_pretax.csv"
+      url: "https://raw.githubusercontent.com/owid/owid-datasets/6155d4ca1ea14ef30e753010a25521eeb416e8a2/datasets/World%20Inequality%20Database%20%28WID%29%20-%20Pretax%20income/World%20Inequality%20Database%20%28WID%29%20-%20Pretax%20income.csv"
+      bytes: 4353642
+      sha256: "891d8c7bb7034d00b6d2941075d4a61200f10b31d7ce845f0b3a9fc83b1f3af7"
+    - path: "external/wwid_top_fiscal.csv"
+      url: "https://raw.githubusercontent.com/owid/owid-datasets/6155d4ca1ea14ef30e753010a25521eeb416e8a2/datasets/Top%20income%20shares%20%E2%80%93%20World%20Wealth%20and%20Income%20Database%20%282018%29/Top%20income%20shares%20%E2%80%93%20World%20Wealth%20and%20Income%20Database%20%282018%29.csv"
+      bytes: 50165
+      sha256: "2c8f7748341c18a3796d4ce13b00b7fe868382f52d2016226e0834eca7317b76"
+    - path: "external/gss_trust.csv"
+      url: "https://raw.githubusercontent.com/owid/owid-datasets/6155d4ca1ea14ef30e753010a25521eeb416e8a2/datasets/Interpersonal%20Trust%20-%20General%20Social%20Survey%20%28GSS%29/Interpersonal%20Trust%20-%20General%20Social%20Survey%20%28GSS%29.csv"
+      bytes: 736
+      sha256: "3ff0b3a41f774cf90437d289f5b4dc8aee47f8de37f8ffb0763a71d32542343c"

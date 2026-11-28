@@ -38,6 +38,27 @@
       }
     },
     {
+      "id": "anes-time-series-cumulative-1948-2016",
+      "title": "ANES Time Series Cumulative Data File, 1948-2016 release, as packaged in the R package anesr (data/timeseries_cum.rda)",
+      "publisher": "American National Election Studies (University of Michigan and Stanford University); R packaging by James Martherus (github.com/jamesmartherus/anesr)",
+      "source_url": "https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/",
+      "license": {
+        "name": "ANES terms of use (free registration; citation required)",
+        "url": "https://electionstudies.org/data-center/"
+      },
+      "redistribution": "unresolved",
+      "storage": "third-party-mirror",
+      "consumers": [
+        "medium-blog/social-contract-break-dates"
+      ],
+      "path": "external/anes-time-series-cumulative-1948-2016",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "authoritative-source-identity"
+      }
+    },
+    {
       "id": "barro-lee-educational-attainment",
       "title": "Barro-Lee educational attainment: version 3 (1950-2015) and the long-run series of Education Matters (1870-2010), adults aged 25-64",
       "publisher": "Robert J. Barro and Jong-Wha Lee (barrolee.com, GitHub repository barrolee/BarroLeeDataSet)",
@@ -254,7 +275,8 @@
       "consumers": [
         "medium-blog/portugal-fiscal-reaction",
         "medium-blog/portugal-fiscal-rules",
-        "medium-blog/portugal-realtime-output-gap"
+        "medium-blog/portugal-realtime-output-gap",
+        "medium-blog/social-contract-break-dates"
       ],
       "path": "external/ec-ameco-autumn-2026"
     },
@@ -1026,6 +1048,27 @@
       "path": "external/oecd-sdbs-high-growth-enterprises"
     },
     {
+      "id": "oecd-union-density-life-expectancy",
+      "title": "OECD SDMX responses: trade union density (DF_TUD) and life expectancy at birth (DF_LE), 13 countries, 1960-2024, retrieved 2026-11-28",
+      "publisher": "Organisation for Economic Co-operation and Development (OECD); union density from the OECD/AIAS ICTWSS database",
+      "source_url": "https://sdmx.oecd.org/public/rest/data",
+      "license": {
+        "name": "OECD terms and conditions (open access, attribution)",
+        "url": "https://www.oecd.org/en/about/terms-conditions.html"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/social-contract-break-dates"
+      ],
+      "path": "external/oecd-union-density-life-expectancy",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "exact-snapshot-identity"
+      }
+    },
+    {
       "id": "oecd-venture-capital-investments",
       "title": "OECD venture capital investments (market statistics), by stage",
       "publisher": "Organisation for Economic Co-operation and Development (OECD)",
@@ -1102,6 +1145,27 @@
         "medium-blog/growth-finite-world"
       ],
       "path": "external/owid-co2-data"
+    },
+    {
+      "id": "owid-datasets-inequality-and-trust",
+      "title": "Our World in Data datasets repository at one commit: WID pre-tax income distribution, World Wealth and Income Database top income shares (2018) and GSS interpersonal trust",
+      "publisher": "Our World in Data (repository owid/owid-datasets); underlying data from the World Inequality Lab (WID.world) and NORC at the University of Chicago (General Social Survey)",
+      "source_url": "https://github.com/owid/owid-datasets",
+      "license": {
+        "name": "CC BY 4.0 for Our World in Data's work; the third-party series keep their providers' terms (WID.world, NORC)",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/social-contract-break-dates"
+      ],
+      "path": "external/owid-datasets-inequality-and-trust",
+      "resolution": {
+        "review_status": "terminal",
+        "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
     },
     {
       "id": "owid-energy-data",

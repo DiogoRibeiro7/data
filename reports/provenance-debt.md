@@ -3,22 +3,22 @@
 This file is generated deterministically from committed external and legacy metadata.
 Do not edit it by hand.
 
-- Total debt items: **44**
-- External records: **42**
+- Total debt items: **47**
+- External records: **45**
 - Legacy packages: **2**
-- Structured evidence: **39**
+- Structured evidence: **42**
 - Unstructured debt: **5**
 - Actionable: **13**
-- Terminal: **26**
+- Terminal: **29**
 - Age reference date: **2026-11-28**
 
 ## Blocker categories
 
-- `authoritative-source-identity`: **1**
+- `authoritative-source-identity`: **2**
 - `dataset-vs-repository-licence-scope`: **3**
-- `exact-snapshot-identity`: **3**
+- `exact-snapshot-identity`: **4**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **31**
+- `redistribution-rights`: **32**
 - `unstructured`: **5**
 
 ## Queue
@@ -27,6 +27,7 @@ Do not edit it by hand.
 | --- | --- | --- | --- | --- | ---: | ---: | --- | --- |
 | external | `aima-migration-report-vintages-2023-2025` | terminal | AIMA publishes these administrative statistics and source PDF reports, but source-specific terms authorizing central republication of the reports or transcribed annexes were not established. | 2026-10-31 | 28 | 3 | unresolved | Keep the report originals and revision chain externally referenced unless AIMA publishes applicable reuse terms for the exact documents and their tabulated extracts. |
 | external | `amt-porto-metro-demand` | actionable | AMT publishes the dashboards and statutory reports publicly, but the source pages examined do not state dataset-specific terms authorizing republication of the manually transcribed tables as a dataset. | 2026-10-30 | 29 | 3 | unresolved | Check whether AMT publishes applicable data reuse terms or an official downloadable dataset; seek authoritative clarification before proposing any canonical redistribution of the extracted values. |
+| external | `anes-time-series-cumulative-1948-2016` | terminal | The bytes come from a third-party R package rather than from ANES, whose download needs a registration; the package's copy matches the 2016 release in size and variables but was not compared byte for byte with an ANES download. | 2026-11-28 | 0 | 2 | unresolved | Keep the pinned mirror for the consumer; compare it with a registered ANES download before any canonical promotion or a move to a newer release. |
 | external | `barro-lee-educational-attainment` | actionable | The repository's MIT licence file and the site's "All rights reserved" footer disagree, so it is not clear that the data files may be mirrored. | 2026-11-25 | 3 | 2 | unresolved | Keep the consumer pinned to the repository commit with checksums; ask the authors whether the MIT licence covers the data before mirroring bytes. |
 | external | `cfp-social-security-execution-2023-2025` | terminal | CFP publicly provides the underlying XLSX annexes, but no source-specific licence authorizing central republication of these workbooks or the normalized extraction has been established. | 2026-10-31 | 28 | 2 | unresolved | Keep this as an external reference unless explicit applicable reuse terms are established for the source annexes and their derived tables. |
 | external | `cge-social-security-accounts-2013-2025` | terminal | Ministry of Finance CGE tables are publicly downloadable, but no source-specific terms authorizing republication of the thirteen Excel workbooks as canonical dataset bytes have been established. | 2026-10-31 | 28 | 2 | unresolved | Retain authoritative upstream links and downstream checksum evidence; reconsider promotion only after explicit reuse and pinned snapshot checks. |
@@ -58,7 +59,9 @@ Do not edit it by hand.
 | external | `oecd-health-systems-panel` | actionable | The OECD general terms permit reuse with attribution, but source ownership of the individual series (national health accounts, national mortality statistics, national accounts) has not been checked, so redistribution of the bytes is unresolved. The dataflows are mutable and the consumers do not yet verify the recorded hashes. | 2026-11-28 | 0 | 2 | unresolved | Add run-time SHA-256 verification (or an explicit refresh step) to fetch_data.py in both consumers; verify series-level ownership in OECD Data Explorer for the series used; then consider a canonical snapshot of the filtered panel inputs if redistribution is cleared. |
 | external | `oecd-patents-foreign-ownership` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
 | external | `oecd-sdbs-high-growth-enterprises` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
+| external | `oecd-union-density-life-expectancy` | terminal | The OECD API serves only the current vintage, so the recorded hashes identify a retrieval that can be repeated only while the OECD serves the same data; no snapshot is stored. | 2026-11-28 | 0 | 3 | unresolved | If the series must stay replayable after an OECD revision, propose a canonical snapshot of these two responses (see the data-platform-lab proposal postwar-settlement-panel). |
 | external | `oecd-venture-capital-investments` | — | Structured resolution evidence not yet recorded. | — | — | 0 | unresolved | Backfill structured resolution evidence. |
+| external | `owid-datasets-inequality-and-trust` | terminal | Our World in Data releases its own work under CC BY 4.0 but states that third-party data keep their original licences; WID.world and NORC terms for mirroring these extracts were not reviewed, so the bytes stay with the upstream repository. | 2026-11-28 | 0 | 3 | unresolved | Keep the consumer download-and-verify contract. Reopen only if a canonical snapshot is wanted, after checking the WID.world and NORC terms. |
 | external | `pordata-ine-portugal-infant-mortality` | terminal | The underlying official INE statistics can be attributed and used, but no PORDATA/FFMS terms permitting verbatim redistribution of its complete portal export or repackaged table were established for this source. | 2026-10-31 | 28 | 3 | unresolved | Retain external citation and the limited attributed downstream transcriptions. Obtain explicit table-export reuse terms, or source the same series directly from INE under its applicable redistribution policy before considering canonical promotion. |
 | external | `pordata-portugal-resident-population` | terminal | INE permits rediffusion of official statistical information with source attribution, but the historical workbook was a PORDATA-generated Excel export and no authoritative term was recovered that clearly permits mirroring that secondary-source artifact. | 2026-10-05 | 54 | 3 | unresolved | Reopen only if PORDATA or FFMS publishes terms explicitly authorizing redistribution of exported table files, or if the registry replaces the artifact with a directly sourced INE representation under INE reuse terms. |
 | external | `porto-metro-gtfs-2026-09-07` | actionable | A historical Porto open-data catalog tagged this dataset CC0, but the current migrated listing did not expose a clearly linked licence for the exact 7 September 2026 ZIP; carryover of the old licence is unverified. | 2026-10-30 | 29 | 2 | unresolved | Verify the migrated portal's machine-readable licence metadata or obtain publisher confirmation for the dated ZIP before canonical promotion. |

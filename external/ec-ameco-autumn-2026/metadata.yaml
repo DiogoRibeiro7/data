@@ -26,6 +26,7 @@ consumers:
   - medium-blog/portugal-fiscal-reaction
   - medium-blog/portugal-fiscal-rules
   - medium-blog/portugal-realtime-output-gap
+  - medium-blog/social-contract-break-dates
 medium_blog:
   folder: portugal-fiscal-reaction
   fetch: "portugal-fiscal-reaction/fetch_data.py"
@@ -38,3 +39,19 @@ medium_blog:
       bytes: 7275181
       sha256: "5641705ee6af8854f193c1fe1815f6bdd4d9eb3a2871efa653056774b8d45a41"
       release: "Autumn 2026 economic forecast"
+  reissue_2026_11_24:
+    note: >-
+      The Commission re-issued ameco0.zip with members dated 24 November 2026; the download of
+      28 November 2026 has a new size and hash. Medium-Blog/social-contract-break-dates pins this
+      re-issue and reads the adjusted wage share ALCD0 and the unemployment rate ZUTN (1960-2025) for
+      the United States, the United Kingdom, West Germany (D_W, to 1990), Germany and ten other
+      European countries. The three Portugal consumers keep the 16 November pin above.
+    folder: social-contract-break-dates
+    contract: data_sources/ec-ameco-autumn-2026-2026-11-24.json
+    retrieved: "2026-11-28"
+    files:
+      - path: "external/ameco0.zip"
+        url: "https://ec.europa.eu/economy_finance/db_indicators/ameco/documents/ameco0.zip"
+        bytes: 7351615
+        sha256: "e1d7611367873bac89d2328bd559bf05c116c40fb233683eca69b88ec1ecd526"
+        release: "Autumn 2026 economic forecast, re-issued (members dated 2026-11-24)"

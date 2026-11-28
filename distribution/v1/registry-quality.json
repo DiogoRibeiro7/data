@@ -103,15 +103,15 @@
     "uncovered_datasets_without_consumers": []
   },
   "external": {
-    "pinned_immutable_identity_sources": 12,
+    "pinned_immutable_identity_sources": 14,
     "redistribution": {
       "resolved": 47,
-      "unresolved": 41
+      "unresolved": 44
     },
-    "source_count": 88,
+    "source_count": 91,
     "source_usage": {
-      "consumer_count": 38,
-      "consumer_references": 95,
+      "consumer_count": 39,
+      "consumer_references": 99,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -141,6 +141,7 @@
         "medium-blog/post-cutoff-forecasting",
         "medium-blog/ranking-extremes",
         "medium-blog/rent-or-buy-us",
+        "medium-blog/social-contract-break-dates",
         "medium-blog/suffrage-public-health",
         "medium-blog/uk-innovation-ownership",
         "medium-statistical-dynamics",
@@ -164,15 +165,15 @@
   },
   "provenance_debt": {
     "by_blocker_category": {
-      "authoritative-source-identity": 1,
+      "authoritative-source-identity": 2,
       "dataset-vs-repository-licence-scope": 3,
-      "exact-snapshot-identity": 3,
+      "exact-snapshot-identity": 4,
       "historical-export-route": 1,
-      "redistribution-rights": 31
+      "redistribution-rights": 32
     },
     "external": {
       "actionable": 13,
-      "terminal": 24
+      "terminal": 27
     },
     "legacy": {
       "actionable": 0,
@@ -180,7 +181,7 @@
     },
     "oldest_age_days": 54,
     "oldest_review_date": "2026-10-05",
-    "total_count": 44
+    "total_count": 47
   },
   "schema_version": 1,
   "snapshots": {

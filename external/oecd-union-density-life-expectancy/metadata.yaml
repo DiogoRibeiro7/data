@@ -1,0 +1,56 @@
+schema_version: 1
+status: external-reference
+id: oecd-union-density-life-expectancy
+title: "OECD SDMX responses: trade union density (DF_TUD) and life expectancy at birth (DF_LE), 13 countries, 1960-2024, retrieved 2026-11-28"
+publisher: "Organisation for Economic Co-operation and Development (OECD); union density from the OECD/AIAS ICTWSS database"
+source_url: "https://sdmx.oecd.org/public/rest/data"
+license:
+  name: "OECD terms and conditions (open access, attribution)"
+  url: "https://www.oecd.org/en/about/terms-conditions.html"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: consumer-downloads-and-verifies
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    Two SDMX-CSV responses for the United States, the United Kingdom, Austria, Belgium, Denmark,
+    Finland, France, Germany, Italy, the Netherlands, Norway, Sweden and Switzerland, 1960-2024:
+    trade union density in per cent of employees (OECD.ELS.SAE DSD_TUD_CBC@DF_TUD 1.0, MEASURE TUD,
+    UNIT PT_SAL) and life expectancy at birth, both sexes, in years (OECD.ELS.HD DSD_HEALTH_STAT@DF_LE
+    1.1, MEASURE LFEXP, AGE Y0, SEX _T). Two complete downloads 20 seconds apart on 2026-11-28 were
+    byte-identical. The dataflows are mutable, so the hashes identify this retrieval only: after an
+    OECD revision the consumer stops unless run with --accept-revision. Source characteristics kept
+    as they are: life expectancy for the United Kingdom is missing in 1962-1969 and 1972-1979, for
+    Denmark in 1961-1966 and for Italy in several 1960s years; union density for the United States is
+    missing in 1981-1982 and for France before 1971. No bytes are mirrored here.
+consumers:
+  - medium-blog/social-contract-break-dates
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-11-28
+  blocker_category: exact-snapshot-identity
+  blocker_summary: >-
+    The OECD API serves only the current vintage, so the recorded hashes identify a retrieval that
+    can be repeated only while the OECD serves the same data; no snapshot is stored.
+  evidence:
+    - "https://sdmx.oecd.org/public/rest/dataflow/OECD.ELS.SAE/DSD_TUD_CBC@DF_TUD/1.0"
+    - "https://sdmx.oecd.org/public/rest/dataflow/OECD.ELS.HD/DSD_HEALTH_STAT@DF_LE/1.1"
+    - "https://www.oecd.org/en/about/terms-conditions.html"
+  next_action: >-
+    If the series must stay replayable after an OECD revision, propose a canonical snapshot of these
+    two responses (see the data-platform-lab proposal postwar-settlement-panel).
+  terminal: true
+medium_blog:
+  folder: social-contract-break-dates
+  contract: data_sources/oecd-union-density-life-expectancy.json
+  retrieved: "2026-11-28"
+  files:
+    - path: "external/tud.csv"
+      url: "https://sdmx.oecd.org/public/rest/data/OECD.ELS.SAE,DSD_TUD_CBC@DF_TUD,1.0/USA+GBR+AUT+BEL+DNK+FIN+FRA+DEU+ITA+NLD+NOR+SWE+CHE.TUD.PT_SAL?startPeriod=1960&endPeriod=2024&format=csvfile"
+      bytes: 58395
+      sha256: "c4b76973876f0a64f278647a3e5543159e387d39f405899162ddfd87b7a02928"
+    - path: "external/le.csv"
+      url: "https://sdmx.oecd.org/public/rest/data/OECD.ELS.HD,DSD_HEALTH_STAT@DF_LE,1.1/USA+GBR+AUT+BEL+DNK+FIN+FRA+DEU+ITA+NLD+NOR+SWE+CHE.A.LFEXP.Y.Y0._T.......?startPeriod=1960&endPeriod=2024&format=csvfile"
+      bytes: 78897
+      sha256: "e8d4eaa099fc754d9505a59478b8512a5d48c362940ee5c3c3f99215952f96bd"

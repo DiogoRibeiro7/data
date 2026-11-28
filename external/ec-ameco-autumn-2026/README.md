@@ -16,6 +16,8 @@ The general government series start in 1995. The forecast years 2026–2028 are 
 
 The download URL always serves the latest release, so the hash pins the autumn 2026 release (zip members dated 16 November 2026, retrieved 22 November 2026). The next spring forecast replaces it. The consumer then prints the new hash and stops unless run with `--accept-revision`. To move the pin, record the new hash here and in the consumer's `data_sources/` contract.
 
+The Commission re-issued the file with members dated 24 November 2026 (7,351,615 bytes, SHA-256 `e1d7611367873bac89d2328bd559bf05c116c40fb233683eca69b88ec1ecd526`, retrieved 28 November 2026). `Medium-Blog/social-contract-break-dates` pins this re-issue (contract `data_sources/ec-ameco-autumn-2026-2026-11-24.json`) and reads the adjusted wage share `ALCD0` and the unemployment rate `ZUTN` for 1960-2025, for the United States, the United Kingdom, West Germany (`D_W`, to 1990), Germany and ten other European countries. The three Portugal consumers keep the 16 November pin.
+
 ## Reuse and registry decision
 
 Commission data are reusable with acknowledgement under Commission Decision 2011/833/EU, per the Commission's legal notice. Attribution should name the European Commission, AMECO, the release and the access date.

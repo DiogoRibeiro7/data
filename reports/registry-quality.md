@@ -12,14 +12,14 @@ It makes no live network requests.
 
 ## External sources
 
-- External source records: **88**
-- Redistribution resolved / unresolved: **47 / 41**
-- Sources pinned to an immutable Git commit: **12**
+- External source records: **91**
+- Redistribution resolved / unresolved: **47 / 44**
+- Sources pinned to an immutable Git commit: **14**
 
 External source usage annotations:
 
-- Referenced consumer repositories: **38**
-- Source usage references: **95**
+- Referenced consumer repositories: **39**
+- Source usage references: **99**
 
 - `causal-uplift-marketing-campaign`
 - `cpd-stress-test`
@@ -49,6 +49,7 @@ External source usage annotations:
 - `medium-blog/post-cutoff-forecasting`
 - `medium-blog/ranking-extremes`
 - `medium-blog/rent-or-buy-us`
+- `medium-blog/social-contract-break-dates`
 - `medium-blog/suffrage-public-health`
 - `medium-blog/uk-innovation-ownership`
 - `medium-statistical-dynamics`
@@ -116,19 +117,19 @@ Adoption exemptions:
 
 ## Provenance and licensing debt
 
-- Total debt items: **44**
-- External actionable / terminal: **13 / 24**
+- Total debt items: **47**
+- External actionable / terminal: **13 / 27**
 - Legacy actionable / terminal: **0 / 2**
 - Oldest review date: **2026-10-05**
 - Oldest deterministic debt age (days): **54**
 
 Debt by blocker category:
 
-- `authoritative-source-identity`: **1**
+- `authoritative-source-identity`: **2**
 - `dataset-vs-repository-licence-scope`: **3**
-- `exact-snapshot-identity`: **3**
+- `exact-snapshot-identity`: **4**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **31**
+- `redistribution-rights`: **32**
 
 ## Generated catalog freshness
 

@@ -1,0 +1,52 @@
+schema_version: 1
+status: external-reference
+id: anes-time-series-cumulative-1948-2016
+title: "ANES Time Series Cumulative Data File, 1948-2016 release, as packaged in the R package anesr (data/timeseries_cum.rda)"
+publisher: "American National Election Studies (University of Michigan and Stanford University); R packaging by James Martherus (github.com/jamesmartherus/anesr)"
+source_url: "https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/"
+source_commit: "21a6c66b1467c73d994700ae14ba72fb7d9c11cb"
+source_path: "data/timeseries_cum.rda"
+license:
+  name: "ANES terms of use (free registration; citation required)"
+  url: "https://electionstudies.org/data-center/"
+redistribution: unresolved
+storage: third-party-mirror
+usage:
+  storage: consumer-downloads-and-verifies
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    The cumulative file of the American National Election Studies time series, 59,944 respondents
+    interviewed in 1948-2016, as an R data file in the anesr package at commit
+    21a6c66b1467c73d994700ae14ba72fb7d9c11cb; the package redistributes the 2016 release of the file
+    (later ANES releases add 2020 and 2024). The authoritative copy is at electionstudies.org behind
+    a free registration. Variables used: VCF0004 (year), VCF0604 (trust the government in
+    Washington), VCF0303 (party identification, three categories), VCF0106 (race), VCF0113 (political
+    South), VCF0704a (two-party presidential vote) and the weight VCF0009z. Cite the American National
+    Election Studies, ANES Time Series Cumulative Data File (1948-2016). No bytes are mirrored here.
+consumers:
+  - medium-blog/social-contract-break-dates
+resolution:
+  review_status: terminal
+  last_reviewed: 2026-11-28
+  blocker_category: authoritative-source-identity
+  blocker_summary: >-
+    The bytes come from a third-party R package rather than from ANES, whose download needs a
+    registration; the package's copy matches the 2016 release in size and variables but was not
+    compared byte for byte with an ANES download.
+  evidence:
+    - "https://github.com/jamesmartherus/anesr/tree/21a6c66b1467c73d994700ae14ba72fb7d9c11cb"
+    - "https://electionstudies.org/data-center/anes-time-series-cumulative-data-file/"
+  next_action: >-
+    Keep the pinned mirror for the consumer; compare it with a registered ANES download before any
+    canonical promotion or a move to a newer release.
+  terminal: true
+medium_blog:
+  folder: social-contract-break-dates
+  contract: data_sources/anes-time-series-cumulative-1948-2016.json
+  retrieved: "2026-11-28"
+  files:
+    - path: "external/timeseries_cum.rda"
+      url: "https://raw.githubusercontent.com/jamesmartherus/anesr/21a6c66b1467c73d994700ae14ba72fb7d9c11cb/data/timeseries_cum.rda"
+      bytes: 7823544
+      sha256: "12d4ff513714842d473a0337586e26f27453dee2bbf520aadca8b622f9bd6e79"
