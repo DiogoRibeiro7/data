@@ -5,21 +5,21 @@ It makes no live network requests.
 
 ## Canonical registry
 
-- Canonical datasets: **15**
-- Canonical files: **114**
-- Files with verified SHA-256: **114**
-- Canonical datasets with complete licence metadata: **15**
+- Canonical datasets: **16**
+- Canonical files: **117**
+- Files with verified SHA-256: **117**
+- Canonical datasets with complete licence metadata: **16**
 
 ## External sources
 
-- External source records: **88**
-- Redistribution resolved / unresolved: **47 / 41**
+- External source records: **94**
+- Redistribution resolved / unresolved: **47 / 47**
 - Sources pinned to an immutable Git commit: **12**
 
 External source usage annotations:
 
-- Referenced consumer repositories: **38**
-- Source usage references: **95**
+- Referenced consumer repositories: **39**
+- Source usage references: **101**
 
 - `causal-uplift-marketing-campaign`
 - `cpd-stress-test`
@@ -50,6 +50,7 @@ External source usage annotations:
 - `medium-blog/ranking-extremes`
 - `medium-blog/rent-or-buy-us`
 - `medium-blog/suffrage-public-health`
+- `medium-blog/sugar-rush-evidence-audit`
 - `medium-blog/uk-innovation-ownership`
 - `medium-statistical-dynamics`
 - `perishable-inventory-decision-lab`
@@ -68,8 +69,8 @@ External source usage annotations:
 - Pinned contracts: **14 / 14**
 - Pinned contract coverage: **100%**
 - Canonical datasets with >=1 active consumer: **14**
-- Canonical datasets with zero active consumers: **1**
-- Canonical dataset adoption coverage: **93%**
+- Canonical datasets with zero active consumers: **2**
+- Canonical dataset adoption coverage: **88%**
 - Lifecycle migration coverage: **100%** (0 / 0)
 - Migration required / planned / retained / migrated: **0 / 0 / 0 / 0**
 
@@ -83,10 +84,10 @@ Active consumers:
 
 - Baseline snapshot: **snapshot-2026.10.05**
 - Baseline canonical datasets: **2**
-- Current canonical datasets: **15**
-- Added since baseline: **13**
+- Current canonical datasets: **16**
+- Added since baseline: **14**
 - Added with active consumers: **12**
-- Added with exemptions: **1**
+- Added with exemptions: **2**
 - Uncovered canonical datasets: **0**
 
 Datasets added since baseline:
@@ -101,6 +102,7 @@ Datasets added since baseline:
 - `ine-portugal-new-lease-rents`
 - `oecd-share-prices-bond-yields-cpi`
 - `ons-gross-median-weekly-pay`
+- `shi-2026-ssb-adhd-study-estimates`
 - `unhcr-refugee-population-2024`
 - `world-bank-cwon-2024-gdp-resilience-2026-11-26`
 - `world-bank-wdi-gdp-resilience-2026-11-26`
@@ -108,6 +110,7 @@ Datasets added since baseline:
 Adoption exemptions:
 
 - `ine-portugal-new-lease-rents`: Source promotion precedes the planned data-platform-lab INE adapter. The reviewed contract is pinned at cf1bd2f9de0ecdc95e6f1390c185f00b08df84db (https://github.com/DiogoRibeiro7/data-platform-lab/pull/106); it is not an implemented consumer. Remove this exemption when the platform registers its actual implementation commit, merged registry commit, canonical paths and all source hashes.
+- `shi-2026-ssb-adhd-study-estimates`: Registration precedes the planned Medium-Blog/sugar-rush-evidence-audit consumer; remove when implemented consumer pins the merged registry revision and hashes.
 
 ## Legacy quarantine
 
@@ -116,8 +119,8 @@ Adoption exemptions:
 
 ## Provenance and licensing debt
 
-- Total debt items: **44**
-- External actionable / terminal: **13 / 24**
+- Total debt items: **50**
+- External actionable / terminal: **19 / 24**
 - Legacy actionable / terminal: **0 / 2**
 - Oldest review date: **2026-10-05**
 - Oldest deterministic debt age (days): **54**
@@ -128,7 +131,7 @@ Debt by blocker category:
 - `dataset-vs-repository-licence-scope`: **3**
 - `exact-snapshot-identity`: **3**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **31**
+- `redistribution-rights`: **37**
 
 ## Generated catalog freshness
 

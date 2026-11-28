@@ -1,0 +1,31 @@
+schema_version: 1
+status: external-reference
+id: hoover-milich-1994-sugar-expectancies
+title: 'Hoover and Milich (1994): sugar-expectancy experiment'
+publisher: Hoover DW, Milich R; Journal of Abnormal Child Psychology
+source_url: https://doi.org/10.1007/BF02168088
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: authoritative-upstream
+  redistribution: unresolved
+  attribution_required: true
+  note: Expectation manipulation, not a sugar treatment contrast. Obtain report-level
+    statistics if lawful access permits; keep separate from behavioural sugar intervention
+    estimates.
+consumers:
+- medium-blog/sugar-rush-evidence-audit
+resolution:
+  review_status: actionable
+  last_reviewed: '2026-11-28'
+  blocker_category: redistribution-rights
+  blocker_summary: No explicit redistribution permission established for this source.
+    Metadata only.
+  evidence:
+  - https://doi.org/10.1007/BF02168088
+  reviewer_note: Expectation manipulation, not a sugar treatment contrast. Obtain
+    report-level statistics if lawful access permits; keep separate from behavioural
+    sugar intervention estimates.
+  next_action: Verify source access and article-specific reuse terms before mirroring
+    any bytes.
+  terminal: false

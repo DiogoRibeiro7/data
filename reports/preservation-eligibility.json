@@ -132,6 +132,15 @@
     },
     {
       "byte_archive_eligibility": "eligible",
+      "id": "shi-2026-ssb-adhd-study-estimates",
+      "license_name": "CC BY 4.0 (article and attributed table transcription)",
+      "metadata_path": "datasets/shi-2026-ssb-adhd-study-estimates/metadata.yaml",
+      "reason": "canonical metadata explicitly permits redistribution",
+      "redistribution": "allowed",
+      "title": "Shi et al. 2026: sugar-sweetened beverages and ADHD-related outcomes"
+    },
+    {
+      "byte_archive_eligibility": "eligible",
       "id": "ucdp-ged-25-1",
       "license_name": "CC BY 4.0",
       "metadata_path": "datasets/ucdp-ged-25-1/metadata.yaml",
@@ -236,6 +245,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "de-ruyter-2012-drink-trial",
+      "metadata_path": "external/de-ruyter-2012-drink-trial/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "dgo-2026-social-security-budget",
       "metadata_path": "external/dgo-2026-social-security-budget/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -332,6 +347,12 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "farsad-naeimi-2020-sugar-adhd-review",
+      "metadata_path": "external/farsad-naeimi-2020-sugar-adhd-review/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "fred-economic-data",
       "metadata_path": "external/fred-economic-data/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -352,6 +373,12 @@
       "byte_archive_eligibility": "metadata-only",
       "id": "hillstrom-minethatdata-email-experiment-2008",
       "metadata_path": "external/hillstrom-minethatdata-email-experiment-2008/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "hoover-milich-1994-sugar-expectancies",
+      "metadata_path": "external/hoover-milich-1994-sugar-expectancies/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
     },
     {
@@ -674,6 +701,24 @@
     },
     {
       "byte_archive_eligibility": "metadata-only",
+      "id": "who-2015-free-sugars-guideline",
+      "metadata_path": "external/who-2015-free-sugars-guideline/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "wolraich-1994-sucrose-diet-trial",
+      "metadata_path": "external/wolraich-1994-sucrose-diet-trial/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
+      "id": "wolraich-1995-sugar-behaviour-meta-analysis",
+      "metadata_path": "external/wolraich-1995-sugar-behaviour-meta-analysis/metadata.yaml",
+      "reason": "external-layer source bytes are never archived by default"
+    },
+    {
+      "byte_archive_eligibility": "metadata-only",
       "id": "wordfreq-3-1-1-word-frequencies",
       "metadata_path": "external/wordfreq-3-1-1-word-frequencies/metadata.yaml",
       "reason": "external-layer source bytes are never archived by default"
@@ -720,11 +765,11 @@
   "schema_version": 1,
   "static_distribution_eligibility": "eligible",
   "summary": {
-    "canonical_byte_archive_eligible_count": 15,
-    "canonical_dataset_count": 15,
+    "canonical_byte_archive_eligible_count": 16,
+    "canonical_dataset_count": 16,
     "canonical_metadata_only_count": 0,
-    "external_metadata_only_count": 88,
-    "external_source_count": 88,
+    "external_metadata_only_count": 94,
+    "external_source_count": 94,
     "legacy_metadata_only_count": 2,
     "legacy_package_count": 2
   }

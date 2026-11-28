@@ -258,6 +258,28 @@
       "path": "datasets/ons-gross-median-weekly-pay"
     },
     {
+      "id": "shi-2026-ssb-adhd-study-estimates",
+      "title": "Shi et al. 2026: sugar-sweetened beverages and ADHD-related outcomes",
+      "description": "Nine observational studies; ten published adjusted OR estimates. Separate study denominators, sex strata and published summary benchmarks.",
+      "domain": [
+        "public-health",
+        "nutrition",
+        "epidemiology",
+        "adhd"
+      ],
+      "snapshot": "Article DOI 10.3389/fnut.2026.1858738, published 2026-09-16; Table 1 and methods/results transcribed 2026-11-28",
+      "source": {
+        "publisher": "Shi, Ma, Yang and Li; Frontiers in Nutrition",
+        "url": "https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2026.1858738/full"
+      },
+      "license": {
+        "name": "CC BY 4.0 (article and attributed table transcription)",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "redistribution": "allowed"
+      },
+      "path": "datasets/shi-2026-ssb-adhd-study-estimates"
+    },
+    {
       "id": "ucdp-ged-25-1",
       "title": "UCDP Georeferenced Event Dataset (GED) 25.1",
       "description": "Version 25.1 of the Uppsala Conflict Data Program Georeferenced Event Dataset, containing geocoded events of organized violence from 1989 through 2024.\n",

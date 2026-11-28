@@ -191,6 +191,24 @@
       }
     },
     {
+      "id": "de-ruyter-2012-drink-trial",
+      "title": "de Ruyter et al. (2012): beverage substitution and body weight in children",
+      "publisher": "de Ruyter JC, Olthof MR, Seidell JC, Katan MB; New England Journal of Medicine",
+      "source_url": "https://doi.org/10.1056/NEJMoa1203034",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/sugar-rush-evidence-audit"
+      ],
+      "path": "external/de-ruyter-2012-drink-trial",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
       "id": "dgo-2026-social-security-budget",
       "title": "DGO State Budget 2026 Social Security balance and financial projections",
       "publisher": "Direção-Geral do Orçamento (DGO); Ministério das Finanças",
@@ -469,6 +487,24 @@
       }
     },
     {
+      "id": "farsad-naeimi-2020-sugar-adhd-review",
+      "title": "Farsad-Naeimi et al. (2020): sugar and ADHD observational evidence",
+      "publisher": "Farsad-Naeimi A et al.; Complementary Therapies in Medicine",
+      "source_url": "https://doi.org/10.1016/j.ctim.2020.102512",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/sugar-rush-evidence-audit"
+      ],
+      "path": "external/farsad-naeimi-2020-sugar-adhd-review",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
       "id": "fred-economic-data",
       "title": "FRED economic data",
       "publisher": "Federal Reserve Bank of St. Louis",
@@ -530,6 +566,24 @@
       "resolution": {
         "review_status": "terminal",
         "terminal": true,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
+      "id": "hoover-milich-1994-sugar-expectancies",
+      "title": "Hoover and Milich (1994): sugar-expectancy experiment",
+      "publisher": "Hoover DW, Milich R; Journal of Abnormal Child Psychology",
+      "source_url": "https://doi.org/10.1007/BF02168088",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/sugar-rush-evidence-audit"
+      ],
+      "path": "external/hoover-milich-1994-sugar-expectancies",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
         "blocker_category": "redistribution-rights"
       }
     },
@@ -1430,6 +1484,60 @@
         "ds-projects-portfolio"
       ],
       "path": "external/upct-orange-postharvest-coatings-2025"
+    },
+    {
+      "id": "who-2015-free-sugars-guideline",
+      "title": "WHO (2015): sugars intake for adults and children",
+      "publisher": "World Health Organization",
+      "source_url": "https://www.who.int/publications/i/item/9789241549028",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/sugar-rush-evidence-audit"
+      ],
+      "path": "external/who-2015-free-sugars-guideline",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
+      "id": "wolraich-1994-sucrose-diet-trial",
+      "title": "Wolraich et al. (1994): sucrose and comparison diets in children",
+      "publisher": "Wolraich ML et al.; New England Journal of Medicine",
+      "source_url": "https://doi.org/10.1056/NEJM199402033300501",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/sugar-rush-evidence-audit"
+      ],
+      "path": "external/wolraich-1994-sucrose-diet-trial",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
+      "id": "wolraich-1995-sugar-behaviour-meta-analysis",
+      "title": "Wolraich et al. (1995): controlled sugar challenges and children's behaviour/cognition",
+      "publisher": "Wolraich ML, Wilson DB, White JW; JAMA",
+      "source_url": "https://doi.org/10.1001/jama.1995.03530200053037",
+      "license": null,
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/sugar-rush-evidence-audit"
+      ],
+      "path": "external/wolraich-1995-sugar-behaviour-meta-analysis",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "redistribution-rights"
+      }
     },
     {
       "id": "wordfreq-3-1-1-word-frequencies",

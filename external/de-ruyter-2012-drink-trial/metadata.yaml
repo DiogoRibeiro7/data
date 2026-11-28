@@ -1,0 +1,33 @@
+schema_version: 1
+status: external-reference
+id: de-ruyter-2012-drink-trial
+title: 'de Ruyter et al. (2012): beverage substitution and body weight in children'
+publisher: de Ruyter JC, Olthof MR, Seidell JC, Katan MB; New England Journal of Medicine
+source_url: https://doi.org/10.1056/NEJMoa1203034
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: authoritative-upstream
+  redistribution: unresolved
+  attribution_required: true
+  note: Randomized 18-month trial, 641 children; imputed analysis reports BMI z-score
+    changes 0.02 vs 0.15 and weight gain 6.35 vs 7.37 kg (sugar-free minus sugar contrast);
+    alternative measured sample less conclusive for BMI z-score. Physical health context,
+    never pooled with behaviour.
+consumers:
+- medium-blog/sugar-rush-evidence-audit
+resolution:
+  review_status: actionable
+  last_reviewed: '2026-11-28'
+  blocker_category: redistribution-rights
+  blocker_summary: No explicit redistribution permission established for this source.
+    Metadata only.
+  evidence:
+  - https://pubmed.ncbi.nlm.nih.gov/22998340/
+  reviewer_note: Randomized 18-month trial, 641 children; imputed analysis reports
+    BMI z-score changes 0.02 vs 0.15 and weight gain 6.35 vs 7.37 kg (sugar-free minus
+    sugar contrast); alternative measured sample less conclusive for BMI z-score.
+    Physical health context, never pooled with behaviour.
+  next_action: Verify source access and article-specific reuse terms before mirroring
+    any bytes.
+  terminal: false

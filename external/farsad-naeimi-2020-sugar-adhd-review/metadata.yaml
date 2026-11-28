@@ -1,0 +1,30 @@
+schema_version: 1
+status: external-reference
+id: farsad-naeimi-2020-sugar-adhd-review
+title: 'Farsad-Naeimi et al. (2020): sugar and ADHD observational evidence'
+publisher: Farsad-Naeimi A et al.; Complementary Therapies in Medicine
+source_url: https://doi.org/10.1016/j.ctim.2020.102512
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: authoritative-upstream
+  redistribution: unresolved
+  attribution_required: true
+  note: Earlier observational synthesis; use only for context until study overlap
+    and exposure definitions are checked. Do not meta-analyze it with the 2026 summary.
+consumers:
+- medium-blog/sugar-rush-evidence-audit
+resolution:
+  review_status: actionable
+  last_reviewed: '2026-11-28'
+  blocker_category: redistribution-rights
+  blocker_summary: No explicit redistribution permission established for this source.
+    Metadata only.
+  evidence:
+  - https://doi.org/10.1016/j.ctim.2020.102512
+  reviewer_note: Earlier observational synthesis; use only for context until study
+    overlap and exposure definitions are checked. Do not meta-analyze it with the
+    2026 summary.
+  next_action: Verify source access and article-specific reuse terms before mirroring
+    any bytes.
+  terminal: false

@@ -7,10 +7,10 @@ the recorded upstream licence/terms.
 - Preservation policy: `preservation/policy-v1.json` (v1)
 - Release metadata: **eligible**
 - Static distribution: **eligible**
-- Canonical datasets: **15**
-- Canonical byte-archive eligible: **15**
+- Canonical datasets: **16**
+- Canonical byte-archive eligible: **16**
 - Canonical metadata-only: **0**
-- External sources (metadata-only): **88**
+- External sources (metadata-only): **94**
 - Legacy packages (metadata-only): **2**
 
 ## Canonical dataset bytes
@@ -28,6 +28,7 @@ the recorded upstream licence/terms.
 | `oecd-share-prices-bond-yields-cpi` | eligible | allowed | Creative Commons Attribution 4.0 International (OECD open-access policy, July 2024) |
 | `online-retail-ii` | eligible | allowed | CC BY 4.0 |
 | `ons-gross-median-weekly-pay` | eligible | allowed | Open Government Licence v3.0 |
+| `shi-2026-ssb-adhd-study-estimates` | eligible | allowed | CC BY 4.0 (article and attributed table transcription) |
 | `ucdp-ged-25-1` | eligible | allowed | CC BY 4.0 |
 | `unhcr-refugee-population-2024` | eligible | allowed | CC BY 4.0 |
 | `world-bank-cwon-2024-gdp-resilience-2026-11-26` | eligible | allowed | CC BY 4.0 (World Bank dataset terms, including attribution and provider exceptions) |
