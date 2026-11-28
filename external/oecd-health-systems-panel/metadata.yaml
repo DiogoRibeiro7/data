@@ -1,0 +1,106 @@
+schema_version: 1
+status: external-reference
+id: oecd-health-systems-panel
+title: "OECD health systems panel: avoidable mortality, life expectancy, health expenditure, tobacco and alcohol, GDP per person, population by age and weekly excess mortality"
+publisher: "Organisation for Economic Co-operation and Development (OECD)"
+source_url: "https://sdmx.oecd.org/public/rest/data/OECD.ELS.HD,DSD_HEALTH_STAT@DF_AM,/all?startPeriod=2000&format=csvfile"
+license:
+  name: "OECD Terms and Conditions (verify any third-party or series-specific rights)"
+  url: "https://www.oecd.org/en/about/terms-conditions.html"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: consumer-downloads
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    Two Medium-Blog folders download the same eight OECD SDMX CSV responses at every run and
+    build a country-year panel of the 38 OECD members (2000-2023) from them: age-standardised
+    avoidable, treatable and preventable mortality (DF_AM), life expectancy at birth (DF_LE),
+    health expenditure from the System of Health Accounts in constant-price USD PPP per person,
+    as a share of GDP and as a share of health expenditure for financing schemes HF1 and HF3 and
+    function HC6 (DF_SHA, filtered by the consumer to sha_slim.csv), tobacco and alcohol
+    consumption (DF_HEALTH_LVNG_TC and _AC), real GDP per person (DF_TABLE1_EXPENDITURE_HVPVOB),
+    population by age (DF_POP_HIST) and weekly excess mortality from March 2020
+    (DF_MORTALITY_EXCESS, used by the first consumer only). All eight files were byte-identical
+    across two full downloads on 2026-11-28, about 80 minutes apart, but the OECD dataflows are
+    mutable (revisions, new years, rebased constant prices), so the hashes pin one retrieval and
+    do not make the live endpoints immutable. The consumers do not yet verify the hashes at run
+    time. No bytes are stored in Medium-Blog or in this registry.
+consumers:
+  - medium-blog/oecd-health-spending-outcomes
+  - medium-blog/oecd-health-austerity
+medium_blog:
+  folder: oecd-health-spending-outcomes
+  fetch: "oecd-health-spending-outcomes/src/fetch_data.py"
+  also_used_by:
+    - folder: oecd-health-austerity
+      fetch: "oecd-health-austerity/src/fetch_data.py"
+      note: "same fetch script, same eight queries; the pandemic file is downloaded but not used"
+  retrieved: "2026-11-28"
+  derived_output: "data/panel.csv in each folder (built by build_panel.py, not committed)"
+  files:
+    - path: "raw/am.csv"
+      dataset: "OECD.ELS.HD,DSD_HEALTH_STAT@DF_AM"
+      url: "https://sdmx.oecd.org/public/rest/data/OECD.ELS.HD,DSD_HEALTH_STAT@DF_AM,/all?startPeriod=2000&format=csvfile"
+      bytes: 1943625
+      sha256: "8f9a5f535127ddfe7a14e750a43ad6c3d48c6d116ecc2666334b82c1e8766516"
+    - path: "raw/DF_LE.csv"
+      dataset: "OECD.ELS.HD,DSD_HEALTH_STAT@DF_LE"
+      url: "https://sdmx.oecd.org/public/rest/data/OECD.ELS.HD,DSD_HEALTH_STAT@DF_LE,/all?startPeriod=2000&format=csvfile"
+      bytes: 2318944
+      sha256: "1069e34c28bc01d2a01c8a2c4018d64ffbd54c5dc6d172ccad543cfd6353abc1"
+    - path: "raw/sha_slim.csv"
+      dataset: "OECD.ELS.HD,DSD_SHA@DF_SHA"
+      url: "https://sdmx.oecd.org/public/rest/data/OECD.ELS.HD,DSD_SHA@DF_SHA,/.A.EXP_HEALTH.USD_PPP_PS+PT_B1GQ+PT_EXP_HLTH._T+HF1+HF3.._T+HC6._T._T...?startPeriod=2000&format=csvfile"
+      bytes: 968278
+      sha256: "9cf829852ba38ac4621b77efe4a1f090448729d0b1f4d1b40c8985412c4d5e87"
+      note: "derived: fetch_data.py keeps MODE_PROVISION and PROVIDER total rows for the three units and writes REF_AREA, unit, financing scheme, function, price base, period and value; the hash is of that file, not of the raw response"
+    - path: "raw/DF_HEALTH_LVNG_TC.csv"
+      dataset: "OECD.ELS.HD,DSD_HEALTH_LVNG@DF_HEALTH_LVNG_TC"
+      url: "https://sdmx.oecd.org/public/rest/data/OECD.ELS.HD,DSD_HEALTH_LVNG@DF_HEALTH_LVNG_TC,/all?startPeriod=2000&format=csvfile"
+      bytes: 403778
+      sha256: "85e7a26d8bfc02d89257b8ecd6a4d3063282104173ff7b922afa4273a396d169"
+    - path: "raw/DF_HEALTH_LVNG_AC.csv"
+      dataset: "OECD.ELS.HD,DSD_HEALTH_LVNG@DF_HEALTH_LVNG_AC"
+      url: "https://sdmx.oecd.org/public/rest/data/OECD.ELS.HD,DSD_HEALTH_LVNG@DF_HEALTH_LVNG_AC,/all?startPeriod=2000&format=csvfile"
+      bytes: 115211
+      sha256: "3a2d5e0407641a549c280f1c65cc0ea3eb399a7c483860e19fc09280fd7eac15"
+    - path: "raw/gdp_all.csv"
+      dataset: "OECD.SDD.NAD,DSD_NAMAIN10@DF_TABLE1_EXPENDITURE_HVPVOB"
+      url: "https://sdmx.oecd.org/public/rest/data/OECD.SDD.NAD,DSD_NAMAIN10@DF_TABLE1_EXPENDITURE_HVPVOB,/all?startPeriod=2000&format=csvfile"
+      bytes: 652231
+      sha256: "5083f0cddca55204000432b92794da33d91f9ece327498280ce6b9105b2a3a5d"
+    - path: "raw/pophist.csv"
+      dataset: "OECD.ELS.SAE,DSD_POPULATION@DF_POP_HIST"
+      url: "https://sdmx.oecd.org/public/rest/data/OECD.ELS.SAE,DSD_POPULATION@DF_POP_HIST,/all?startPeriod=2000&format=csvfile"
+      bytes: 12128064
+      sha256: "c632d153d64b37eca271823c06dc52f3d5cceb1f03480575641993872b77c48a"
+    - path: "raw/excess.csv"
+      dataset: "OECD.ELS.HD,DSD_HEALTH_MORTALITY@DF_MORTALITY_EXCESS"
+      url: "https://sdmx.oecd.org/public/rest/data/OECD.ELS.HD,DSD_HEALTH_MORTALITY@DF_MORTALITY_EXCESS,/all?startPeriod=2020&format=csvfile"
+      bytes: 20330286
+      sha256: "53a0905225008343635c364b05d2b8e896e5fafdcb6860ff2087344c06a54f09"
+resolution:
+  review_status: actionable
+  last_reviewed: 2026-11-28
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    The OECD general terms permit reuse with attribution, but source ownership of the individual
+    series (national health accounts, national mortality statistics, national accounts) has not
+    been checked, so redistribution of the bytes is unresolved. The dataflows are mutable and
+    the consumers do not yet verify the recorded hashes.
+  evidence:
+    - "https://www.oecd.org/en/about/terms-conditions.html"
+    - "https://sdmx.oecd.org/public/rest/data/OECD.ELS.HD,DSD_SHA@DF_SHA,/all?startPeriod=2000&format=csvfile"
+  reviewer_note: >-
+    Constant-price USD PPP series can be rebased or revised by OECD releases. The SHA response
+    is large; the consumer requests only the key listed above. Treatable mortality has no
+    observations for Greece before 2014 and gaps for Portugal (2004-2006, 2020-2021); real
+    health expenditure per person shows one-year breaks of 11-28% for Luxembourg, Sweden and
+    Japan in 2011-2012 that do not match movements in GDP per person.
+  next_action: >-
+    Add run-time SHA-256 verification (or an explicit refresh step) to fetch_data.py in both
+    consumers; verify series-level ownership in OECD Data Explorer for the series used; then
+    consider a canonical snapshot of the filtered panel inputs if redistribution is cleared.
+  terminal: false
