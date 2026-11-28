@@ -972,6 +972,28 @@
       "path": "external/oecd-government-at-a-glance-satisfaction-2025"
     },
     {
+      "id": "oecd-health-systems-panel",
+      "title": "OECD health systems panel: avoidable mortality, life expectancy, health expenditure, tobacco and alcohol, GDP per person, population by age and weekly excess mortality",
+      "publisher": "Organisation for Economic Co-operation and Development (OECD)",
+      "source_url": "https://sdmx.oecd.org/public/rest/data/OECD.ELS.HD,DSD_HEALTH_STAT@DF_AM,/all?startPeriod=2000&format=csvfile",
+      "license": {
+        "name": "OECD Terms and Conditions (verify any third-party or series-specific rights)",
+        "url": "https://www.oecd.org/en/about/terms-conditions.html"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/oecd-health-austerity",
+        "medium-blog/oecd-health-spending-outcomes"
+      ],
+      "path": "external/oecd-health-systems-panel",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
       "id": "oecd-patents-foreign-ownership",
       "title": "OECD patent statistics: foreign ownership of domestic inventions (PCT and EPO, priority date)",
       "publisher": "Organisation for Economic Co-operation and Development (OECD)",
