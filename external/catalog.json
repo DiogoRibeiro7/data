@@ -1323,6 +1323,27 @@
       "path": "external/sp-corelogic-case-shiller-datahub"
     },
     {
+      "id": "sp500-buybacks-ceo-pay-aggregates",
+      "title": "S&P 500 annual buybacks (S&P Dow Jones Indices), EPI CEO-to-worker pay ratios and S&P 500 annual price returns, transcribed from web pages",
+      "publisher": "S&P Dow Jones Indices (buybacks); Economic Policy Institute (CEO pay); Wikipedia table of S&P 500 annual returns (price return)",
+      "source_url": "https://www.epi.org/publication/ceo-pay/",
+      "license": {
+        "name": "Not stated for reuse of the figures (S&P press releases, EPI web data page, Wikipedia CC BY-SA table); verify before redistribution",
+        "url": "https://www.epi.org/publication/ceo-pay/"
+      },
+      "redistribution": "unresolved",
+      "storage": "authoritative-upstream",
+      "consumers": [
+        "medium-blog/stock-buybacks-ceo-wealth"
+      ],
+      "path": "external/sp500-buybacks-ceo-pay-aggregates",
+      "resolution": {
+        "review_status": "actionable",
+        "terminal": false,
+        "blocker_category": "redistribution-rights"
+      }
+    },
+    {
       "id": "turing-change-point-dataset",
       "title": "Turing Change Point Dataset",
       "publisher": "The Alan Turing Institute",

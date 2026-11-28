@@ -10,7 +10,7 @@ the recorded upstream licence/terms.
 - Canonical datasets: **15**
 - Canonical byte-archive eligible: **15**
 - Canonical metadata-only: **0**
-- External sources (metadata-only): **88**
+- External sources (metadata-only): **89**
 - Legacy packages (metadata-only): **2**
 
 ## Canonical dataset bytes

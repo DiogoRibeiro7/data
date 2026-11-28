@@ -658,6 +658,22 @@
       "title": "SEF RIFA original foreign-resident nationality and sex tables (2017–2022)"
     },
     {
+      "age_days": 0,
+      "blocker_category": "redistribution-rights",
+      "blocker_summary": "The figures were transcribed from web pages whose reuse terms have not been checked (S&P DJI press releases, EPI data page). They are small aggregates, but there is no upstream file, revision identifier or checksum to pin.",
+      "evidence_count": 3,
+      "id": "sp500-buybacks-ceo-pay-aggregates",
+      "last_reviewed": "2026-11-28",
+      "layer": "external",
+      "next_action": "Check S&P DJI and EPI reuse terms; if clear, replace the transcription by the S&P DJI buyback spreadsheet and the EPI downloadable series with a dated retrieval and hash. A firm-level follow-up (ExecuComp, Form 4) would need a licensed source and stays outside this registry.",
+      "path": "external/sp500-buybacks-ceo-pay-aggregates/metadata.yaml",
+      "redistribution": "unresolved",
+      "review_status": "actionable",
+      "structured_evidence": true,
+      "terminal": false,
+      "title": "S&P 500 annual buybacks (S&P Dow Jones Indices), EPI CEO-to-worker pay ratios and S&P 500 annual price returns, transcribed from web pages"
+    },
+    {
       "age_days": 16,
       "blocker_category": "redistribution-rights",
       "blocker_summary": "WID.world advertises open access and documents bulk downloads, but the official data and documentation pages reviewed do not explicitly state terms permitting a separate repository to mirror its entire database ZIP.",
@@ -708,20 +724,20 @@
   ],
   "schema_version": 1,
   "summary": {
-    "actionable_count": 13,
+    "actionable_count": 14,
     "by_blocker_category": {
       "authoritative-source-identity": 1,
       "dataset-vs-repository-licence-scope": 3,
       "exact-snapshot-identity": 3,
       "historical-export-route": 1,
-      "redistribution-rights": 31,
+      "redistribution-rights": 32,
       "unstructured": 5
     },
-    "external_count": 42,
+    "external_count": 43,
     "legacy_count": 2,
-    "structured_count": 39,
+    "structured_count": 40,
     "terminal_count": 26,
-    "total_debt": 44,
+    "total_debt": 45,
     "unstructured_count": 5
   }
 }

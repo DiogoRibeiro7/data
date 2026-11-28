@@ -110,12 +110,12 @@
     "pinned_immutable_identity_sources": 12,
     "redistribution": {
       "resolved": 47,
-      "unresolved": 41
+      "unresolved": 42
     },
-    "source_count": 88,
+    "source_count": 89,
     "source_usage": {
-      "consumer_count": 38,
-      "consumer_references": 95,
+      "consumer_count": 39,
+      "consumer_references": 96,
       "consumers": [
         "causal-uplift-marketing-campaign",
         "cpd-stress-test",
@@ -145,6 +145,7 @@
         "medium-blog/post-cutoff-forecasting",
         "medium-blog/ranking-extremes",
         "medium-blog/rent-or-buy-us",
+        "medium-blog/stock-buybacks-ceo-wealth",
         "medium-blog/suffrage-public-health",
         "medium-blog/uk-innovation-ownership",
         "medium-statistical-dynamics",

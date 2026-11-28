@@ -1,0 +1,62 @@
+schema_version: 1
+status: external-reference
+id: sp500-buybacks-ceo-pay-aggregates
+title: "S&P 500 annual buybacks (S&P Dow Jones Indices), EPI CEO-to-worker pay ratios and S&P 500 annual price returns, transcribed from web pages"
+publisher: "S&P Dow Jones Indices (buybacks); Economic Policy Institute (CEO pay); Wikipedia table of S&P 500 annual returns (price return)"
+source_url: "https://www.epi.org/publication/ceo-pay/"
+license:
+  name: "Not stated for reuse of the figures (S&P press releases, EPI web data page, Wikipedia CC BY-SA table); verify before redistribution"
+  url: "https://www.epi.org/publication/ceo-pay/"
+redistribution: unresolved
+storage: authoritative-upstream
+usage:
+  storage: consumer-transcribed
+  redistribution: unresolved
+  attribution_required: true
+  note: >-
+    Medium-Blog/stock-buybacks-ceo-wealth keeps the values as a transcription in src/series.py,
+    because the sources are press releases and web tables, not downloadable files, and the
+    analysis shell could not reach the SEC, FRED or Damodaran hosts. Series: S&P 500 buybacks per
+    calendar year 2007-2024 in USD bn (latest release for each year; 2011 is 405.1 after a first
+    release of 409.0); EPI realized and granted CEO-to-worker compensation ratios 1965-2024 for
+    the 350 largest US firms by sales (2024 projected by EPI from data through August 2024) with
+    five realized and granted dollar endpoints in thousands of 2024 dollars; S&P 500 annual price
+    return 2005-2024. The URL of each release is listed in SOURCES in series.py. Retrieved by
+    hand in 2026-11 from the pages listed below; the values were not machine-fetched, so there
+    is no upstream byte hash. The SHA-256 below pins the transcription itself. No bytes are
+    stored in this registry.
+consumers:
+  - medium-blog/stock-buybacks-ceo-wealth
+medium_blog:
+  folder: stock-buybacks-ceo-wealth
+  fetch: "stock-buybacks-ceo-wealth/src/series.py"
+  retrieved: "2026-11"
+  derived_output: "results/*.json and figures/*.png (built by run_all.sh, results not committed)"
+  files:
+    - path: "src/series.py"
+      dataset: "transcription of the S&P buyback totals, EPI pay ratios and S&P price returns"
+      url: "https://github.com/DiogoRibeiro7/Medium-Blog/blob/cde117564a324fe1263929749afc002944feb927/stock-buybacks-ceo-wealth/src/series.py"
+      sha256: "c2c55ca5da0f5e1909ed7c5233212a7f7339a7ab944655dc902ba213fe197320"
+      note: "hash is of the committed transcription at the pinned commit, not of any upstream file"
+resolution:
+  review_status: actionable
+  last_reviewed: 2026-11-28
+  blocker_category: redistribution-rights
+  blocker_summary: >-
+    The figures were transcribed from web pages whose reuse terms have not been checked
+    (S&P DJI press releases, EPI data page). They are small aggregates, but there is no
+    upstream file, revision identifier or checksum to pin.
+  evidence:
+    - "https://www.epi.org/publication/ceo-pay/"
+    - "https://press.spglobal.com/2025-03-19-S-P-500-Q4-2024-Buybacks-Increase-7-4-and-2024-Expenditure-Sets-New-Record-by-Increasing-18-5-Earnings-Per-Share-Increases-from-Buybacks-Decline-for-the-Quarter,-as-Q1-2025s-Impact-is-Expected-to-Increase"
+    - "https://en.wikipedia.org/wiki/S%26P_500"
+  reviewer_note: >-
+    S&P revises earlier years in later releases, EPI backcasts pre-1992 values and projects
+    2024, and the EPI universe (350 largest firms by sales) differs from the S&P 500. Buyback
+    totals are gross of issuance to employees.
+  next_action: >-
+    Check S&P DJI and EPI reuse terms; if clear, replace the transcription by the S&P DJI
+    buyback spreadsheet and the EPI downloadable series with a dated retrieval and hash. A
+    firm-level follow-up (ExecuComp, Form 4) would need a licensed source and stays outside
+    this registry.
+  terminal: false

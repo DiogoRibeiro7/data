@@ -3,12 +3,12 @@
 This file is generated deterministically from committed external and legacy metadata.
 Do not edit it by hand.
 
-- Total debt items: **44**
-- External records: **42**
+- Total debt items: **45**
+- External records: **43**
 - Legacy packages: **2**
-- Structured evidence: **39**
+- Structured evidence: **40**
 - Unstructured debt: **5**
-- Actionable: **13**
+- Actionable: **14**
 - Terminal: **26**
 - Age reference date: **2026-11-28**
 
@@ -18,7 +18,7 @@ Do not edit it by hand.
 - `dataset-vs-repository-licence-scope`: **3**
 - `exact-snapshot-identity`: **3**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **31**
+- `redistribution-rights`: **32**
 - `unstructured`: **5**
 
 ## Queue
@@ -66,6 +66,7 @@ Do not edit it by hand.
 | external | `porto-metro-network-validations-2022-2024` | terminal | The operator's public sustainability report contains the rounded figures, but no explicit permission for redistributing the transcribed series as canonical dataset bytes has been established for this report. | 2026-10-30 | 29 | 1 | unresolved | Maintain metadata-only status unless operator-specific dataset reuse terms covering the figures are established. |
 | external | `roses-wolf-regional-gdp-v7` | actionable | The data-set page asks users to cite the database but states no licence or redistribution terms, and the host answers automated requests with HTTP 403, so neither a mirror nor a run-time download is available. | 2026-11-22 | 6 | 2 | unresolved | Keep the files consumer-supplied and checksum-verified. Ask the authors for redistribution terms; with written permission the files can become a canonical dataset. |
 | external | `sef-rifa-foreign-residents-2017-2022` | terminal | SEF annual reports are publicly available through official/archival copies, but an explicit licence authorizing republication of the PDF files or machine-readable annex transcriptions is not established. | 2026-10-31 | 28 | 3 | unresolved | Preserve distinct original vintages and archival links; reconsider canonical storage only if the responsible publisher confirms data-table redistribution rights for this exact report family. |
+| external | `sp500-buybacks-ceo-pay-aggregates` | actionable | The figures were transcribed from web pages whose reuse terms have not been checked (S&P DJI press releases, EPI data page). They are small aggregates, but there is no upstream file, revision identifier or checksum to pin. | 2026-11-28 | 0 | 3 | unresolved | Check S&P DJI and EPI reuse terms; if clear, replace the transcription by the S&P DJI buyback spreadsheet and the EPI downloadable series with a dated retrieval and hash. A firm-level follow-up (ExecuComp, Form 4) would need a licensed source and stays outside this registry. |
 | external | `world-inequality-database-wealth-shares` | terminal | WID.world advertises open access and documents bulk downloads, but the official data and documentation pages reviewed do not explicitly state terms permitting a separate repository to mirror its entire database ZIP. | 2026-11-12 | 16 | 6 | unresolved | Keep source downloads consumer-local and validate country, unit, unique-key, completeness and archive provenance before empirical use. Reopen central redistribution only if WID.world provides explicit full-database redistribution terms or a suitable licence; before any canonical promotion, identify a dated revision and checksum. |
 | legacy | `country-age-sex-2019` | terminal | The retained age/sex files are strongly attributable to UN World Population Prospects 2019, whose publications are CC BY 3.0 IGO, but the exact download/export route and the lineage of the Portugal CSV/XLSX variants cannot be reconstructed sufficiently to claim file-level provenance for these historical artifacts. | 2026-10-05 | 54 | 2 | unknown | Reopen only if the original authoritative UN export identity can be tied to the retained files and the Portugal workbook/CSV lineage can be resolved. |
 | legacy | `portugal-covid19` | terminal | The retained workbook is attributable to the GEP/MTSSS Indicadores COVID-19 monitoring series and dated 27 May 2020, but the exact historical workbook URL, immutable upstream identity and dataset-specific redistribution terms were not recovered. | 2026-10-05 | 54 | 2 | unknown | Reopen only if GEP/MTSSS exposes the exact 27 May 2020 workbook with stable identity and explicit redistribution terms. |
