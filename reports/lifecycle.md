@@ -8,8 +8,8 @@ and the committed consumer catalog. Do not edit it by hand.
 - Deprecated: **0**
 - Superseded: **0**
 - Replacement edges: **0**
-- Active consumer relationships: **12**
-- Current consumer relationships: **12**
+- Active consumer relationships: **14**
+- Current consumer relationships: **14**
 - Migration required: **0**
 - Migration planned: **0**
 - Intentionally retained: **0**
@@ -34,8 +34,8 @@ and the committed consumer catalog. Do not edit it by hand.
 | `ons-gross-median-weekly-pay` | active | -- | ons-gross-median-weekly-pay | 1 | 0 |
 | `ucdp-ged-25-1` | active | -- | ucdp-ged-25-1 | 1 | 0 |
 | `unhcr-refugee-population-2024` | active | -- | unhcr-refugee-population-2024 | 1 | 0 |
-| `world-bank-cwon-2024-gdp-resilience-2026-11-26` | active | -- | world-bank-cwon-2024-gdp-resilience-2026-11-26 | 0 | 0 |
-| `world-bank-wdi-gdp-resilience-2026-11-26` | active | -- | world-bank-wdi-gdp-resilience-2026-11-26 | 0 | 0 |
+| `world-bank-cwon-2024-gdp-resilience-2026-11-26` | active | -- | world-bank-cwon-2024-gdp-resilience-2026-11-26 | 1 | 0 |
+| `world-bank-wdi-gdp-resilience-2026-11-26` | active | -- | world-bank-wdi-gdp-resilience-2026-11-26 | 1 | 0 |
 
 ## Replacement chains
 
@@ -57,6 +57,8 @@ and the committed consumer catalog. Do not edit it by hand.
 | `medium-blog` | `eurostat-services-relative-prices` | current | `eurostat-services-relative-prices` | -- |
 | `medium-blog` | `oecd-share-prices-bond-yields-cpi` | current | `oecd-share-prices-bond-yields-cpi` | -- |
 | `medium-blog` | `online-retail-ii` | current | `online-retail-ii` | -- |
+| `medium-blog` | `world-bank-cwon-2024-gdp-resilience-2026-11-26` | current | `world-bank-cwon-2024-gdp-resilience-2026-11-26` | -- |
+| `medium-blog` | `world-bank-wdi-gdp-resilience-2026-11-26` | current | `world-bank-wdi-gdp-resilience-2026-11-26` | -- |
 
 ## Semantics
 

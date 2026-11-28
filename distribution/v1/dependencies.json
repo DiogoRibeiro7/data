@@ -95,6 +95,20 @@
           "registry_commit": "e90eed21a474c0a54ab9bf658c01dbd778bf58f1",
           "sha256": "bcbe73b35f5b7babf197fb0cb983a11f5d9ff929078d4aa53d171b1f2df2e980",
           "status": "active"
+        },
+        {
+          "dataset_id": "world-bank-cwon-2024-gdp-resilience-2026-11-26",
+          "path": "datasets/world-bank-cwon-2024-gdp-resilience-2026-11-26/raw/NW.TOW.PC.page-1.json",
+          "registry_commit": "ce3cc0995411c124534408e2086772275ee2c7c8",
+          "sha256": "f27d55c56eb7a9e01b5a7d0292248d1fc4935a93848a8da5375b925e9886b7aa",
+          "status": "active"
+        },
+        {
+          "dataset_id": "world-bank-wdi-gdp-resilience-2026-11-26",
+          "path": "datasets/world-bank-wdi-gdp-resilience-2026-11-26/raw/NY.GDP.MKTP.KD.page-1.json",
+          "registry_commit": "ce3cc0995411c124534408e2086772275ee2c7c8",
+          "sha256": "78a7321e45521c73b724f5f96afc2e8463cb07aa7ee42c53c4ce6b095b02423d",
+          "status": "active"
         }
       ],
       "repository": "DiogoRibeiro7/Medium-Blog"
@@ -241,6 +255,30 @@
           "path": "datasets/unhcr-refugee-population-2024/raw/population.rda",
           "registry_commit": "d9fc9ef79e2cec47f619243590b78958ce7e4cb4",
           "sha256": "261acf0b3efb5e87fddfe794ec1b5d42fe7bc7217d80990bd7ae0bce31524e52",
+          "status": "active"
+        }
+      ]
+    },
+    "world-bank-cwon-2024-gdp-resilience-2026-11-26": {
+      "consumers": [
+        {
+          "consumer_id": "medium-blog",
+          "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+          "path": "datasets/world-bank-cwon-2024-gdp-resilience-2026-11-26/raw/NW.TOW.PC.page-1.json",
+          "registry_commit": "ce3cc0995411c124534408e2086772275ee2c7c8",
+          "sha256": "f27d55c56eb7a9e01b5a7d0292248d1fc4935a93848a8da5375b925e9886b7aa",
+          "status": "active"
+        }
+      ]
+    },
+    "world-bank-wdi-gdp-resilience-2026-11-26": {
+      "consumers": [
+        {
+          "consumer_id": "medium-blog",
+          "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+          "path": "datasets/world-bank-wdi-gdp-resilience-2026-11-26/raw/NY.GDP.MKTP.KD.page-1.json",
+          "registry_commit": "ce3cc0995411c124534408e2086772275ee2c7c8",
+          "sha256": "78a7321e45521c73b724f5f96afc2e8463cb07aa7ee42c53c4ce6b095b02423d",
           "status": "active"
         }
       ]

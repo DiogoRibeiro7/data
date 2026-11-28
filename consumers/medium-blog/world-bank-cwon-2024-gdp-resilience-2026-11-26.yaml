@@ -1,0 +1,16 @@
+schema_version: 1
+status: active
+consumer_id: medium-blog
+consumer_repository: DiogoRibeiro7/Medium-Blog
+dataset_id: world-bank-cwon-2024-gdp-resilience-2026-11-26
+registry_layer: canonical
+registry_repository: DiogoRibeiro7/data
+registry_commit: ce3cc0995411c124534408e2086772275ee2c7c8
+path: datasets/world-bank-cwon-2024-gdp-resilience-2026-11-26/raw/NW.TOW.PC.page-1.json
+sha256: f27d55c56eb7a9e01b5a7d0292248d1fc4935a93848a8da5375b925e9886b7aa
+consumer_commit: 98d0b6059e423654be9d43f731c54095ca2d4f0f
+evidence_url: https://github.com/DiogoRibeiro7/Medium-Blog/blob/98d0b6059e423654be9d43f731c54095ca2d4f0f/data_sources/world-bank-cwon-2024-gdp-resilience-2026-11-26.json
+notes: The implemented GDP resilience pipeline verifies all 16 canonical files (paths,
+  sizes and SHA-256 values) from the linked immutable consumer contract, including
+  the acquisition manifest. Reproduction and figure workflow run 46142006802 succeeded;
+  the permanent publication evidence is pinned at the consumer commit.
