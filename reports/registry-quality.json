@@ -7,9 +7,7 @@
   },
   "canonical_expansion": {
     "added_datasets_exempted": [
-      "ine-portugal-new-lease-rents",
-      "world-bank-cwon-2024-gdp-resilience-2026-11-26",
-      "world-bank-wdi-gdp-resilience-2026-11-26"
+      "ine-portugal-new-lease-rents"
     ],
     "added_datasets_with_consumers": [
       "bls-cpi-rent-us-metros",
@@ -21,7 +19,9 @@
       "eurostat-services-relative-prices",
       "oecd-share-prices-bond-yields-cpi",
       "ons-gross-median-weekly-pay",
-      "unhcr-refugee-population-2024"
+      "unhcr-refugee-population-2024",
+      "world-bank-cwon-2024-gdp-resilience-2026-11-26",
+      "world-bank-wdi-gdp-resilience-2026-11-26"
     ],
     "baseline_dataset_count": 2,
     "baseline_snapshot": "snapshot-2026.10.05",
@@ -43,9 +43,7 @@
     ],
     "datasets_removed_since_baseline": [],
     "exemptions": {
-      "ine-portugal-new-lease-rents": "Source promotion precedes the planned data-platform-lab INE adapter. The reviewed contract is pinned at cf1bd2f9de0ecdc95e6f1390c185f00b08df84db (https://github.com/DiogoRibeiro7/data-platform-lab/pull/106); it is not an implemented consumer. Remove this exemption when the platform registers its actual implementation commit, merged registry commit, canonical paths and all source hashes.",
-      "world-bank-cwon-2024-gdp-resilience-2026-11-26": "Reviewed source promotion precedes the Medium-Blog GDP resilience analysis (PR #776). Remove when the implemented consumer registers its pinned registry revision, data paths and checksums.",
-      "world-bank-wdi-gdp-resilience-2026-11-26": "Reviewed source promotion precedes the Medium-Blog GDP resilience analysis (PR #776). Remove when the implemented consumer registers its pinned registry revision, data paths and checksums."
+      "ine-portugal-new-lease-rents": "Source promotion precedes the planned data-platform-lab INE adapter. The reviewed contract is pinned at cf1bd2f9de0ecdc95e6f1390c185f00b08df84db (https://github.com/DiogoRibeiro7/data-platform-lab/pull/106); it is not an implemented consumer. Remove this exemption when the platform registers its actual implementation commit, merged registry commit, canonical paths and all source hashes."
     },
     "uncovered_datasets": []
   },
@@ -66,10 +64,10 @@
       "displacement-risk-lab-dynamodb",
       "medium-blog"
     ],
-    "active_relationship_count": 12,
-    "canonical_dataset_adoption_coverage": 0.8,
-    "canonical_datasets_with_consumers": 12,
-    "canonical_datasets_without_consumers": 3,
+    "active_relationship_count": 14,
+    "canonical_dataset_adoption_coverage": 0.9333333333333333,
+    "canonical_datasets_with_consumers": 14,
+    "canonical_datasets_without_consumers": 1,
     "datasets_with_consumers": [
       "bls-cpi-rent-us-metros",
       "census-acs-housing-costs-msa",
@@ -82,18 +80,16 @@
       "online-retail-ii",
       "ons-gross-median-weekly-pay",
       "ucdp-ged-25-1",
-      "unhcr-refugee-population-2024"
-    ],
-    "datasets_without_consumers": [
-      "ine-portugal-new-lease-rents",
+      "unhcr-refugee-population-2024",
       "world-bank-cwon-2024-gdp-resilience-2026-11-26",
       "world-bank-wdi-gdp-resilience-2026-11-26"
+    ],
+    "datasets_without_consumers": [
+      "ine-portugal-new-lease-rents"
     ],
     "deprecated_relationship_count": 0,
     "exempted_datasets_without_consumers": [
-      "ine-portugal-new-lease-rents",
-      "world-bank-cwon-2024-gdp-resilience-2026-11-26",
-      "world-bank-wdi-gdp-resilience-2026-11-26"
+      "ine-portugal-new-lease-rents"
     ],
     "migration_applicable_relationship_count": 0,
     "migration_coverage": 1.0,
@@ -102,7 +98,7 @@
     "migration_planned_count": 0,
     "migration_required_count": 0,
     "migration_retained_count": 0,
-    "pinned_contract_count": 12,
+    "pinned_contract_count": 14,
     "pinned_contract_coverage": 1.0,
     "uncovered_datasets_without_consumers": []
   },

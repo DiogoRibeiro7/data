@@ -63,13 +63,13 @@ External source usage annotations:
 ## Canonical consumer adoption
 
 - Active consumer repositories: **3**
-- Active canonical relationships: **12**
+- Active canonical relationships: **14**
 - Deprecated relationships: **0**
-- Pinned contracts: **12 / 12**
+- Pinned contracts: **14 / 14**
 - Pinned contract coverage: **100%**
-- Canonical datasets with >=1 active consumer: **12**
-- Canonical datasets with zero active consumers: **3**
-- Canonical dataset adoption coverage: **80%**
+- Canonical datasets with >=1 active consumer: **14**
+- Canonical datasets with zero active consumers: **1**
+- Canonical dataset adoption coverage: **93%**
 - Lifecycle migration coverage: **100%** (0 / 0)
 - Migration required / planned / retained / migrated: **0 / 0 / 0 / 0**
 
@@ -85,8 +85,8 @@ Active consumers:
 - Baseline canonical datasets: **2**
 - Current canonical datasets: **15**
 - Added since baseline: **13**
-- Added with active consumers: **10**
-- Added with exemptions: **3**
+- Added with active consumers: **12**
+- Added with exemptions: **1**
 - Uncovered canonical datasets: **0**
 
 Datasets added since baseline:
@@ -108,8 +108,6 @@ Datasets added since baseline:
 Adoption exemptions:
 
 - `ine-portugal-new-lease-rents`: Source promotion precedes the planned data-platform-lab INE adapter. The reviewed contract is pinned at cf1bd2f9de0ecdc95e6f1390c185f00b08df84db (https://github.com/DiogoRibeiro7/data-platform-lab/pull/106); it is not an implemented consumer. Remove this exemption when the platform registers its actual implementation commit, merged registry commit, canonical paths and all source hashes.
-- `world-bank-cwon-2024-gdp-resilience-2026-11-26`: Reviewed source promotion precedes the Medium-Blog GDP resilience analysis (PR #776). Remove when the implemented consumer registers its pinned registry revision, data paths and checksums.
-- `world-bank-wdi-gdp-resilience-2026-11-26`: Reviewed source promotion precedes the Medium-Blog GDP resilience analysis (PR #776). Remove when the implemented consumer registers its pinned registry revision, data paths and checksums.
 
 ## Legacy quarantine
 

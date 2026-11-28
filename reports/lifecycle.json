@@ -95,6 +95,22 @@
       "preferred_dataset_id": "online-retail-ii",
       "rationale": null,
       "status": "current"
+    },
+    {
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "world-bank-cwon-2024-gdp-resilience-2026-11-26",
+      "preferred_dataset_id": "world-bank-cwon-2024-gdp-resilience-2026-11-26",
+      "rationale": null,
+      "status": "current"
+    },
+    {
+      "consumer_id": "medium-blog",
+      "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+      "dataset_id": "world-bank-wdi-gdp-resilience-2026-11-26",
+      "preferred_dataset_id": "world-bank-wdi-gdp-resilience-2026-11-26",
+      "rationale": null,
+      "status": "current"
     }
   ],
   "datasets": [
@@ -294,7 +310,7 @@
       "title": "UNHCR Refugee Population Statistics — Global Trends 2024"
     },
     {
-      "active_consumer_count": 0,
+      "active_consumer_count": 1,
       "deprecated_at": null,
       "direct_predecessors": [],
       "direct_replacement": null,
@@ -309,7 +325,7 @@
       "title": "World Bank CWON 2024: real wealth per capita and components, 33 requested countries, 1995–2020"
     },
     {
-      "active_consumer_count": 0,
+      "active_consumer_count": 1,
       "deprecated_at": null,
       "direct_predecessors": [],
       "direct_replacement": null,
@@ -327,10 +343,10 @@
   "preferred_replacements": {},
   "schema_version": 1,
   "summary": {
-    "active_consumer_relationship_count": 12,
+    "active_consumer_relationship_count": 14,
     "active_count": 15,
     "canonical_dataset_count": 15,
-    "current_consumer_relationship_count": 12,
+    "current_consumer_relationship_count": 14,
     "deprecated_count": 0,
     "migrated_relationship_count": 0,
     "migration_needed_count": 0,
