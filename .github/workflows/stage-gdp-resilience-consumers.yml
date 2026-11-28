@@ -1,0 +1,125 @@
+name: Stage GDP resilience consumer registration
+on:
+  push:
+    branches: [prepare/gdp-resilience-consumer-registration]
+permissions:
+  contents: read
+concurrency:
+  group: prepare-gdp-resilience-consumer-registration
+  cancel-in-progress: false
+jobs:
+  register:
+    if: github.repository == 'DiogoRibeiro7/data' && github.ref == 'refs/heads/prepare/gdp-resilience-consumer-registration'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: e3cbd5982427a12e519905aefa8da8768c92e876
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install registry dependencies
+        run: |
+          python -m pip install -r requirements-dev.txt
+          python -m pip install -e .
+      - name: Verify and register both implemented consumers
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          import subprocess
+          from pathlib import Path
+          from urllib.request import urlopen
+          import yaml
+
+          registry_commit = "ce3cc0995411c124534408e2086772275ee2c7c8"
+          consumer_commit = "98d0b6059e423654be9d43f731c54095ca2d4f0f"
+          specs = {
+              "world-bank-wdi-gdp-resilience-2026-11-26": ("raw/NY.GDP.MKTP.KD.page-1.json", 25),
+              "world-bank-cwon-2024-gdp-resilience-2026-11-26": ("raw/NW.TOW.PC.page-1.json", 16),
+          }
+          records = {}
+          for slug, (primary, expected_count) in specs.items():
+              url = f"https://raw.githubusercontent.com/DiogoRibeiro7/Medium-Blog/{consumer_commit}/data_sources/{slug}.json"
+              with urlopen(url, timeout=60) as response:
+                  contract = json.load(response)
+              assert contract["dataset"] == slug and contract["commit"] == registry_commit
+              assert contract["repository"] == "DiogoRibeiro7/data" and contract["layer"] == "canonical"
+              assert contract["folder"] == "research/gdp-economic-resilience"
+              assert "research/gdp-economic-resilience/pipeline.py" in contract["consumers"]
+              metadata = yaml.safe_load(Path(contract["record"]).read_text(encoding="utf-8"))
+              assert metadata["id"] == slug
+              catalog = {item["path"]: item["sha256"] for item in metadata["files"]}
+              files = contract["files"]
+              assert len(files) == expected_count == len(catalog)
+              assert len({item["path"] for item in files}) == expected_count
+              assert {item["path"]: item["sha256"] for item in files} == catalog
+              for item in files:
+                  path = f"datasets/{slug}/{item['path']}"
+                  assert item["url"] == f"https://raw.githubusercontent.com/DiogoRibeiro7/data/{registry_commit}/{path}"
+                  original = subprocess.check_output(["git", "show", f"{registry_commit}:{path}"])
+                  local = Path(path).read_bytes()
+                  assert original == local
+                  assert len(local) == item["bytes"] and hashlib.sha256(local).hexdigest() == item["sha256"]
+              records[slug] = {
+                  "schema_version": 1, "status": "active",
+                  "consumer_id": "medium-blog", "consumer_repository": "DiogoRibeiro7/Medium-Blog",
+                  "dataset_id": slug, "registry_layer": "canonical",
+                  "registry_repository": "DiogoRibeiro7/data", "registry_commit": registry_commit,
+                  "path": f"datasets/{slug}/{primary}", "sha256": catalog[primary],
+                  "consumer_commit": consumer_commit,
+                  "evidence_url": f"https://github.com/DiogoRibeiro7/Medium-Blog/blob/{consumer_commit}/data_sources/{slug}.json",
+                  "notes": f"The implemented GDP resilience pipeline verifies all {expected_count} canonical files (paths, sizes and SHA-256 values) from the linked immutable consumer contract, including the acquisition manifest. Reproduction and figure workflow run 46142006802 succeeded; the permanent publication evidence is pinned at the consumer commit.",
+              }
+              print(f"Verified {expected_count} exact source files: {slug}")
+
+          policy_path = Path("reports/canonical-adoption-policy.json")
+          policy = json.loads(policy_path.read_text(encoding="utf-8"))
+          assert set(specs) <= {item["dataset_id"] for item in policy["exemptions"]}
+          for slug, record in records.items():
+              path = Path("consumers/medium-blog") / f"{slug}.yaml"
+              assert not path.exists(), f"Consumer already registered: {slug}"
+              path.write_text(yaml.safe_dump(record, sort_keys=False, allow_unicode=True), encoding="utf-8")
+          policy["exemptions"] = [item for item in policy["exemptions"] if item["dataset_id"] not in specs]
+          policy_path.write_text(json.dumps(policy, indent=2) + "\n", encoding="utf-8")
+          PY
+      - name: Rebuild deterministic registry outputs
+        run: |
+          python scripts/validate_repository.py --write-catalog
+          python scripts/generate_external_catalog.py --write
+          python scripts/generate_consumer_catalog.py --write
+          python scripts/generate_provenance_debt.py --write
+          python scripts/generate_registry_changelog.py --write
+          python scripts/generate_lifecycle_report.py --write
+          python scripts/generate_preservation_eligibility.py --write
+          python scripts/registry_quality.py --write
+          python scripts/generate_static_distribution.py --write
+      - name: Verify generated outputs and complete test suite
+        run: |
+          python -m unittest discover -s tests -v
+          python scripts/validate_repository.py
+          python scripts/generate_external_catalog.py
+          python scripts/generate_consumer_catalog.py
+          python scripts/generate_provenance_debt.py
+          python scripts/generate_registry_changelog.py
+          python scripts/generate_lifecycle_report.py
+          python scripts/generate_preservation_eligibility.py
+          python scripts/registry_quality.py
+          python scripts/generate_static_distribution.py
+      - name: Stage validated registration on a separate review branch
+        run: |
+          set -euo pipefail
+          branch=register/gdp-resilience-consumers
+          test -z "$(git ls-remote --heads origin "refs/heads/$branch")"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add -A
+          git diff --cached --stat
+          git commit -m "Register implemented GDP resilience WDI and CWON consumers"
+          git push origin "HEAD:refs/heads/$branch"
+          echo "Review branch: $branch" >> "$GITHUB_STEP_SUMMARY"
