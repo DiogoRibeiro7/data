@@ -12,14 +12,14 @@ It makes no live network requests.
 
 ## External sources
 
-- External source records: **87**
-- Redistribution resolved / unresolved: **47 / 40**
+- External source records: **88**
+- Redistribution resolved / unresolved: **47 / 41**
 - Sources pinned to an immutable Git commit: **12**
 
 External source usage annotations:
 
-- Referenced consumer repositories: **36**
-- Source usage references: **93**
+- Referenced consumer repositories: **38**
+- Source usage references: **95**
 
 - `causal-uplift-marketing-campaign`
 - `cpd-stress-test`
@@ -39,6 +39,8 @@ External source usage annotations:
 - `medium-blog/lisbon-metro-ridership`
 - `medium-blog/long-horizon-stock-risk`
 - `medium-blog/model-swap-tails`
+- `medium-blog/oecd-health-austerity`
+- `medium-blog/oecd-health-spending-outcomes`
 - `medium-blog/portugal-debt-2035-probability`
 - `medium-blog/portugal-fiscal-reaction`
 - `medium-blog/portugal-fiscal-rules`
@@ -116,11 +118,11 @@ Adoption exemptions:
 
 ## Provenance and licensing debt
 
-- Total debt items: **43**
-- External actionable / terminal: **12 / 24**
+- Total debt items: **44**
+- External actionable / terminal: **13 / 24**
 - Legacy actionable / terminal: **0 / 2**
 - Oldest review date: **2026-10-05**
-- Oldest deterministic debt age (days): **51**
+- Oldest deterministic debt age (days): **54**
 
 Debt by blocker category:
 
@@ -128,7 +130,7 @@ Debt by blocker category:
 - `dataset-vs-repository-licence-scope`: **3**
 - `exact-snapshot-identity`: **3**
 - `historical-export-route`: **1**
-- `redistribution-rights`: **30**
+- `redistribution-rights`: **31**
 
 ## Generated catalog freshness
 
