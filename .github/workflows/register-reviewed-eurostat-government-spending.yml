@@ -1,0 +1,83 @@
+name: Register reviewed Eurostat government spending snapshot
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: register-reviewed-eurostat-government-spending
+  cancel-in-progress: false
+
+jobs:
+  register:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TARGET_BRANCH: register/reviewed-eurostat-government-spending-2026-11-28
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install registry dependencies
+        run: |
+          python -m pip install -r requirements-dev.txt
+          python -m pip install -e .
+      - name: Retrieve exact audited artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          directory="$RUNNER_TEMP/reviewed-eurostat"
+          mkdir -p "$directory"
+          gh run download 46149016389 --name eurostat-government-spending-candidate --dir "$directory"
+          printf '%s  %s\n' 464eabbea0850dfa7d0114901286181fb64f94631cc6bb526b74725915979842 "$directory/manifest.json" | sha256sum -c -
+          echo "CANDIDATE=$directory" >> "$GITHUB_ENV"
+      - name: Stage reviewed bytes
+        run: python scripts/promote_reviewed_eurostat_government_spending.py --candidate "$CANDIDATE"
+      - name: Regenerate registry outputs
+        run: |
+          python scripts/validate_repository.py --write-catalog
+          python scripts/generate_external_catalog.py --write
+          python scripts/generate_consumer_catalog.py --write
+          python scripts/generate_provenance_debt.py --write
+          python scripts/generate_registry_changelog.py --write
+          python scripts/generate_lifecycle_report.py --write
+          python scripts/generate_preservation_eligibility.py --write
+          python scripts/registry_quality.py --write
+          python scripts/generate_static_distribution.py --write
+      - name: Verify registry
+        run: |
+          python -m unittest discover -s tests -v
+          python scripts/validate_repository.py
+          python scripts/generate_external_catalog.py
+          python scripts/generate_consumer_catalog.py
+          python scripts/generate_provenance_debt.py
+          python scripts/generate_registry_changelog.py
+          python scripts/generate_lifecycle_report.py
+          python scripts/generate_preservation_eligibility.py
+          python scripts/registry_quality.py
+          python scripts/generate_static_distribution.py
+      - name: Push separate registration branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --heads origin "$TARGET_BRANCH" >/dev/null; then
+            echo "::error::Registration branch already exists; inspect it rather than overwrite."
+            exit 1
+          else
+            test "$?" -eq 2
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add datasets reports distribution changelog
+          git diff --cached --stat
+          git commit -m "Register reviewed Eurostat fiscal and GDP snapshot"
+          git push origin "HEAD:refs/heads/$TARGET_BRANCH"
+          echo "Registration branch: $TARGET_BRANCH" >> "$GITHUB_STEP_SUMMARY"
